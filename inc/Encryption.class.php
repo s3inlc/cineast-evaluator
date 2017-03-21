@@ -99,7 +99,7 @@ class Encryption {
       $count += $x * ord($string[$x]) * pow($x, 15);
       $count = $count % 10000;
     }
-    return $count % $maxcycles + $mincycles;
+    return $count % ($maxcycles - $mincycles + 1) + $mincycles;
   }
   
   /**

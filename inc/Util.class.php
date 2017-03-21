@@ -127,8 +127,10 @@ class Util {
    * @return true on success, false on failure
    */
   public static function sendMail($address, $subject, $text) {
+    //TODO: make sending email configurable
+    
     $header = "Content-type: text/html; charset=utf8\r\n";
-    $header .= "From: Hashtopussy <noreply@hashtopussy>\r\n";
+    $header .= "From: todo <todo@to.do>\r\n";
     if (!mail($address, $subject, $text, $header)) {
       return false;
     }

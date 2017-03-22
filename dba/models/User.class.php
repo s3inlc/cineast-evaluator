@@ -13,9 +13,8 @@ class User extends AbstractModel {
   private $lastLoginDate;
   private $registeredSince;
   private $sessionLifetime;
-  private $rightGroupId;
   
-  function __construct($userId, $username, $email, $passwordHash, $passwordSalt, $isValid, $isComputedPassword, $lastLoginDate, $registeredSince, $sessionLifetime, $rightGroupId) {
+  function __construct($userId, $username, $email, $passwordHash, $passwordSalt, $isValid, $isComputedPassword, $lastLoginDate, $registeredSince, $sessionLifetime) {
     $this->userId = $userId;
     $this->username = $username;
     $this->email = $email;
@@ -26,7 +25,6 @@ class User extends AbstractModel {
     $this->lastLoginDate = $lastLoginDate;
     $this->registeredSince = $registeredSince;
     $this->sessionLifetime = $sessionLifetime;
-    $this->rightGroupId = $rightGroupId;
   }
   
   function getKeyValueDict() {
@@ -41,7 +39,6 @@ class User extends AbstractModel {
     $dict['lastLoginDate'] = $this->lastLoginDate;
     $dict['registeredSince'] = $this->registeredSince;
     $dict['sessionLifetime'] = $this->sessionLifetime;
-    $dict['rightGroupId'] = $this->rightGroupId;
     
     return $dict;
   }
@@ -134,14 +131,6 @@ class User extends AbstractModel {
     $this->sessionLifetime = $sessionLifetime;
   }
   
-  function getRightGroupId() {
-    return $this->rightGroupId;
-  }
-  
-  function setRightGroupId($rightGroupId) {
-    $this->rightGroupId = $rightGroupId;
-  }
-  
   const USER_ID              = "userId";
   const USERNAME             = "username";
   const EMAIL                = "email";
@@ -152,5 +141,4 @@ class User extends AbstractModel {
   const LAST_LOGIN_DATE      = "lastLoginDate";
   const REGISTERED_SINCE     = "registeredSince";
   const SESSION_LIFETIME     = "sessionLifetime";
-  const RIGHT_GROUP_ID       = "rightGroupId";
 }

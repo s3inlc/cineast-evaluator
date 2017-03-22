@@ -1,19 +1,24 @@
 <?php
 
+/**
+ * Created by IntelliJ IDEA.
+ * User: sein
+ * Date: 02.01.17
+ * Time: 23:57
+ */
+
 namespace DBA;
 
 class Factory {
-  private static $userFactory       = null;
-  private static $sessionFactory    = null;
-  private static $rightGroupFactory = null;
-  
+  private static $userFactory = null;
+  private static $sessionFactory = null;
+
   public static function getUserFactory() {
     if (self::$userFactory == null) {
       $f = new UserFactory();
       self::$userFactory = $f;
       return $f;
-    }
-    else {
+    } else {
       return self::$userFactory;
     }
   }
@@ -23,25 +28,13 @@ class Factory {
       $f = new SessionFactory();
       self::$sessionFactory = $f;
       return $f;
-    }
-    else {
+    } else {
       return self::$sessionFactory;
     }
   }
-  
-  public static function getRightGroupFactory() {
-    if (self::$rightGroupFactory == null) {
-      $f = new RightGroupFactory();
-      self::$rightGroupFactory = $f;
-      return $f;
-    }
-    else {
-      return self::$rightGroupFactory;
-    }
-  }
-  
+
   const FILTER = "filter";
-  const JOIN   = "join";
-  const ORDER  = "order";
+  const JOIN = "join";
+  const ORDER = "order";
   const UPDATE = "update";
 }

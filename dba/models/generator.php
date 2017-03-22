@@ -13,8 +13,7 @@ $CONF['User'] = array(
   'isComputedPassword',
   'lastLoginDate',
   'registeredSince',
-  'sessionLifetime',
-  'rightGroupId'
+  'sessionLifetime'
 );
 $CONF['Session'] = array(
   'sessionId',
@@ -24,11 +23,6 @@ $CONF['Session'] = array(
   'isOpen',
   'sessionLifetime',
   'sessionKey'
-);
-$CONF['RightGroup'] = array(
-  'rightGroupId',
-  'groupName',
-  'level'
 );
 
 foreach ($CONF as $NAME => $COLUMNS) {

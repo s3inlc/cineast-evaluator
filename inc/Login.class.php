@@ -13,20 +13,6 @@ class Login {
   private $valid   = false;
   private $session = null;
   
-  public function getLevel() {
-    global $FACTORIES;
-    
-    if ($this->valid) {
-      $rightGroup = $FACTORIES::getRightGroupFactory()->get($this->user->getRightGroupId());
-      return $rightGroup->getLevel();
-    }
-    return 0;
-  }
-  
-  public function setUser($user) {
-    $this->user = $user;
-  }
-  
   /**
    * Creates a Login-Instance and checks automatically if there is a session
    * running. It updates the session lifetime again up to the session limit.
@@ -79,6 +65,9 @@ class Login {
     $this->session->setIsOpen(0);
     $FACTORIES::getSessionFactory()->update($this->session);
     setcookie("session", "", time() - 600);
+    $this->session = null;
+    $this->valid = false;
+    $this->user = null;
   }
   
   /**
@@ -86,10 +75,16 @@ class Login {
    * in, the uID will be -1
    */
   public function getUserID() {
+    if (!$this->isLoggedin()) {
+      return -1;
+    }
     return $this->user->getId();
   }
   
   public function getUser() {
+    if (!$this->isLoggedin()) {
+      return null;
+    }
     return $this->user;
   }
   

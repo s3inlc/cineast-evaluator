@@ -23,7 +23,7 @@ class UserFactory extends AbstractModelFactory {
    * @return User
    */
   function getNullObject() {
-    $o = new User(-1, null, null, null, null, null, null, null, null, null, null);
+    $o = new User(-1, null, null, null, null, null, null, null, null, null);
     return $o;
   }
   
@@ -33,7 +33,7 @@ class UserFactory extends AbstractModelFactory {
    * @return User
    */
   function createObjectFromDict($pk, $dict) {
-    $o = new User($pk, $dict['username'], $dict['email'], $dict['passwordHash'], $dict['passwordSalt'], $dict['isValid'], $dict['isComputedPassword'], $dict['lastLoginDate'], $dict['registeredSince'], $dict['sessionLifetime'], $dict['rightGroupId']);
+    $o = new User($pk, $dict['username'], $dict['email'], $dict['passwordHash'], $dict['passwordSalt'], $dict['isValid'], $dict['isComputedPassword'], $dict['lastLoginDate'], $dict['registeredSince'], $dict['sessionLifetime']);
     return $o;
   }
   

@@ -20,11 +20,12 @@ foreach ($dir as $entry) {
     require_once(dirname(__FILE__) . "/" . $entry);
   }
 }
-require_once(dirname(__FILE__) . "/../templating/Statement.class.php");
-require_once(dirname(__FILE__) . "/../templating/Template.class.php");
 
 // include DBA
 require_once(dirname(__FILE__) . "/../dba/init.php");
+
+// include Template
+require_once(dirname(__FILE__) . "/../templating/init.php");
 
 $FACTORIES = new Factory();
 $LANG = new Lang();

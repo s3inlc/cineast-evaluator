@@ -1,6 +1,6 @@
 <?php
 
-define("TEMPLATES_PATH", dirname(__FILE__) . "/exampleTemplates/");
+define("TEMPLATES_PATH", dirname(__FILE__) . "/templates/");
 define("LANGUAGES_PATH", dirname(__FILE__) . "/lang/");
 
 require_once(dirname(__FILE__) . "/../templating/Statement.class.php");

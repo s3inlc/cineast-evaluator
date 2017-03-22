@@ -24,6 +24,37 @@ $CONF['Session'] = array(
   'sessionLifetime',
   'sessionKey'
 );
+$CONF['Query'] = array(
+  'queryId',
+  'isClosed',
+  'time',
+  'displayName',
+  'userId'
+);
+$CONF['ResultTuple'] = array(
+  'resultTupleId',
+  'objectId1',
+  'objectId2',
+  'similarity',
+  'certainty'
+);
+$CONF['QueryResultTuple'] = array(
+  'queryResultTupleId',
+  'queryId',
+  'resultTupleId'
+);
+$CONF['MediaObject'] = array(
+  'mediaObjectId',
+  'mediaTypeId',
+  'filename',
+  'time',
+  'checksum'
+);
+$CONF['MediaType'] = array(
+  'mediaTypeId',
+  'typeName',
+  'extension'
+);
 
 foreach ($CONF as $NAME => $COLUMNS) {
   $class = file_get_contents(dirname(__FILE__) . "/AbstractModel.template.txt");

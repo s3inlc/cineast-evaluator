@@ -7,8 +7,11 @@ ini_set("display_errors", "0");
 
 $OBJECTS = array();
 
-$VERSION = "0.2.0";
+$VERSION = "0.1.0";
 $OBJECTS['version'] = $VERSION;
+
+// setting some constants
+define("STORAGE_PATH", "/var/www/evaluator/");
 
 // include all .class.php files in inc dir
 $dir = scandir(dirname(__FILE__));

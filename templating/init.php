@@ -13,7 +13,7 @@ foreach ($entries as $entry) {
   }
 }
 
-$LANG = new Lang();
+$LANGUAGE = new Lang();
 
 $OBJECTS = array();
 $OBJECTS['TEMPLATE_VERSION'] = "1.0.0";

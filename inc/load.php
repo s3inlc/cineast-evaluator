@@ -28,7 +28,6 @@ require_once(dirname(__FILE__) . "/../dba/init.php");
 require_once(dirname(__FILE__) . "/../templating/init.php");
 
 $FACTORIES = new Factory();
-$LANG = new Lang();
 
 $LOGIN = null;
 $MENU = new Menu();

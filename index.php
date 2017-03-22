@@ -6,6 +6,10 @@
  * Time: 17:35
  */
 
+/** @var $OBJECTS array */
+
 require_once(dirname(__FILE__)."/inc/load.php");
 
-echo "Hello example user!";
+$TEMPLATE = new Template("content/home");
+
+echo $TEMPLATE->render($OBJECTS);

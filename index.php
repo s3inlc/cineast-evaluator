@@ -9,7 +9,8 @@
 /** @var $OBJECTS array */
 
 require_once(dirname(__FILE__)."/inc/load.php");
-
 $TEMPLATE = new Template("content/home");
+
+$OBJECTS['pageTitle'] = "Cineast Evaluator";
 
 echo $TEMPLATE->render($OBJECTS);

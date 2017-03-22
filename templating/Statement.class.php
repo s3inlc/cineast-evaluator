@@ -15,8 +15,8 @@ class Statement {
   }
   
   public function render($objects) {
-    /** @var $LANG Lang */
-    global $LANG;
+    /** @var $LANGUAGE Lang */
+    global $LANGUAGE;
     
     $output = "";
     switch ($this->statementType) {
@@ -69,7 +69,7 @@ class Statement {
         }
         break;
       case 'CONTENT': //setting -> nothing
-        $output .= $LANG->render($this->renderContent($this->content, $objects));
+        $output .= $LANGUAGE->render($this->renderContent($this->content, $objects));
         break;
       default:
         UI::printFatalError("Unknown Statement '" . $this->statementType . "'!");

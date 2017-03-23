@@ -16,22 +16,26 @@ $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
 $error = false;
 if(isset($_GET['err'])){
-  switch($_GET['err']){
-    case 1:
-      $errorMessage = "You need to fill in all fields!";
-      break;
-    case 2:
-      $errorMessage = "Fields cannot be empty!";
-      break;
-    case 3:
-      $errorMessage = "Invalud username/password!";
-      break;
-    default:
-      $errorMessage = "An unknown error happened!";
-      break;
+  $errNum = substr($_GET['err'], 0, 1);
+  $errTime = substr($_GET['err'], 1);
+  if(time() - $errTime < 60) {
+    switch ($errNum) {
+      case 1:
+        $errorMessage = "You need to fill in all fields!";
+        break;
+      case 2:
+        $errorMessage = "Fields cannot be empty!";
+        break;
+      case 3:
+        $errorMessage = "Invalud username/password!";
+        break;
+      default:
+        $errorMessage = "An unknown error happened!";
+        break;
+    }
+    $error = true;
+    $OBJECTS['errorMessage'] = $errorMessage;
   }
-  $error = true;
-  $OBJECTS['errorMessage'] = $errorMessage;
 }
 $OBJECTS['error'] = $error;
 

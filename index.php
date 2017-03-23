@@ -14,7 +14,6 @@ $TEMPLATE = new Template("content/home");
 $MENU->setActive("home");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
-$error = false;
 if (isset($_GET['err'])) {
   $errNum = substr($_GET['err'], 0, 1);
   $errTime = substr($_GET['err'], 1);
@@ -36,18 +35,12 @@ if (isset($_GET['err'])) {
         $errorMessage = "An unknown error happened!";
         break;
     }
-    $error = true;
-    $OBJECTS['errorMessage'] = $errorMessage;
+    UI::addErrorMessage($errorMessage);
   }
 }
-$OBJECTS['error'] = $error;
 
-$success = false;
 if (isset($_GET['logout'])) {
-  $success = true;
-  $successMessage = "You logged out successfully!";
-  $OBJECTS['successMessage'] = $successMessage;
+  UI::addSuccessMessage("You logged out successfully!");
 }
-$OBJECTS['success'] = $success;
 
 echo $TEMPLATE->render($OBJECTS);

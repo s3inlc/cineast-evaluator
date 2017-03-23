@@ -14,7 +14,8 @@ $MENU->setActive("account");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
 if(isset($_POST['action'])){
-  // handle actions
+  $accountHandler = new AccountHandler();
+  $accountHandler->handle($_POST['action']);
 }
 
 echo $TEMPLATE->render($OBJECTS);

@@ -36,5 +36,21 @@
   </div>
 </footer>
 
+{{IF [[error]]}}
+  <script type="text/javascript">
+      $(document).ready(function(){
+          Materialize.toast('[[errorMessage]]', 4000, 'red');
+      });
+  </script>
+{{ENDIF}}
+
+{{IF [[success]]}}
+  <script type="text/javascript">
+      $(document).ready(function(){
+          Materialize.toast('[[successMessage]]', 4000, 'green');
+      });
+  </script>
+{{ENDIF}}
+
 </body>
 </html>

@@ -8,17 +8,17 @@
 
 /** @var $OBJECTS array */
 
-require_once(dirname(__FILE__)."/inc/load.php");
+require_once(dirname(__FILE__) . "/inc/load.php");
 $TEMPLATE = new Template("content/home");
 
 $MENU->setActive("home");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
 $error = false;
-if(isset($_GET['err'])){
+if (isset($_GET['err'])) {
   $errNum = substr($_GET['err'], 0, 1);
   $errTime = substr($_GET['err'], 1);
-  if(time() - $errTime < 60) {
+  if (time() - $errTime < 60) {
     switch ($errNum) {
       case 1:
         $errorMessage = "You need to fill in all fields!";
@@ -38,5 +38,13 @@ if(isset($_GET['err'])){
   }
 }
 $OBJECTS['error'] = $error;
+
+$success = false;
+if (isset($_GET['logout'])) {
+  $success = true;
+  $successMessage = "You logged out successfully!";
+  $OBJECTS['successMessage'] = $successMessage;
+}
+$OBJECTS['success'] = $success;
 
 echo $TEMPLATE->render($OBJECTS);

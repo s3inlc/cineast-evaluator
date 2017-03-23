@@ -21,7 +21,6 @@ p {
 
 .parallax-container {
     min-height: 300px;
-    line-height: 0;
     height: auto;
     color: #26a69a;
 }

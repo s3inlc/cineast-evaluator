@@ -1,7 +1,7 @@
 {%TEMPLATE->struct/head%}
 {%TEMPLATE->struct/menu%}
 
-{{IF [[user.isLoggedin()]]}}
+{{IF [[login.isLoggedin()]]}}
   TODO: show here something when logged in
 {{ELSE}}
   <div id="index-banner" class="parallax-container">
@@ -19,7 +19,7 @@
           {{IF [[error]]}}
             <script type="text/javascript">
               $(document).ready(function(){
-                  Materialize.toast('[[errorMessage]]', 4000, 'red centered');
+                  Materialize.toast('[[errorMessage]]', 4000, 'red');
               });
             </script>
           {{ENDIF}}

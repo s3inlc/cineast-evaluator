@@ -15,9 +15,26 @@ class UI {
     die();
   }
   
-  public static function addMessage($type, $message) {
+  public static function addMessage($message, $type) {
     global $OBJECTS;
     
-    $OBJECTS['messages'][] = new DataSet(array('type' => $type, 'message' => $message));
+    if (!isset($OBJECTS[$type . "Messages"])) {
+      $OBJECTS[$type . "Messages"] = array();
+    }
+    $OBJECTS[$type . "Messages"][] = $message;
+  }
+  
+  public static function addErrorMessage($message) {
+    global $OBJECTS;
+    
+    $OBJECTS['error'] = true;
+    UI::addMessage($message, "error");
+  }
+  
+  public static function addSuccessMessage($message) {
+    global $OBJECTS;
+    
+    $OBJECTS['success'] = true;
+    UI::addMessage($message, "success");
   }
 }

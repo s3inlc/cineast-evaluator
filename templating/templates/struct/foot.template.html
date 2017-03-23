@@ -20,18 +20,22 @@
   </div>
 </footer>
 
-{{IF [[error]]}}
+{{IF [[sizeof([[errorMessages]])]] > 0}}
   <script type="text/javascript">
       $(document).ready(function(){
-          Materialize.toast('[[errorMessage]]', 4000, 'red');
+          {{FOREACH message;[[errorMessages]]}}
+            Materialize.toast('[[message]]', 4000, 'red');
+          {{ENDFOREACH}}
       });
   </script>
 {{ENDIF}}
 
-{{IF [[success]]}}
+{{IF [[sizeof([[successMessages]])]] > 0}}
   <script type="text/javascript">
       $(document).ready(function(){
-          Materialize.toast('[[successMessage]]', 4000, 'green');
+          {{FOREACH message;[[successMessages]]}}
+            Materialize.toast('[[message]]', 4000, 'green');
+          {{ENDFOREACH}}
       });
   </script>
 {{ENDIF}}

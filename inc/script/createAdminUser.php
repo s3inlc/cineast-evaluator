@@ -13,7 +13,7 @@
 use DBA\QueryFilter;
 use DBA\User;
 
-require_once(dirname(__FILE__) . "/../inc/load.php");
+require_once(dirname(__FILE__) . "/../load.php");
 
 // set username and email here
 $username = "admin";

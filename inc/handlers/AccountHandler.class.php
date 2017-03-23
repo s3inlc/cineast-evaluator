@@ -36,7 +36,7 @@ class AccountHandler extends Handler {
     $repeatPassword = $_POST['repeatPassword'];
     
     if(strlen($oldPassword) == 0 || strlen($newPassword) == 0 || strlen($repeatPassword) == 0){
-      UI::addErrorMessage("All fields are required!");
+      UI::addErrorMessage("Fields cannot be empty!");
       return;
     }
     else if($newPassword != $repeatPassword){

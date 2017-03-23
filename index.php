@@ -29,6 +29,9 @@ if (isset($_GET['err'])) {
       case 3:
         $errorMessage = "Invalid username/password!";
         break;
+      case 4:
+        $errorMessage = "You were logged out due to inactivity!";
+        break;
       default:
         $errorMessage = "An unknown error happened!";
         break;

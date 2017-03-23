@@ -20,7 +20,7 @@
   </div>
 </footer>
 
-{{IF [[sizeof([[errorMessages]])]] > 0}}
+{{IF [[error]] > 0}}
   <script type="text/javascript">
       $(document).ready(function(){
           {{FOREACH message;[[errorMessages]]}}
@@ -30,7 +30,7 @@
   </script>
 {{ENDIF}}
 
-{{IF [[sizeof([[successMessages]])]] > 0}}
+{{IF [[success]] > 0}}
   <script type="text/javascript">
       $(document).ready(function(){
           {{FOREACH message;[[successMessages]]}}

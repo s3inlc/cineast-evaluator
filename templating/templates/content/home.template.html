@@ -18,7 +18,9 @@
 
           {{IF [[error]]}}
             <script type="text/javascript">
-                Materialize.toast('[[errorMessage]]', 4000, 'red');
+              $(document).ready(function(){
+                  Materialize.toast('[[errorMessage]]', 4000, 'red');
+              });
             </script>
           {{ENDIF}}
 

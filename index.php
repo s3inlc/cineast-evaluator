@@ -27,7 +27,7 @@ if(isset($_GET['err'])){
         $errorMessage = "Fields cannot be empty!";
         break;
       case 3:
-        $errorMessage = "Invalud username/password!";
+        $errorMessage = "Invalid username/password!";
         break;
       default:
         $errorMessage = "An unknown error happened!";

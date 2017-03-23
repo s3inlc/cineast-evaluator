@@ -21,6 +21,15 @@ foreach ($dir as $entry) {
   }
 }
 
+// include all handlers
+require_once(dirname(__FILE__)."/handlers/Handler.class.php");
+$dir = scandir(dirname(__FILE__)."/handlers/");
+foreach ($dir as $entry) {
+  if (strpos($entry, ".class.php") !== false) {
+    require_once(dirname(__FILE__) . "/handlers/" . $entry);
+  }
+}
+
 // include DBA
 require_once(dirname(__FILE__) . "/../dba/init.php");
 

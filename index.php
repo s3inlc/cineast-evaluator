@@ -14,4 +14,25 @@ $TEMPLATE = new Template("content/home");
 $MENU->setActive("home");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
+$error = false;
+if(isset($_GET['err'])){
+  switch($_GET['err']){
+    case 1:
+      $errorMessage = "You need to fill in all fields!";
+      break;
+    case 2:
+      $errorMessage = "Fields cannot be empty!";
+      break;
+    case 3:
+      $errorMessage = "Invalud username/password!";
+      break;
+    default:
+      $errorMessage = "An unknown error happened!";
+      break;
+  }
+  $error = true;
+  $OBJECTS['errorMessage'] = $errorMessage;
+}
+$OBJECTS['error'] = $error;
+
 echo $TEMPLATE->render($OBJECTS);

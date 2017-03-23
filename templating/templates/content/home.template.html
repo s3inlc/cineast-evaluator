@@ -16,6 +16,12 @@
         <div class="col s12 m4">
           <h4 class="center"><i class="material-icons">person_pin</i> Login</h4>
 
+          {{IF [[error]]}}
+            <script type="text/javascript">
+                Materialize.toast('[[errorMessage]]', 4000, 'red');
+            </script>
+          {{ENDIF}}
+
           <form action="login.php" method="post" class="col s12">
             <div class="row">
               <div class="input-field col s12">

@@ -1,30 +1,34 @@
 {%TEMPLATE->struct/head%}
 {%TEMPLATE->struct/menu%}
 
-<a class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">add</i></a>
+<div class="row">
 
-<table class="striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Query Name</th>
-      <th>Added by User</th>
-      <th>Is completed</th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
+  <a class="btn-floating btn-large waves-effect waves-light green" href="queries.php?new=true"><i class="material-icons">add</i></a>
 
-  <tbody>
-    {{FOREACH query;[[queries]]}}
+  <table class="striped">
+    <thead>
       <tr>
-        <td>[[query.getId()]]</td>
-        <td>[[query.getDisplayName()]]</td>
-        <td>[[Util::getUsernameById([[query.getUserId()]])]]</td>
-        <td>{{IF [[query.getIsClosed()]] == 0}}No{{ELSE}}YES{{ENDIF}}</td>
-        <td>TODO button</td>
+        <th>ID</th>
+        <th>Query Name</th>
+        <th>Added by User</th>
+        <th>Is completed</th>
+        <th>&nbsp;</th>
       </tr>
-    {{ENDFOREACH}}
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      {{FOREACH query;[[queries]]}}
+        <tr>
+          <td>[[query.getId()]]</td>
+          <td>[[query.getDisplayName()]]</td>
+          <td>[[Util::getUsernameById([[query.getUserId()]])]]</td>
+          <td>{{IF [[query.getIsClosed()]] == 0}}No{{ELSE}}YES{{ENDIF}}</td>
+          <td>TODO button</td>
+        </tr>
+      {{ENDFOREACH}}
+    </tbody>
+  </table>
+
+</div>
 
 {%TEMPLATE->struct/foot%}

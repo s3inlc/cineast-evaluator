@@ -1,4 +1,8 @@
 <?php
+use DBA\MediaObject;
+use DBA\MediaType;
+use DBA\QueryFilter;
+use DBA\ResultTuple;
 
 /**
  *
@@ -40,6 +44,45 @@ class Util {
    */
   public static function strToHex($string) {
     return implode(unpack("H*", $string));
+  }
+  
+  public static function getExtension($file) {
+    $basename = explode(".", basename($file));
+    return $basename[sizeof($basename) - 1];
+  }
+  
+  /**
+   * @param $object1 MediaObject
+   * @param $object2 MediaObject
+   */
+  public static function getResultTuple($object1, $object2){
+    global $FACTORIES;
+    
+    $qF1 = new QueryFilter(ResultTuple::OBJECT_ID1, $object1->getId(), "=");
+    $qF2 = new QueryFilter(ResultTuple::OBJECT_ID2, $object2->getId(), "=");
+    return $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2)), true);
+  }
+  
+  public static function getMediaObject($checksum){
+    global $FACTORIES;
+    
+    $qF = new QueryFilter(MediaObject::CHECKSUM, $checksum, "=");
+    return $FACTORIES::getMediaObjectFactory()->filter(array($FACTORIES::FILTER => $qF), true);
+  }
+  
+  public static function getMediaType($file) {
+    global $FACTORIES;
+    
+    $extension = Util::getExtension($file);
+    
+    $qF = new QueryFilter(MediaType::EXTENSION, $extension, "=");
+    $mediaType = $FACTORIES::getMediaTypeFactory()->filter(array($FACTORIES::FILTER => $qF), true);
+    if ($mediaType == null) {
+      // create this new media type
+      $mediaType = new MediaType(0, $extension, $extension);
+      $mediaType = $FACTORIES::getMediaTypeFactory()->save($mediaType);
+    }
+    return $mediaType;
   }
   
   /**

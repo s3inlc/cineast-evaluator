@@ -16,6 +16,9 @@ define("TMP_FOLDER", "tmp/");
 define("MEDIA_FOLDER", "media/");
 define("QUERIES_FOLDER", "queries");
 
+define("DEFAULT_SIMILARITY", "0");
+define("DEFAULT_CERTAINTY", "0");
+
 // include all .class.php files in inc dir
 $dir = scandir(dirname(__FILE__));
 foreach ($dir as $entry) {

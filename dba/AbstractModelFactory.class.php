@@ -71,6 +71,14 @@ abstract class AbstractModelFactory {
    */
   abstract function createObjectFromDict($pk, $dict);
   
+  public function startTransation() {
+    $this->getDB()->query("START TRANSACTION");
+  }
+  
+  public function commitTransaction() {
+    $this->getDB()->query("COMMIT");
+  }
+  
   /**
    * Saves the passed model in database, and returns it with the real id
    * in the database.

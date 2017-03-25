@@ -29,7 +29,8 @@ $CONF['Query'] = array(
   'isClosed',
   'time',
   'displayName',
-  'userId'
+  'userId',
+  'meta'
 );
 $CONF['ResultTuple'] = array(
   'resultTupleId',

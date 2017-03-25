@@ -57,7 +57,8 @@ CREATE TABLE `Query` (
   `isClosed` int(11) NOT NULL,
   `time` int(11) NOT NULL,
   `displayName` varchar(50) COLLATE utf8_bin NOT NULL,
-  `userId` int(11) NOT NULL
+  `userId` int(11) NOT NULL,
+  `meta` TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------

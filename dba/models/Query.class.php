@@ -15,13 +15,15 @@ class Query extends AbstractModel {
   private $time;
   private $displayName;
   private $userId;
+  private $meta;
   
-  function __construct($queryId, $isClosed, $time, $displayName, $userId) {
+  function __construct($queryId, $isClosed, $time, $displayName, $userId, $meta) {
     $this->queryId = $queryId;
     $this->isClosed = $isClosed;
     $this->time = $time;
     $this->displayName = $displayName;
     $this->userId = $userId;
+    $this->meta = $meta;
   }
   
   function getKeyValueDict() {
@@ -31,6 +33,7 @@ class Query extends AbstractModel {
     $dict['time'] = $this->time;
     $dict['displayName'] = $this->displayName;
     $dict['userId'] = $this->userId;
+    $dict['meta'] = $this->meta;
     
     return $dict;
   }
@@ -82,10 +85,19 @@ class Query extends AbstractModel {
   function setUserId($userId){
     $this->userId = $userId;
   }
+  
+  function getMeta(){
+    return $this->meta;
+  }
+  
+  function setMeta($meta){
+    $this->meta = $meta;
+  }
 
   const QUERY_ID = "queryId";
   const IS_CLOSED = "isClosed";
   const TIME = "time";
   const DISPLAY_NAME = "displayName";
   const USER_ID = "userId";
+  const META = "meta";
 }

@@ -26,6 +26,7 @@ class QueryHandler extends Handler {
     global $FACTORIES;
     
     $path = STORAGE_PATH . TMP_FOLDER . "import-" . time() . "/";
+    mkdir($path);
     $filename = $path . "import.zip";
     
     if($_FILES['file']['error'] != 0){

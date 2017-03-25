@@ -13,11 +13,13 @@ class QueryResultTuple extends AbstractModel {
   private $queryResultTupleId;
   private $queryId;
   private $resultTupleId;
+  private $matching;
   
-  function __construct($queryResultTupleId, $queryId, $resultTupleId) {
+  function __construct($queryResultTupleId, $queryId, $resultTupleId, $matching) {
     $this->queryResultTupleId = $queryResultTupleId;
     $this->queryId = $queryId;
     $this->resultTupleId = $resultTupleId;
+    $this->matching = $matching;
   }
   
   function getKeyValueDict() {
@@ -25,6 +27,7 @@ class QueryResultTuple extends AbstractModel {
     $dict['queryResultTupleId'] = $this->queryResultTupleId;
     $dict['queryId'] = $this->queryId;
     $dict['resultTupleId'] = $this->resultTupleId;
+    $dict['matching'] = $this->matching;
     
     return $dict;
   }
@@ -60,8 +63,17 @@ class QueryResultTuple extends AbstractModel {
   function setResultTupleId($resultTupleId){
     $this->resultTupleId = $resultTupleId;
   }
+  
+  function getMatching(){
+    return $this->matching;
+  }
+  
+  function setMatching($matching){
+    $this->matching = $matching;
+  }
 
   const QUERY_RESULT_TUPLE_ID = "queryResultTupleId";
   const QUERY_ID = "queryId";
   const RESULT_TUPLE_ID = "resultTupleId";
+  const MATCHING = "matching";
 }

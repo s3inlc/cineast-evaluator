@@ -42,7 +42,8 @@ $CONF['ResultTuple'] = array(
 $CONF['QueryResultTuple'] = array(
   'queryResultTupleId',
   'queryId',
-  'resultTupleId'
+  'resultTupleId',
+  'matching'
 );
 $CONF['MediaObject'] = array(
   'mediaObjectId',

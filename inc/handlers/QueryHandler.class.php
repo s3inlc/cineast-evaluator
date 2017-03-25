@@ -132,7 +132,7 @@ class QueryHandler extends Handler {
       }
       
       // connect result tuple to query
-      $queryResultTuple = new QueryResultTuple(0, $query->getId(), $resultTuple->getId());
+      $queryResultTuple = new QueryResultTuple(0, $query->getId(), $resultTuple->getId(), $result['matching']);
       $FACTORIES::getQueryResultTupleFactory()->save($queryResultTuple);
     }
     

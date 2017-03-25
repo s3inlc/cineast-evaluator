@@ -30,7 +30,7 @@ class QueryResultTupleFactory extends AbstractModelFactory {
    * @return QueryResultTuple
    */
   function getNullObject() {
-    $o = new QueryResultTuple(-1, null, null);
+    $o = new QueryResultTuple(-1, null, null, null);
     return $o;
   }
 
@@ -40,7 +40,7 @@ class QueryResultTupleFactory extends AbstractModelFactory {
    * @return QueryResultTuple
    */
   function createObjectFromDict($pk, $dict) {
-    $o = new QueryResultTuple($pk, $dict['queryId'], $dict['resultTupleId']);
+    $o = new QueryResultTuple($pk, $dict['queryId'], $dict['resultTupleId'], $dict['matching']);
     return $o;
   }
 

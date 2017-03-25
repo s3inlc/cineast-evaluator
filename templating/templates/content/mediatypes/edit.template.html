@@ -18,14 +18,16 @@
           <label for="typeName">Extension Name</label>
         </div>
       </div>
-      <div class="input-field col s12">
-        <select>
-          <option value="" disabled>Choose your option</option>
-          {{FOREACH template;[[templates]]}}
-            <option value="[[template]]"{{IF [[template]] == [[mediaType.getTemplate()]]}} selected{{ENDIF}}>[[template]]</option>
-          {{ENDFOREACH}}
-        </select>
-        <label>Template to use</label>
+      <div class="row">
+        <div class="input-field col s12">
+          <select name="template" id="template">
+            <option value="" disabled>Choose your option</option>
+            {{FOREACH template;[[templates]]}}
+              <option value="[[template]]"{{IF [[template]] == [[mediaType.getTemplate()]]}} selected{{ENDIF}}>[[template]]</option>
+            {{ENDFOREACH}}
+          </select>
+          <label for="template">Template to use</label>
+        </div>
       </div>
       <div class="row">
         <button class="btn waves-effect waves-light" type="submit">Update

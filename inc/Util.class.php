@@ -88,18 +88,20 @@ class Util {
   
   /**
    * @param $mediaObjectId int
-   * @return MediaType
+   * @return string
    */
-  public static function getMediaTypeForObject($mediaObjectId){
+  public static function getMediaTypeNameForObject($mediaObjectId){
     global $FACTORIES;
     
     $qF = new QueryFilter(MediaObject::MEDIA_OBJECT_ID, $mediaObjectId, "=");
     $jF = new JoinFilter($FACTORIES::getMediaTypeFactory(), MediaObject::MEDIA_TYPE_ID, MediaType::MEDIA_TYPE_ID);
     $joined = $FACTORIES::getMediaObjectFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));
     if(sizeof($joined['MediaType']) == 0){
-      return null;
+      return "unknown";
     }
-    return $joined['MediaType'][0];
+    /** @var MediaType $mediaType */
+    $mediaType = $joined['MediaType'][0];
+    return $mediaType->getTypeName();
   }
   
   /**

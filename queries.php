@@ -44,7 +44,7 @@ else if(isset($_GET['view'])){
     foreach($mediaTypes as $mediaType){
       $types[$mediaType->getId()] = $mediaType;
     }
-    $OBJECTS['mediaTypes'] = $types;
+    $OBJECTS['mediaTypes'] = new DataSet($types);
   }
 }
 

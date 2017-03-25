@@ -1,39 +1,39 @@
 {%TEMPLATE->struct/head%}
 {%TEMPLATE->struct/menu%}
-
-<div class="container">
-  <h3>Account Management</h3>
-  <div class="row">
-    <div class="col s12">
-      <h5>Change Password</h5>
-      <form action="account.php" method="post">
-        <input type="hidden" name="action" value="changePassword">
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="oldPassword" type="password" name="oldPassword" class="validate">
-            <label for="oldPassword">Old Password</label>
+<main>
+  <div class="container">
+    <h3>Account Management</h3>
+    <div class="row">
+      <div class="col s12">
+        <h5>Change Password</h5>
+        <form action="account.php" method="post">
+          <input type="hidden" name="action" value="changePassword">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="oldPassword" type="password" name="oldPassword" class="validate">
+              <label for="oldPassword">Old Password</label>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="newPassword" type="password" name="newPassword" class="validate">
-            <label for="newPassword">New Password</label>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="newPassword" type="password" name="newPassword" class="validate">
+              <label for="newPassword">New Password</label>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="repeatPassword" type="password" name="repeatPassword" class="validate">
-            <label for="repeatPassword">Repeat New Password</label>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="repeatPassword" type="password" name="repeatPassword" class="validate">
+              <label for="repeatPassword">Repeat New Password</label>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <button class="btn waves-effect waves-light" type="submit">Change
-            <i class="material-icons right">send</i>
-          </button>
-        </div>
-      </form>
+          <div class="row">
+            <button class="btn waves-effect waves-light" type="submit">Change
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
-
+</main>
 {%TEMPLATE->struct/foot%}

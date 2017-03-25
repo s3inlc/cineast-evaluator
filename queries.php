@@ -34,6 +34,8 @@ else if(isset($_GET['view'])){
   $query = $FACTORIES::getQueryFactory()->get($_GET['view']);
   if($query != null){
     $TEMPLATE = new Template("content/queries/detail");
+    $OBJECTS['query'] = $query;
+    
     $qF = new QueryFilter(QueryResultTuple::QUERY_ID, $query->getId(), "=");
     $jF = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
     $joinedResults = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));

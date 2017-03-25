@@ -1,0 +1,30 @@
+{%TEMPLATE->struct/head%}
+{%TEMPLATE->struct/menu%}
+<main>
+  <div class="container">
+    <h3>Mediatypes</h3>
+
+    <table class="striped">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type Name</th>
+        <th>Extension</th>
+        <th>&nbsp;</th>
+      </tr>
+      </thead>
+
+      <tbody>
+        {{FOREACH mediaType;[[mediaTypes]]}}
+          <tr>
+            <td>[[mediaType.getId()]]</td>
+            <td>[[mediaType.getTypeName()]]</td>
+            <td>[[mediaType.getExtension()]]</td>
+            <td>TODO button</td>
+          </tr>
+        {{ENDFOREACH}}
+      </tbody>
+    </table>
+  </div>
+</main>
+{%TEMPLATE->struct/foot%}

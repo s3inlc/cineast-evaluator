@@ -1,0 +1,34 @@
+{%TEMPLATE->struct/head%}
+{%TEMPLATE->struct/menu%}
+<main>
+  <div class="container">
+    <h3>Add Query</h3>
+
+    <form action="queries.php" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="action" value="addQuery">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="queryName" type="text" name="queryName" class="validate">
+          <label for="queryName">Query Name</label>
+        </div>
+      </div>
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>Query Data (.zip)</span>
+          <input type="file">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn waves-effect waves-light" type="submit">Add Query
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </form>
+
+  </div>
+</main>
+
+{%TEMPLATE->struct/foot%}

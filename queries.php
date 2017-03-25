@@ -9,12 +9,17 @@
 /** @var $OBJECTS array */
 
 require_once(dirname(__FILE__) . "/inc/load.php");
-$TEMPLATE = new Template("content/queries");
+$TEMPLATE = new Template("content/queries/index");
 
 $MENU->setActive("queries");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
-$queries = $FACTORIES::getQueryFactory()->filter(array());
-$OBJECTS['queries'] = $queries;
+if(isset($_GET['new'])){
+  $TEMPLATE = new Template("content/queries/new");
+}
+else{
+  $queries = $FACTORIES::getQueryFactory()->filter(array());
+  $OBJECTS['queries'] = $queries;
+}
 
 echo $TEMPLATE->render($OBJECTS);

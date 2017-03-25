@@ -14,7 +14,7 @@ $OBJECTS['version'] = $VERSION;
 define("STORAGE_PATH", "/var/www/evaluator/");
 define("TMP_FOLDER", "tmp/");
 define("MEDIA_FOLDER", "media/");
-define("QUERIES_FOLDER", "queries");
+define("QUERIES_FOLDER", "queries/");
 
 define("DEFAULT_SIMILARITY", "0");
 define("DEFAULT_CERTAINTY", "0");

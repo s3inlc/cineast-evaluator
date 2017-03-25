@@ -40,6 +40,9 @@ else if(isset($_GET['view'])){
     $jF = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
     $joinedResults = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));
     $OBJECTS['results'] = $joinedResults['ResultTuple'];
+    /** @var ResultTuple $singleTuple */
+    $singleTuple = $joinedResults['ResultTuple'][0];
+    $OBJECTS['queryObjectId'] = $singleTuple->getObjectId1();
     
     $mediaTypes = $FACTORIES::getMediaTypeFactory()->filter(array());
     $types = new DataSet();

@@ -40,9 +40,9 @@ else if(isset($_GET['view'])){
     $OBJECTS['results'] = $joinedResults['ResultTuple'];
     
     $mediaTypes = $FACTORIES::getMediaTypeFactory()->filter(array());
-    $types = array();
+    $types = new DataSet();
     foreach($mediaTypes as $mediaType){
-      $types[$mediaType->getId()] = $mediaType;
+      $types->addValue($mediaType->getId(), $mediaType);
     }
     $OBJECTS['mediaTypes'] = new DataSet($types);
   }

@@ -37,7 +37,7 @@
         {{FOREACH result;[[results]]}}
           <tr>
             <td>[[result.getId()]]</td>
-            <td>[[mediaTypes.getVal([[result.getObjectId2()]]).getTypeName()]]</td>
+            <td>[[Util::getMediaTypeForObject([[result.getObjectId2()]]).getTypeName()]]</td>
             <td class="right-align">
               TODO
             </td>

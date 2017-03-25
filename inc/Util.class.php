@@ -1,4 +1,5 @@
 <?php
+use DBA\JoinFilter;
 use DBA\MediaObject;
 use DBA\MediaType;
 use DBA\QueryFilter;
@@ -83,6 +84,22 @@ class Util {
       $mediaType = $FACTORIES::getMediaTypeFactory()->save($mediaType);
     }
     return $mediaType;
+  }
+  
+  /**
+   * @param $mediaObjectId int
+   * @return MediaType
+   */
+  public static function getMediaTypeForObject($mediaObjectId){
+    global $FACTORIES;
+    
+    $qF = new QueryFilter(MediaObject::MEDIA_OBJECT_ID, $mediaObjectId, "=");
+    $jF = new JoinFilter($FACTORIES::getMediaTypeFactory(), MediaObject::MEDIA_TYPE_ID, MediaType::MEDIA_TYPE_ID);
+    $joined = $FACTORIES::getMediaObjectFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));
+    if(sizeof($joined['MediaType']) == 0){
+      return null;
+    }
+    return $joined['MediaType'][0];
   }
   
   /**

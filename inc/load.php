@@ -36,6 +36,9 @@ require_once(dirname(__FILE__) . "/../dba/init.php");
 // include Template
 require_once(dirname(__FILE__) . "/../templating/init.php");
 
+// check required folders
+Util::checkFolders();
+
 $FACTORIES = new Factory();
 
 $LOGIN = null;

@@ -16,6 +16,21 @@ class Util {
     return $in;
   }
   
+  public static function checkFolders() {
+    $tempDir = STORAGE_PATH . "/tmp/";
+    if (!file_exists($tempDir)) {
+      mkdir($tempDir);
+    }
+    $queryDir = STORAGE_PATH . "/queries/";
+    if (!file_exists($queryDir)) {
+      mkdir($queryDir);
+    }
+    $mediaDir = STORAGE_PATH . "/media/";
+    if (!file_exists($mediaDir)) {
+      mkdir($mediaDir);
+    }
+  }
+  
   /**
    * Converts a given string to hex code.
    *

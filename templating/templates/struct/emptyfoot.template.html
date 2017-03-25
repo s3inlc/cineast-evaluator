@@ -1,0 +1,28 @@
+{{IF [[error]] > 0}}
+  <script type="text/javascript">
+      $(document).ready(function(){
+          {{FOREACH message;[[errorMessages]]}}
+            Materialize.toast('[[message]]', 4000, 'red');
+          {{ENDFOREACH}}
+      });
+  </script>
+{{ENDIF}}
+
+{{IF [[success]] > 0}}
+  <script type="text/javascript">
+      $(document).ready(function(){
+          {{FOREACH message;[[successMessages]]}}
+            Materialize.toast('[[message]]', 4000, 'green');
+          {{ENDFOREACH}}
+      });
+  </script>
+{{ENDIF}}
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('select').material_select();
+  });
+</script>
+
+</body>
+</html>

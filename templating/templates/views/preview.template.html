@@ -1,0 +1,13 @@
+{%TEMPLATE->struct/head%}
+<main>
+  <div class="container">
+    <h3>Preview</h3>
+    {{IF [[template]] == "default"}}
+      {%TEMPLATE->media/default%}
+    {{ENDIF}}
+    {{IF [[template]] == "image"}}
+      {%TEMPLATE->media/image%}
+    {{ENDIF}}
+  </div>
+</main>
+{%TEMPLATE->struct/emptyfoot%}

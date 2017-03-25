@@ -1,0 +1,38 @@
+{%TEMPLATE->struct/head%}
+{%TEMPLATE->struct/menu%}
+<main>
+  <div class="container">
+    <h3>Edit Media Type</h3>
+
+    <form action="mediatypes.php" method="post">
+      <input type="hidden" name="action" value="updateType">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="extension" type="text" name="extension" value="[[mediaType.getExtension()]]" class="validate" disabled>
+          <label for="extension">Extension</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="typeName" type="text" name="typeName" class="validate">
+          <label for="typeName">Extension Name</label>
+        </div>
+      </div>
+      <div class="input-field col s12">
+        <select>
+          <option value="" disabled>Choose your option</option>
+          {{FOREACH template;[[templates]]}}
+            <option value="[[template]]"{{IF [[template]] == [[mediaType.getTemplate()]]}} selected{{ENDIF}}>[[template]]</option>
+          {{ENDFOREACH}}
+        </select>
+        <label>Template to use</label>
+      </div>
+      <div class="row">
+        <button class="btn waves-effect waves-light" type="submit">Update
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </form>
+  </div>
+</main>
+{%TEMPLATE->struct/foot%}

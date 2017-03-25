@@ -30,7 +30,7 @@ class MediaTypeFactory extends AbstractModelFactory {
    * @return MediaType
    */
   function getNullObject() {
-    $o = new MediaType(-1, null, null);
+    $o = new MediaType(-1, null, null, null);
     return $o;
   }
 
@@ -40,7 +40,7 @@ class MediaTypeFactory extends AbstractModelFactory {
    * @return MediaType
    */
   function createObjectFromDict($pk, $dict) {
-    $o = new MediaType($pk, $dict['typeName'], $dict['extension']);
+    $o = new MediaType($pk, $dict['typeName'], $dict['extension'], $dict['template']);
     return $o;
   }
 

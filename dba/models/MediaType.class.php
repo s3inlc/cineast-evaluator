@@ -13,11 +13,13 @@ class MediaType extends AbstractModel {
   private $mediaTypeId;
   private $typeName;
   private $extension;
+  private $template;
   
-  function __construct($mediaTypeId, $typeName, $extension) {
+  function __construct($mediaTypeId, $typeName, $extension, $template) {
     $this->mediaTypeId = $mediaTypeId;
     $this->typeName = $typeName;
     $this->extension = $extension;
+    $this->template = $template;
   }
   
   function getKeyValueDict() {
@@ -25,6 +27,7 @@ class MediaType extends AbstractModel {
     $dict['mediaTypeId'] = $this->mediaTypeId;
     $dict['typeName'] = $this->typeName;
     $dict['extension'] = $this->extension;
+    $dict['template'] = $this->template;
     
     return $dict;
   }
@@ -60,8 +63,17 @@ class MediaType extends AbstractModel {
   function setExtension($extension){
     $this->extension = $extension;
   }
+  
+  function getTemplate(){
+    return $this->template;
+  }
+  
+  function setTemplate($template){
+    $this->template = $template;
+  }
 
   const MEDIA_TYPE_ID = "mediaTypeId";
   const TYPE_NAME = "typeName";
   const EXTENSION = "extension";
+  const TEMPLATE = "template";
 }

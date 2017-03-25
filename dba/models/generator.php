@@ -54,7 +54,8 @@ $CONF['MediaObject'] = array(
 $CONF['MediaType'] = array(
   'mediaTypeId',
   'typeName',
-  'extension'
+  'extension',
+  'template'
 );
 
 foreach ($CONF as $NAME => $COLUMNS) {

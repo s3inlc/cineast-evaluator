@@ -43,7 +43,8 @@ CREATE TABLE `MediaObject` (
 CREATE TABLE `MediaType` (
   `mediaTypeId` int(11) NOT NULL,
   `typeName` varchar(50) COLLATE utf8_bin NOT NULL,
-  `extension` varchar(20) COLLATE utf8_bin NOT NULL
+  `extension` varchar(20) COLLATE utf8_bin NOT NULL,
+  `template` varchar(50) COLLATE utf8_bin NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------

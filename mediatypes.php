@@ -13,7 +13,7 @@ if (!$LOGIN->isLoggedin()) {
   header("Location: index.php?err=4" . time());
   die();
 }
-$TEMPLATE = new Template("content/mediatypes");
+$TEMPLATE = new Template("content/mediatypes/index");
 
 $MENU->setActive("mediatypes");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";

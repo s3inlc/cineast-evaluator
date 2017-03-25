@@ -79,7 +79,7 @@ class Util {
     $mediaType = $FACTORIES::getMediaTypeFactory()->filter(array($FACTORIES::FILTER => $qF), true);
     if ($mediaType == null) {
       // create this new media type
-      $mediaType = new MediaType(0, $extension, $extension);
+      $mediaType = new MediaType(0, $extension, $extension, null);
       $mediaType = $FACTORIES::getMediaTypeFactory()->save($mediaType);
     }
     return $mediaType;

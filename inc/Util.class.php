@@ -17,15 +17,15 @@ class Util {
   }
   
   public static function checkFolders() {
-    $tempDir = STORAGE_PATH . "/tmp/";
+    $tempDir = STORAGE_PATH . TMP_FOLDER;
     if (!file_exists($tempDir)) {
       mkdir($tempDir);
     }
-    $queryDir = STORAGE_PATH . "/queries/";
+    $queryDir = STORAGE_PATH . QUERIES_FOLDER;
     if (!file_exists($queryDir)) {
       mkdir($queryDir);
     }
-    $mediaDir = STORAGE_PATH . "/media/";
+    $mediaDir = STORAGE_PATH . MEDIA_FOLDER;
     if (!file_exists($mediaDir)) {
       mkdir($mediaDir);
     }

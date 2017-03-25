@@ -1,0 +1,52 @@
+{%TEMPLATE->struct/head%}
+{%TEMPLATE->struct/menu%}
+<main>
+  <div class="container">
+    <h3>Query '[[query.getQueryName()]]'</h3>
+
+    <table class="striped">
+      <tbody>
+        <tr>
+          <th>ID</th>
+          <td>[[query.getId()]]</td>
+        </tr>
+        <tr>
+          <th>Time added</th>
+          <td>[[date("d.m.Y - H:i:s", [[query.getTime()]])]]</td>
+        </tr>
+        <tr>
+          <th>Query Object</th>
+          <td>
+            TODO: add some info here
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h5>Results</h5>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Media Type</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{FOREACH result;[[results]]}}
+          <tr>
+            <td>[[result.getId()]]</td>
+            <td>[[mediaTypes.getVal([[result.getObjectId2()]]).getTypeName()]]</td>
+            <td class="right-align">
+              TODO
+            </td>
+          </tr>
+        {{ENDFOREACH}}
+      </tbody>
+    </table>
+
+  </div>
+</main>
+
+{%TEMPLATE->struct/foot%}

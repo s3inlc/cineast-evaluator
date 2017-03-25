@@ -5,6 +5,10 @@
  * Date: 22.03.17
  * Time: 17:35
  */
+use DBA\JoinFilter;
+use DBA\QueryFilter;
+use DBA\QueryResultTuple;
+use DBA\ResultTuple;
 
 /** @var $OBJECTS array */
 
@@ -25,6 +29,23 @@ if(isset($_POST['action'])){
 
 if(isset($_GET['new'])){
   $TEMPLATE = new Template("content/queries/new");
+}
+else if(isset($_GET['view'])){
+  $query = $FACTORIES::getQueryFactory()->get($_GET['view']);
+  if($query != null){
+    $TEMPLATE = new Template("content/queries/detail");
+    $qF = new QueryFilter(QueryResultTuple::QUERY_ID, $query->getId(), "=");
+    $jF = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
+    $joinedResults = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));
+    $OBJECTS['results'] = $joinedResults['ResultTuple'];
+    
+    $mediaTypes = $FACTORIES::getMediaTypeFactory()->filter(array());
+    $types = array();
+    foreach($mediaTypes as $mediaType){
+      $types[$mediaType->getId()] = $mediaType;
+    }
+    $OBJECTS['mediaTypes'] = $types;
+  }
 }
 else{
   $queries = $FACTORIES::getQueryFactory()->filter(array());

@@ -6,6 +6,7 @@
 
     <form action="mediatypes.php" method="post">
       <input type="hidden" name="action" value="updateType">
+      <input type="hidden" name="mediaTypeId" value="[[mediaType.getId()]]">
       <div class="row">
         <div class="input-field col s12">
           <input id="extension" type="text" name="extension" value="[[mediaType.getExtension()]]" class="validate" disabled>

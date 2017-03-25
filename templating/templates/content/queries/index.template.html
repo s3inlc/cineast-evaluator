@@ -25,7 +25,7 @@
             <td>[[Util::getUsernameById([[query.getUserId()]])]]</td>
             <td>{{IF [[query.getIsClosed()]] == 0}}No{{ELSE}}YES{{ENDIF}}</td>
             <td class="right-align">
-              <a class="btn-floating waves-effect waves-light blue" href="queries.php?view=[[mediaType.getId()]]"><i class="material-icons">info</i></a>
+              <a class="btn-floating waves-effect waves-light blue" href="queries.php?view=[[query.getId()]]"><i class="material-icons">info</i></a>
             </td>
           </tr>
         {{ENDFOREACH}}

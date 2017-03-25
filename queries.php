@@ -47,9 +47,8 @@ else if(isset($_GET['view'])){
     $OBJECTS['mediaTypes'] = $types;
   }
 }
-else{
-  $queries = $FACTORIES::getQueryFactory()->filter(array());
-  $OBJECTS['queries'] = $queries;
-}
+
+$queries = $FACTORIES::getQueryFactory()->filter(array());
+$OBJECTS['queries'] = $queries;
 
 echo $TEMPLATE->render($OBJECTS);

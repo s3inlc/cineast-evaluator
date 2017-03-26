@@ -1,42 +1,46 @@
 {%TEMPLATE->struct/head%}
 <main>
   <div class="container">
-    <div class="col s12 m6">
-      {{FOREACH objData;[[value1.getVal('objData')]]}}
-        {{IF [[value1.getVal('template')]] == "default"}}
-          {%TEMPLATE->media/default%}
-        {{ENDIF}}
-        {{IF [[value1.getVal('template')]] == "image"}}
-          {%TEMPLATE->media/image%}
-        {{ENDIF}}
-      {{ENDFOREACH}}
-    </div>
-    <div class="col s12 m6">
-      {{FOREACH objData;[[value2.getVal('objData')]]}}
-        {{IF [[value2.getVal('template')]] == "default"}}
-          {%TEMPLATE->media/default%}
-        {{ENDIF}}
-        {{IF [[value2.getVal('template')]] == "image"}}
-          {%TEMPLATE->media/image%}
-        {{ENDIF}}
-      {{ENDFOREACH}}
+    <div class="row">
+      <div class="col s12 m6">
+        {{FOREACH objectData;[[value1.getVal('objData')]]}}
+          {{IF [[value1.getVal('template')]] == "default"}}
+            {%TEMPLATE->media/default%}
+          {{ENDIF}}
+          {{IF [[value1.getVal('template')]] == "image"}}
+            {%TEMPLATE->media/image%}
+          {{ENDIF}}
+        {{ENDFOREACH}}
+      </div>
+      <div class="col s12 m6">
+        {{FOREACH objectData;[[value2.getVal('objData')]]}}
+          {{IF [[value2.getVal('template')]] == "default"}}
+            {%TEMPLATE->media/default%}
+          {{ENDIF}}
+          {{IF [[value2.getVal('template')]] == "image"}}
+            {%TEMPLATE->media/image%}
+          {{ENDIF}}
+        {{ENDFOREACH}}
+      </div>
     </div>
     <div class="row">
       <form action="running.php" method="post">
         <input type="hidden" name="objectId1" value="[[object1.getId()]]">
         <input type="hidden" name="objectId2" value="[[object2.getId()]]">
 
-        <input name="group1" type="radio" id="option1">
-        <label for="option1">No Similarity</label>
+        <div class="row">
+          <input name="group1" type="radio" id="option1">
+          <label for="option1">No Similarity</label>
 
-        <input name="group1" type="radio" id="option2">
-        <label for="option2">Slightly Similar</label>
+          <input name="group1" type="radio" id="option2">
+          <label for="option2">Slightly Similar</label>
 
-        <input name="group1" type="radio" id="option3">
-        <label for="option3">Very Similar</label>
+          <input name="group1" type="radio" id="option3">
+          <label for="option3">Very Similar</label>
 
-        <input name="group1" type="radio" id="option4">
-        <label for="option4">Nearly Identical</label>
+          <input name="group1" type="radio" id="option4">
+          <label for="option4">Nearly Identical</label>
+        </div>
 
         <div class="row">
           <button class="btn waves-effect waves-light" type="submit">Continue

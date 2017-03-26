@@ -12,6 +12,13 @@ require_once(dirname(__FILE__) . "/inc/load.php");
 $TEMPLATE = new Template("views/compare2");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
+// TODO: do pooling of comparisons here
+// TODO: handle submitted responses
+// TODO: open sessions
+// TODO: validate sessions
+
+
+
 $oF = new RandOrderFilter(1);
 $entry = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::ORDER => $oF), 1);
 

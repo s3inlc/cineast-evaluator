@@ -1,7 +1,12 @@
 {%TEMPLATE->struct/head%}
 <main style="margin-top: 50px;">
   <div class="container">
-    <div class="row" style="vertical-align: bottom; display: table-cell;">
+    <style>
+      .valign-wrapper {
+        vertical-align: middle;
+      }
+    </style>
+    <div class="row valign-wrapper" style="height: 100%;">
       <div class="col s12 m6">
         {{FOREACH objectData;[[value1.getVal('objData')]]}}
           {{IF [[value1.getVal('template')]] == "default"}}
@@ -32,13 +37,13 @@
         <div class="row">
           <input name="group1" type="radio" id="option1">
           <label for="option1">No Similarity</label>
-          &nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <input name="group1" type="radio" id="option2">
           <label for="option2">Slightly Similar</label>
-          &nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <input name="group1" type="radio" id="option3">
           <label for="option3">Very Similar</label>
-          &nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <input name="group1" type="radio" id="option4">
           <label for="option4">Nearly Identical</label>
         </div>

@@ -6,9 +6,7 @@
  * Time: 2:20 PM
  */
 
-use DBA\OrderFilter;
 use DBA\RandOrderFilter;
-use DBA\ResultTuple;
 
 require_once(dirname(__FILE__) . "/inc/load.php");
 $TEMPLATE = new Template("views/compare2");

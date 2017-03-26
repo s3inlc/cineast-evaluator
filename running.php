@@ -20,19 +20,19 @@ $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
 
 $oF = new RandOrderFilter(1);
-$entry = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::ORDER => $oF), 1);
+$resultSet = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::ORDER => $oF), 1);
 
-if($entry == null){
+if($resultSet == null){
   UI::addErrorMessage("There is no data available!");
 }
 else{
   if(mt_rand(0,1) == 0) {
-    $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($entry->getObjectId1());
-    $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($entry->getObjectId2());
+    $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($resultSet->getObjectId1());
+    $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($resultSet->getObjectId2());
   }
   else{
-    $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($entry->getObjectId2());
-    $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($entry->getObjectId1());
+    $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($resultSet->getObjectId2());
+    $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($resultSet->getObjectId1());
   }
   
   $value1 = new DataSet();

@@ -12,7 +12,7 @@ use DBA\QueryFilter;
 require_once(dirname(__FILE__) . "/inc/load.php");
 
 if (!isset($_GET['id'])) {
-  die();
+  die("Invalid");
 }
 
 $hash = $_GET['id'];
@@ -20,7 +20,7 @@ $qF = new QueryFilter(MediaObject::CHECKSUM, $hash, "=");
 $result = $FACTORIES::getMediaObjectFactory()->filter(array($FACTORIES::FILTER => $qF), true);
 
 if ($result == null) {
-  die();
+  die("404");
 }
 
 $file = fopen(STORAGE_PATH . MEDIA_FOLDER . $hash, "rb");

@@ -23,8 +23,11 @@ if ($result == null) {
   die("404");
 }
 
+header('Content-Type: ' . mime_content_type(STORAGE_PATH . MEDIA_FOLDER . $hash));
+header('Content-Length: ' . filesize(STORAGE_PATH . MEDIA_FOLDER . $hash));
+
 $file = fopen(STORAGE_PATH . MEDIA_FOLDER . $hash, "rb");
-while(!feof($file)){
+while (!feof($file)) {
   $data = fread($file, 4096);
   echo $data;
 }

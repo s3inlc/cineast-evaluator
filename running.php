@@ -7,13 +7,14 @@
  */
 
 use DBA\OrderFilter;
+use DBA\RandOrderFilter;
 use DBA\ResultTuple;
 
 require_once(dirname(__FILE__) . "/inc/load.php");
 $TEMPLATE = new Template("views/compare2");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
-$oF = new OrderFilter("RAND()", "LIMIT 1");
+$oF = new RandOrderFilter(1);
 $entry = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::ORDER => $oF), 1);
 
 if($entry == null){

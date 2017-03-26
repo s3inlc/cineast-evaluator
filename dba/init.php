@@ -22,6 +22,7 @@ require_once(dirname(__FILE__) . "/ComparisonFilter.class.php");
 require_once(dirname(__FILE__) . "/ContainFilter.class.php");
 require_once(dirname(__FILE__) . "/JoinFilter.class.php");
 require_once(dirname(__FILE__) . "/OrderFilter.class.php");
+require_once(dirname(__FILE__) . "/RandOrderFilter.class.php");
 require_once(dirname(__FILE__) . "/QueryFilter.class.php");
 require_once(dirname(__FILE__) . "/Util.class.php");
 require_once(dirname(__FILE__) . "/UpdateSet.class.php");

@@ -1,8 +1,8 @@
 {%TEMPLATE->struct/head%}
-<main>
+<main style="margin-top: 50px;">
   <div class="container">
     <div class="row">
-      <div class="col s12 m6">
+      <div class="col s12 m6" style="vertical-align: bottom;">
         {{FOREACH objectData;[[value1.getVal('objData')]]}}
           {{IF [[value1.getVal('template')]] == "default"}}
             {%TEMPLATE->media/default%}
@@ -12,7 +12,7 @@
           {{ENDIF}}
         {{ENDFOREACH}}
       </div>
-      <div class="col s12 m6">
+      <div class="col s12 m6" style="vertical-align: bottom;">
         {{FOREACH objectData;[[value2.getVal('objData')]]}}
           {{IF [[value2.getVal('template')]] == "default"}}
             {%TEMPLATE->media/default%}

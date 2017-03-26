@@ -21,8 +21,14 @@ if($entry == null){
   UI::addErrorMessage("There is no data available!");
 }
 else{
-  $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($entry->getObjectId1());
-  $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($entry->getObjectId2());
+  if(mt_rand(0,1) == 0) {
+    $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($entry->getObjectId1());
+    $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($entry->getObjectId2());
+  }
+  else{
+    $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($entry->getObjectId2());
+    $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($entry->getObjectId1());
+  }
   
   $value1 = new DataSet();
   $value2 = new DataSet();

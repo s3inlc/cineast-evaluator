@@ -53,6 +53,7 @@ $OBJECTS['menu'] = $MENU;
 $OBJECTS['messages'] = array();
 $LOGIN = new Login();
 $OBJECTS['login'] = $LOGIN;
+$OBJECTS['administrator'] = false;
 if ($LOGIN->isLoggedin()) {
   $OBJECTS['user'] = $LOGIN->getUser();
 }

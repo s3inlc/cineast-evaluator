@@ -18,19 +18,18 @@ $OBJECTS['pageTitle'] = "Cineast Evaluator";
 // TODO: validate sessions
 
 
-
 $oF = new RandOrderFilter(1);
 $resultSet = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::ORDER => $oF), 1);
 
-if($resultSet == null){
+if ($resultSet == null) {
   UI::addErrorMessage("There is no data available!");
 }
-else{
-  if(mt_rand(0,1) == 0) {
+else {
+  if (mt_rand(0, 1) == 0) {
     $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($resultSet->getObjectId1());
     $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($resultSet->getObjectId2());
   }
-  else{
+  else {
     $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($resultSet->getObjectId2());
     $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($resultSet->getObjectId1());
   }
@@ -38,8 +37,8 @@ else{
   $value1 = new DataSet();
   $value2 = new DataSet();
   
-  $value1->addValue('objData', array($mediaObject1->getChecksum()));
-  $value2->addValue('objData', array($mediaObject2->getChecksum()));
+  $value1->addValue('objData', array("serve.php?id=" . $mediaObject1->getChecksum()));
+  $value2->addValue('objData', array("serve.php?id=" . $mediaObject2->getChecksum()));
   
   $mediaType1 = $FACTORIES::getMediaTypeFactory()->get($mediaObject1->getMediaTypeId());
   $mediaType2 = $FACTORIES::getMediaTypeFactory()->get($mediaObject2->getMediaTypeId());

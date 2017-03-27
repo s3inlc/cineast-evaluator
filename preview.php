@@ -21,13 +21,13 @@ $OBJECTS['pageTitle'] = "Cineast Evaluator";
 $OBJECTS['administrator'] = true;
 
 $mediaObject = $FACTORIES::getMediaObjectFactory()->get($_GET['object']);
-if($mediaObject == null){
+if ($mediaObject == null) {
   UI::addErrorMessage("Invalid media object!");
 }
-else{
+else {
   $mediaType = $FACTORIES::getMediaTypeFactory()->get($mediaObject->getMediaTypeId());
   $OBJECTS['template'] = $mediaType->getTemplate();
-  $OBJECTS['objectSource'] = "serve.php?id=".$mediaObject->getChecksum();
+  $OBJECTS['objectSource'] = "serve.php?id=" . $mediaObject->getChecksum();
 }
 
 echo $TEMPLATE->render($OBJECTS);

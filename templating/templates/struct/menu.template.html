@@ -1,13 +1,25 @@
 <nav class="white" role="navigation">
   <div class="nav-wrapper container">
-    <a id="logo-container" href="index.php" class="brand-logo">Cineast Evaluator</a>
-    <ul class="right hide-on-med-and-down">
-      {%TEMPLATE->struct/menu_entries%}
-    </ul>
+    {{IF administrator}}
+      <a id="logo-container" href="admin.php" class="brand-logo">Cineast Evaluator</a>
+      <ul class="right hide-on-med-and-down">
+        {%TEMPLATE->struct/admin_entries%}
+      </ul>
 
-    <ul id="nav-mobile" class="side-nav">
-      {%TEMPLATE->struct/menu_entries%}
-    </ul>
-    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="side-nav">
+        {%TEMPLATE->struct/admin_entries%}
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    {{ELSE}}
+      <a id="logo-container" href="index.php" class="brand-logo">TODO: good name</a>
+      <ul class="right hide-on-med-and-down">
+        {%TEMPLATE->struct/menu_entries%}
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        {%TEMPLATE->menu/admin_entries%}
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    {{ENDIF}}
   </div>
 </nav>

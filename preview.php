@@ -18,6 +18,7 @@ if (!$LOGIN->isLoggedin()) {
 $TEMPLATE = new Template("views/preview");
 
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
+$OBJECTS['administrator'] = true;
 
 $mediaObject = $FACTORIES::getMediaObjectFactory()->get($_GET['object']);
 if($mediaObject == null){

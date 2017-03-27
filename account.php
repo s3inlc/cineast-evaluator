@@ -12,6 +12,7 @@ $TEMPLATE = new Template("content/account");
 
 $MENU->setActive("account");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
+$OBJECTS['administrator'] = true;
 
 if(isset($_POST['action'])){
   $accountHandler = new AccountHandler();

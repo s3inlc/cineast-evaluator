@@ -21,6 +21,7 @@ $TEMPLATE = new Template("content/queries/index");
 
 $MENU->setActive("queries");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
+$OBJECTS['administrator'] = true;
 
 if(isset($_POST['action'])){
   $queryHandler = new QueryHandler();

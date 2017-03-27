@@ -17,6 +17,7 @@ $TEMPLATE = new Template("content/mediatypes/index");
 
 $MENU->setActive("mediatypes");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
+$OBJECTS['administrator'] = true;
 
 if(isset($_POST['action'])){
   $mediaTypeHandler = new MediaTypeHandler();

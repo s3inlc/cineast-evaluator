@@ -49,7 +49,7 @@ class Util {
   
   public static function getExtension($file) {
     $basename = explode(".", basename($file));
-    return $basename[sizeof($basename) - 1];
+    return strtolower($basename[sizeof($basename) - 1]);
   }
   
   /**

@@ -38,8 +38,8 @@ else{
   $value1 = new DataSet();
   $value2 = new DataSet();
   
-  $value1->addValue('objData', array("data:".mime_content_type($mediaObject1->getFilename()).";base64,".base64_encode(file_get_contents($mediaObject1->getFilename()))));
-  $value2->addValue('objData', array("data:".mime_content_type($mediaObject2->getFilename()).";base64,".base64_encode(file_get_contents($mediaObject2->getFilename()))));
+  $value1->addValue('objData', array($mediaObject1->getChecksum()));
+  $value2->addValue('objData', array($mediaObject2->getChecksum()));
   
   $mediaType1 = $FACTORIES::getMediaTypeFactory()->get($mediaObject1->getMediaTypeId());
   $mediaType2 = $FACTORIES::getMediaTypeFactory()->get($mediaObject2->getMediaTypeId());

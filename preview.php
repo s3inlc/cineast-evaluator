@@ -27,7 +27,7 @@ if($mediaObject == null){
 else{
   $mediaType = $FACTORIES::getMediaTypeFactory()->get($mediaObject->getMediaTypeId());
   $OBJECTS['template'] = $mediaType->getTemplate();
-  $OBJECTS['objectData'] = "data:".mime_content_type($mediaObject->getFilename()).";base64,".base64_encode(file_get_contents($mediaObject->getFilename()));
+  $OBJECTS['objectSource'] = "serve.php?id=".$mediaObject->getChecksum();
 }
 
 echo $TEMPLATE->render($OBJECTS);

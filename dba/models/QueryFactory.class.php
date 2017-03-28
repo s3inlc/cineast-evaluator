@@ -30,7 +30,7 @@ class QueryFactory extends AbstractModelFactory {
    * @return Query
    */
   function getNullObject() {
-    $o = new Query(-1, null, null, null, null, null);
+    $o = new Query(-1, null, null, null, null, null, null);
     return $o;
   }
 
@@ -40,7 +40,7 @@ class QueryFactory extends AbstractModelFactory {
    * @return Query
    */
   function createObjectFromDict($pk, $dict) {
-    $o = new Query($pk, $dict['isClosed'], $dict['time'], $dict['displayName'], $dict['userId'], $dict['meta']);
+    $o = new Query($pk, $dict['isClosed'], $dict['time'], $dict['displayName'], $dict['userId'], $dict['meta'], $dict['priority']);
     return $o;
   }
 

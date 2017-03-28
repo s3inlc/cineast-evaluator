@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 22. Mrz 2017 um 16:28
+-- Erstellungszeit: 28. Mrz 2017 um 13:30
 -- Server-Version: 5.7.17-0ubuntu0.16.04.1
 -- PHP-Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -44,7 +44,7 @@ CREATE TABLE `MediaType` (
   `mediaTypeId` int(11) NOT NULL,
   `typeName` varchar(50) COLLATE utf8_bin NOT NULL,
   `extension` varchar(20) COLLATE utf8_bin NOT NULL,
-  `template` varchar(50) COLLATE utf8_bin NULL
+  `template` varchar(50) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -55,11 +55,12 @@ CREATE TABLE `MediaType` (
 
 CREATE TABLE `Query` (
   `queryId` int(11) NOT NULL,
-  `isClosed` int(11) NOT NULL,
+  `isClosed` tinyint(11) NOT NULL,
   `time` int(11) NOT NULL,
   `displayName` varchar(50) COLLATE utf8_bin NOT NULL,
   `userId` int(11) NOT NULL,
-  `meta` TEXT NOT NULL
+  `meta` text COLLATE utf8_bin NOT NULL,
+  `priority` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -71,7 +72,9 @@ CREATE TABLE `Query` (
 CREATE TABLE `QueryResultTuple` (
   `queryResultTupleId` int(11) NOT NULL,
   `queryId` int(11) NOT NULL,
-  `resultTupleId` int(11) NOT NULL
+  `resultTupleId` int(11) NOT NULL,
+  `score` float NOT NULL,
+  `rank` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -177,37 +180,37 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT für Tabelle `MediaObject`
 --
 ALTER TABLE `MediaObject`
-  MODIFY `mediaObjectId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `mediaObjectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT für Tabelle `MediaType`
 --
 ALTER TABLE `MediaType`
-  MODIFY `mediaTypeId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `mediaTypeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT für Tabelle `Query`
 --
 ALTER TABLE `Query`
-  MODIFY `queryId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `queryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT für Tabelle `QueryResultTuple`
 --
 ALTER TABLE `QueryResultTuple`
-  MODIFY `queryResultTupleId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `queryResultTupleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT für Tabelle `ResultTuple`
 --
 ALTER TABLE `ResultTuple`
-  MODIFY `resultTupleId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `resultTupleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT für Tabelle `Session`
 --
 ALTER TABLE `Session`
-  MODIFY `sessionId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT für Tabelle `User`
 --
 ALTER TABLE `User`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

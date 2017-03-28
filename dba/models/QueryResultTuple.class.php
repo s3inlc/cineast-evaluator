@@ -13,13 +13,15 @@ class QueryResultTuple extends AbstractModel {
   private $queryResultTupleId;
   private $queryId;
   private $resultTupleId;
-  private $matching;
+  private $score;
+  private $rank;
   
-  function __construct($queryResultTupleId, $queryId, $resultTupleId, $matching) {
+  function __construct($queryResultTupleId, $queryId, $resultTupleId, $score, $rank) {
     $this->queryResultTupleId = $queryResultTupleId;
     $this->queryId = $queryId;
     $this->resultTupleId = $resultTupleId;
-    $this->matching = $matching;
+    $this->score = $score;
+    $this->rank = $rank;
   }
   
   function getKeyValueDict() {
@@ -27,7 +29,8 @@ class QueryResultTuple extends AbstractModel {
     $dict['queryResultTupleId'] = $this->queryResultTupleId;
     $dict['queryId'] = $this->queryId;
     $dict['resultTupleId'] = $this->resultTupleId;
-    $dict['matching'] = $this->matching;
+    $dict['score'] = $this->score;
+    $dict['rank'] = $this->rank;
     
     return $dict;
   }
@@ -64,16 +67,25 @@ class QueryResultTuple extends AbstractModel {
     $this->resultTupleId = $resultTupleId;
   }
   
-  function getMatching(){
-    return $this->matching;
+  function getScore(){
+    return $this->score;
   }
   
-  function setMatching($matching){
-    $this->matching = $matching;
+  function setScore($score){
+    $this->score = $score;
+  }
+  
+  function getRank(){
+    return $this->rank;
+  }
+  
+  function setRank($rank){
+    $this->rank = $rank;
   }
 
   const QUERY_RESULT_TUPLE_ID = "queryResultTupleId";
   const QUERY_ID = "queryId";
   const RESULT_TUPLE_ID = "resultTupleId";
-  const MATCHING = "matching";
+  const SCORE = "score";
+  const RANK = "rank";
 }

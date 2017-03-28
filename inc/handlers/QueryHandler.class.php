@@ -85,7 +85,7 @@ class QueryHandler extends Handler {
       return;
     }
     foreach ($resultSet as $result) {
-      if (!isset($result['mediaObject']) || !isset($result['matching'])) {
+      if (!isset($result['mediaObject']) || !isset($result['score']) || !isset($result['rank'])) {
         UI::addErrorMessage("Invalid packed uploaded: invalid result in resultSet!");
         return;
       }
@@ -98,7 +98,7 @@ class QueryHandler extends Handler {
     // at this point everything is present and we can add it to the database
     
     $FACTORIES::getQueryFactory()->startTransation();
-    $query = new Query(0, 0, time(), $queryName, $LOGIN->getUserId(), $queryMeta);
+    $query = new Query(0, 0, time(), $queryName, $LOGIN->getUserId(), $queryMeta, 0);
     $query = $FACTORIES::getQueryFactory()->save($query);
     
     $mediaType = Util::getMediaType($path . "data/" . $queryObject);
@@ -132,7 +132,7 @@ class QueryHandler extends Handler {
       }
       
       // connect result tuple to query
-      $queryResultTuple = new QueryResultTuple(0, $query->getId(), $resultTuple->getId(), $result['matching']);
+      $queryResultTuple = new QueryResultTuple(0, $query->getId(), $resultTuple->getId(), $result['score'], $result['rank']);
       $FACTORIES::getQueryResultTupleFactory()->save($queryResultTuple);
     }
     

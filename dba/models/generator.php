@@ -30,7 +30,8 @@ $CONF['Query'] = array(
   'time',
   'displayName',
   'userId',
-  'meta'
+  'meta',
+  'priority'
 );
 $CONF['ResultTuple'] = array(
   'resultTupleId',
@@ -43,7 +44,8 @@ $CONF['QueryResultTuple'] = array(
   'queryResultTupleId',
   'queryId',
   'resultTupleId',
-  'matching'
+  'score',
+  'rank'
 );
 $CONF['MediaObject'] = array(
   'mediaObjectId',

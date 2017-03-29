@@ -55,7 +55,7 @@ else {
 $lastAnswer = false;
 if(isset($_POST['answer'])){
   $arr = array("No Similarity", "Slightly Similar", "Very Similar", "Nearly Identical");
-  $lastAnswer = "Your last answer was '".$arr[$_POST['answer']]."''.";
+  $lastAnswer = "Your last answer was '".$arr[$_POST['answer']]."'.";
 }
 $OBJECTS['lastAnswer'] = $lastAnswer;
 

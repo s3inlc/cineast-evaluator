@@ -173,6 +173,10 @@ class Util {
     return $user->getUsername();
   }
   
+  public static function getUserAgentHeader(){
+    return json_encode(getallheaders());
+  }
+  
   /**
    * Cut a string to a certain number of letters. If the string is too long, instead replaces the last three letters with ...
    * @param $string String you want to short

@@ -40,13 +40,15 @@
     </div>
     <br>
     <div class="row" style="text-align: center;">
-      <form action="running.php" method="post">
+      <form action="running3.php" method="post">
         <input type="hidden" name="objectId1" value="[[object1.getId()]]">
         <input type="hidden" name="objectId2" value="[[object2.getId()]]">
         <input type="hidden" name="objectId3" value="[[object3.getId()]]">
 
+        <b>Which object matches better to the object in the center?</b><br>
         <div class="row">
           <button class="btn waves-effect waves-light" name="answer" value="left" type="submit">Left</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button class="btn waves-effect waves-light" name="answer" value="right" type="submit">Right</button>
         </div>
       </form>

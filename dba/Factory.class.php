@@ -17,6 +17,10 @@ class Factory {
   private static $queryResultTupleFactory = null;
   private static $mediaObjectFactory = null;
   private static $mediaTypeFactory = null;
+  private static $answerSessionFactory = null;
+  private static $playerFactory = null;
+  private static $threeCompareAnswerFactory = null;
+  private static $twoCompareAnswerFactory = null;
 
   public static function getUserFactory() {
     if (self::$userFactory == null) {
@@ -85,6 +89,46 @@ class Factory {
       return $f;
     } else {
       return self::$mediaTypeFactory;
+    }
+  }
+  
+  public static function getAnswerSessionFactory() {
+    if (self::$answerSessionFactory == null) {
+      $f = new AnswerSessionFactory();
+      self::$answerSessionFactory = $f;
+      return $f;
+    } else {
+      return self::$answerSessionFactory;
+    }
+  }
+  
+  public static function getPlayerFactory() {
+    if (self::$playerFactory == null) {
+      $f = new PlayerFactory();
+      self::$playerFactory = $f;
+      return $f;
+    } else {
+      return self::$playerFactory;
+    }
+  }
+  
+  public static function getThreeCompareAnswerFactory() {
+    if (self::$threeCompareAnswerFactory == null) {
+      $f = new ThreeCompareAnswerFactory();
+      self::$threeCompareAnswerFactory = $f;
+      return $f;
+    } else {
+      return self::$threeCompareAnswerFactory;
+    }
+  }
+  
+  public static function getTwoCompareAnswerFactory() {
+    if (self::$twoCompareAnswerFactory == null) {
+      $f = new TwoCompareAnswerFactory();
+      self::$twoCompareAnswerFactory = $f;
+      return $f;
+    } else {
+      return self::$twoCompareAnswerFactory;
     }
   }
 

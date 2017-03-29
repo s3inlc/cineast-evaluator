@@ -60,6 +60,38 @@ $CONF['MediaType'] = array(
   'extension',
   'template'
 );
+$CONF['AnswerSession'] = array(
+  'answerSessionId',
+  'microworkerId',
+  'userId',
+  'playerId',
+  'currentValidity',
+  'isOpen',
+  'timeOpened',
+  'userAgentIp',
+  'userAgentHeader'
+);
+$CONF['Player'] = array(
+  'playerId',
+  'playerName',
+  'firstLogin',
+  'lastLogin'
+);
+$CONF['ThreeCompareAnswer'] = array(
+  'threeCompareAnswerId',
+  'time',
+  'answer',
+  'mediaObjectId1',
+  'mediaObjectId2',
+  'answerSessionId'
+);
+$CONF['TwoCompareAnswer'] = array(
+  'twoCompareAnswerId',
+  'time',
+  'mediaObjectId',
+  'answer',
+  'answerSessionId'
+);
 
 foreach ($CONF as $NAME => $COLUMNS) {
   $class = file_get_contents(dirname(__FILE__) . "/AbstractModel.template.txt");

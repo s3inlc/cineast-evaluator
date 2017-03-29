@@ -6,6 +6,11 @@
         align-items: baseline;
       }
     </style>
+    <div class="row" style="text-align: center;">
+      {{IF [[lastAnswer]]}}
+        [[lastAnswer]]
+      {{ENDIF}}
+    </div>
     <div class="row valign-wrapper" style="height: 100%;">
       <div class="col s12 m4">
         {{FOREACH objectSource;[[value2.getVal('objData')]]}}

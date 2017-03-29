@@ -52,4 +52,10 @@ else {
   $OBJECTS['value2'] = $value2;
 }
 
+$lastAnswer = false;
+if(isset($_POST['answer'])){
+  $arr = array("No Similarity", "Slightly Similar", "Very Similar", "Nearly Identical");
+  $lastAnswer = "Your last answer was '".$arr[$_POST['answer']]."''.";
+}
+
 echo $TEMPLATE->render($OBJECTS);

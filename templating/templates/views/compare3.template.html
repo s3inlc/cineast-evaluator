@@ -1,0 +1,56 @@
+{%TEMPLATE->struct/head%}
+<main style="margin-top: 50px;">
+  <div class="container">
+    <style>
+      .valign-wrapper {
+        align-items: baseline;
+      }
+    </style>
+    <div class="row valign-wrapper" style="height: 100%;">
+      <div class="col s12 m4">
+        {{FOREACH objectSource;[[value2.getVal('objData')]]}}
+          {{IF [[value2.getVal('template')]] == "default"}}
+            {%TEMPLATE->media/default%}
+          {{ENDIF}}
+          {{IF [[value2.getVal('template')]] == "image"}}
+            {%TEMPLATE->media/image%}
+          {{ENDIF}}
+        {{ENDFOREACH}}
+      </div>
+      <div class="col s12 m4">
+        {{FOREACH objectSource;[[value1.getVal('objData')]]}}
+          {{IF [[value1.getVal('template')]] == "default"}}
+            {%TEMPLATE->media/default%}
+          {{ENDIF}}
+          {{IF [[value1.getVal('template')]] == "image"}}
+            {%TEMPLATE->media/image%}
+          {{ENDIF}}
+        {{ENDFOREACH}}
+      </div>
+      <div class="col s12 m4">
+        {{FOREACH objectSource;[[value3.getVal('objData')]]}}
+          {{IF [[value3.getVal('template')]] == "default"}}
+            {%TEMPLATE->media/default%}
+          {{ENDIF}}
+          {{IF [[value3.getVal('template')]] == "image"}}
+            {%TEMPLATE->media/image%}
+          {{ENDIF}}
+        {{ENDFOREACH}}
+      </div>
+    </div>
+    <br>
+    <div class="row" style="text-align: center;">
+      <form action="running.php" method="post">
+        <input type="hidden" name="objectId1" value="[[object1.getId()]]">
+        <input type="hidden" name="objectId2" value="[[object2.getId()]]">
+        <input type="hidden" name="objectId3" value="[[object3.getId()]]">
+
+        <div class="row">
+          <button class="btn waves-effect waves-light" name="answer" value="left" type="submit">Left</button>
+          <button class="btn waves-effect waves-light" name="answer" value="right" type="submit">Right</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+{%TEMPLATE->struct/emptyfoot%}

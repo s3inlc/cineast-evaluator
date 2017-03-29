@@ -69,5 +69,6 @@ $lastAnswer = false;
 if(isset($_POST['answer'])){
   $lastAnswer = "Your last answer was '".htmlentities($_POST['answer'], false, "UTF-8")."''.";
 }
+$OBJECTS['lastAnswer'] = $lastAnswer;
 
 echo $TEMPLATE->render($OBJECTS);

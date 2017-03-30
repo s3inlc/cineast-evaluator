@@ -39,15 +39,21 @@ class QuestionPool {
       $answerSessionIds[] = $a->getId();
     }
     
-    $qF = new ContainFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSessionIds);
-    $twoAnswers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
+    $filters = array();
+    if(sizeof($answerSessionIds)){
+      $filters[] = new ContainFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSessionIds);
+    }
+    $twoAnswers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $filters));
     $tupleIds = array();
     foreach ($twoAnswers as $twoAnswer) {
       $tupleIds[] = $twoAnswer->getResultTupleId();
     }
     
-    $qF = new ContainFilter(ResultTuple::RESULT_TUPLE_ID, $tupleIds);
-    $tuples = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF));
+    $filters = array();
+    if(sizeof($tupleIds) > 0) {
+      $filters[] = new ContainFilter(ResultTuple::RESULT_TUPLE_ID, $tupleIds);
+    }
+    $tuples = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $filters));
     
     // TODO: add ordering by priority, isClosed and progress
     

@@ -18,6 +18,7 @@ define("QUERIES_FOLDER", "queries/");
 
 define("DEFAULT_SIMILARITY", "0");
 define("DEFAULT_CERTAINTY", "0");
+define("SESSION_SIZE", "20");
 
 // include all .class.php files in inc dir
 $dir = scandir(dirname(__FILE__));

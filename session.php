@@ -18,5 +18,8 @@ if(isset($_POST['answer'])){
 
 // TODO: do pooling of comparisons here
 
+// test
+echo sizeof(unserialize($_SESSION['questions']))." questions available!";
+
 $TEMPLATE = new Template("views/compare3");
 echo $TEMPLATE->render($OBJECTS);

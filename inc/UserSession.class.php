@@ -14,6 +14,7 @@ use DBA\TwoCompareAnswer;
 class UserSession {
   /** @var $answerSession AnswerSession */
   private $answerSession = null;
+  private $questions     = null;
   
   public static $OPEN_SESSION_TIMEOUT        = 24 * 3600;
   public static $MICROWORKER_SESSION_TIMEOUT = 3600;
@@ -61,6 +62,9 @@ class UserSession {
           $this->close();
         }
       }
+      
+      // reload questions if they were already created earlier
+      $this->questions = unserialize($_SESSION['questions']);
     }
     
     // get info about what session type it "should" be
@@ -81,8 +85,7 @@ class UserSession {
     
     // create new session if required
     if ($this->answerSession == null) {
-      $this->answerSession = new AnswerSession(0, $microworkerId, $userId, $playerId, 0.5, 1, time(), Util::getIP(), Util::getUserAgentHeader());
-      $this->answerSession = $FACTORIES::getAnswerSessionFactory()->save($this->answerSession);
+      $this->createNewSession($microworkerId, $userId, $playerId);
     }
     else {
       // if session exists, check if we can identify it now
@@ -107,6 +110,20 @@ class UserSession {
    */
   private function isUnknownUser() {
     return $this->answerSession->getUserId() == null && $this->answerSession->getMicroworkerId() == null && $this->answerSession->getPlayerId() == null;
+  }
+  
+  private function createNewSession($microworkerId, $userId, $playerId) {
+    global $FACTORIES;
+    
+    // init question pool and get questions block
+    $questionPool = new QuestionPool();
+    $questions = $questionPool->getNextQuestionBlock($this->answerSession);
+    
+    $this->answerSession = new AnswerSession(0, $microworkerId, $userId, $playerId, 0.5, 1, time(), Util::getIP(), Util::getUserAgentHeader());
+    $this->answerSession = $FACTORIES::getAnswerSessionFactory()->save($this->answerSession);
+    
+    // this needs to be tested, if serialization works without problems
+    $_SESSION['questions'] = serialize($questions);
   }
   
   public function getAnswerSession() {

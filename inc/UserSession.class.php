@@ -167,7 +167,7 @@ class UserSession {
         $objectId1 = $_POST['objectId1'];
         $objectId2 = $_POST['objectId2'];
         $answer = intval($_POST['answer']);
-        if(in_array($answer, array(AnswerType::COMPARE_TWO_NO_SIMILARITY, AnswerType::COMPARE_TWO_SLIGHTLY_SIMILAR, AnswerType::COMPARE_TWO_VERY_SIMILAR, AnswerType::COMPARE_TWO_NEARLY_IDENTICAL))){
+        if(!in_array($answer, array(AnswerType::COMPARE_TWO_NO_SIMILARITY, AnswerType::COMPARE_TWO_SLIGHTLY_SIMILAR, AnswerType::COMPARE_TWO_VERY_SIMILAR, AnswerType::COMPARE_TWO_NEARLY_IDENTICAL))){
           // TODO: handle error
           die("INVALID ANSWER");
         }

@@ -16,7 +16,7 @@ class UserSession {
   private $answerSession = null;
   
   /** @var SessionQuestion[] */
-  private $questions = null;
+  private $questionQueue = null;
   
   public static $OPEN_SESSION_TIMEOUT        = 24 * 3600;
   public static $MICROWORKER_SESSION_TIMEOUT = 3600;
@@ -72,7 +72,7 @@ class UserSession {
       }
       
       // reload questions if they were already created earlier
-      $this->questions = unserialize($_SESSION['questions']);
+      $this->questionQueue = new QuestionQueue(unserialize($_SESSION['questions']));
     }
     
     // get info about what session type it "should" be
@@ -131,7 +131,7 @@ class UserSession {
     $questions = $questionPool->getNextQuestionBlock($this->answerSession);
     
     // this needs to be tested, if serialization works without problems
-    $this->questions = $questions;
+    $this->questionQueue = new QuestionQueue($questions);
     $_SESSION['questions'] = serialize($questions);
   }
   
@@ -141,12 +141,12 @@ class UserSession {
   
   public function getNextQuestion() {
     // TODO: here we update the session quality and we decide if we need to do a security question or not
-    if(sizeof($this->questions) == 0){
+    if(!$this->questionQueue->questionAvailable()){
       return null;
     }
     
     $_SESSION['isSecurityQuestion'] = false;
-    return $this->questions[0];
+    return $this->questionQueue->getFirst();
   }
   
   public function answerQuestion() {
@@ -162,7 +162,7 @@ class UserSession {
     }
     else{
       // handle normal question
-      $question = $this->questions[0];
+      $question = $this->questionQueue->getFirst();
       if($question->getQuestionType() == SessionQuestion::TYPE_COMPARE_TWO){
         // is acompare2 question
         $objectId1 = $_POST['objectId1'];
@@ -180,9 +180,8 @@ class UserSession {
           // answer matches the current question
           $twoCompareAnswer = new TwoCompareAnswer(0, time(), $question->getResultTuples()[0]->getId(), $answer, $this->answerSession->getId());
           $FACTORIES::getTwoCompareAnswerFactory()->save($twoCompareAnswer);
-          unset($this->questions[0]);
-          ksort($this->questions);
-          $_SESSION['questions'] = serialize($this->questions);
+          $this->questionQueue->pop();
+          $_SESSION['questions'] = serialize($this->questionQueue->getQuestions());
           $errorType = ErrorType::NO_ERROR;
         }
       }

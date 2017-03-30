@@ -12,8 +12,7 @@ $OBJECTS['pageTitle'] = "Cineast Evaluator";
 $USER_SESSION = new UserSession();
 
 if (isset($_POST['answer'])) {
-  // TODO: handle submitted response
-  // TODO: update session validity
+  $USER_SESSION->answerQuestion();
 }
 
 $question = $USER_SESSION->getNextQuestion();

@@ -21,6 +21,7 @@ if ($question == null) {
   die("Something strange happened! We have no more questions for you...");
 }
 
+// TODO: this needs to be updated later to also adapt for compare3 questions
 $value1 = new DataSet();
 $value2 = new DataSet();
 
@@ -37,6 +38,7 @@ $OBJECTS['object1'] = $question->getMediaObjects()[0];
 $OBJECTS['object2'] = $question->getMediaObjects()[1];
 $OBJECTS['value1'] = $value1;
 $OBJECTS['value2'] = $value2;
+// TODO: until here
 
 $TEMPLATE = new Template("views/" . $question->getQuestionType());
 echo $TEMPLATE->render($OBJECTS);

@@ -143,11 +143,52 @@ class UserSession {
     if(sizeof($this->questions) == 0){
       return null;
     }
+    
+    $_SESSION['isSecurityQuestion'] = false;
     return $this->questions[0];
   }
   
   public function answerQuestion() {
+    global $FACTORIES;
+    
+    $validator = new SessionValidator($this->answerSession);
+    $errorType = ErrorType::NOTHING;
+    
     // TODO: here the answer gets processed and checked
+    if($_SESSION['isSecurityQuestion']){
+      // handle this special
+    }
+    else{
+      // handle normal question
+      $question = $this->questions[0];
+      if($question->getQuestionType() == SessionQuestion::TYPE_COMPARE_TWO){
+        // is acompare2 question
+        $objectId1 = $_POST['objectId1'];
+        $objectId2 = $_POST['objectId2'];
+        $answer = intval($_POST['answer']);
+        if(in_array($answer, array(AnswerType::COMPARE_TWO_NO_SIMILARITY, AnswerType::COMPARE_TWO_SLIGHTLY_SIMILAR, AnswerType::COMPARE_TWO_VERY_SIMILAR, AnswerType::COMPARE_TWO_NEARLY_IDENTICAL))){
+          // TODO: handle error
+        }
+        else if($objectId1 != $question->getMediaObjects()[0]->getId() || $objectId2 != $question->getMediaObjects()[1]->getId()){
+          // TODO: handle error
+        }
+        else{
+          // answer matches the current question
+          $twoCompareAnswer = new TwoCompareAnswer(0, time(), $question->getResultTuples()[0], $answer, $this->answerSession->getId());
+          $FACTORIES::getTwoCompareAnswerFactory()->save($twoCompareAnswer);
+          $errorType = ErrorType::NO_ERROR;
+        }
+      }
+      else if($question->getQuestionType() == SessionQuestion::TYPE_COMPARE_TRIPLE){
+        // is a compare3 question
+      }
+      else{
+        // TODO: strange error, decide what's happening here
+      }
+    }
+    $this->answerSession->setCurrentValidity($validator->update($errorType));
+    $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
+    $_SESSION['isSecurityQuestion'] = false;
   }
   
   public function close() {

@@ -73,7 +73,7 @@ class QuestionPool {
         $tuple = $tuples[mt_rand(0, sizeof($tuples) - 1)];
       }
       $mediaObjects = array($FACTORIES::getMediaObjectFactory()->get($tuple->getObjectId1()), $FACTORIES::getMediaObjectFactory()->get($tuple->getObjectId2()));
-      $questions[] = new SessionQuestion(SessionQuestion::TYPE_COMPARE_TWO, $mediaObjects);
+      $questions[] = new SessionQuestion(SessionQuestion::TYPE_COMPARE_TWO, $mediaObjects, array($tuple));
       $usedTuples[] = $tuple->getId();
     }
     

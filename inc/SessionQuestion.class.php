@@ -14,28 +14,34 @@ class SessionQuestion {
   
   private $type         = SessionQuestion::TYPE_UNDEFINED;
   private $mediaObjects = array();
+  private $resultTuples = array();
   
   /**
    * SessionQuestion constructor.
    * @param $questionType string
    * @param $mediaObjects MediaObject[]
    */
-  public function __construct($questionType, $mediaObjects) {
+  public function __construct($questionType, $mediaObjects, $resultTuples) {
     $this->type = $questionType;
     $this->mediaObjects = $mediaObjects;
+    $this->resultTuples = $resultTuples;
   }
   
   /**
    * @return string
    */
-  public function getQuestionType(){
+  public function getQuestionType() {
     return $this->type;
   }
   
   /**
    * @return MediaObject[]
    */
-  public function getMediaObjects(){
+  public function getMediaObjects() {
     return $this->mediaObjects;
+  }
+  
+  public function getResultTuples() {
+    return $this->resultTuples;
   }
 }

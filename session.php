@@ -9,7 +9,6 @@
 require_once(dirname(__FILE__) . "/inc/load.php");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
-session_start();
 $USER_SESSION = new UserSession();
 
 if(isset($_POST['answer'])){

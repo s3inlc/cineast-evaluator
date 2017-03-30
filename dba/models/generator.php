@@ -156,7 +156,7 @@ $functions = array();
 foreach ($CONF as $NAME => $COLUMNS) {
   $lowerName = strtolower($NAME[0]) . substr($NAME, 1);
   $static[] = "private static \$" . $lowerName . "Factory = null;";
-  $functions[] = "public static function get" . $NAME . "Factory() {\n    if (self::\$" . $lowerName . "Factory == null) {\n      \$f = new " . $NAME . "Factory();\n      self::\$" . $lowerName . "Factory = \$f;\n      return \$f;\n    } else {\n      return self::\$" . $lowerName . "Factory;\n    }\n  }";
+  $functions[] = "public static function get" . $NAME . "Factory() {\n    if (self::\$" . $lowerName . "Factory == null) {\n      self::\$" . $lowerName . "Factory = new " . $NAME . "Factory();\n    }\n    return self::\$" . $lowerName . "Factory;\n  }";
 }
 $class = str_replace("__MODEL_STATIC__", implode("\n  ", $static), $class);
 $class = str_replace("__MODEL_FUNCTIONS__", implode("\n  \n  ", $functions), $class);

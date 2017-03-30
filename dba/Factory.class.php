@@ -24,112 +24,79 @@ class Factory {
 
   public static function getUserFactory() {
     if (self::$userFactory == null) {
-      $f = new UserFactory();
-      self::$userFactory = $f;
-      return $f;
-    } else {
-      return self::$userFactory;
+      self::$userFactory = new UserFactory();
     }
+    return self::$userFactory;
   }
   
   public static function getSessionFactory() {
     if (self::$sessionFactory == null) {
-      $f = new SessionFactory();
-      self::$sessionFactory = $f;
-      return $f;
-    } else {
-      return self::$sessionFactory;
+      self::$sessionFactory = new SessionFactory();
     }
+    return self::$sessionFactory;
   }
   
   public static function getQueryFactory() {
     if (self::$queryFactory == null) {
-      $f = new QueryFactory();
-      self::$queryFactory = $f;
-      return $f;
-    } else {
-      return self::$queryFactory;
+      self::$queryFactory = new QueryFactory();
     }
+    return self::$queryFactory;
   }
   
   public static function getResultTupleFactory() {
     if (self::$resultTupleFactory == null) {
-      $f = new ResultTupleFactory();
-      self::$resultTupleFactory = $f;
-      return $f;
-    } else {
-      return self::$resultTupleFactory;
+      self::$resultTupleFactory = new ResultTupleFactory();
     }
+    return self::$resultTupleFactory;
   }
   
   public static function getQueryResultTupleFactory() {
     if (self::$queryResultTupleFactory == null) {
-      $f = new QueryResultTupleFactory();
-      self::$queryResultTupleFactory = $f;
-      return $f;
-    } else {
-      return self::$queryResultTupleFactory;
+      self::$queryResultTupleFactory = new QueryResultTupleFactory();
     }
+    return self::$queryResultTupleFactory;
   }
   
   public static function getMediaObjectFactory() {
     if (self::$mediaObjectFactory == null) {
-      $f = new MediaObjectFactory();
-      self::$mediaObjectFactory = $f;
-      return $f;
-    } else {
-      return self::$mediaObjectFactory;
+      self::$mediaObjectFactory = new MediaObjectFactory();
     }
+    return self::$mediaObjectFactory;
   }
   
   public static function getMediaTypeFactory() {
     if (self::$mediaTypeFactory == null) {
-      $f = new MediaTypeFactory();
-      self::$mediaTypeFactory = $f;
-      return $f;
-    } else {
-      return self::$mediaTypeFactory;
+      self::$mediaTypeFactory = new MediaTypeFactory();
     }
+    return self::$mediaTypeFactory;
   }
   
   public static function getAnswerSessionFactory() {
     if (self::$answerSessionFactory == null) {
-      $f = new AnswerSessionFactory();
-      self::$answerSessionFactory = $f;
-      return $f;
-    } else {
-      return self::$answerSessionFactory;
+      self::$answerSessionFactory = new AnswerSessionFactory();
     }
+    return self::$answerSessionFactory;
   }
   
   public static function getPlayerFactory() {
     if (self::$playerFactory == null) {
-      $f = new PlayerFactory();
-      self::$playerFactory = $f;
-      return $f;
-    } else {
-      return self::$playerFactory;
+      self::$playerFactory = new PlayerFactory();
     }
+    return self::$playerFactory;
   }
   
   public static function getThreeCompareAnswerFactory() {
     if (self::$threeCompareAnswerFactory == null) {
-      $f = new ThreeCompareAnswerFactory();
-      self::$threeCompareAnswerFactory = $f;
-      return $f;
-    } else {
-      return self::$threeCompareAnswerFactory;
+      self::$threeCompareAnswerFactory = new ThreeCompareAnswerFactory();
     }
+    return self::$threeCompareAnswerFactory;
   }
   
   public static function getTwoCompareAnswerFactory() {
     if (self::$twoCompareAnswerFactory == null) {
-      $f = new TwoCompareAnswerFactory();
-      self::$twoCompareAnswerFactory = $f;
-      return $f;
-    } else {
-      return self::$twoCompareAnswerFactory;
+      self::$twoCompareAnswerFactory = new TwoCompareAnswerFactory();
     }
+    return self::$twoCompareAnswerFactory;
   }
 
   const FILTER = "filter";

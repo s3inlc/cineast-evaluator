@@ -180,6 +180,9 @@ class UserSession {
           // answer matches the current question
           $twoCompareAnswer = new TwoCompareAnswer(0, time(), $question->getResultTuples()[0]->getId(), $answer, $this->answerSession->getId());
           $FACTORIES::getTwoCompareAnswerFactory()->save($twoCompareAnswer);
+          unset($this->questions[0]);
+          ksort($this->questions);
+          $_SESSION['questions'] = serialize($this->questions);
           $errorType = ErrorType::NO_ERROR;
         }
       }

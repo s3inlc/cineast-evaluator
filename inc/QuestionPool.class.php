@@ -39,21 +39,26 @@ class QuestionPool {
       $answerSessionIds[] = $a->getId();
     }
     
-    $filters = array();
     if(sizeof($answerSessionIds)){
-      $filters[] = new ContainFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSessionIds);
+      $qF = new ContainFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSessionIds);
+      $twoAnswers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
     }
-    $twoAnswers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $filters));
+    else{
+      $twoAnswers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array());
+    }
+    
     $tupleIds = array();
     foreach ($twoAnswers as $twoAnswer) {
       $tupleIds[] = $twoAnswer->getResultTupleId();
     }
     
-    $filters = array();
     if(sizeof($tupleIds) > 0) {
-      $filters[] = new ContainFilter(ResultTuple::RESULT_TUPLE_ID, $tupleIds);
+      $qF = new ContainFilter(ResultTuple::RESULT_TUPLE_ID, $tupleIds);
+      $tuples = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF));
     }
-    $tuples = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $filters));
+    else{
+      $tuples = $FACTORIES::getResultTupleFactory()->filter(array());
+    }
     
     // TODO: add ordering by priority, isClosed and progress
     

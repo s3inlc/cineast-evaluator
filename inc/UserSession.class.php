@@ -19,7 +19,7 @@ class UserSession {
   public static $MICROWORKER_SESSION_TIMEOUT = 3600;
   
   public function __construct() {
-    global $FACTORIES, $LOGIN;
+    global $FACTORIES;
     
     // start session
     session_start();
@@ -62,20 +62,20 @@ class UserSession {
         }
       }
     }
-  
+    
     // get info about what session type it "should" be
     $playerId = null;
     $microworkerId = null;
     $userId = null;
-    switch($sessionType->getType()){
+    switch ($sessionType->getType()) {
       case SessionType::SESSION_TYPE_USER:
-        $userId = $LOGIN->getUserID();
+        $userId = $sessionType->getId();
         break;
       case SessionType::SESSION_TYPE_PLAYER:
-        $playerId = 0; // TODO: load player Id here
+        $playerId = $sessionType->getId();
         break;
       case SessionType::SESSION_TYPE_MICROWORKER:
-        $microworkerId = 0; // TODO: load microworker Id here
+        $microworkerId = $sessionType->getId();
         break;
     }
     
@@ -84,22 +84,32 @@ class UserSession {
       $this->answerSession = new AnswerSession(0, $microworkerId, $userId, $playerId, 0.5, 1, time(), Util::getIP(), Util::getUserAgentHeader());
       $this->answerSession = $FACTORIES::getAnswerSessionFactory()->save($this->answerSession);
     }
-    else{
+    else {
       // if session exists, check if we can identify it now
-      if($userId != null && $this->answerSession->getUserId() == null){
+      if ($userId != null && $this->isUnknownUser()) {
+        // -> player authenticated now, but was not authenticated when the session started
         $this->answerSession->setUserId($userId);
         $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
       }
-      else if($playerId != null && $this->answerSession->getPlayerId() == null){
+      else if ($playerId != null && $this->isUnknownUser()) {
+        // -> player authenticated now, but was not authenticated when the session started
         $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
       }
+      // TODO: I think it's not a good idea to later assign sessions to microworkers
     }
     
     // save answerSessionId in session
     $_SESSION['answerSessionId'] = $this->answerSession->getId();
   }
   
-  public function getAnswerSession(){
+  /**
+   * @return bool returns true if the session has no related user, microworker and player set
+   */
+  private function isUnknownUser() {
+    return $this->answerSession->getUserId() == null && $this->answerSession->getMicroworkerId() == null && $this->answerSession->getPlayerId() == null;
+  }
+  
+  public function getAnswerSession() {
     return $this->answerSession;
   }
   

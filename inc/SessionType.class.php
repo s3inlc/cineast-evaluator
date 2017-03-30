@@ -13,14 +13,22 @@ class SessionType {
   const SESSION_TYPE_PLAYER      = "player";
   
   private $type = SessionType::SESSION_TYPE_FREE;
+  private $id   = 0;
   
   public function __construct() {
     global $LOGIN;
     
-    if($LOGIN->isLoggedin()){
+    if ($LOGIN->isLoggedin()) {
       $this->type = SessionType::SESSION_TYPE_USER;
+      $this->id = $LOGIN->getUserID();
       return;
     }
+    // TODO: load player Id here
+    // TODO: load microworker Id here
+  }
+  
+  public function getId() {
+    return $this->id;
   }
   
   public function getType() {

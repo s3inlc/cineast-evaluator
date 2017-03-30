@@ -11,8 +11,6 @@ class SessionQuestion {
   const TYPE_UNDEFINED      = "undefined";
   const TYPE_COMPARE_TWO    = "compare2";
   const TYPE_COMPARE_TRIPLE = "compare3";
-  const TYPE_TWO_CHECK      = "check2";
-  const TYPE_TRIPLE_CHECK   = "check3";
   
   private $type         = SessionQuestion::TYPE_UNDEFINED;
   private $mediaObjects = array();

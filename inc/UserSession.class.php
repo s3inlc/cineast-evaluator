@@ -14,7 +14,9 @@ use DBA\TwoCompareAnswer;
 class UserSession {
   /** @var $answerSession AnswerSession */
   private $answerSession = null;
-  private $questions     = null;
+  
+  /** @var SessionQuestion[] */
+  private $questions = null;
   
   public static $OPEN_SESSION_TIMEOUT        = 24 * 3600;
   public static $MICROWORKER_SESSION_TIMEOUT = 3600;

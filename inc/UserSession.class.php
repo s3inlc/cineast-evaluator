@@ -131,6 +131,7 @@ class UserSession {
     $questions = $questionPool->getNextQuestionBlock($this->answerSession);
     
     // this needs to be tested, if serialization works without problems
+    $this->questions = $questions;
     $_SESSION['questions'] = serialize($questions);
   }
   

@@ -6,11 +6,6 @@
         align-items: baseline;
       }
     </style>
-    <div class="row" style="text-align: center;">
-      {{IF [[lastAnswer]]}}
-        [[lastAnswer]]
-      {{ENDIF}}
-    </div>
     <div class="row valign-wrapper" style="height: 100%;">
       <div class="col s12 m6">
         {{FOREACH objectSource;[[value1.getVal('objData')]]}}
@@ -54,4 +49,5 @@
     </div>
   </div>
 </main>
+<!-- [[loadTime]] -->
 {%TEMPLATE->struct/emptyfoot%}

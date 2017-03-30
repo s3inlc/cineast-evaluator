@@ -81,14 +81,14 @@ $CONF['ThreeCompareAnswer'] = array(
   'threeCompareAnswerId',
   'time',
   'answer',
-  'mediaObjectId1',
-  'mediaObjectId2',
+  'resultTupleId1',
+  'resultTupleId2',
   'answerSessionId'
 );
 $CONF['TwoCompareAnswer'] = array(
   'twoCompareAnswerId',
   'time',
-  'mediaObjectId',
+  'resultTupleId',
   'answer',
   'answerSessionId'
 );

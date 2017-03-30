@@ -40,7 +40,7 @@ class ThreeCompareAnswerFactory extends AbstractModelFactory {
    * @return ThreeCompareAnswer
    */
   function createObjectFromDict($pk, $dict) {
-    $o = new ThreeCompareAnswer($pk, $dict['time'], $dict['answer'], $dict['mediaObjectId1'], $dict['mediaObjectId2'], $dict['answerSessionId']);
+    $o = new ThreeCompareAnswer($pk, $dict['time'], $dict['answer'], $dict['resultTupleId1'], $dict['resultTupleId2'], $dict['answerSessionId']);
     return $o;
   }
 

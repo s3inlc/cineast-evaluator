@@ -13,16 +13,16 @@ class ThreeCompareAnswer extends AbstractModel {
   private $threeCompareAnswerId;
   private $time;
   private $answer;
-  private $mediaObjectId1;
-  private $mediaObjectId2;
+  private $resultTupleId1;
+  private $resultTupleId2;
   private $answerSessionId;
   
-  function __construct($threeCompareAnswerId, $time, $answer, $mediaObjectId1, $mediaObjectId2, $answerSessionId) {
+  function __construct($threeCompareAnswerId, $time, $answer, $resultTupleId1, $resultTupleId2, $answerSessionId) {
     $this->threeCompareAnswerId = $threeCompareAnswerId;
     $this->time = $time;
     $this->answer = $answer;
-    $this->mediaObjectId1 = $mediaObjectId1;
-    $this->mediaObjectId2 = $mediaObjectId2;
+    $this->resultTupleId1 = $resultTupleId1;
+    $this->resultTupleId2 = $resultTupleId2;
     $this->answerSessionId = $answerSessionId;
   }
   
@@ -31,8 +31,8 @@ class ThreeCompareAnswer extends AbstractModel {
     $dict['threeCompareAnswerId'] = $this->threeCompareAnswerId;
     $dict['time'] = $this->time;
     $dict['answer'] = $this->answer;
-    $dict['mediaObjectId1'] = $this->mediaObjectId1;
-    $dict['mediaObjectId2'] = $this->mediaObjectId2;
+    $dict['resultTupleId1'] = $this->resultTupleId1;
+    $dict['resultTupleId2'] = $this->resultTupleId2;
     $dict['answerSessionId'] = $this->answerSessionId;
     
     return $dict;
@@ -70,20 +70,20 @@ class ThreeCompareAnswer extends AbstractModel {
     $this->answer = $answer;
   }
   
-  function getMediaObjectId1(){
-    return $this->mediaObjectId1;
+  function getResultTupleId1(){
+    return $this->resultTupleId1;
   }
   
-  function setMediaObjectId1($mediaObjectId1){
-    $this->mediaObjectId1 = $mediaObjectId1;
+  function setResultTupleId1($resultTupleId1){
+    $this->resultTupleId1 = $resultTupleId1;
   }
   
-  function getMediaObjectId2(){
-    return $this->mediaObjectId2;
+  function getResultTupleId2(){
+    return $this->resultTupleId2;
   }
   
-  function setMediaObjectId2($mediaObjectId2){
-    $this->mediaObjectId2 = $mediaObjectId2;
+  function setResultTupleId2($resultTupleId2){
+    $this->resultTupleId2 = $resultTupleId2;
   }
   
   function getAnswerSessionId(){
@@ -97,7 +97,7 @@ class ThreeCompareAnswer extends AbstractModel {
   const THREE_COMPARE_ANSWER_ID = "threeCompareAnswerId";
   const TIME = "time";
   const ANSWER = "answer";
-  const MEDIA_OBJECT_ID1 = "mediaObjectId1";
-  const MEDIA_OBJECT_ID2 = "mediaObjectId2";
+  const RESULT_TUPLE_ID1 = "resultTupleId1";
+  const RESULT_TUPLE_ID2 = "resultTupleId2";
   const ANSWER_SESSION_ID = "answerSessionId";
 }

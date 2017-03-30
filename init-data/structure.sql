@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 29. Mrz 2017 um 13:44
+-- Erstellungszeit: 30. Mrz 2017 um 13:30
 -- Server-Version: 5.7.17-0ubuntu0.16.04.1
 -- PHP-Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -33,7 +33,7 @@ CREATE TABLE `AnswerSession` (
   `playerId` int(11) DEFAULT NULL,
   `currentValidity` float NOT NULL,
   `isOpen` tinyint(11) NOT NULL,
-  `timeOpened`  int (11) UNSIGNED NOT NULL,
+  `timeOpened` int(11) NOT NULL,
   `userAgentIp` varchar(20) COLLATE utf8_bin NOT NULL,
   `userAgentHeader` text COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -48,7 +48,7 @@ CREATE TABLE `MediaObject` (
   `mediaObjectId` int(11) NOT NULL,
   `mediaTypeId` int(11) NOT NULL,
   `filename` varchar(128) COLLATE utf8_bin NOT NULL,
-  `time` int(11) UNSIGNED NOT NULL,
+  `time` int(11) NOT NULL,
   `checksum` varchar(128) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -74,8 +74,8 @@ CREATE TABLE `MediaType` (
 CREATE TABLE `Player` (
   `playerId` int(11) NOT NULL,
   `playerName` varchar(50) COLLATE utf8_bin NOT NULL,
-  `firstLogin` int(11) UNSIGNED NOT NULL,
-  `lastLogin` int(11) UNSIGNED NOT NULL
+  `firstLogin` int(11) NOT NULL,
+  `lastLogin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -87,7 +87,7 @@ CREATE TABLE `Player` (
 CREATE TABLE `Query` (
   `queryId` int(11) NOT NULL,
   `isClosed` tinyint(11) NOT NULL,
-  `time` int(11) UNSIGNED NOT NULL,
+  `time` int(11) NOT NULL,
   `displayName` varchar(50) COLLATE utf8_bin NOT NULL,
   `userId` int(11) NOT NULL,
   `meta` text COLLATE utf8_bin NOT NULL,
@@ -131,8 +131,8 @@ CREATE TABLE `ResultTuple` (
 CREATE TABLE `Session` (
   `sessionId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `sessionStartDate` int(11) UNSIGNED NOT NULL,
-  `lastActionDate` int(11) UNSIGNED NOT NULL,
+  `sessionStartDate` int(11) NOT NULL,
+  `lastActionDate` int(11) NOT NULL,
   `isOpen` tinyint(4) NOT NULL,
   `sessionLifetime` int(11) NOT NULL,
   `sessionKey` varchar(100) COLLATE utf8_bin NOT NULL
@@ -146,10 +146,10 @@ CREATE TABLE `Session` (
 
 CREATE TABLE `ThreeCompareAnswer` (
   `threeCompareAnswerId` int(11) NOT NULL,
-  `time` int(11) UNSIGNED NOT NULL,
+  `time` int(11) NOT NULL,
   `answer` int(11) NOT NULL,
-  `mediaObjectId1` int(11) NOT NULL,
-  `mediaObjectId2` int(11) NOT NULL,
+  `resultTupleId1` int(11) NOT NULL,
+  `resultTupleId2` int(11) NOT NULL,
   `answerSessionId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -161,8 +161,8 @@ CREATE TABLE `ThreeCompareAnswer` (
 
 CREATE TABLE `TwoCompareAnswer` (
   `twoCompareAnswerId` int(11) NOT NULL,
-  `time` int(11) UNSIGNED NOT NULL,
-  `mediaObjectId` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
+  `resultTupleId` int(11) NOT NULL,
   `answer` int(11) NOT NULL,
   `answerSessionId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -181,8 +181,8 @@ CREATE TABLE `User` (
   `passwordSalt` varchar(512) COLLATE utf8_bin NOT NULL,
   `isValid` tinyint(4) NOT NULL,
   `isComputedPassword` tinyint(4) NOT NULL,
-  `lastLoginDate` int(11) UNSIGNED NOT NULL,
-  `registeredSince` int(11) UNSIGNED NOT NULL,
+  `lastLoginDate` int(11) NOT NULL,
+  `registeredSince` int(11) NOT NULL,
   `sessionLifetime` int(11) NOT NULL DEFAULT '600'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -253,16 +253,16 @@ ALTER TABLE `Session`
 ALTER TABLE `ThreeCompareAnswer`
   ADD PRIMARY KEY (`threeCompareAnswerId`),
   ADD KEY `answerSessionId` (`answerSessionId`),
-  ADD KEY `mediaObjectId1` (`mediaObjectId1`),
-  ADD KEY `mediaObjectId2` (`mediaObjectId2`);
+  ADD KEY `ThreeCompareAnswer_ibfk_2` (`resultTupleId1`),
+  ADD KEY `ThreeCompareAnswer_ibfk_3` (`resultTupleId2`);
 
 --
 -- Indizes für die Tabelle `TwoCompareAnswer`
 --
 ALTER TABLE `TwoCompareAnswer`
   ADD PRIMARY KEY (`twoCompareAnswerId`),
-  ADD KEY `mediaObjectId` (`mediaObjectId`),
-  ADD KEY `answerSessionId` (`answerSessionId`);
+  ADD KEY `answerSessionId` (`answerSessionId`),
+  ADD KEY `TwoCompareAnswer_ibfk_1` (`resultTupleId`);
 
 --
 -- Indizes für die Tabelle `User`
@@ -278,7 +278,7 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT für Tabelle `AnswerSession`
 --
 ALTER TABLE `AnswerSession`
-  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT für Tabelle `MediaObject`
 --
@@ -313,7 +313,7 @@ ALTER TABLE `ResultTuple`
 -- AUTO_INCREMENT für Tabelle `Session`
 --
 ALTER TABLE `Session`
-  MODIFY `sessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `sessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT für Tabelle `ThreeCompareAnswer`
 --
@@ -377,14 +377,14 @@ ALTER TABLE `Session`
 --
 ALTER TABLE `ThreeCompareAnswer`
   ADD CONSTRAINT `ThreeCompareAnswer_ibfk_1` FOREIGN KEY (`answerSessionId`) REFERENCES `AnswerSession` (`answerSessionId`),
-  ADD CONSTRAINT `ThreeCompareAnswer_ibfk_2` FOREIGN KEY (`mediaObjectId1`) REFERENCES `MediaObject` (`mediaObjectId`),
-  ADD CONSTRAINT `ThreeCompareAnswer_ibfk_3` FOREIGN KEY (`mediaObjectId2`) REFERENCES `MediaObject` (`mediaObjectId`);
+  ADD CONSTRAINT `ThreeCompareAnswer_ibfk_2` FOREIGN KEY (`resultTupleId1`) REFERENCES `ResultTuple` (`resultTupleId`),
+  ADD CONSTRAINT `ThreeCompareAnswer_ibfk_3` FOREIGN KEY (`resultTupleId2`) REFERENCES `ResultTuple` (`resultTupleId`);
 
 --
 -- Constraints der Tabelle `TwoCompareAnswer`
 --
 ALTER TABLE `TwoCompareAnswer`
-  ADD CONSTRAINT `TwoCompareAnswer_ibfk_1` FOREIGN KEY (`mediaObjectId`) REFERENCES `MediaObject` (`mediaObjectId`),
+  ADD CONSTRAINT `TwoCompareAnswer_ibfk_1` FOREIGN KEY (`resultTupleId`) REFERENCES `ResultTuple` (`resultTupleId`),
   ADD CONSTRAINT `TwoCompareAnswer_ibfk_2` FOREIGN KEY (`answerSessionId`) REFERENCES `AnswerSession` (`answerSessionId`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -12,14 +12,14 @@ namespace DBA;
 class TwoCompareAnswer extends AbstractModel {
   private $twoCompareAnswerId;
   private $time;
-  private $mediaObjectId;
+  private $resultTupleId;
   private $answer;
   private $answerSessionId;
   
-  function __construct($twoCompareAnswerId, $time, $mediaObjectId, $answer, $answerSessionId) {
+  function __construct($twoCompareAnswerId, $time, $resultTupleId, $answer, $answerSessionId) {
     $this->twoCompareAnswerId = $twoCompareAnswerId;
     $this->time = $time;
-    $this->mediaObjectId = $mediaObjectId;
+    $this->resultTupleId = $resultTupleId;
     $this->answer = $answer;
     $this->answerSessionId = $answerSessionId;
   }
@@ -28,7 +28,7 @@ class TwoCompareAnswer extends AbstractModel {
     $dict = array();
     $dict['twoCompareAnswerId'] = $this->twoCompareAnswerId;
     $dict['time'] = $this->time;
-    $dict['mediaObjectId'] = $this->mediaObjectId;
+    $dict['resultTupleId'] = $this->resultTupleId;
     $dict['answer'] = $this->answer;
     $dict['answerSessionId'] = $this->answerSessionId;
     
@@ -59,12 +59,12 @@ class TwoCompareAnswer extends AbstractModel {
     $this->time = $time;
   }
   
-  function getMediaObjectId(){
-    return $this->mediaObjectId;
+  function getResultTupleId(){
+    return $this->resultTupleId;
   }
   
-  function setMediaObjectId($mediaObjectId){
-    $this->mediaObjectId = $mediaObjectId;
+  function setResultTupleId($resultTupleId){
+    $this->resultTupleId = $resultTupleId;
   }
   
   function getAnswer(){
@@ -85,7 +85,7 @@ class TwoCompareAnswer extends AbstractModel {
 
   const TWO_COMPARE_ANSWER_ID = "twoCompareAnswerId";
   const TIME = "time";
-  const MEDIA_OBJECT_ID = "mediaObjectId";
+  const RESULT_TUPLE_ID = "resultTupleId";
   const ANSWER = "answer";
   const ANSWER_SESSION_ID = "answerSessionId";
 }

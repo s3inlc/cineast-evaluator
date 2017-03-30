@@ -178,7 +178,7 @@ class UserSession {
         }
         else{
           // answer matches the current question
-          $twoCompareAnswer = new TwoCompareAnswer(0, time(), $question->getResultTuples()[0], $answer, $this->answerSession->getId());
+          $twoCompareAnswer = new TwoCompareAnswer(0, time(), $question->getResultTuples()[0]->getId(), $answer, $this->answerSession->getId());
           $FACTORIES::getTwoCompareAnswerFactory()->save($twoCompareAnswer);
           $errorType = ErrorType::NO_ERROR;
         }

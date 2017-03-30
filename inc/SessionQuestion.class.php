@@ -1,5 +1,6 @@
 <?php
 use DBA\MediaObject;
+use DBA\ResultTuple;
 
 /**
  * Created by IntelliJ IDEA.
@@ -41,6 +42,9 @@ class SessionQuestion {
     return $this->mediaObjects;
   }
   
+  /**
+   * @return ResultTuple[]
+   */
   public function getResultTuples() {
     return $this->resultTuples;
   }

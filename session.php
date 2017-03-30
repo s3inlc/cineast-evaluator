@@ -11,15 +11,32 @@ $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
 $USER_SESSION = new UserSession();
 
-if(isset($_POST['answer'])){
+if (isset($_POST['answer'])) {
   // TODO: handle submitted response
   // TODO: update session validity
 }
 
-// TODO: do pooling of comparisons here
+$question = $USER_SESSION->getNextQuestion();
+if ($question == null) {
+  die("Something strange happened! We have no more questions for you...");
+}
 
-// test
-echo sizeof(unserialize($_SESSION['questions']))." questions available!";
+$value1 = new DataSet();
+$value2 = new DataSet();
 
-$TEMPLATE = new Template("views/compare3");
+$value1->addValue('objData', array("serve.php?id=" . $question->getMediaObjects()[0]->getChecksum()));
+$value2->addValue('objData', array("serve.php?id=" . $question->getMediaObjects()[1]->getChecksum()));
+
+$mediaType1 = $FACTORIES::getMediaTypeFactory()->get($question->getMediaObjects()[0]->getMediaTypeId());
+$mediaType2 = $FACTORIES::getMediaTypeFactory()->get($question->getMediaObjects()[1]->getMediaTypeId());
+
+$value1->addValue('template', $mediaType1->getTemplate());
+$value2->addValue('template', $mediaType2->getTemplate());
+
+$OBJECTS['object1'] = $question->getMediaObjects()[0];
+$OBJECTS['object2'] = $question->getMediaObjects()[1];
+$OBJECTS['value1'] = $value1;
+$OBJECTS['value2'] = $value2;
+
+$TEMPLATE = new Template("views/" . $question->getQuestionType());
 echo $TEMPLATE->render($OBJECTS);

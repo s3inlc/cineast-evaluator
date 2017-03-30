@@ -34,6 +34,12 @@ class UserSession {
       if ($this->answerSession->getIsOpen() == 0) {
         $this->answerSession = null;
       }
+      else if(sizeof(unserialize($_SESSION['questions'])) == 0){
+        // no more questions available, so we close the session
+        $this->answerSession->setIsOpen(0);
+        $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
+        $this->answerSession = null;
+      }
       else if ($this->answerSession->getMicroworkerId() != null) {
         // TODO: check if microworker session is still open and valid
       }
@@ -130,6 +136,18 @@ class UserSession {
   
   public function getAnswerSession() {
     return $this->answerSession;
+  }
+  
+  public function getNextQuestion() {
+    // TODO: here we update the session quality and we decide if we need to do a security question or not
+    if(sizeof($this->questions) == 0){
+      return null;
+    }
+    return $this->questions[0];
+  }
+  
+  public function answerQuestion() {
+    // TODO: here the answer gets processed and checked
   }
   
   public function close() {

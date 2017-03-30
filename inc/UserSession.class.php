@@ -62,25 +62,37 @@ class UserSession {
         }
       }
     }
+  
+    // get info about what session type it "should" be
+    $playerId = null;
+    $microworkerId = null;
+    $userId = null;
+    switch($sessionType->getType()){
+      case SessionType::SESSION_TYPE_USER:
+        $userId = $LOGIN->getUserID();
+        break;
+      case SessionType::SESSION_TYPE_PLAYER:
+        $playerId = 0; // TODO: load player Id here
+        break;
+      case SessionType::SESSION_TYPE_MICROWORKER:
+        $microworkerId = 0; // TODO: load microworker Id here
+        break;
+    }
     
     // create new session if required
     if ($this->answerSession == null) {
-      $playerId = null;
-      $microworkerId = null;
-      $userId = null;
-      switch($sessionType->getType()){
-        case SessionType::SESSION_TYPE_USER:
-          $userId = $LOGIN->getUserID();
-          break;
-        case SessionType::SESSION_TYPE_PLAYER:
-          $playerId = 0; // TODO: load player Id here
-          break;
-        case SessionType::SESSION_TYPE_MICROWORKER:
-          $microworkerId = 0; // TODO: load microworker Id here
-          break;
-      }
       $this->answerSession = new AnswerSession(0, $microworkerId, $userId, $playerId, 0.5, 1, time(), Util::getIP(), Util::getUserAgentHeader());
       $this->answerSession = $FACTORIES::getAnswerSessionFactory()->save($this->answerSession);
+    }
+    else{
+      // if session exists, check if we can identify it now
+      if($userId != null && $this->answerSession->getUserId() == null){
+        $this->answerSession->setUserId($userId);
+        $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
+      }
+      else if($playerId != null && $this->answerSession->getPlayerId() == null){
+        $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
+      }
     }
     
     // save answerSessionId in session

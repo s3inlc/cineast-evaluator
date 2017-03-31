@@ -71,9 +71,9 @@ class QuestionPool {
       if(sizeof($usedTuples) == sizeof($tuples)){
         break; // should only happen when there are not a lot of queries available
       }
-      $tuple = $tuples[mt_rand(0, sizeof($tuples) - 1)];
+      $tuple = $tuples[random_int(0, sizeof($tuples) - 1)];
       while(in_array($tuple->getId(), $usedTuples)){
-        $tuple = $tuples[mt_rand(0, sizeof($tuples) - 1)];
+        $tuple = $tuples[random_int(0, sizeof($tuples) - 1)];
       }
       $mediaObjects = array($FACTORIES::getMediaObjectFactory()->get($tuple->getObjectId1()), $FACTORIES::getMediaObjectFactory()->get($tuple->getObjectId2()));
       $questions[] = new SessionQuestion(SessionQuestion::TYPE_COMPARE_TWO, $mediaObjects, array($tuple));

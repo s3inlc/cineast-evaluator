@@ -5,7 +5,7 @@
 
 require_once(dirname(__FILE__) . "/inc/load.php");
 if (!$LOGIN->isLoggedin()) {
-  header("Location: index.php?err=4" . time());
+  header("Location: admin.php?err=4" . time());
   die();
 }
 $TEMPLATE = new Template("content/account");

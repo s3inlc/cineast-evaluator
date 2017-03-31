@@ -44,13 +44,11 @@ class QuestionPool {
     }
     
     echo "User completet at least " . sizeof($answerSessionIds) . " sessions.<br>";
-    
-    if (sizeof($answerSessionIds)) {
+  
+    $twoAnswers = array();
+    if (sizeof($answerSessionIds) > 0) {
       $qF = new ContainFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSessionIds);
       $twoAnswers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
-    }
-    else {
-      $twoAnswers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array());
     }
     
     $tupleIds = array();

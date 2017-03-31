@@ -5,10 +5,12 @@ namespace DBA;
 class ContainFilter extends Filter {
   private $key;
   private $values;
+  private $negative;
   
-  function __construct($key, $values) {
+  function __construct($key, $values, $negative = false) {
     $this->key = $key;
     $this->values = $values;
+    $this->negative = $negative;
   }
   
   function getQueryString($table = "") {
@@ -19,7 +21,13 @@ class ContainFilter extends Filter {
     for ($x = 0; $x < sizeof($this->values); $x++) {
       $app[] = "?";
     }
-    return $table . $this->key . " IN (" . implode(",", $app) . ")";
+    
+    $prep = "";
+    if ($this->negative) {
+      $prep = " NOT ";
+    }
+    
+    return $table . $this->key . $prep . " IN (" . implode(",", $app) . ")";
   }
   
   function getValue() {

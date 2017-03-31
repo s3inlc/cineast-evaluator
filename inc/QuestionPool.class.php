@@ -59,7 +59,7 @@ class QuestionPool {
     }
     
     if (sizeof($tupleIds) > 0) {
-      $qF = new ContainFilter(ResultTuple::RESULT_TUPLE_ID, $tupleIds);
+      $qF = new ContainFilter(ResultTuple::RESULT_TUPLE_ID, $tupleIds, true);
       $tuples = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF));
     }
     else {

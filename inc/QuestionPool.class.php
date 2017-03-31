@@ -36,6 +36,9 @@ class QuestionPool {
     $answerSessions = $FACTORIES::getAnswerSessionFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2, $qF3)));
     $answerSessionIds = array();
     foreach ($answerSessions as $a) {
+      if($a->getMicroworkerId() == null && $a->getPlayerId() == null && $a->getUserId() == null){
+        continue;
+      }
       $answerSessionIds[] = $a->getId();
     }
     

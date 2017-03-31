@@ -71,8 +71,10 @@ class UserSession {
         }
       }
       
-      // reload questions if they were already created earlier
-      $this->questionQueue = new QuestionQueue(unserialize($_SESSION['questions']));
+      if($this->answerSession != null) {
+        // reload questions if they were already created earlier
+        $this->questionQueue = new QuestionQueue(unserialize($_SESSION['questions']));
+      }
     }
     
     // get info about what session type it "should" be

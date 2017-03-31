@@ -28,7 +28,6 @@ class QuestionPool {
     $startTime = microtime(true);
     
     $this->pool = array();
-    echo "Loading pool..<br>";
     
     // load tuples which are not answered from this user yet
     $qF1 = new QueryFilter(AnswerSession::PLAYER_ID, $answerSession->getPlayerId(), "=");
@@ -43,8 +42,6 @@ class QuestionPool {
       $answerSessionIds[] = $a->getId();
     }
     
-    echo "User completet at least " . sizeof($answerSessionIds) . " sessions.<br>";
-  
     $twoAnswers = array();
     if (sizeof($answerSessionIds) > 0) {
       $qF = new ContainFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSessionIds);
@@ -65,7 +62,6 @@ class QuestionPool {
     }
     
     // TODO: add ordering by priority, isClosed and progress
-    echo sizeof($tuples) . " tuples loaded<br>";
     
     $questions = array();
     $usedTuples = array();
@@ -77,13 +73,10 @@ class QuestionPool {
       while (in_array($tuple->getId(), $usedTuples)) {
         $tuple = $tuples[random_int(0, sizeof($tuples) - 1)];
       }
-      echo "selecting tuple ".$tuple->getId()."...<br>";
       $mediaObjects = array($FACTORIES::getMediaObjectFactory()->get($tuple->getObjectId1()), $FACTORIES::getMediaObjectFactory()->get($tuple->getObjectId2()));
       $questions[] = new SessionQuestion(SessionQuestion::TYPE_COMPARE_TWO, $mediaObjects, array($tuple));
       $usedTuples[] = $tuple->getId();
     }
-    
-    echo "tuples selecting done!<br>";
     
     $endTime = microtime(true);
     $OBJECTS['loadTime'] = $endTime - $startTime;

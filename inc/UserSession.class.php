@@ -174,7 +174,7 @@ class UserSession {
           // TODO: handle error
           die("INVALID ANSWER");
         }
-        else if($objectId1 != $question->getMediaObjects()[0]->getId() || $objectId2 != $question->getMediaObjects()[1]->getId()){
+        else if(($objectId1 != $question->getMediaObjects()[0]->getId() || $objectId2 != $question->getMediaObjects()[1]->getId()) && ($objectId2 != $question->getMediaObjects()[0]->getId() || $objectId1 != $question->getMediaObjects()[1]->getId())){
           // TODO: handle error
           die("NOT MATCHING QUESTION");
         }

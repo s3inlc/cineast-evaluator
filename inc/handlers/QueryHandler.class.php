@@ -114,6 +114,8 @@ class QueryHandler extends Handler {
       $queryMediaObject = $FACTORIES::getMediaObjectFactory()->save($queryMediaObject);
     }
     
+    $mediaObjects = array();
+    $queryResultTuples = array();
     foreach ($resultSet as $result) {
       $checksum = sha1_file($path . "data/" . $result['mediaObject']);
       $resultMediaObject = Util::getMediaObject($checksum);
@@ -128,7 +130,7 @@ class QueryHandler extends Handler {
         }
         $resultMediaObject = new MediaObject(0, $mediaType->getId(), $mediaName, time(), $checksum, $result['source']);
         Util::resizeImage($mediaName);
-        $resultMediaObject = $FACTORIES::getMediaObjectFactory()->save($resultMediaObject);
+        $mediaObjects[] = $resultMediaObject;
       }
       
       // check result tuple
@@ -140,8 +142,10 @@ class QueryHandler extends Handler {
       
       // connect result tuple to query
       $queryResultTuple = new QueryResultTuple(0, $query->getId(), $resultTuple->getId(), $result['score'], $result['rank']);
-      $FACTORIES::getQueryResultTupleFactory()->save($queryResultTuple);
+      $queryResultTuples[] = $queryResultTuple;
     }
+    $FACTORIES::getMediaObjectFactory()->massSave($mediaObjects);
+    $FACTORIES::getQueryResultTupleFactory()->massSave($queryResultTuples);
     
     
     // clean up

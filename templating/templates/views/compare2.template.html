@@ -7,7 +7,7 @@
       }
     </style>
     <div class="row valign-wrapper" style="height: 100%;">
-      <div class="col s12 m6" style="text-align: center;">
+      <div class="col s12" style="text-align: center;">
         {{FOREACH objectSource;[[value1.getVal('objData')]]}}
           {{IF [[value1.getVal('template')]] == "default"}}
             {%TEMPLATE->media/default%}
@@ -16,8 +16,7 @@
             {%TEMPLATE->media/image%}
           {{ENDIF}}
         {{ENDFOREACH}}
-      </div>
-      <div class="col s12 m6" style="text-align: center;">
+        &nbsp;&nbsp;&nbsp;
         {{FOREACH objectSource;[[value2.getVal('objData')]]}}
           {{IF [[value2.getVal('template')]] == "default"}}
             {%TEMPLATE->media/default%}

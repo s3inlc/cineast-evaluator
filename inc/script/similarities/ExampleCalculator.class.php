@@ -34,7 +34,9 @@ class ExampleCalculator extends Calculator {
         $certaintySum += $answerSession->getCurrentValidity();
         $answerSum += $twoCompareAnswer->getAnswer()*$answerSession->getCurrentValidity();
       }
-      $resultSet->setSimilarity($answerSum/$certaintySum);
+      if(sizeof($joined['TwoCompareAnswer']) > 0 && $certaintySum > 0) {
+        $resultSet->setSimilarity($answerSum / $certaintySum);
+      }
     }
   }
 }

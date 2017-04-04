@@ -37,6 +37,16 @@ foreach ($dir as $entry) {
   }
 }
 
+// include all validators
+$VALIDATORS = array();
+require_once(dirname(__FILE__)."/validators/Validator.class.php");
+$dir = scandir(dirname(__FILE__)."/validators/");
+foreach ($dir as $entry) {
+  if (strpos($entry, ".class.php") !== false) {
+    require_once(dirname(__FILE__) . "/validators/" . $entry);
+  }
+}
+
 // include DBA
 require_once(dirname(__FILE__) . "/../dba/init.php");
 

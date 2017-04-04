@@ -156,6 +156,7 @@ class UserSession {
     
     $validator = new SessionValidator($this->answerSession);
     $errorType = ErrorType::NOTHING;
+    $answerObject = null;
     
     // TODO: here the answer gets processed and checked
     if($_SESSION['isSecurityQuestion']){
@@ -196,7 +197,7 @@ class UserSession {
         die("WRONG QUESTION TYPE");
       }
     }
-    $this->answerSession->setCurrentValidity($validator->update($errorType));
+    $this->answerSession->setCurrentValidity($validator->update($errorType, $_SESSION['isSecurityQuestion']));
     $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
     $_SESSION['isSecurityQuestion'] = false;
   }

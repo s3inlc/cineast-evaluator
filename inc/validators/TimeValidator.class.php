@@ -11,7 +11,6 @@
  *
  * This class will only validate sessions when the last question is finished
  */
-
 class TimeValidator extends Validator {
   function validateRunning($answerSession, $validity) {
     return $validity;
@@ -19,5 +18,8 @@ class TimeValidator extends Validator {
   
   function validateFinished($answerSession, $validity) {
     // TODO: Implement validateFinished() method.
+    return $validity;
   }
 }
+
+$VALIDATORS[] = new TimeValidator();

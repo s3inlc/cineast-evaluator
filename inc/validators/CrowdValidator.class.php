@@ -15,8 +15,8 @@ use DBA\TwoCompareAnswer;
 class CrowdValidator extends Validator {
   const DIFF_MALUS_THRESHOLD = 0.4;
   const DIFF_BONUS_THRESHOLD = 0.2;
-  const DIFF_MALUS = 0.2;
-  const DIFF_BONUS = 0.2;
+  const DIFF_MALUS           = 0.2;
+  const DIFF_BONUS           = 0.2;
   
   /**
    * @param $answerSession AnswerSession
@@ -32,17 +32,17 @@ class CrowdValidator extends Validator {
       // for every answer we are testing how good it is compared to all other answers
       $resultTuple = $FACTORIES::getResultTupleFactory()->get($twoAnswer->getResultTupleId());
       $diff = abs($resultTuple->getSimilarity() - $twoAnswer->getAnswer() / 3) * $resultTuple->getCertainty();
-      if($diff > CrowdValidator::DIFF_MALUS_THRESHOLD){
+      if ($diff > CrowdValidator::DIFF_MALUS_THRESHOLD) {
         $validity -= CrowdValidator::DIFF_MALUS;
       }
-      else if($diff < CrowdValidator::DIFF_BONUS_THRESHOLD){
+      else if ($diff < CrowdValidator::DIFF_BONUS_THRESHOLD) {
         $validity += CrowdValidator::DIFF_BONUS;
       }
     }
-    if($validity < 0){
+    if ($validity < 0) {
       $validity = 0;
     }
-    else if($validity > 1){
+    else if ($validity > 1) {
       $validity = 1;
     }
     return $validity;
@@ -52,3 +52,5 @@ class CrowdValidator extends Validator {
     // TODO: Implement validateFinished() method.
   }
 }
+
+$VALIDATORS[] = new CrowdValidator();

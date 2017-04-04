@@ -9,12 +9,17 @@ use DBA\AnswerSession;
  */
 
 class SessionValidator {
+  private $answerSession;
+  
+  const MALUS_ANSWER_ERROR = 0.1;
+  
   /**
    * SessionValidator constructor.
    * @param $answerSession AnswerSession
    */
   public function __construct($answerSession) {
     // TODO: load some session info here
+    $this->answerSession = $answerSession;
   }
   
   /**
@@ -22,7 +27,23 @@ class SessionValidator {
    * @return float the new updated validity of the session
    */
   public function update($errorType){
-    // TODO: update the validity of the session based on the error type and all the available answers
-    return 0.5;
+    /** @var $VALIDATORS Validator[] */
+    global $VALIDATORS;
+    
+    $currentValidity = $this->answerSession->getCurrentValidity();
+    foreach($VALIDATORS as $validator){
+      if($this->answerSession->getIsOpen() == 1){
+        $currentValidity = $validator->validateRunning($this->answerSession, $currentValidity);
+      }
+      else{
+        $currentValidity = $validator->validateFinished($this->answerSession, $currentValidity);
+      }
+    }
+    
+    if ($errorType != ErrorType::NO_ERROR) {
+      $currentValidity -= SessionValidator::MALUS_ANSWER_ERROR;
+    }
+    
+    return $currentValidity;
   }
 }

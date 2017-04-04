@@ -109,7 +109,7 @@ class QueryHandler extends Handler {
     $queryMediaObject = Util::getMediaObject($checksum);
     if ($queryMediaObject == null) {
       $mediaName = STORAGE_PATH . MEDIA_FOLDER . $checksum;
-      rename($path . "data/" . $queryObject, $mediaName);
+      copy($path . "data/" . $queryObject, $mediaName);
       $queryMediaObject = new MediaObject(0, $mediaType->getId(), $mediaName, time(), $checksum, $querySource);
       $queryMediaObject = $FACTORIES::getMediaObjectFactory()->save($queryMediaObject);
     }
@@ -124,7 +124,7 @@ class QueryHandler extends Handler {
       $mediaType = Util::getMediaType($path . "data/" . $result['mediaObject']);
       if ($resultMediaObject == null) {
         $mediaName = STORAGE_PATH . MEDIA_FOLDER . $checksum;
-        rename($path . "data/" . $result['mediaObject'], $mediaName);
+        copy($path . "data/" . $result['mediaObject'], $mediaName);
         if(!isset($result['source'])){
           $result['source'] = "";
         }

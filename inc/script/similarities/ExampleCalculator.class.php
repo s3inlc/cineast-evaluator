@@ -17,7 +17,7 @@ class ExampleCalculator extends Calculator {
   /**
    * @param $resultSets ResultTuple[]
    */
-  function updateSimilarities(&$resultSets) {
+  function updateSimilarities(&$resultSets, &$changed) {
     global $FACTORIES;
     
     foreach ($resultSets as $resultSet) {
@@ -35,6 +35,7 @@ class ExampleCalculator extends Calculator {
         $answerSum += $twoCompareAnswer->getAnswer()*$answerSession->getCurrentValidity();
       }
       if(sizeof($joined['TwoCompareAnswer']) > 0 && $certaintySum > 0) {
+        $changed[$resultSet->getId()] = true;
         $resultSet->setSimilarity($answerSum / $certaintySum);
       }
     }

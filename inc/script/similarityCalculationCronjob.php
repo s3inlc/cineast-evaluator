@@ -18,12 +18,15 @@ echo "calculating...\n";
 
 $calculator = new ExampleCalculator();
 $resultSets = $FACTORIES::getResultTupleFactory()->filter(array());
-$calculator->updateSimilarities($resultSets);
+$changed = array();
+$calculator->updateSimilarities($resultSets, $changed);
 
 echo "updating...\n";
 
 foreach($resultSets as $resultSet){
-  $FACTORIES::getResultTupleFactory()->update($resultSet);
+  if(isset($changed[$resultSet->getId()])) {
+    $FACTORIES::getResultTupleFactory()->update($resultSet);
+  }
 }
 
 echo "finished!\n";

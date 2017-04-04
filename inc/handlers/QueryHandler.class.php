@@ -74,7 +74,10 @@ class QueryHandler extends Handler {
       return;
     }
     $queryObject = $meta['queryObject'];
-    $querySource = $meta['source'];
+    $querySource = "";
+    if(isset($meta['source'])){
+      $querySource = $meta['source'];
+    }
     $resultSet = $meta['resultSet'];
     unset($meta['queryObject']);
     unset($meta['resultSet']);

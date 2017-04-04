@@ -86,7 +86,7 @@ class QueryHandler extends Handler {
       return;
     }
     foreach ($resultSet as $result) {
-      if (!isset($result['mediaObject']) || !isset($result['score']) || !isset($result['rank']) || !isset($result['source'])) {
+      if (!isset($result['mediaObject']) || !isset($result['score']) || !isset($result['rank'])) {
         UI::addErrorMessage("Invalid packed uploaded: invalid result in resultSet!");
         return;
       }
@@ -121,6 +121,9 @@ class QueryHandler extends Handler {
       if ($resultMediaObject == null) {
         $mediaName = STORAGE_PATH . MEDIA_FOLDER . $checksum;
         rename($path . "data/" . $result['mediaObject'], $mediaName);
+        if(!isset($result['source'])){
+          $result['source'] = "";
+        }
         $resultMediaObject = new MediaObject(0, $mediaType->getId(), $mediaName, time(), $checksum, $result['source']);
         $resultMediaObject = $FACTORIES::getMediaObjectFactory()->save($resultMediaObject);
       }

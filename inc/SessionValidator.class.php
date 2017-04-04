@@ -43,6 +43,9 @@ class SessionValidator {
     if ($errorType != ErrorType::NO_ERROR) {
       $currentValidity -= SessionValidator::MALUS_ANSWER_ERROR;
     }
+    if($this->answerSession->getUserId() != null){
+      $currentValidity = 1; // if the user is an admin we override the result
+    }
     
     return $currentValidity;
   }

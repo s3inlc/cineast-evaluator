@@ -98,7 +98,6 @@ class QueryHandler extends Handler {
     
     // at this point everything is present and we can add it to the database
     
-    $FACTORIES::getQueryFactory()->startTransation();
     $query = new Query(0, 0, time(), $queryName, $LOGIN->getUserId(), $queryMeta, 0);
     $query = $FACTORIES::getQueryFactory()->save($query);
     
@@ -141,7 +140,6 @@ class QueryHandler extends Handler {
       $FACTORIES::getQueryResultTupleFactory()->save($queryResultTuple);
     }
     
-    $FACTORIES::getQueryFactory()->commitTransaction();
     
     // clean up
     system("rm -r '$path'");

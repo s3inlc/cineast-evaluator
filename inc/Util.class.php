@@ -140,7 +140,7 @@ class Util {
   
   public static function resizeImage($path) {
     $size = getimagesize($path);
-    if($size[0] < IMAGE_MAX_WIDTH && $size[1] < IMAGE_MAX_HEIGHT){
+    if($size[0] <= IMAGE_MAX_WIDTH && $size[1] <= IMAGE_MAX_HEIGHT){
       return; // we don't need to do a resize here
     }
     $ratio = $size[0] / $size[1]; // width/height

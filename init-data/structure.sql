@@ -119,7 +119,8 @@ CREATE TABLE `ResultTuple` (
   `objectId1` int(11) NOT NULL,
   `objectId2` int(11) NOT NULL,
   `similarity` int(11) NOT NULL,
-  `certainty` int(11) NOT NULL
+  `certainty` int(11) NOT NULL,
+  `score` VARCHAR(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------

@@ -85,7 +85,7 @@ class QueryHandler extends Handler {
       return;
     }
     foreach ($resultSet as $result) {
-      if (!isset($result['mediaObject']) || !isset($result['score']) || !isset($result['rank'])) {
+      if (!isset($result['mediaObject']) || !isset($result['score']) || !isset($result['rank']) || !isset($result['source'])) {
         UI::addErrorMessage("Invalid packed uploaded: invalid result in resultSet!");
         return;
       }
@@ -127,7 +127,7 @@ class QueryHandler extends Handler {
       // check result tuple
       $resultTuple = Util::getResultTuple($queryMediaObject, $resultMediaObject);
       if ($resultTuple == null) {
-        $resultTuple = new ResultTuple(0, $queryMediaObject->getId(), $resultMediaObject->getId(), DEFAULT_SIMILARITY, DEFAULT_CERTAINTY);
+        $resultTuple = new ResultTuple(0, $queryMediaObject->getId(), $resultMediaObject->getId(), DEFAULT_SIMILARITY, DEFAULT_CERTAINTY, $result['source']);
         $resultTuple = $FACTORIES::getResultTupleFactory()->save($resultTuple);
       }
       

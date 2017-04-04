@@ -74,6 +74,7 @@ class QueryHandler extends Handler {
       return;
     }
     $queryObject = $meta['queryObject'];
+    $querySource = $meta['source'];
     $resultSet = $meta['resultSet'];
     unset($meta['queryObject']);
     unset($meta['resultSet']);
@@ -107,7 +108,7 @@ class QueryHandler extends Handler {
     if ($queryMediaObject == null) {
       $mediaName = STORAGE_PATH . MEDIA_FOLDER . $checksum;
       rename($path . "data/" . $queryObject, $mediaName);
-      $queryMediaObject = new MediaObject(0, $mediaType->getId(), $mediaName, time(), $checksum);
+      $queryMediaObject = new MediaObject(0, $mediaType->getId(), $mediaName, time(), $checksum, $querySource);
       $queryMediaObject = $FACTORIES::getMediaObjectFactory()->save($queryMediaObject);
     }
     
@@ -120,14 +121,14 @@ class QueryHandler extends Handler {
       if ($resultMediaObject == null) {
         $mediaName = STORAGE_PATH . MEDIA_FOLDER . $checksum;
         rename($path . "data/" . $result['mediaObject'], $mediaName);
-        $resultMediaObject = new MediaObject(0, $mediaType->getId(), $mediaName, time(), $checksum);
+        $resultMediaObject = new MediaObject(0, $mediaType->getId(), $mediaName, time(), $checksum, $result['source']);
         $resultMediaObject = $FACTORIES::getMediaObjectFactory()->save($resultMediaObject);
       }
       
       // check result tuple
       $resultTuple = Util::getResultTuple($queryMediaObject, $resultMediaObject);
       if ($resultTuple == null) {
-        $resultTuple = new ResultTuple(0, $queryMediaObject->getId(), $resultMediaObject->getId(), DEFAULT_SIMILARITY, DEFAULT_CERTAINTY, $result['source']);
+        $resultTuple = new ResultTuple(0, $queryMediaObject->getId(), $resultMediaObject->getId(), DEFAULT_SIMILARITY, DEFAULT_CERTAINTY);
         $resultTuple = $FACTORIES::getResultTupleFactory()->save($resultTuple);
       }
       

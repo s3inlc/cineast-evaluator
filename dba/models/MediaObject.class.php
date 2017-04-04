@@ -15,13 +15,15 @@ class MediaObject extends AbstractModel {
   private $filename;
   private $time;
   private $checksum;
+  private $source;
   
-  function __construct($mediaObjectId, $mediaTypeId, $filename, $time, $checksum) {
+  function __construct($mediaObjectId, $mediaTypeId, $filename, $time, $checksum, $source) {
     $this->mediaObjectId = $mediaObjectId;
     $this->mediaTypeId = $mediaTypeId;
     $this->filename = $filename;
     $this->time = $time;
     $this->checksum = $checksum;
+    $this->source = $source;
   }
   
   function getKeyValueDict() {
@@ -31,6 +33,7 @@ class MediaObject extends AbstractModel {
     $dict['filename'] = $this->filename;
     $dict['time'] = $this->time;
     $dict['checksum'] = $this->checksum;
+    $dict['source'] = $this->source;
     
     return $dict;
   }
@@ -82,10 +85,19 @@ class MediaObject extends AbstractModel {
   function setChecksum($checksum){
     $this->checksum = $checksum;
   }
+  
+  function getSource(){
+    return $this->source;
+  }
+  
+  function setSource($source){
+    $this->source = $source;
+  }
 
   const MEDIA_OBJECT_ID = "mediaObjectId";
   const MEDIA_TYPE_ID = "mediaTypeId";
   const FILENAME = "filename";
   const TIME = "time";
   const CHECKSUM = "checksum";
+  const SOURCE = "source";
 }

@@ -49,7 +49,8 @@ CREATE TABLE `MediaObject` (
   `mediaTypeId` int(11) NOT NULL,
   `filename` varchar(128) COLLATE utf8_bin NOT NULL,
   `time` int(11) NOT NULL,
-  `checksum` varchar(128) COLLATE utf8_bin NOT NULL
+  `checksum` varchar(128) COLLATE utf8_bin NOT NULL,
+  `source` VARCHAR(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -119,8 +120,7 @@ CREATE TABLE `ResultTuple` (
   `objectId1` int(11) NOT NULL,
   `objectId2` int(11) NOT NULL,
   `similarity` int(11) NOT NULL,
-  `certainty` int(11) NOT NULL,
-  `score` VARCHAR(256) NOT NULL
+  `certainty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------

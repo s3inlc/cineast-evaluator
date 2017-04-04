@@ -52,7 +52,8 @@ $CONF['MediaObject'] = array(
   'mediaTypeId',
   'filename',
   'time',
-  'checksum'
+  'checksum',
+  'source'
 );
 $CONF['MediaType'] = array(
   'mediaTypeId',

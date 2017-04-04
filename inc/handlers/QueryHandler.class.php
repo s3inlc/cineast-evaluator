@@ -125,6 +125,7 @@ class QueryHandler extends Handler {
           $result['source'] = "";
         }
         $resultMediaObject = new MediaObject(0, $mediaType->getId(), $mediaName, time(), $checksum, $result['source']);
+        Util::resizeImage($mediaName);
         $resultMediaObject = $FACTORIES::getMediaObjectFactory()->save($resultMediaObject);
       }
       

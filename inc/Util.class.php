@@ -56,7 +56,7 @@ class Util {
    * @param $object1 MediaObject
    * @param $object2 MediaObject
    */
-  public static function getResultTuple($object1, $object2){
+  public static function getResultTuple($object1, $object2) {
     global $FACTORIES;
     
     $qF1 = new QueryFilter(ResultTuple::OBJECT_ID1, $object1->getId(), "=");
@@ -64,7 +64,7 @@ class Util {
     return $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2)), true);
   }
   
-  public static function getMediaObject($checksum){
+  public static function getMediaObject($checksum) {
     global $FACTORIES;
     
     $qF = new QueryFilter(MediaObject::CHECKSUM, $checksum, "=");
@@ -90,13 +90,13 @@ class Util {
    * @param $mediaObjectId int
    * @return string
    */
-  public static function getMediaTypeNameForObject($mediaObjectId){
+  public static function getMediaTypeNameForObject($mediaObjectId) {
     global $FACTORIES;
     
     $qF = new QueryFilter(MediaObject::MEDIA_OBJECT_ID, $mediaObjectId, "=");
     $jF = new JoinFilter($FACTORIES::getMediaTypeFactory(), MediaObject::MEDIA_TYPE_ID, MediaType::MEDIA_TYPE_ID);
     $joined = $FACTORIES::getMediaObjectFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));
-    if(sizeof($joined['MediaType']) == 0){
+    if (sizeof($joined['MediaType']) == 0) {
       return "unknown";
     }
     /** @var MediaType $mediaType */
@@ -138,6 +138,25 @@ class Util {
     return $pos;
   }
   
+  public static function resizeImage($path) {
+    $size = getimagesize($path);
+    $ratio = $size[0] / $size[1]; // width/height
+    if ($ratio > 1) {
+      $width = IMAGE_MAX_WIDTH;
+      $height = IMAGE_MAX_HEIGHT / $ratio;
+    }
+    else {
+      $width = IMAGE_MAX_WIDTH * $ratio;
+      $height = IMAGE_MAX_HEIGHT;
+    }
+    $src = imagecreatefromstring(file_get_contents($path));
+    $dst = imagecreatetruecolor($width, $height);
+    imagecopyresampled($dst, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
+    imagedestroy($src);
+    imagepng($dst, $path); // adjust format as needed
+    imagedestroy($dst);
+  }
+  
   /**
    * Tries to determine the IP of the client.
    * @return string 0.0.0.0 or the client IP
@@ -173,7 +192,7 @@ class Util {
     return $user->getUsername();
   }
   
-  public static function getUserAgentHeader(){
+  public static function getUserAgentHeader() {
     return json_encode(getallheaders());
   }
   

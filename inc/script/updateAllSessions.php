@@ -14,11 +14,11 @@ $sessions = $FACTORIES::getAnswerSessionFactory()->filter(array());
 foreach ($sessions as $session) {
   $currentValidity = 0;
   foreach ($VALIDATORS as $validator) {
-    if ($this->answerSession->getIsOpen() == 1) {
+    if ($session->getIsOpen() == 1) {
       //
     }
     else {
-      $currentValidity = $validator->validateFinished($this->answerSession, $currentValidity);
+      $currentValidity = $validator->validateFinished($session, $currentValidity);
     }
   }
   $session->setCurrentValidity($currentValidity);

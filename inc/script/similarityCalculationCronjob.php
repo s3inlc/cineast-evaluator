@@ -16,7 +16,7 @@ require_once(dirname(__FILE__)."/similarities/ExampleCalculator.class.php");
 
 echo "calculating...\n";
 
-$calculator = new ExampleCalculator();
+$calculator = new SimilaritySumCalculator();
 $resultSets = $FACTORIES::getResultTupleFactory()->filter(array());
 $changed = array();
 $calculator->updateSimilarities($resultSets, $changed);

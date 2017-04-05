@@ -14,7 +14,7 @@ use DBA\TwoCompareAnswer;
  */
 class CrowdValidator extends Validator {
   const DIFF_MALUS_THRESHOLD = 1;
-  const DIFF_BONUS_THRESHOLD = 0.4;
+  const DIFF_BONUS_THRESHOLD = 0.5;
   const DIFF_MALUS           = 0.2;
   const DIFF_BONUS           = 0.2;
   
@@ -31,12 +31,12 @@ class CrowdValidator extends Validator {
     foreach ($twoAnswers as $twoAnswer) {
       // for every answer we are testing how good it is compared to all other answers
       $resultTuple = $FACTORIES::getResultTupleFactory()->get($twoAnswer->getResultTupleId());
-      $diff = abs($resultTuple->getSimilarity() - $twoAnswer->getAnswer()) * $resultTuple->getCertainty();
+      $diff = abs($resultTuple->getSimilarity() - $twoAnswer->getAnswer());
       if ($diff > CrowdValidator::DIFF_MALUS_THRESHOLD) {
-        $validity -= CrowdValidator::DIFF_MALUS;
+        $validity -= CrowdValidator::DIFF_MALUS*$resultTuple->getCertainty();
       }
       else if ($diff < CrowdValidator::DIFF_BONUS_THRESHOLD) {
-        $validity += CrowdValidator::DIFF_BONUS;
+        $validity += CrowdValidator::DIFF_BONUS*$resultTuple->getCertainty();
       }
     }
     if ($validity < 0) {

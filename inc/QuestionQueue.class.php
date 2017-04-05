@@ -29,6 +29,10 @@ class QuestionQueue {
   }
   
   public function pop(){
+    if(sizeof($this->questions) == 1){
+      unset($this->questions[0]);
+      return;
+    }
     for($i=0;$i<sizeof($this->questions) - 1;$i++){
       $this->questions[$i] = $this->questions[$i+1];
     }

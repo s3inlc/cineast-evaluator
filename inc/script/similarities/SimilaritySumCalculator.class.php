@@ -38,7 +38,7 @@ class SimilaritySumCalculator extends Calculator {
         $idealValue += $qualitySum[$i] * $i;
       }
       if ($totalSum == 0) {
-        return;
+        continue;
       }
       $idealValue /= $totalSum;
       for ($i = 0; $i < 4; $i++) {

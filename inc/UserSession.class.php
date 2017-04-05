@@ -162,6 +162,7 @@ class UserSession {
       if ($question != null) {
         $numSecurityQuestions++;
         $this->questionQueue->prependQuestion($question);
+        $_SESSION['questions'] = serialize($this->questionQueue->getQuestions());
         //TODO: debug code should be removed
         $OBJECTS['security'] = true;
       }

@@ -18,6 +18,8 @@ class CrowdValidator extends Validator {
   const DIFF_MALUS           = 0.2;
   const DIFF_BONUS           = 0.2;
   
+  const CERTAINTY_THRESHOLD = 0.4;
+  
   /**
    * @param $answerSession AnswerSession
    * @param $validity
@@ -32,11 +34,14 @@ class CrowdValidator extends Validator {
       // for every answer we are testing how good it is compared to all other answers
       $resultTuple = $FACTORIES::getResultTupleFactory()->get($twoAnswer->getResultTupleId());
       $diff = abs($resultTuple->getSimilarity() - $twoAnswer->getAnswer());
-      if ($diff > CrowdValidator::DIFF_MALUS_THRESHOLD) {
-        $validity -= CrowdValidator::DIFF_MALUS*$resultTuple->getCertainty();
+      if ($resultTuple->getCertainty() < CrowdValidator::CERTAINTY_THRESHOLD) {
+        continue;
+      }
+      else if ($diff > CrowdValidator::DIFF_MALUS_THRESHOLD) {
+        $validity -= CrowdValidator::DIFF_MALUS * $resultTuple->getCertainty();
       }
       else if ($diff < CrowdValidator::DIFF_BONUS_THRESHOLD) {
-        $validity += CrowdValidator::DIFF_BONUS*$resultTuple->getCertainty();
+        $validity += CrowdValidator::DIFF_BONUS * $resultTuple->getCertainty();
       }
     }
     if ($validity < 0) {

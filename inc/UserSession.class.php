@@ -130,7 +130,7 @@ class UserSession {
   private function createNewSession($microworkerId, $userId, $playerId) {
     global $FACTORIES;
     
-    $this->answerSession = new AnswerSession(0, $microworkerId, $userId, $playerId, 0.5, 1, time(), Util::getIP(), Util::getUserAgentHeader());
+    $this->answerSession = new AnswerSession(0, $microworkerId, $userId, $playerId, 0, 1, time(), Util::getIP(), Util::getUserAgentHeader());
     $this->answerSession = $FACTORIES::getAnswerSessionFactory()->save($this->answerSession);
     
     // init question pool and get questions block

@@ -139,7 +139,7 @@ class Util {
     return $pos;
   }
   
-  public static function getSecurityQuestion(){
+  public static function getSecurityQuestion() {
     global $FACTORIES;
     
     $question = null;
@@ -148,18 +148,18 @@ class Util {
     $oF = new RandOrderFilter(10);
     $resultTuples = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF));
     $questionType = SessionQuestion::TYPE_UNDEFINED;
-    if(sizeof($resultTuples) > 2 && mt_rand(0, 1) > 0){
+    if (sizeof($resultTuples) >= 2 && mt_rand(0, 1) > 0) {
       $matching = array();
-      for($i=0;$i<sizeof($resultTuples);$i++){
-        for($j=$i+1;$j<sizeof($resultTuples);$j++){
-          if($resultTuples[$i]->getObjectId1() == $resultTuples[$j]->getObjectId1() && $resultTuples[$i]->getObjectId1() != $resultTuples[$j]->getObjectId1()){
+      for ($i = 0; $i < sizeof($resultTuples); $i++) {
+        for ($j = $i + 1; $j < sizeof($resultTuples); $j++) {
+          if ($resultTuples[$i]->getObjectId1() == $resultTuples[$j]->getObjectId1() && $resultTuples[$i]->getObjectId1() != $resultTuples[$j]->getObjectId1()) {
             $matching = array($resultTuples[$i], $resultTuples[$j]);
             $i = sizeof($resultTuples);
             break;
           }
         }
       }
-      if(sizeof($matching) > 0){
+      if (sizeof($matching) > 0) {
         // three compare
         $questionType = SessionQuestion::TYPE_COMPARE_TRIPLE;
         $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($matching[0]->getObjectId1());
@@ -170,8 +170,9 @@ class Util {
     }
     
     
-    if($questionType == SessionQuestion::TYPE_COMPARE_TWO){
+    if (sizeof($resultTuples) > 0 && $questionType = SessionQuestion::TYPE_UNDEFINED) {
       // two compare
+      $questionType = SessionQuestion::TYPE_COMPARE_TWO;
       $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($resultTuples[0]->getObjectId1());
       $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($resultTuples[0]->getObjectId2());
       $question = new SessionQuestion($questionType, array($mediaObject1, $mediaObject2), array($resultTuples[0]));
@@ -182,7 +183,7 @@ class Util {
   
   public static function resizeImage($path) {
     $size = getimagesize($path);
-    if($size[0] <= IMAGE_MAX_WIDTH && $size[1] <= IMAGE_MAX_HEIGHT){
+    if ($size[0] <= IMAGE_MAX_WIDTH && $size[1] <= IMAGE_MAX_HEIGHT) {
       return; // we don't need to do a resize here
     }
     $ratio = $size[0] / $size[1]; // width/height

@@ -36,6 +36,7 @@ class QuestionQueue {
     for($i=0;$i<sizeof($this->questions) - 1;$i++){
       $this->questions[$i] = $this->questions[$i+1];
     }
+    unset($this->questions[sizeof($this->questions) - 1]);
   }
   
   /**

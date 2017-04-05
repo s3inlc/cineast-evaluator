@@ -21,6 +21,9 @@ foreach ($sessions as $session) {
       $currentValidity = $validator->validateFinished($session, $currentValidity);
     }
   }
+  if($session->getUserId() != null){
+    $currentValidity = 1; // set for admin users
+  }
   $session->setCurrentValidity($currentValidity);
   $FACTORIES::getAnswerSessionFactory()->update($session);
 }

@@ -15,19 +15,24 @@ class UserSession {
   /** @var $answerSession AnswerSession */
   private $answerSession = null;
   
-  /** @var SessionQuestion[] */
+  /** @var QuestionQueue */
   private $questionQueue = null;
   
   public static $OPEN_SESSION_TIMEOUT        = 24 * 3600;
   public static $MICROWORKER_SESSION_TIMEOUT = 3600;
   
   public function __construct() {
-    global $FACTORIES;
-    
     // start session
     session_start();
-    $sessionType = new SessionType();
     
+    $this->init();
+  }
+  
+  private function init(){
+    global $FACTORIES;
+    
+    $sessionType = new SessionType();
+  
     // search for existing session and check it if present
     if (isset($_SESSION['answerSessionId'])) {
       $this->answerSession = $FACTORIES::getAnswerSessionFactory()->get($_SESSION['answerSessionId']);
@@ -46,7 +51,7 @@ class UserSession {
       else {
         // TODO: Test if session type is still valid
       }
-      
+    
       if ($this->answerSession != null) {
         // test if last answer was too long ago, so we should create a new session
         $lastAnswer = 0;
@@ -62,7 +67,7 @@ class UserSession {
         if ($last != null && $last->getTime() > $lastAnswer) {
           $lastAnswer = $last->getTime();
         }
-        
+      
         if (time() - $lastAnswer > UserSession::$OPEN_SESSION_TIMEOUT && $this->answerSession->getPlayerId() != null) {
           $this->close();
         }
@@ -70,13 +75,13 @@ class UserSession {
           $this->close();
         }
       }
-      
+    
       if ($this->answerSession != null) {
         // reload questions if they were already created earlier
         $this->questionQueue = new QuestionQueue(unserialize($_SESSION['questions']));
       }
     }
-    
+  
     // get info about what session type it "should" be
     $playerId = null;
     $microworkerId = null;
@@ -92,7 +97,7 @@ class UserSession {
         $microworkerId = $sessionType->getId();
         break;
     }
-    
+  
     // create new session if required
     if ($this->answerSession == null) {
       $this->createNewSession($microworkerId, $userId, $playerId);
@@ -110,7 +115,7 @@ class UserSession {
       }
       // TODO: I think it's not a good idea to later assign sessions to microworkers
     }
-    
+  
     // save answerSessionId in session
     $_SESSION['answerSessionId'] = $this->answerSession->getId();
   }
@@ -143,7 +148,7 @@ class UserSession {
   }
   
   public function getNextQuestion() {
-    global $OBJECTS;
+    global $OBJECTS, $FACTORIES;
     
     // TODO: here we update the session quality and we decide if we need to do a security question or not
     
@@ -164,7 +169,9 @@ class UserSession {
     $_SESSION['numSecurityQuestions'] = $numSecurityQuestions;
     
     if (!$this->questionQueue->questionAvailable()) {
-      $this->__construct();
+      $this->answerSession->setIsOpen(0);
+      $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
+      $this->init();
     }
     return $this->questionQueue->getFirst();
   }

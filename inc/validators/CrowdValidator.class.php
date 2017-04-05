@@ -13,8 +13,8 @@ use DBA\TwoCompareAnswer;
  * Class CrowdValidator validates a session based on similarities where enough answers were given and match the one the user gave
  */
 class CrowdValidator extends Validator {
-  const DIFF_MALUS_THRESHOLD = 0.4;
-  const DIFF_BONUS_THRESHOLD = 0.2;
+  const DIFF_MALUS_THRESHOLD = 1;
+  const DIFF_BONUS_THRESHOLD = 0.4;
   const DIFF_MALUS           = 0.2;
   const DIFF_BONUS           = 0.2;
   
@@ -31,7 +31,7 @@ class CrowdValidator extends Validator {
     foreach ($twoAnswers as $twoAnswer) {
       // for every answer we are testing how good it is compared to all other answers
       $resultTuple = $FACTORIES::getResultTupleFactory()->get($twoAnswer->getResultTupleId());
-      $diff = abs($resultTuple->getSimilarity() - $twoAnswer->getAnswer() / 3) * $resultTuple->getCertainty();
+      $diff = abs($resultTuple->getSimilarity() - $twoAnswer->getAnswer()) * $resultTuple->getCertainty();
       if ($diff > CrowdValidator::DIFF_MALUS_THRESHOLD) {
         $validity -= CrowdValidator::DIFF_MALUS;
       }

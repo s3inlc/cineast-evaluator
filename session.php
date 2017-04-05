@@ -43,5 +43,14 @@ $OBJECTS['value1'] = $value1;
 $OBJECTS['value2'] = $value2;
 // TODO: until here
 
+if(ini_get("display_errors") == "1"){
+  $debug = array(
+    "Number of security questions pushed: ".$_SESSION['numSecurityQuestions'],
+    "Number of questions in queue: ".sizeof(unserialize($_SESSION['questions'])),
+    "AnswerSession ID: ".$_SESSION['answerSessionId']
+  );
+  $OBJECTS['debug'] = $debug;
+}
+
 $TEMPLATE = new Template("views/" . $question->getQuestionType());
 echo $TEMPLATE->render($OBJECTS);

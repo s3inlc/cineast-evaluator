@@ -46,6 +46,13 @@
         </div>
       </form>
     </div>
+    {{IF [[debug]]}}
+      <div class="row">
+        {{FOREACH deb;[[debug]]}}
+          <p>[[deb]]</p>
+        {{ENDFOREACH}}
+      </div>
+    {{ENDIF}}
   </div>
 </main>
 <!-- [[loadTime]] - [[security]] -->

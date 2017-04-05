@@ -29,6 +29,7 @@ class QueryHandler extends Handler {
   private function addQuery() {
     /** @var $LOGIN Login */
     global $FACTORIES, $LOGIN;
+    ini_set("max_execution_time", "0");
     
     $path = STORAGE_PATH . TMP_FOLDER . "import-" . time() . "/";
     mkdir($path);

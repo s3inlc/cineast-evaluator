@@ -23,6 +23,8 @@ define("SESSION_SIZE", "20");
 define("IMAGE_MAX_HEIGHT", 1500);
 define("IMAGE_MAX_WIDTH", 1500);
 
+define("SECURITY_QUESTION_THRESHOLD", 0.8);
+
 // include all .class.php files in inc dir
 $dir = scandir(dirname(__FILE__));
 foreach ($dir as $entry) {

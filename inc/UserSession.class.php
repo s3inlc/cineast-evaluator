@@ -34,7 +34,7 @@ class UserSession {
       if ($this->answerSession->getIsOpen() == 0) {
         $this->answerSession = null;
       }
-      else if(sizeof(unserialize($_SESSION['questions'])) == 0){
+      else if (sizeof(unserialize($_SESSION['questions'])) == 0) {
         // no more questions available, so we close the session
         $this->answerSession->setIsOpen(0);
         $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
@@ -71,7 +71,7 @@ class UserSession {
         }
       }
       
-      if($this->answerSession != null) {
+      if ($this->answerSession != null) {
         // reload questions if they were already created earlier
         $this->questionQueue = new QuestionQueue(unserialize($_SESSION['questions']));
       }
@@ -127,7 +127,7 @@ class UserSession {
     
     $this->answerSession = new AnswerSession(0, $microworkerId, $userId, $playerId, 0.5, 1, time(), Util::getIP(), Util::getUserAgentHeader());
     $this->answerSession = $FACTORIES::getAnswerSessionFactory()->save($this->answerSession);
-  
+    
     // init question pool and get questions block
     $questionPool = new QuestionPool();
     $questions = $questionPool->getNextQuestionBlock($this->answerSession);
@@ -135,6 +135,7 @@ class UserSession {
     // this needs to be tested, if serialization works without problems
     $this->questionQueue = new QuestionQueue($questions);
     $_SESSION['questions'] = serialize($questions);
+    $_SESSION['numSecurityQuestions'] = 0;
   }
   
   public function getAnswerSession() {
@@ -142,12 +143,27 @@ class UserSession {
   }
   
   public function getNextQuestion() {
+    global $OBJECTS;
+    
     // TODO: here we update the session quality and we decide if we need to do a security question or not
-    if(!$this->questionQueue->questionAvailable()){
-      return null;
+    
+    $numSecurityQuestions = 0;
+    if (isset($_SESSION['numSecurityQuestions'])) {
+      $numSecurityQuestions = $_SESSION['numSecurityQuestions'];
     }
     
-    $_SESSION['isSecurityQuestion'] = false;
+    if (random_int(0, SESSION_SIZE) > $numSecurityQuestions * (SESSION_SIZE - sizeof($this->questionQueue->getQuestions())) + SESSION_SIZE / 2) {
+      $question = Util::getSecurityQuestion();
+      if ($question != null) {
+        $this->questionQueue->prependQuestion($question);
+        //TODO: debug code should be removed
+        $OBJECTS['security'] = true;
+      }
+    }
+    
+    if (!$this->questionQueue->questionAvailable()) {
+      $this->__construct();
+    }
     return $this->questionQueue->getFirst();
   }
   
@@ -159,45 +175,41 @@ class UserSession {
     $answerObject = null;
     
     // TODO: here the answer gets processed and checked
-    if($_SESSION['isSecurityQuestion']){
-      // handle this special
-      die("SECURITY QUESTION");
-    }
-    else{
-      // handle normal question
-      $question = $this->questionQueue->getFirst();
-      if($question->getQuestionType() == SessionQuestion::TYPE_COMPARE_TWO){
-        // is acompare2 question
-        $objectId1 = $_POST['objectId1'];
-        $objectId2 = $_POST['objectId2'];
-        $answer = intval($_POST['answer']);
-        if(!in_array($answer, array(AnswerType::COMPARE_TWO_NO_SIMILARITY, AnswerType::COMPARE_TWO_SLIGHTLY_SIMILAR, AnswerType::COMPARE_TWO_VERY_SIMILAR, AnswerType::COMPARE_TWO_NEARLY_IDENTICAL))){
-          // TODO: handle error
-          die("INVALID ANSWER");
-        }
-        else if(($objectId1 != $question->getMediaObjects()[0]->getId() || $objectId2 != $question->getMediaObjects()[1]->getId()) && ($objectId2 != $question->getMediaObjects()[0]->getId() || $objectId1 != $question->getMediaObjects()[1]->getId())){
-          // TODO: handle error
-          die("NOT MATCHING QUESTION");
-        }
-        else{
-          // answer matches the current question
-          $twoCompareAnswer = new TwoCompareAnswer(0, time(), $question->getResultTuples()[0]->getId(), $answer, $this->answerSession->getId());
-          $FACTORIES::getTwoCompareAnswerFactory()->save($twoCompareAnswer);
-          $this->questionQueue->pop();
-          $_SESSION['questions'] = serialize($this->questionQueue->getQuestions());
-          $errorType = ErrorType::NO_ERROR;
-        }
+    
+    // handle normal question
+    $question = $this->questionQueue->getFirst();
+    if ($question->getQuestionType() == SessionQuestion::TYPE_COMPARE_TWO) {
+      // is acompare2 question
+      $objectId1 = $_POST['objectId1'];
+      $objectId2 = $_POST['objectId2'];
+      $answer = intval($_POST['answer']);
+      if (!in_array($answer, array(AnswerType::COMPARE_TWO_NO_SIMILARITY, AnswerType::COMPARE_TWO_SLIGHTLY_SIMILAR, AnswerType::COMPARE_TWO_VERY_SIMILAR, AnswerType::COMPARE_TWO_NEARLY_IDENTICAL))) {
+        // TODO: handle error
+        die("INVALID ANSWER");
       }
-      else if($question->getQuestionType() == SessionQuestion::TYPE_COMPARE_TRIPLE){
-        // is a compare3 question
-        die("COMPARE3");
+      else if (($objectId1 != $question->getMediaObjects()[0]->getId() || $objectId2 != $question->getMediaObjects()[1]->getId()) && ($objectId2 != $question->getMediaObjects()[0]->getId() || $objectId1 != $question->getMediaObjects()[1]->getId())) {
+        // TODO: handle error
+        die("NOT MATCHING QUESTION");
       }
-      else{
-        // TODO: strange error, decide what's happening here
-        die("WRONG QUESTION TYPE");
+      else {
+        // answer matches the current question
+        $twoCompareAnswer = new TwoCompareAnswer(0, time(), $question->getResultTuples()[0]->getId(), $answer, $this->answerSession->getId());
+        $FACTORIES::getTwoCompareAnswerFactory()->save($twoCompareAnswer);
+        $this->questionQueue->pop();
+        $_SESSION['questions'] = serialize($this->questionQueue->getQuestions());
+        $errorType = ErrorType::NO_ERROR;
       }
     }
-    $this->answerSession->setCurrentValidity($validator->update($errorType, $_SESSION['isSecurityQuestion']));
+    else if ($question->getQuestionType() == SessionQuestion::TYPE_COMPARE_TRIPLE) {
+      // is a compare3 question
+      die("COMPARE3");
+    }
+    else {
+      // TODO: strange error, decide what's happening here
+      die("WRONG QUESTION TYPE");
+    }
+    
+    $this->answerSession->setCurrentValidity($validator->update($errorType));
     $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
     $_SESSION['isSecurityQuestion'] = false;
   }

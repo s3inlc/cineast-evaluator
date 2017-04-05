@@ -3,6 +3,7 @@ use DBA\JoinFilter;
 use DBA\MediaObject;
 use DBA\MediaType;
 use DBA\QueryFilter;
+use DBA\RandOrderFilter;
 use DBA\ResultTuple;
 
 /**
@@ -138,6 +139,47 @@ class Util {
     return $pos;
   }
   
+  public static function getSecurityQuestion(){
+    global $FACTORIES;
+    
+    $question = null;
+    
+    $qF = new QueryFilter(ResultTuple::CERTAINTY, SECURITY_QUESTION_THRESHOLD, ">=");
+    $oF = new RandOrderFilter(10);
+    $resultTuples = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF));
+    $questionType = SessionQuestion::TYPE_UNDEFINED;
+    if(sizeof($resultTuples) > 2 && mt_rand(0, 1) > 0){
+      $matching = array();
+      for($i=0;$i<sizeof($resultTuples);$i++){
+        for($j=$i+1;$j<sizeof($resultTuples);$j++){
+          if($resultTuples[$i]->getObjectId1() == $resultTuples[$j]->getObjectId1() && $resultTuples[$i]->getObjectId1() != $resultTuples[$j]->getObjectId1()){
+            $matching = array($resultTuples[$i], $resultTuples[$j]);
+            $i = sizeof($resultTuples);
+            break;
+          }
+        }
+      }
+      if(sizeof($matching) > 0){
+        // three compare
+        $questionType = SessionQuestion::TYPE_COMPARE_TRIPLE;
+        $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($matching[0]->getObjectId1());
+        $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($matching[0]->getObjectId2());
+        $mediaObject3 = $FACTORIES::getMediaObjectFactory()->get($matching[1]->getObjectId2());
+        $question = new SessionQuestion($questionType, array($mediaObject1, $mediaObject2, $mediaObject3), $matching);
+      }
+    }
+    
+    
+    if($questionType == SessionQuestion::TYPE_COMPARE_TWO){
+      // two compare
+      $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($resultTuples[0]->getObjectId1());
+      $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($resultTuples[0]->getObjectId2());
+      $question = new SessionQuestion($questionType, array($mediaObject1, $mediaObject2), array($resultTuples[0]));
+    }
+    
+    return $question;
+  }
+  
   public static function resizeImage($path) {
     $size = getimagesize($path);
     if($size[0] <= IMAGE_MAX_WIDTH && $size[1] <= IMAGE_MAX_HEIGHT){
@@ -156,7 +198,7 @@ class Util {
     $dst = imagecreatetruecolor($width, $height);
     imagecopyresampled($dst, $src, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
     imagedestroy($src);
-    imagepng($dst, $path); // adjust format as needed
+    imagejpeg($dst, $path);
     imagedestroy($dst);
   }
   

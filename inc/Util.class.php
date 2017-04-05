@@ -170,7 +170,7 @@ class Util {
     }
     
     
-    if (sizeof($resultTuples) > 0 && $questionType = SessionQuestion::TYPE_UNDEFINED) {
+    if (sizeof($resultTuples) > 0 && $questionType == SessionQuestion::TYPE_UNDEFINED) {
       // two compare
       $questionType = SessionQuestion::TYPE_COMPARE_TWO;
       $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($resultTuples[0]->getObjectId1());

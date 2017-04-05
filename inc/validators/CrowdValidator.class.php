@@ -16,7 +16,7 @@ class CrowdValidator extends Validator {
   const DIFF_MALUS_THRESHOLD = 1;
   const DIFF_BONUS_THRESHOLD = 0.4;
   const DIFF_MALUS           = 0.2;
-  const DIFF_BONUS           = 0.1;
+  const DIFF_BONUS           = 0.2;
   
   const CERTAINTY_THRESHOLD = 0.4;
   

@@ -155,11 +155,13 @@ class UserSession {
     if (random_int(0, SESSION_SIZE) > $numSecurityQuestions * (SESSION_SIZE - sizeof($this->questionQueue->getQuestions())) + SESSION_SIZE / 2) {
       $question = Util::getSecurityQuestion();
       if ($question != null) {
+        $numSecurityQuestions++;
         $this->questionQueue->prependQuestion($question);
         //TODO: debug code should be removed
         $OBJECTS['security'] = true;
       }
     }
+    $_SESSION['numSecurityQuestions'] = $numSecurityQuestions;
     
     if (!$this->questionQueue->questionAvailable()) {
       $this->__construct();

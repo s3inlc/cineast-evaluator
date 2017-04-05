@@ -38,10 +38,10 @@ class CrowdValidator extends Validator {
         continue;
       }
       else if ($diff > CrowdValidator::DIFF_MALUS_THRESHOLD) {
-        $validity -= CrowdValidator::DIFF_MALUS * $resultTuple->getCertainty();
+        $validity *= $resultTuple->getCertainty();
       }
       else if ($diff < CrowdValidator::DIFF_BONUS_THRESHOLD) {
-        $validity += CrowdValidator::DIFF_BONUS * $resultTuple->getCertainty();
+        $validity *= 1 / $resultTuple->getCertainty();
       }
     }
     if ($validity < 0) {

@@ -41,10 +41,16 @@ class SimilaritySumCalculator extends Calculator {
         continue;
       }
       $idealValue /= $totalSum;
+      if($idealValue > 3){
+        $idealValue = 3;
+      }
       for ($i = 0; $i < 4; $i++) {
         $qualityNormalized[$i] = $qualitySum[$i] / $totalSum * (1 - 1 / ($totalSum + 1));
       }
       if (floor($idealValue) == $idealValue) { // if it really matches one value
+        $quality = $qualityNormalized[$idealValue];
+      }
+      else if(floor($idealValue) == 3){
         $quality = $qualityNormalized[$idealValue];
       }
       else { // otherwise just interpolate linearly between the two nearest values

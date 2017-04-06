@@ -35,8 +35,18 @@ class MultivariantGauss {
    * @return float probability of these answers
    */
   public function getProbability($answers) {
-    $quot = 1 / (pow(2 * pi(), sizeof($this->sigma) / 2) * pow($this->det(), 1 / 2));
+    $quot = 1 / (pow(2 * pi(), $this->getValidSize($this->sigma) / 2) * pow($this->det(), 1 / 2));
     return $quot * exp($this->calculateExp($answers));
+  }
+  
+  private function getValidsize($vector){
+    $count = 0;
+    foreach($vector as $val){
+      if($val != -1){
+        $count++;
+      }
+    }
+    return $count;
   }
   
   /**

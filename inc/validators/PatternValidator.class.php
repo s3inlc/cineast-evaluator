@@ -1,0 +1,56 @@
+<?php
+use DBA\AnswerSession;
+use DBA\OrderFilter;
+use DBA\QueryFilter;
+use DBA\TwoCompareAnswer;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: sein
+ * Date: 06.04.17
+ * Time: 10:26
+ */
+class PatternValidator extends Validator {
+  const SAME_ANSWER_THRESHOLD = 2;
+  
+  const SAME_ANSWER_MALUS = 0.5;
+  
+  function validateRunning($answerSession, $validity) {
+    return $validity;
+  }
+  
+  /**
+   * @param $answerSession AnswerSession
+   * @param $validity float
+   * @return float
+   */
+  function validateFinished($answerSession, $validity) {
+    global $FACTORIES;
+    
+    $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSession->getId(), "=");
+    $oF = new OrderFilter(TwoCompareAnswer::TIME, "ASC");
+    $twoAnswers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF));
+    
+    if (sizeof($twoAnswers) < 2) {
+      return $validity;
+    }
+    
+    // TestPattern: all the same answer
+    $answers = array(0, 0, 0, 0);
+    foreach ($twoAnswers as $answer) {
+      $answers[$answer->getAnswer()]++;
+    }
+    for ($i = 0; $i < 4; $i++) {
+      if (sizeof($twoAnswers) - $answers[$i] <= PatternValidator::SAME_ANSWER_THRESHOLD) {
+        $validity *= 1 - PatternValidator::SAME_ANSWER_MALUS;
+      }
+    }
+    
+    // TestPattern: cyclic answering
+    // TODO: implement
+    
+    return $validity;
+  }
+}
+
+$VALIDATORS[] = new PatternValidator();

@@ -40,7 +40,7 @@ class ResultTupleFactory extends AbstractModelFactory {
    * @return ResultTuple
    */
   function createObjectFromDict($pk, $dict) {
-    $o = new ResultTuple($pk, $dict['objectId1'], $dict['objectId2'], $dict['similarity'], $dict['certainty']);
+    $o = new ResultTuple($pk, $dict['objectId1'], $dict['objectId2'], $dict['sigma'], $dict['mu']);
     return $o;
   }
 

@@ -13,15 +13,15 @@ class ResultTuple extends AbstractModel {
   private $resultTupleId;
   private $objectId1;
   private $objectId2;
-  private $similarity;
-  private $certainty;
+  private $sigma;
+  private $mu;
   
-  function __construct($resultTupleId, $objectId1, $objectId2, $similarity, $certainty) {
+  function __construct($resultTupleId, $objectId1, $objectId2, $sigma, $mu) {
     $this->resultTupleId = $resultTupleId;
     $this->objectId1 = $objectId1;
     $this->objectId2 = $objectId2;
-    $this->similarity = $similarity;
-    $this->certainty = $certainty;
+    $this->sigma = $sigma;
+    $this->mu = $mu;
   }
   
   function getKeyValueDict() {
@@ -29,8 +29,8 @@ class ResultTuple extends AbstractModel {
     $dict['resultTupleId'] = $this->resultTupleId;
     $dict['objectId1'] = $this->objectId1;
     $dict['objectId2'] = $this->objectId2;
-    $dict['similarity'] = $this->similarity;
-    $dict['certainty'] = $this->certainty;
+    $dict['sigma'] = $this->sigma;
+    $dict['mu'] = $this->mu;
     
     return $dict;
   }
@@ -67,25 +67,25 @@ class ResultTuple extends AbstractModel {
     $this->objectId2 = $objectId2;
   }
   
-  function getSimilarity(){
-    return $this->similarity;
+  function getSigma(){
+    return $this->sigma;
   }
   
-  function setSimilarity($similarity){
-    $this->similarity = $similarity;
+  function setSigma($sigma){
+    $this->sigma = $sigma;
   }
   
-  function getCertainty(){
-    return $this->certainty;
+  function getMu(){
+    return $this->mu;
   }
   
-  function setCertainty($certainty){
-    $this->certainty = $certainty;
+  function setMu($mu){
+    $this->mu = $mu;
   }
 
   const RESULT_TUPLE_ID = "resultTupleId";
   const OBJECT_ID1 = "objectId1";
   const OBJECT_ID2 = "objectId2";
-  const SIMILARITY = "similarity";
-  const CERTAINTY = "certainty";
+  const SIGMA = "sigma";
+  const MU = "mu";
 }

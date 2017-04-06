@@ -14,10 +14,11 @@ require_once(dirname(__FILE__) . "/../load.php");
 require_once(dirname(__FILE__)."/similarities/Calculator.class.php");
 require_once(dirname(__FILE__)."/similarities/ExampleCalculator.class.php");
 require_once(dirname(__FILE__)."/similarities/SimilaritySumCalculator.class.php");
+require_once(dirname(__FILE__)."/similarities/SimilarityGaussCalculator.php");
 
 echo "calculating...\n";
 
-$calculator = new SimilaritySumCalculator();
+$calculator = new SimilarityGaussCalculator();
 $resultSets = $FACTORIES::getResultTupleFactory()->filter(array());
 $changed = array();
 $calculator->updateSimilarities($resultSets, $changed);

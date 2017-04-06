@@ -52,7 +52,7 @@ class CrowdValidator extends Validator {
   private function validate($answerSession, $validity, $isFinished) {
     global $FACTORIES;
     
-    $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSession->getId(), "=");
+    /*$qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSession->getId(), "=");
     $twoAnswers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
     foreach ($twoAnswers as $twoAnswer) {
       // for every answer we are testing how good it is compared to all other answers
@@ -83,9 +83,9 @@ class CrowdValidator extends Validator {
     }
     else if ($validity > 1) {
       $validity = 1;
-    }
+    }*/
     return $validity;
   }
 }
 
-$VALIDATORS[] = new CrowdValidator();
+//$VALIDATORS[] = new CrowdValidator();

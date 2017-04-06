@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 06. Apr 2017 um 09:36
+-- Erstellungszeit: 06. Apr 2017 um 12:54
 -- Server-Version: 5.7.17-0ubuntu0.16.04.1
 -- PHP-Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -119,8 +119,8 @@ CREATE TABLE `ResultTuple` (
   `resultTupleId` int(11) NOT NULL,
   `objectId1` int(11) NOT NULL,
   `objectId2` int(11) NOT NULL,
-  `similarity` float NOT NULL,
-  `certainty` float NOT NULL
+  `sigma` float NOT NULL,
+  `mu` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -301,7 +301,7 @@ ALTER TABLE `Validation`
 -- AUTO_INCREMENT für Tabelle `AnswerSession`
 --
 ALTER TABLE `AnswerSession`
-  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 --
 -- AUTO_INCREMENT für Tabelle `MediaObject`
 --
@@ -346,7 +346,7 @@ ALTER TABLE `ThreeCompareAnswer`
 -- AUTO_INCREMENT für Tabelle `TwoCompareAnswer`
 --
 ALTER TABLE `TwoCompareAnswer`
-  MODIFY `twoCompareAnswerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1120;
+  MODIFY `twoCompareAnswerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1913;
 --
 -- AUTO_INCREMENT für Tabelle `User`
 --
@@ -356,7 +356,7 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT für Tabelle `Validation`
 --
 ALTER TABLE `Validation`
-  MODIFY `validationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1829;
+  MODIFY `validationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3827;
 --
 -- Constraints der exportierten Tabellen
 --

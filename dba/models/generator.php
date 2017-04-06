@@ -37,8 +37,8 @@ $CONF['ResultTuple'] = array(
   'resultTupleId',
   'objectId1',
   'objectId2',
-  'similarity',
-  'certainty'
+  'sigma',
+  'mu'
 );
 $CONF['QueryResultTuple'] = array(
   'queryResultTupleId',

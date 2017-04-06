@@ -20,10 +20,7 @@ class MultivariantGauss {
   public function __construct($resultSets, $excludedAnswerSession = null) {
     $gaussians = array();
     foreach ($resultSets as $resultSet) {
-      $gaussian = new SimpleGauss($resultSet, $excludedAnswerSession);
-      if ($gaussian->isValid()) {
-        $gaussians[] = $gaussian;
-      }
+      $gaussians[] = new SimpleGauss($resultSet, $excludedAnswerSession);
     }
     $this->mu = array();
     $this->sigma = array();
@@ -62,6 +59,10 @@ class MultivariantGauss {
   private function calculateExp($x) {
     $part = array();
     for ($i = 0; $i < sizeof($x); $i++) {
+      if($this->mu[$i] == -1){
+        $part[$i] = -1;
+        continue;
+      }
       $part[$i] = $x[$i] - $this->mu[$i];
     }
     
@@ -72,6 +73,9 @@ class MultivariantGauss {
     
     $scalar = 0;
     for ($i = 0; $i < sizeof($this->sigma); $i++) {
+      if($part[$i] == -1){
+        continue;
+      }
       $scalar += $part[$i] * $firstMult[$i];
     }
     return -1 / 2 * $scalar;

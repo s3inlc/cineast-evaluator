@@ -24,6 +24,7 @@ define("IMAGE_MAX_HEIGHT", 1500);
 define("IMAGE_MAX_WIDTH", 1500);
 
 define("SECURITY_QUESTION_THRESHOLD", 0.5);
+define("SESSION_TIMEOUT", 3600*24);
 
 // include all .class.php files in inc dir
 $dir = scandir(dirname(__FILE__));

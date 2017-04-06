@@ -35,13 +35,13 @@ class SessionValidator {
     
     if ($this->answerSession->getIsOpen() == 0) {
       $currentValidity = $gaussValidator->validateRunning($this->answerSession, 0);
-      //$currentValidity = $patternValidator->validateRunning($this->answerSession, $currentValidity);
-      //$currentValidity = $timeValidator->validateRunning($this->answerSession, $currentValidity);
+      $currentValidity = $patternValidator->validateRunning($this->answerSession, $currentValidity);
+      $currentValidity = $timeValidator->validateRunning($this->answerSession, $currentValidity);
     }
     else {
       $currentValidity = $gaussValidator->validateFinished($this->answerSession, 0);
-      //$currentValidity = $patternValidator->validateFinished($this->answerSession, $currentValidity);
-      //$currentValidity = $timeValidator->validateFinished($this->answerSession, $currentValidity);
+      $currentValidity = $patternValidator->validateFinished($this->answerSession, $currentValidity);
+      $currentValidity = $timeValidator->validateFinished($this->answerSession, $currentValidity);
     }
     
     /*foreach($VALIDATORS as $validator){

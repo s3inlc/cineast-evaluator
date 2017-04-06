@@ -144,7 +144,7 @@ class Util {
     
     $question = null;
     
-    $qF = new QueryFilter(ResultTuple::CERTAINTY, SECURITY_QUESTION_THRESHOLD, ">=");
+    $qF = new QueryFilter(ResultTuple::SIGMA, SECURITY_QUESTION_THRESHOLD, "<=");
     $oF = new RandOrderFilter(10);
     $resultTuples = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF));
     $questionType = SessionQuestion::TYPE_UNDEFINED;

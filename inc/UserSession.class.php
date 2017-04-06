@@ -41,8 +41,7 @@ class UserSession {
       }
       else if (sizeof(unserialize($_SESSION['questions'])) == 0) {
         // no more questions available, so we close the session
-        $this->answerSession->setIsOpen(0);
-        $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
+        $this->close();
         $this->answerSession = null;
       }
       else if ($this->answerSession->getMicroworkerId() != null) {

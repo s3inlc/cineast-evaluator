@@ -12,9 +12,9 @@ use DBA\Validation;
  * Time: 10:26
  */
 class PatternValidator extends Validator {
-  const SAME_ANSWER_THRESHOLD = 2;
+  const SAME_ANSWER_THRESHOLD = 3;
   
-  const SAME_ANSWER_MALUS = 0.5;
+  const SAME_ANSWER_MALUS = 0.3;
   
   const NAME              = "PatternValidator";
   const EVENT_SAME_ANSWER = "ManySameAnswers";

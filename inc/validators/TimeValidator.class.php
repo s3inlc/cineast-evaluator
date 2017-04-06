@@ -23,7 +23,7 @@ class TimeValidator extends Validator {
   
   const MALUS_TOO_FAST  = 0.5;
   const MALUS_PEAK_TIME = 0.2;
-  const MALUS_TOO_SLOW  = 0.4;
+  const MALUS_TOO_SLOW  = 0.3;
   
   const NAME                = "TimeValidator";
   const EVENT_AVG_TIME_LOW  = "AvgTimeTooLow";

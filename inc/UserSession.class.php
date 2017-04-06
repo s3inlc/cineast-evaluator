@@ -169,8 +169,7 @@ class UserSession {
     $_SESSION['numSecurityQuestions'] = $numSecurityQuestions;
     
     if (!$this->questionQueue->questionAvailable()) {
-      $this->answerSession->setIsOpen(0);
-      $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
+      $this->close();
       $this->init();
     }
     return $this->questionQueue->getFirst();

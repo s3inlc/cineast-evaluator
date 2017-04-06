@@ -19,9 +19,10 @@ class SimilaritySumCalculator extends Calculator {
     global $FACTORIES;
     
     foreach ($resultSets as $resultSet) {
-      $qF = new QueryFilter(TwoCompareAnswer::RESULT_TUPLE_ID, $resultSet->getId(), "=");
+      $qF1 = new QueryFilter(TwoCompareAnswer::RESULT_TUPLE_ID, $resultSet->getId(), "=");
+      $qF2 = new QueryFilter(AnswerSession::IS_OPEN, 0, "=", $FACTORIES::getAnswerSessionFactory()); // only consider completed sessions
       $jF = new JoinFilter($FACTORIES::getAnswerSessionFactory(), TwoCompareAnswer::ANSWER_SESSION_ID, AnswerSession::ANSWER_SESSION_ID);
-      $joined = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));
+      $joined = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF1, $qF2, $FACTORIES::JOIN => $jF));
       $qualitySum = array(0, 0, 0, 0);
       for ($i = 0; $i < sizeof($joined['TwoCompareAnswer']); $i++) {
         /** @var $twoCompareAnswer TwoCompareAnswer */

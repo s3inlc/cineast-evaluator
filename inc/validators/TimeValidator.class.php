@@ -74,6 +74,12 @@ class TimeValidator extends Validator {
     }
     
     if ($answerSession->getMicroworkerId() == null) {
+      if ($validity < 0) {
+        $validity = 0;
+      }
+      else if ($validity > 1) {
+        $validity = 1;
+      }
       return $validity; // time patterns are only tested for microworkers
     }
     
@@ -86,6 +92,13 @@ class TimeValidator extends Validator {
     }
     
     // TODO: if possible try to detect cyclic time patterns
+    
+    if ($validity < 0) {
+      $validity = 0;
+    }
+    else if ($validity > 1) {
+      $validity = 1;
+    }
     
     return $validity;
   }

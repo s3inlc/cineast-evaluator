@@ -21,6 +21,7 @@ class Factory {
   private static $playerFactory = null;
   private static $threeCompareAnswerFactory = null;
   private static $twoCompareAnswerFactory = null;
+  private static $validationFactory = null;
 
   public static function getUserFactory() {
     if (self::$userFactory == null) {
@@ -97,6 +98,13 @@ class Factory {
       self::$twoCompareAnswerFactory = new TwoCompareAnswerFactory();
     }
     return self::$twoCompareAnswerFactory;
+  }
+  
+  public static function getValidationFactory() {
+    if (self::$validationFactory == null) {
+      self::$validationFactory = new ValidationFactory();
+    }
+    return self::$validationFactory;
   }
 
   const FILTER = "filter";

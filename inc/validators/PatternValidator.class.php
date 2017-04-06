@@ -48,6 +48,13 @@ class PatternValidator extends Validator {
     
     // TestPattern: cyclic answering
     // TODO: implement
+  
+    if ($validity < 0) {
+      $validity = 0;
+    }
+    else if ($validity > 1) {
+      $validity = 1;
+    }
     
     return $validity;
   }

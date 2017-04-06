@@ -93,6 +93,14 @@ $CONF['TwoCompareAnswer'] = array(
   'answer',
   'answerSessionId'
 );
+$CONF['Validation'] = array(
+  'validationId',
+  'answerSessionId',
+  'validator',
+  'event',
+  'bonus',
+  'malus'
+);
 
 foreach ($CONF as $NAME => $COLUMNS) {
   $class = file_get_contents(dirname(__FILE__) . "/AbstractModel.template.txt");

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 30. Mrz 2017 um 13:30
+-- Erstellungszeit: 06. Apr 2017 um 09:11
 -- Server-Version: 5.7.17-0ubuntu0.16.04.1
 -- PHP-Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -50,7 +50,7 @@ CREATE TABLE `MediaObject` (
   `filename` varchar(128) COLLATE utf8_bin NOT NULL,
   `time` int(11) NOT NULL,
   `checksum` varchar(128) COLLATE utf8_bin NOT NULL,
-  `source` VARCHAR(256) NOT NULL
+  `source` varchar(256) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -119,8 +119,8 @@ CREATE TABLE `ResultTuple` (
   `resultTupleId` int(11) NOT NULL,
   `objectId1` int(11) NOT NULL,
   `objectId2` int(11) NOT NULL,
-  `similarity` FLOAT NOT NULL,
-  `certainty` FLOAT NOT NULL
+  `similarity` float NOT NULL,
+  `certainty` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -185,6 +185,21 @@ CREATE TABLE `User` (
   `lastLoginDate` int(11) NOT NULL,
   `registeredSince` int(11) NOT NULL,
   `sessionLifetime` int(11) NOT NULL DEFAULT '600'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Validation`
+--
+
+CREATE TABLE `Validation` (
+  `validationId` int(11) NOT NULL,
+  `answerSessionId` int(11) NOT NULL,
+  `validator` varchar(100) COLLATE utf8_bin NOT NULL,
+  `event` varchar(100) COLLATE utf8_bin NOT NULL,
+  `bonus` int(11) NOT NULL,
+  `malus` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -272,6 +287,13 @@ ALTER TABLE `User`
   ADD PRIMARY KEY (`userId`);
 
 --
+-- Indizes für die Tabelle `Validation`
+--
+ALTER TABLE `Validation`
+  ADD PRIMARY KEY (`validationId`),
+  ADD KEY `answerSessionId` (`answerSessionId`);
+
+--
 -- AUTO_INCREMENT für exportierte Tabellen
 --
 
@@ -279,17 +301,17 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT für Tabelle `AnswerSession`
 --
 ALTER TABLE `AnswerSession`
-  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT für Tabelle `MediaObject`
 --
 ALTER TABLE `MediaObject`
-  MODIFY `mediaObjectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `mediaObjectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3629;
 --
 -- AUTO_INCREMENT für Tabelle `MediaType`
 --
 ALTER TABLE `MediaType`
-  MODIFY `mediaTypeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `mediaTypeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT für Tabelle `Player`
 --
@@ -299,22 +321,22 @@ ALTER TABLE `Player`
 -- AUTO_INCREMENT für Tabelle `Query`
 --
 ALTER TABLE `Query`
-  MODIFY `queryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `queryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT für Tabelle `QueryResultTuple`
 --
 ALTER TABLE `QueryResultTuple`
-  MODIFY `queryResultTupleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `queryResultTupleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4014;
 --
 -- AUTO_INCREMENT für Tabelle `ResultTuple`
 --
 ALTER TABLE `ResultTuple`
-  MODIFY `resultTupleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `resultTupleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3643;
 --
 -- AUTO_INCREMENT für Tabelle `Session`
 --
 ALTER TABLE `Session`
-  MODIFY `sessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `sessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT für Tabelle `ThreeCompareAnswer`
 --
@@ -324,12 +346,17 @@ ALTER TABLE `ThreeCompareAnswer`
 -- AUTO_INCREMENT für Tabelle `TwoCompareAnswer`
 --
 ALTER TABLE `TwoCompareAnswer`
-  MODIFY `twoCompareAnswerId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `twoCompareAnswerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1096;
 --
 -- AUTO_INCREMENT für Tabelle `User`
 --
 ALTER TABLE `User`
   MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT für Tabelle `Validation`
+--
+ALTER TABLE `Validation`
+  MODIFY `validationId` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints der exportierten Tabellen
 --
@@ -387,6 +414,12 @@ ALTER TABLE `ThreeCompareAnswer`
 ALTER TABLE `TwoCompareAnswer`
   ADD CONSTRAINT `TwoCompareAnswer_ibfk_1` FOREIGN KEY (`resultTupleId`) REFERENCES `ResultTuple` (`resultTupleId`),
   ADD CONSTRAINT `TwoCompareAnswer_ibfk_2` FOREIGN KEY (`answerSessionId`) REFERENCES `AnswerSession` (`answerSessionId`);
+
+--
+-- Constraints der Tabelle `Validation`
+--
+ALTER TABLE `Validation`
+  ADD CONSTRAINT `Validation_ibfk_1` FOREIGN KEY (`answerSessionId`) REFERENCES `AnswerSession` (`answerSessionId`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

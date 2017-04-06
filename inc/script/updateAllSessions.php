@@ -16,18 +16,16 @@ require_once(dirname(__FILE__) . "/../load.php");
 $sessions = $FACTORIES::getAnswerSessionFactory()->filter(array());
 foreach ($sessions as $session) {
   $currentValidity = 0;
-  foreach ($VALIDATORS as $validator) {
-    if ($session->getIsOpen() == 1) {
-      //
-    }
-    else {
-      // delete validation actions for the ones we update now
-      $qF = new QueryFilter(Validation::ANSWER_SESSION_ID, $session->getId(), "=");
-      $FACTORIES::getValidationFactory()->massDeletion(array($FACTORIES::FILTER => $qF));
-      
+  if ($session->getIsOpen() == 0) {
+    // delete validation actions for the ones we update now
+    $qF = new QueryFilter(Validation::ANSWER_SESSION_ID, $session->getId(), "=");
+    $FACTORIES::getValidationFactory()->massDeletion(array($FACTORIES::FILTER => $qF));
+    
+    foreach ($VALIDATORS as $validator) {
       $currentValidity = $validator->validateFinished($session, $currentValidity);
     }
   }
+  
   if ($session->getUserId() != null) {
     $currentValidity = 1; // set for admin users
   }

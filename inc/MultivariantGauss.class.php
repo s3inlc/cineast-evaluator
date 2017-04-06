@@ -60,6 +60,9 @@ class MultivariantGauss {
       if($sig == -1){
         continue;
       }
+      else if($sig == 0){
+        $sig = 0.00001;
+      }
       $val *= $sig;
     }
     return $val;

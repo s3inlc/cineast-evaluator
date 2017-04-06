@@ -6,11 +6,6 @@
  * Time: 17:04
  */
 
-use DBA\QueryFilter;
-use DBA\ThreeCompareAnswer;
-use DBA\TwoCompareAnswer;
-use DBA\Validation;
-
 require_once(dirname(__FILE__) . "/../load.php");
 
 /** @var $VALIDATORS Validator[] */

@@ -144,9 +144,10 @@ class Util {
     
     $question = null;
     
-    $qF = new QueryFilter(ResultTuple::SIGMA, SECURITY_QUESTION_THRESHOLD, "<=");
+    $qF1 = new QueryFilter(ResultTuple::SIGMA, SECURITY_QUESTION_THRESHOLD, "<=");
+    $qF2 = new QueryFilter(ResultTuple::SIGMA, 0, ">=");
     $oF = new RandOrderFilter(10);
-    $resultTuples = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF));
+    $resultTuples = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2), $FACTORIES::ORDER => $oF));
     $questionType = SessionQuestion::TYPE_UNDEFINED;
     if (sizeof($resultTuples) >= 2 && mt_rand(0, 1) > 0) {
       $matching = array();

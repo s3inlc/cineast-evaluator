@@ -23,7 +23,7 @@ define("SESSION_SIZE", "20");
 define("IMAGE_MAX_HEIGHT", 1500);
 define("IMAGE_MAX_WIDTH", 1500);
 
-define("SECURITY_QUESTION_THRESHOLD", 0.2);
+define("SECURITY_QUESTION_THRESHOLD", 0.5);
 define("SESSION_TIMEOUT", 3600*24); // set time limit after which a session is considered as closed even if not all questions are answered
 define("GAUSS_LIMIT", 2); // defines the number of answers which is required to be able to put a gauss curve for a tuple
 

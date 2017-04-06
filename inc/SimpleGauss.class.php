@@ -68,7 +68,7 @@ class SimpleGauss {
       $sigmaSum += ($twoCompareAnswer->getAnswer() - $this->mu) * ($twoCompareAnswer->getAnswer() - $this->mu);
     }
     
-    $this->sigma = $sigmaSum / sizeof($joined['TwoCompareAnswer']);
+    $this->sigma = sqrt($sigmaSum / sizeof($joined['TwoCompareAnswer']));
   }
   
   /**

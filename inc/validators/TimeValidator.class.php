@@ -9,6 +9,7 @@ use DBA\AnswerSession;
 use DBA\OrderFilter;
 use DBA\QueryFilter;
 use DBA\TwoCompareAnswer;
+use DBA\Validation;
 
 /**
  * Class TimeValidator
@@ -23,6 +24,11 @@ class TimeValidator extends Validator {
   const MALUS_TOO_FAST  = 0.5;
   const MALUS_PEAK_TIME = 0.2;
   const MALUS_TOO_SLOW  = 0.4;
+  
+  const NAME                = "TimeValidator";
+  const EVENT_AVG_TIME_LOW  = "AvgTimeTooLow";
+  const EVENT_PEAK          = "TimePeak";
+  const EVENT_AVG_TIME_HIGH = "AvgTimeTooHigh";
   
   function validateRunning($answerSession, $validity) {
     return $validity;
@@ -71,6 +77,8 @@ class TimeValidator extends Validator {
     $avgTime = $totalTime / (sizeof($twoAnswers) - 1);
     if ($avgTime < TimeValidator::AVG_TIME_LOWER_LIMIT) {
       $validity *= 1 - TimeValidator::MALUS_TOO_FAST;
+      $entry = new Validation(0, $answerSession->getId(), $this::NAME, $this::EVENT_AVG_TIME_LOW, 0, $this::MALUS_TOO_FAST);
+      $FACTORIES::getValidationFactory()->save($entry);
     }
     
     if ($answerSession->getMicroworkerId() == null) {
@@ -86,9 +94,13 @@ class TimeValidator extends Validator {
     // test if specific patterns occured in time
     if (abs($avgTime - $max) >= TimeValidator::PEAK_DIST_FROM_AVG) {
       $validity *= 1 - TimeValidator::MALUS_PEAK_TIME;
+      $entry = new Validation(0, $answerSession->getId(), $this::NAME, $this::EVENT_PEAK, 0, $this::MALUS_PEAK_TIME);
+      $FACTORIES::getValidationFactory()->save($entry);
     }
     if ($avgTime >= TimeValidator::AVG_TIME_UPPER_LIMIT) {
       $validity *= 1 - TimeValidator::MALUS_TOO_SLOW;
+      $entry = new Validation(0, $answerSession->getId(), $this::NAME, $this::EVENT_AVG_TIME_HIGH, 0, $this::MALUS_TOO_SLOW);
+      $FACTORIES::getValidationFactory()->save($entry);
     }
     
     // TODO: if possible try to detect cyclic time patterns

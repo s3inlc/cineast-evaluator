@@ -8,6 +8,7 @@
 use DBA\AnswerSession;
 use DBA\QueryFilter;
 use DBA\TwoCompareAnswer;
+use DBA\Validation;
 
 /**
  * Class CrowdValidator validates a session based on similarities where enough answers were given and match the one the user gave
@@ -20,12 +21,35 @@ class CrowdValidator extends Validator {
   
   const CERTAINTY_THRESHOLD = 0.4;
   
+  const NAME             = "CrowdValidator";
+  const EVENT_DIFF_MALUS = "SimilarityDistanceTooLarge";
+  const EVENT_DIFF_BONUS = "SimilarityDistanceSmall";
+  
   /**
    * @param $answerSession AnswerSession
-   * @param $validity
+   * @param $validity float
    * @return float updated validity
    */
   function validateRunning($answerSession, $validity) {
+    return $this->validate($answerSession, $validity, false);
+  }
+  
+  /**
+   * @param $answerSession AnswerSession
+   * @param $validity float
+   * @return float updated validity
+   */
+  function validateFinished($answerSession, $validity) {
+    return $this->validate($answerSession, $validity, true);
+  }
+  
+  /**
+   * @param $answerSession AnswerSession
+   * @param $validity float
+   * @param $isFinished bool
+   * @return float updated validity
+   */
+  private function validate($answerSession, $validity, $isFinished) {
     global $FACTORIES;
     
     $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSession->getId(), "=");
@@ -40,10 +64,18 @@ class CrowdValidator extends Validator {
       else if ($diff > CrowdValidator::DIFF_MALUS_THRESHOLD) {
         $validity -= CrowdValidator::DIFF_MALUS;
         $validity *= $resultTuple->getCertainty();
+        if ($isFinished) {
+          $entry = new Validation(0, $answerSession->getId(), $this::NAME, $this::EVENT_DIFF_MALUS, 0, $this::DIFF_MALUS);
+          $FACTORIES::getValidationFactory()->save($entry);
+        }
       }
       else if ($diff < CrowdValidator::DIFF_BONUS_THRESHOLD) {
         $validity += CrowdValidator::DIFF_BONUS;
         $validity *= 1 / $resultTuple->getCertainty();
+        if ($isFinished) {
+          $entry = new Validation(0, $answerSession->getId(), $this::NAME, $this::EVENT_DIFF_BONUS, $this::DIFF_BONUS, 0);
+          $FACTORIES::getValidationFactory()->save($entry);
+        }
       }
     }
     if ($validity < 0) {
@@ -53,10 +85,6 @@ class CrowdValidator extends Validator {
       $validity = 1;
     }
     return $validity;
-  }
-  
-  function validateFinished($answerSession, $validity) {
-    return $this->validateRunning($answerSession, $validity);
   }
 }
 

@@ -3,6 +3,7 @@ use DBA\AnswerSession;
 use DBA\OrderFilter;
 use DBA\QueryFilter;
 use DBA\TwoCompareAnswer;
+use DBA\Validation;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,6 +15,9 @@ class PatternValidator extends Validator {
   const SAME_ANSWER_THRESHOLD = 2;
   
   const SAME_ANSWER_MALUS = 0.5;
+  
+  const NAME              = "PatternValidator";
+  const EVENT_SAME_ANSWER = "ManySameAnswers";
   
   function validateRunning($answerSession, $validity) {
     return $validity;
@@ -43,12 +47,14 @@ class PatternValidator extends Validator {
     for ($i = 0; $i < 4; $i++) {
       if (sizeof($twoAnswers) - $answers[$i] <= PatternValidator::SAME_ANSWER_THRESHOLD) {
         $validity *= 1 - PatternValidator::SAME_ANSWER_MALUS;
+        $entry = new Validation(0, $answerSession->getId(), $this::NAME, $this::EVENT_SAME_ANSWER, 0, $this::SAME_ANSWER_MALUS);
+        $FACTORIES::getValidationFactory()->save($entry);
       }
     }
     
     // TestPattern: cyclic answering
     // TODO: implement
-  
+    
     if ($validity < 0) {
       $validity = 0;
     }

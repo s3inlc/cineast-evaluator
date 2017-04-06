@@ -6,6 +6,9 @@
  * Time: 17:04
  */
 
+use DBA\QueryFilter;
+use DBA\Validation;
+
 require_once(dirname(__FILE__) . "/../load.php");
 
 /** @var $VALIDATORS Validator[] */
@@ -18,10 +21,14 @@ foreach ($sessions as $session) {
       //
     }
     else {
+      // delete validation actions for the ones we update now
+      $qF = new QueryFilter(Validation::ANSWER_SESSION_ID, $session->getId(), "=");
+      $FACTORIES::getValidationFactory()->massDeletion(array($FACTORIES::FILTER => $qF));
+      
       $currentValidity = $validator->validateFinished($session, $currentValidity);
     }
   }
-  if($session->getUserId() != null){
+  if ($session->getUserId() != null) {
     $currentValidity = 1; // set for admin users
   }
   $session->setCurrentValidity($currentValidity);

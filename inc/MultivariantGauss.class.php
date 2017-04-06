@@ -47,6 +47,9 @@ class MultivariantGauss {
   private function det() {
     $val = 1;
     foreach ($this->sigma as $sig) {
+      if($sig == -1){
+        continue;
+      }
       $val *= $sig;
     }
     return $val;

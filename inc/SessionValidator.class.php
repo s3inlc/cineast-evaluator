@@ -33,7 +33,7 @@ class SessionValidator {
     $patternValidator = new PatternValidator();
     $timeValidator = new TimeValidator();
     
-    if ($this->answerSession->getIsOpen() == 0) {
+    if ($this->answerSession->getIsOpen() == 1) {
       $currentValidity = $gaussValidator->validateRunning($this->answerSession, 0);
       $currentValidity = $patternValidator->validateRunning($this->answerSession, $currentValidity);
       $currentValidity = $timeValidator->validateRunning($this->answerSession, $currentValidity);

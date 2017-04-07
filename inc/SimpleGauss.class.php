@@ -102,7 +102,7 @@ class SimpleGauss {
     }
     else if ($this->sigma == 0) {
       if ($answer == $this->mu) {
-        return 1;
+        return 1.5;
       }
       return 0;
     }

@@ -120,6 +120,7 @@ class SimpleGauss {
     $bg = imagecolorallocate($im, 255, 255, 255);
     imagefilledrectangle($im, 0, 0, $steps[0] - 1, $steps[1] - 1, $bg);
     $black = imagecolorallocate($im, 0, 0, 0);
+    imagerectangle($im, 0, 0, $steps[0] - 1, $steps[1] - 1, $black);
     
     for ($x = 0; $x < $steps[0]; $x++) {
       $xpos = $x * ($range[0][1] - $range[0][0]) / $steps[0];
@@ -127,7 +128,7 @@ class SimpleGauss {
       $y = round($ypos * $steps[1] / ($range[1][1] - $range[1][0]));
       imagesetpixel($im, $x, $steps[1] - $y, $black);
     }
-  
+    
     ob_start();
     imagepng($im);
     $imageData = ob_get_contents();

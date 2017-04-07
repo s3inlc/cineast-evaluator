@@ -121,7 +121,7 @@ class SimpleGauss {
     imagefilledrectangle($im, 0, 0, $steps[0] + $border - 1, $steps[1] + $border - 1, $bg);
     $black = imagecolorallocate($im, 0, 0, 0);
     $grey = imagecolorallocate($im, 150, 150, 150);
-    imagerectangle($im, $border, 0, $steps[0] - 1, $steps[1] - 1, $black);
+    imagerectangle($im, $border, 0, $steps[0] - 1 + $border, $steps[1] - 1, $black);
     
     // draw grey lines
     imageline($im, round($steps[0] / 3) + $border, 0, round($steps[0] / 3) + $border, $steps[1] - 1, $grey);

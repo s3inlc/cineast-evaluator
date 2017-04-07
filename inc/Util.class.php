@@ -64,9 +64,9 @@ class Util {
       }
       $add = 1;
       if ($resultTuples[$i]->getSigma() == -1) {
-        $add += 10; // TODO: elaborate this value, or make it dependant from highest rank
+        $add += 2; // TODO: elaborate this value, or make it dependant from highest rank
       }
-      $totalCount += $add + $highestRank - $queryResultTuples[$i]->getRank() + 1;
+      $totalCount += $add + sqrt($highestRank - $queryResultTuples[$i]->getRank());
     }
     
     $random = random_int(0, $totalCount - 1);
@@ -77,9 +77,9 @@ class Util {
       }
       $add = 1;
       if ($resultTuples[$i]->getSigma() == -1) {
-        $add += 10; // TODO: elaborate this value, or make it dependant from highest rank
+        $add += 2; // TODO: elaborate this value, or make it dependant from highest rank
       }
-      $currentCount += $add + $highestRank - $queryResultTuples[$i]->getRank() + 1;
+      $currentCount += $add + sqrt($highestRank - $queryResultTuples[$i]->getRank());
       if($currentCount > $random){
         return $resultTuples[$i];
       }

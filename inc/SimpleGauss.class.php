@@ -115,17 +115,31 @@ class SimpleGauss {
     return 1 / ($sigma * sqrt(2 * pi())) * exp($exponent);
   }
   
-  public static function generateCurve($sigma, $mu, $steps = array(500, 200), $range = array(array(0, 3), array(0, 1))) {
+  public static function generateCurve($sigma, $mu, $steps = array(500, 200), $range = array(array(0, 3))) {
     $im = imagecreatetruecolor($steps[0], $steps[1]);
     $bg = imagecolorallocate($im, 255, 255, 255);
     imagefilledrectangle($im, 0, 0, $steps[0] - 1, $steps[1] - 1, $bg);
     $black = imagecolorallocate($im, 0, 0, 0);
     imagerectangle($im, 0, 0, $steps[0] - 1, $steps[1] - 1, $black);
     
+    
+    $pos = array(array(), array());
+    $yMax = 0;
     for ($x = 0; $x < $steps[0]; $x++) {
       $xpos = $x * ($range[0][1] - $range[0][0]) / $steps[0];
       $ypos = SimpleGauss::getStaticProbability($xpos, $sigma, $mu);
-      $y = round($ypos * $steps[1] / ($range[1][1] - $range[1][0]));
+      $pos[0][] = $xpos;
+      $pos[1][] = $ypos;
+      if($ypos > $yMax){
+        $yMax = $ypos;
+      }
+    }
+    
+    $yMax += 0.1;
+    
+    // draw part
+    for($x=0;$x<$steps[0];$x++){
+      $y = round($pos[1][$x] * $steps[1] / ($yMax));
       imagesetpixel($im, $x, $steps[1] - $y, $black);
     }
     

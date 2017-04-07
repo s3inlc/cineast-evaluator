@@ -120,8 +120,12 @@ class SimpleGauss {
     $bg = imagecolorallocate($im, 255, 255, 255);
     imagefilledrectangle($im, 0, 0, $steps[0] - 1, $steps[1] - 1, $bg);
     $black = imagecolorallocate($im, 0, 0, 0);
+    $grey = imagecolorallocate($im, 150, 150, 150);
     imagerectangle($im, 0, 0, $steps[0] - 1, $steps[1] - 1, $black);
     
+    // draw grey lines
+    imageline($im, round($steps[0] / 3), 0, round($steps[0] / 3), $steps[1] - 1, $grey);
+    imageline($im, round($steps[0] / 3 * 2), 0, round($steps[0] / 3 * 2), $steps[1] - 1, $grey);
     
     $pos = array(array(), array());
     $yMax = 0;
@@ -130,7 +134,7 @@ class SimpleGauss {
       $ypos = SimpleGauss::getStaticProbability($xpos, $sigma, $mu);
       $pos[0][] = $xpos;
       $pos[1][] = $ypos;
-      if($ypos > $yMax){
+      if ($ypos > $yMax) {
         $yMax = $ypos;
       }
     }
@@ -138,7 +142,7 @@ class SimpleGauss {
     $yMax += 0.1;
     
     // draw part
-    for($x=0;$x<$steps[0];$x++){
+    for ($x = 0; $x < $steps[0]; $x++) {
       $y = round($pos[1][$x] * $steps[1] / ($yMax));
       imagesetpixel($im, $x, $steps[1] - $y, $black);
     }

@@ -118,7 +118,7 @@ class SimpleGauss {
   public static function generateCurve($sigma, $mu, $steps = array(500, 200), $range = array(array(0, 3), array(0, 1))) {
     $im = imagecreatetruecolor($steps[0], $steps[1]);
     $bg = imagecolorallocate($im, 255, 255, 255);
-    imagerectangle($im, 0, $steps[0] - 1, 0, $steps[1] - 1, $bg);
+    imagerectangle($im, 0, 0, $steps[0] - 1, $steps[1] - 1, $bg);
     $black = imagecolorallocate($im, 0, 0, 0);
     
     for ($x = 0; $x < $steps[0]; $x++) {

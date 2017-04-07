@@ -115,7 +115,7 @@ class SimpleGauss {
     return 1 / ($sigma * sqrt(2 * pi())) * exp($exponent);
   }
   
-  public static function generateCurve($sigma, $mu, $steps = array(500, 200), $range = array(array(0, 3)), $border = 50) {
+  public static function generateCurve($sigma, $mu, $steps = array(500, 200), $range = array(array(0, 3)), $border = 60) {
     $im = imagecreatetruecolor($steps[0] + $border * 2, $steps[1] + $border);
     $bg = imagecolorallocate($im, 255, 255, 255);
     imagefilledrectangle($im, 0, 0, $steps[0] + $border * 2 - 1, $steps[1] + $border - 1, $bg);
@@ -128,10 +128,10 @@ class SimpleGauss {
     imageline($im, round($steps[0] / 3 * 2) + $border, 0, round($steps[0] / 3 * 2) + $border, $steps[1] - 1, $grey);
     
     // draw answers
-    imagestring($im, 2, $border - 20, $steps[1] + 2, 'No Similarity', $black);
-    imagestring($im, 2, round($steps[0] / 3) + $border - 20, $steps[1] + 2, 'Slightly Similar', $black);
-    imagestring($im, 2, round($steps[0] / 3 * 2) + $border - 20, $steps[1] + 2, 'Very Similar', $black);
-    imagestring($im, 2, $steps[0] + $border - 20, $steps[1] + 2, 'Nearly Identical', $black);
+    imagestring($im, 2, $border - 40, $steps[1] + 2, 'No Similarity', $black);
+    imagestring($im, 2, round($steps[0] / 3) + $border - 40, $steps[1] + 2, 'Slightly Similar', $black);
+    imagestring($im, 2, round($steps[0] / 3 * 2) + $border - 40, $steps[1] + 2, 'Very Similar', $black);
+    imagestring($im, 2, $steps[0] + $border - 40, $steps[1] + 2, 'Nearly Identical', $black);
     
     $pos = array(array(), array());
     $yMax = 0;

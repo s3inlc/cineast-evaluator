@@ -115,17 +115,17 @@ class SimpleGauss {
     return 1 / ($sigma * sqrt(2 * pi())) * exp($exponent);
   }
   
-  public static function generateCurve($sigma, $mu, $steps = array(500, 200), $range = array(array(0, 3))) {
-    $im = imagecreatetruecolor($steps[0], $steps[1]);
+  public static function generateCurve($sigma, $mu, $steps = array(500, 200), $range = array(array(0, 3)), $border = 50) {
+    $im = imagecreatetruecolor($steps[0] + $border , $steps[1] + $border);
     $bg = imagecolorallocate($im, 255, 255, 255);
-    imagefilledrectangle($im, 0, 0, $steps[0] - 1, $steps[1] - 1, $bg);
+    imagefilledrectangle($im, 0, 0, $steps[0] + $border - 1, $steps[1] + $border - 1, $bg);
     $black = imagecolorallocate($im, 0, 0, 0);
     $grey = imagecolorallocate($im, 150, 150, 150);
-    imagerectangle($im, 0, 0, $steps[0] - 1, $steps[1] - 1, $black);
+    imagerectangle($im, $border, 0, $steps[0] - 1, $steps[1] - 1, $black);
     
     // draw grey lines
-    imageline($im, round($steps[0] / 3), 0, round($steps[0] / 3), $steps[1] - 1, $grey);
-    imageline($im, round($steps[0] / 3 * 2), 0, round($steps[0] / 3 * 2), $steps[1] - 1, $grey);
+    imageline($im, round($steps[0] / 3) + $border, 0, round($steps[0] / 3) + $border, $steps[1] - 1, $grey);
+    imageline($im, round($steps[0] / 3 * 2) + $border, 0, round($steps[0] / 3 * 2) + $border, $steps[1] - 1, $grey);
     
     $pos = array(array(), array());
     $yMax = 0;
@@ -144,7 +144,7 @@ class SimpleGauss {
     // draw part
     for ($x = 0; $x < $steps[0]; $x++) {
       $y = round($pos[1][$x] * $steps[1] / ($yMax));
-      imagesetpixel($im, $x, $steps[1] - $y, $black);
+      imagesetpixel($im, $x + $border, $steps[1] - $y, $black);
     }
     
     ob_start();

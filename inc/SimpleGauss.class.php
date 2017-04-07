@@ -128,10 +128,10 @@ class SimpleGauss {
     imageline($im, round($steps[0] / 3 * 2) + $border, 0, round($steps[0] / 3 * 2) + $border, $steps[1] - 1, $grey);
     
     // draw answers
-    imagestring($im, 1, $border - 10, $range[1] + 2, 'No Similarity', $black);
-    imagestring($im, 1, round($steps[0] / 3) + $border - 10, $range[1] + 2, 'Slightly Similar', $black);
-    imagestring($im, 1, round($steps[0] / 3 * 2) + $border - 10, $range[1] + 2, 'Very Similar', $black);
-    imagestring($im, 1, $range[0] + $border - 10, $range[1] + 2, 'Nearly Identical', $black);
+    imagestring($im, 1, $border - 10, $steps[1] + 2, 'No Similarity', $black);
+    imagestring($im, 1, round($steps[0] / 3) + $border - 10, $steps[1] + 2, 'Slightly Similar', $black);
+    imagestring($im, 1, round($steps[0] / 3 * 2) + $border - 10, $steps[1] + 2, 'Very Similar', $black);
+    imagestring($im, 1, $range[0] + $border - 10, $steps[1] + 2, 'Nearly Identical', $black);
     
     $pos = array(array(), array());
     $yMax = 0;

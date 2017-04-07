@@ -125,7 +125,7 @@ class SimpleGauss {
       $xpos = $x * ($range[0][1] - $range[0][0]) / $steps[0];
       $ypos = SimpleGauss::getStaticProbability($xpos, $sigma, $mu);
       $y = round($ypos * $steps[1] / ($range[1][1] - $range[1][0]));
-      imagesetpixel($im, $x, $range[1] - $y, $black);
+      imagesetpixel($im, $x, $steps[1] - $y, $black);
     }
   
     ob_start();

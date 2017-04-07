@@ -67,7 +67,7 @@ class QuestionPool {
       
       $qF = new QueryFilter(QueryResultTuple::QUERY_ID, $query->getId(), "=", $FACTORIES::getQueryResultTupleFactory());
       $jF = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
-      $oF = new OrderFilter(QueryResultTuple::RANK, "ASC");
+      $oF = new OrderFilter(QueryResultTuple::RANK, "ASC", $FACTORIES::getQueryResultTupleFactory());
       $joined = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF, $FACTORIES::JOIN => $jF));
       
       if (sizeof($joined['ResultTuple']) == 0) {

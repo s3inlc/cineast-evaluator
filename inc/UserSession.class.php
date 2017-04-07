@@ -156,7 +156,7 @@ class UserSession {
       $numSecurityQuestions = $_SESSION['numSecurityQuestions'];
     }
     
-    if (random_int(0, SESSION_SIZE) > $numSecurityQuestions * SESSION_SIZE / 3) {
+    if (random_int(0, SESSION_SIZE) > $numSecurityQuestions * SESSION_SIZE / 6) {
       $question = Util::getSecurityQuestion();
       if ($question != null) {
         $numSecurityQuestions++;

@@ -59,9 +59,25 @@ class MultivariantCrowdValidator extends Validator {
       $resultSets[] = $FACTORIES::getResultTupleFactory()->get($twoAnswer->getResultTupleId());
       $answers[] = $twoAnswer->getAnswer();
     }
-    $multivariantGaussian = new MultivariantGauss($resultSets, $answerSession);
+    /*$multivariantGaussian = new MultivariantGauss($resultSets, $answerSession);
     
     $probability = $multivariantGaussian->getProbability($answers);
+    */
+    
+    $sum = 0;
+    $count = 0;
+    for($i=0;$i<sizeof($resultSets);$i++){
+      $gaussian = new SimpleGauss($resultSets[$i], $answerSession);
+      if($gaussian->isValid()){
+        $count++;
+        $sum += $gaussian->getProbability($answers[$i]);
+      }
+    }
+    
+    $probability = 0;
+    if($count > 0) {
+      $probability = $sum / $count;
+    }
     
     if ($probability < 0) {
       $probability = 0;

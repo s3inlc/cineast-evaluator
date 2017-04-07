@@ -72,6 +72,10 @@ class MultivariantCrowdValidator extends Validator {
         $count++;
         $sum += $gaussian->getProbability($answers[$i]);
       }
+      else{
+        $count++;
+        $sum += 0.5;
+      }
     }
     
     $probability = 0;

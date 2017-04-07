@@ -2,7 +2,9 @@
 use DBA\JoinFilter;
 use DBA\MediaObject;
 use DBA\MediaType;
+use DBA\Query;
 use DBA\QueryFilter;
+use DBA\QueryResultTuple;
 use DBA\RandOrderFilter;
 use DBA\ResultTuple;
 
@@ -35,6 +37,79 @@ class Util {
     if (!file_exists($mediaDir)) {
       mkdir($mediaDir);
     }
+  }
+  
+  /**
+   * @param $resultTuples ResultTuple[]
+   * @param $queryResultTuples QueryResultTuple[]
+   * @param $excludingTuples int[]
+   * @return ResultTuple
+   */
+  public static function getTupleWeightedWithRankAndSigma($resultTuples, $queryResultTuples, $excludingTuples) {
+    if(sizeof($resultTuples) == 0){
+      return null;
+    }
+    
+    $highestRank = 0;
+    foreach ($queryResultTuples as $queryResultTuple) {
+      if ($queryResultTuple->getRank() > $highestRank) {
+        $highestRank = $queryResultTuple->getRank();
+      }
+    }
+    
+    $totalCount = 0;
+    for ($i = 0; $i < sizeof($resultTuples); $i++) {
+      if (in_array($resultTuples[$i]->getId(), $excludingTuples)) {
+        continue; // exclude the already answered tuples
+      }
+      $add = 1;
+      if ($resultTuples[$i]->getSigma() == -1) {
+        $add += 10; // TODO: elaborate this value, or make it dependant from highest rank
+      }
+      $totalCount += $add + $highestRank - $queryResultTuples[$i]->getRank() + 1;
+    }
+    
+    $random = random_int(0, $totalCount - 1);
+    $currentCount = 0;
+    for($i=0;$i<sizeof($resultTuples);$i++){
+      if (in_array($resultTuples[$i]->getId(), $excludingTuples)) {
+        continue; // exclude the already answered tuples
+      }
+      $add = 1;
+      if ($resultTuples[$i]->getSigma() == -1) {
+        $add += 10; // TODO: elaborate this value, or make it dependant from highest rank
+      }
+      $currentCount += $add + $highestRank - $queryResultTuples[$i]->getRank() + 1;
+      if($currentCount > $random){
+        return $resultTuples[$i];
+      }
+    }
+    return null;
+  }
+  
+  /**
+   * @param $queries Query[]
+   * @return Query
+   */
+  public static function getQueryWeightedWithPriority($queries) {
+    if (sizeof($queries) == 0) {
+      return null;
+    }
+    
+    $totalPriority = 0;
+    foreach ($queries as $query) {
+      $totalPriority += $query->getPriority() + 1;
+    }
+    
+    $random = random_int(0, $totalPriority - 1);
+    $currentPriority = 0;
+    foreach ($queries as $query) {
+      $currentPriority += $query->getPriority() + 1;
+      if ($currentPriority > $random) {
+        return $query;
+      }
+    }
+    return $queries[sizeof($queries) - 1];
   }
   
   /**

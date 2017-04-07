@@ -127,8 +127,13 @@ class SimpleGauss {
       $y = round($ypos * $steps[1] / ($range[1][1] - $range[1][0]));
       imagesetpixel($im, $x, $y, $black);
     }
+  
+    ob_start();
+    imagepng($im);
+    $imageData = ob_get_contents();
+    ob_end_clean();
     
-    return $base64 = 'data:image/png;base64,' . base64_encode($im);
+    return $base64 = 'data:image/png;base64,' . base64_encode($imageData);
   }
 }
 

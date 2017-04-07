@@ -101,9 +101,12 @@ class SimpleGauss {
       return -1;
     }
     else if($this->sigma == 0){
-      $this->sigma = 0.0001;
+      if($answer == $this->mu){
+        return 1;
+      }
+      return 0;
     }
-    $exponent = -1 / 2 * pow(($answer - $this->mu) / $this->sigma, 2);
+    $exponent = -1 / 2 * pow(($answer - $this->mu) / pow($this->sigma, 2), 2);
     return 1 / ($this->sigma * sqrt(2 * pi())) * exp($exponent);
   }
 }

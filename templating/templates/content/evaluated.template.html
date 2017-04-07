@@ -1,0 +1,37 @@
+{%TEMPLATE->struct/head%}
+{%TEMPLATE->struct/menu%}
+<main>
+  <div class="container">
+    <h3>Some (partially) evaluated Tuples</h3>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>ResultTupleID</th>
+          <th>Query/Queries</th>
+          <th># Answers</th>
+          <th>Gaussian</th>
+          <th>View</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{FOREACH resultTuple;[[resultTuples]]}}
+          <tr>
+            <td>[[resultTuple.getId()]]</td>
+            <td>
+              {{FOREACH query;[[queries.getVal([[resultTuple.getId()]])]]}}
+                <a href="queries.php?view=[[query.getId()]]">[[query.getDisplayName()]]</a><br>
+              {{ENDFOREACH}}
+            </td>
+            <td>[[numAnswers.getVal([[resultTuple.getId()]])]]</td>
+            <td>&#956;=[[resultTuple.getMu()]], &#963;=[[result.getSigma()]]</td>
+            <td class="right-align">
+              <a class="btn-floating waves-effect waves-light blue" href="evaluated.php?view=[[resultTuple.getId()]]"><i class="material-icons">info</i></a>
+            </td>
+          </tr>
+        {{ENDFOREACH}}
+      </tbody>
+    </table>
+  </div>
+</main>
+{%TEMPLATE->struct/foot%}

@@ -131,7 +131,7 @@ class SimpleGauss {
     imagestring($im, 1, $border - 10, $steps[1] + 2, 'No Similarity', $black);
     imagestring($im, 1, round($steps[0] / 3) + $border - 10, $steps[1] + 2, 'Slightly Similar', $black);
     imagestring($im, 1, round($steps[0] / 3 * 2) + $border - 10, $steps[1] + 2, 'Very Similar', $black);
-    imagestring($im, 1, $range[0] + $border - 10, $steps[1] + 2, 'Nearly Identical', $black);
+    imagestring($im, 1, $steps[0] + $border - 10, $steps[1] + 2, 'Nearly Identical', $black);
     
     $pos = array(array(), array());
     $yMax = 0;

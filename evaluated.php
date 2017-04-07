@@ -36,6 +36,12 @@ if (isset($_GET['view'])) {
     $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($resultTuple->getObjectId1());
     $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($resultTuple->getObjectId2());
     Util::prepare2CompareQuestion($mediaObject1, $mediaObject2, false);
+    
+    $imageData = false;
+    if($resultTuple->getSigma() > 0){
+      $imageData = SimpleGauss::generateCurve($resultTuple->getSigma(), $resultTuple->getMu());
+    }
+    $OBJECTS['imageData'] = $imageData;
   }
 }
 else {

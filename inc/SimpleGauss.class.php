@@ -26,7 +26,7 @@ class SimpleGauss {
     $qF1 = new QueryFilter(TwoCompareAnswer::RESULT_TUPLE_ID, $tuple->getId(), "=");
     $qF2 = new QueryFilter(AnswerSession::IS_OPEN, 0, "=", $FACTORIES::getAnswerSessionFactory()); // only consider completed sessions
     $filters = array($qF1, $qF2);
-    if($excludedAnswerSession != null){
+    if ($excludedAnswerSession != null) {
       // we need to exclude this answer session
       $qF3 = new QueryFilter(AnswerSession::ANSWER_SESSION_ID, $excludedAnswerSession->getId(), "<>", $FACTORIES::getAnswerSessionFactory());
       $filters[] = $qF3;
@@ -100,8 +100,8 @@ class SimpleGauss {
     if (!$this->isValid()) {
       return -1;
     }
-    else if($this->sigma == 0){
-      if($answer == $this->mu){
+    else if ($this->sigma == 0) {
+      if ($answer == $this->mu) {
         return 1;
       }
       return 0;
@@ -109,4 +109,38 @@ class SimpleGauss {
     $exponent = -1 / 2 * pow(($answer - $this->mu) / pow($this->sigma, 2), 2);
     return 1 / ($this->sigma * sqrt(2 * pi())) * exp($exponent);
   }
+  
+  public static function getStaticProbability($val, $sigma, $mu) {
+    $exponent = -1 / 2 * pow(($val - $mu) / pow($sigma, 2), 2);
+    return 1 / ($sigma * sqrt(2 * pi())) * exp($exponent);
+  }
+  
+  public static function generateCurve($sigma, $mu, $steps = array(500, 200), $range = array(array(0, 3), array(0, 1))) {
+    $im = imagecreatetruecolor($steps[0], $steps[1]);
+    $bg = imagecolorallocate($im, 255, 255, 255);
+    imagerectangle($im, 0, 0, $steps[0] - 1, $steps[1] - 1, $bg);
+    $black = imagecolorallocate($im, 0, 0, 0);
+    
+    for ($x = 0; $x < $steps[0]; $x++) {
+      $xpos = $x * ($range[0][1] - $range[0][0]) / $steps[0];
+      $ypos = SimpleGauss::getStaticProbability($xpos, $sigma, $mu);
+      $y = round($ypos * $steps[1] / ($range[1][1] - $range[1][0]));
+      imagesetpixel($im, $x, $y, $black);
+    }
+    
+    return $base64 = 'data:image/png;base64,' . base64_encode($im);
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

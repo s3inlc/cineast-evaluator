@@ -100,6 +100,9 @@ class SimpleGauss {
     if (!$this->isValid()) {
       return -1;
     }
+    else if($this->sigma == 0){
+      $this->sigma = 0.0001;
+    }
     $exponent = -1 / 2 * pow(($answer - $this->mu) / $this->sigma, 2);
     return 1 / ($this->sigma * sqrt(2 * pi())) * exp($exponent);
   }

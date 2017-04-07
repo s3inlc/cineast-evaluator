@@ -1,0 +1,35 @@
+{%TEMPLATE->struct/head%}
+<main style="margin-top: 50px;">
+  <div class="container">
+    <style>
+      .valign-wrapper {
+        align-items: baseline;
+      }
+    </style>
+    <div class="row valign-wrapper" style="height: 100%;">
+      <div class="col m12" style="text-align: center;">
+        {{FOREACH objectSource;[[value1.getVal('objData')]]}}
+          {{IF [[value1.getVal('template')]] == "default"}}
+            {%TEMPLATE->media/default%}
+          {{ENDIF}}
+          {{IF [[value1.getVal('template')]] == "image"}}
+            {%TEMPLATE->media/image%}
+          {{ENDIF}}
+        {{ENDFOREACH}}
+        &nbsp;&nbsp;&nbsp;
+        {{FOREACH objectSource;[[value2.getVal('objData')]]}}
+          {{IF [[value2.getVal('template')]] == "default"}}
+            {%TEMPLATE->media/default%}
+          {{ENDIF}}
+          {{IF [[value2.getVal('template')]] == "image"}}
+            {%TEMPLATE->media/image%}
+          {{ENDIF}}
+        {{ENDFOREACH}}
+      </div>
+    </div>
+    <br>
+    TODO: show Gaussian curve here
+  </div>
+</main>
+<!-- [[loadTime]] - [[security]] -->
+{%TEMPLATE->struct/emptyfoot%}

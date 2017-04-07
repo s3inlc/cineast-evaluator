@@ -88,6 +88,38 @@ class Util {
   }
   
   /**
+   * @param $mediaObject1 MediaObject
+   * @param $mediaObject2 MediaObject
+   * @param $randomOrder bool
+   */
+  public static function prepare2CompareQuestion($mediaObject1, $mediaObject2, $randomOrder = true){
+    global $FACTORIES, $OBJECTS;
+    
+    $value1 = new DataSet();
+    $value2 = new DataSet();
+  
+    if(random_int(0, 1) > 0 && $randomOrder){
+      $m = $mediaObject2;
+      $mediaObject2 = $mediaObject1;
+      $mediaObject1 = $m;
+    }
+  
+    $value1->addValue('objData', array("serve.php?id=" . $mediaObject1->getChecksum()));
+    $value2->addValue('objData', array("serve.php?id=" . $mediaObject2->getChecksum()));
+  
+    $mediaType1 = $FACTORIES::getMediaTypeFactory()->get($mediaObject1->getMediaTypeId());
+    $mediaType2 = $FACTORIES::getMediaTypeFactory()->get($mediaObject2->getMediaTypeId());
+  
+    $value1->addValue('template', $mediaType1->getTemplate());
+    $value2->addValue('template', $mediaType2->getTemplate());
+  
+    $OBJECTS['object1'] = $mediaObject1;
+    $OBJECTS['object2'] = $mediaObject2;
+    $OBJECTS['value1'] = $value1;
+    $OBJECTS['value2'] = $value2;
+  }
+  
+  /**
    * @param $queries Query[]
    * @return Query
    */

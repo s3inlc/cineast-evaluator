@@ -26,7 +26,7 @@ $value2 = new DataSet();
 
 $pos = random_int(0, 1);
 $mediaObject1 = $question->getMediaObjects()[$pos];
-$mediaObject2 = $question->getMediaObjects()[($pos+1)%2];
+$mediaObject2 = $question->getMediaObjects()[($pos + 1) % 2];
 
 $value1->addValue('objData', array("serve.php?id=" . $mediaObject1->getChecksum()));
 $value2->addValue('objData', array("serve.php?id=" . $mediaObject2->getChecksum()));
@@ -43,11 +43,12 @@ $OBJECTS['value1'] = $value1;
 $OBJECTS['value2'] = $value2;
 // TODO: until here
 
-if(ini_get("display_errors") == "1"){
+if (ini_get("display_errors") == "1") {
   $debug = array(
-    "Number of security questions pushed: ".$_SESSION['numSecurityQuestions'],
-    "Number of questions in queue: ".sizeof(unserialize($_SESSION['questions'])),
-    "AnswerSession ID: ".$_SESSION['answerSessionId']
+    "Number of security questions pushed: " . $_SESSION['numSecurityQuestions'],
+    "Number of questions in queue: " . sizeof(unserialize($_SESSION['questions'])),
+    "AnswerSession ID: " . $_SESSION['answerSessionId'],
+    "Current Validity: " . $USER_SESSION->getAnswerSession()->getCurrentValidity()
   );
   $OBJECTS['debug'] = $debug;
 }

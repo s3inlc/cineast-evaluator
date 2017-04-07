@@ -6,9 +6,9 @@ require_once(dirname(__FILE__) . "/inc/load.php");
 /** @var array $OBJECTS */
 
 if (!$LOGIN->isLoggedin()) {
-  header("Location: index.php");
+  header("Location: admin.php");
   die();
 }
 
 $LOGIN->logout();
-header("Location: index.php?logout=1" . time());
+header("Location: admin.php?logout=1" . time());

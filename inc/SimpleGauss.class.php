@@ -111,7 +111,7 @@ class SimpleGauss {
   }
   
   public static function getStaticProbability($val, $sigma, $mu) {
-    $exponent = -1 / 2 * pow(($val - $mu) / pow($sigma, 2), 2);
+    $exponent = -1 / 2 * pow(($val - $mu) / $sigma, 2);
     return 1 / ($sigma * sqrt(2 * pi())) * exp($exponent);
   }
   

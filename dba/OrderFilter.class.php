@@ -18,7 +18,7 @@ class OrderFilter extends Order {
     if ($table != "") {
       $table = $table . ".";
     }
-    else if ($this->overrideFactory != null) {
+    if ($this->overrideFactory != null) {
       $table = $this->overrideFactory->getModelTable() . ".";
     }
     return $table . $this->by . " " . $this->type;

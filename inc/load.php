@@ -11,15 +11,16 @@ $VERSION = "0.1.0";
 $OBJECTS['version'] = $VERSION;
 
 // setting some constants
-define("STORAGE_PATH", "/var/www/evaluator/");
-define("TMP_FOLDER", "tmp/");
-define("MEDIA_FOLDER", "media/");
-define("QUERIES_FOLDER", "queries/");
+define("STORAGE_PATH", "/var/www/evaluator/"); // path where the media/query files are stored
+define("TMP_FOLDER", "tmp/"); // folder where it extracts zips and stores temporary data
+define("MEDIA_FOLDER", "media/"); // subfolder of the storage path where all media is saved
+define("QUERIES_FOLDER", "queries/"); // subfolder of the storage path where the queries will be saved
 
-define("DEFAULT_SIMILARITY", "0");
-define("DEFAULT_CERTAINTY", "0");
-define("SESSION_SIZE", "20");
+define("DEFAULT_SIMILARITY", "0"); // TODO: should be removed
+define("DEFAULT_CERTAINTY", "0"); // TODO: should be removed
+define("SESSION_SIZE", "20"); // number of questions for a session (excluding the security questions)
 
+// max size an image can have before it will be resized to these sizes
 define("IMAGE_MAX_HEIGHT", 1500);
 define("IMAGE_MAX_WIDTH", 1500);
 

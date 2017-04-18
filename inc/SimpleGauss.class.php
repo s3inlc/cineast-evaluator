@@ -155,7 +155,7 @@ class SimpleGauss {
       imagesetpixel($im, $x + $border, $steps[1] - $y, $red);
       if ($x * $x + $y * $y >= 1.5 && $prev[0] > PHP_INT_MIN) {
         // we draw a line between the points
-        imageline($im, $prev[0], $prev[1], $x, $y, $red);
+        imageline($im, $prev[0] + $border, $steps[1] - $prev[1], $x + $border, $steps[1] - $y, $red);
       }
       $prev = array($x, $y);
     }

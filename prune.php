@@ -6,6 +6,8 @@
  * Time: 16:15
  */
 
+use DBA\AnswerSession;
+
 require_once(dirname(__FILE__) . "/inc/load.php");
 if (!$LOGIN->isLoggedin()) {
   header("Location: admin.php?err=4" . time());
@@ -13,18 +15,22 @@ if (!$LOGIN->isLoggedin()) {
 }
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
+$lastId = 0;
+$queryId = 0;
 session_start();
 if (isset($_GET['queryId'])) {
   $query = $FACTORIES::getQueryFactory()->get($_GET['queryId']);
   if ($query != null) {
+    $queryId = $query->getId();
     $_SESSION['queryId'] = $query->getId();
     $_SESSION['lastId'] = 0;
+    $pruneSession = new AnswerSession(0, null, $LOGIN->getUserID(), null, 1, 1, time(), Util::getIP(), Util::getUserAgentHeader());
+    $pruneSession = $FACTORIES::getAnswerSessionFactory()->save($pruneSession);
+    $_SESSION['pruneSessionId'] = $pruneSession->getId();
     header("Location: prune.php");
   }
 }
 else {
-  $lastId = 0;
-  $queryId = 0;
   if (isset($_SESSION['queryId'])) {
     $queryId = $_SESSION['queryId'];
   }
@@ -33,7 +39,13 @@ else {
   }
 }
 
-// TODO: process answers here
+if (isset($_POST['answer'])) {
+  $pruneHandler = new PruneHandler();
+  $pruneHandler->handle($_POST['answer']);
+  if (UI::getNumMessages() == 0) {
+    Util::refresh();
+  }
+}
 
 $question = Util::getNextPruneQuestion($queryId, $lastId);
 
@@ -43,6 +55,7 @@ if ($question == null) {
 }
 
 Util::prepare2CompareQuestion($question->getMediaObjects()[0], $question->getMediaObjects()[1], true);
+$OBJECTS['tuple'] = $question->getResultTuples()[0];
 
 $TEMPLATE = new Template("views/prune");
 echo $TEMPLATE->render($OBJECTS);

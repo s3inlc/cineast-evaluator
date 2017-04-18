@@ -21,27 +21,7 @@ if ($question == null) {
 }
 
 // TODO: this needs to be updated later to also adapt for compare3 questions
-$value1 = new DataSet();
-$value2 = new DataSet();
-
-$pos = random_int(0, 1);
-$mediaObject1 = $question->getMediaObjects()[$pos];
-$mediaObject2 = $question->getMediaObjects()[($pos + 1) % 2];
-
-$value1->addValue('objData', array("serve.php?id=" . $mediaObject1->getChecksum()));
-$value2->addValue('objData', array("serve.php?id=" . $mediaObject2->getChecksum()));
-
-$mediaType1 = $FACTORIES::getMediaTypeFactory()->get($mediaObject1->getMediaTypeId());
-$mediaType2 = $FACTORIES::getMediaTypeFactory()->get($mediaObject2->getMediaTypeId());
-
-$value1->addValue('template', $mediaType1->getTemplate());
-$value2->addValue('template', $mediaType2->getTemplate());
-
-$OBJECTS['object1'] = $mediaObject1;
-$OBJECTS['object2'] = $mediaObject2;
-$OBJECTS['value1'] = $value1;
-$OBJECTS['value2'] = $value2;
-// TODO: until here
+Util::prepare2CompareQuestion($question->getMediaObjects()[0], $question->getMediaObjects()[1], $question->getResultTuples()[0]);
 
 if (ini_get("display_errors") == "1") {
   $debug = array(

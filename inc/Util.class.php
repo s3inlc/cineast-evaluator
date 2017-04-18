@@ -409,6 +409,20 @@ class Util {
   }
   
   /**
+   * Refreshes the page with the current url, also includes the query string.
+   */
+  public static function refresh() {
+    global $_SERVER;
+    
+    $url = $_SERVER['PHP_SELF'];
+    if (strlen($_SERVER['QUERY_STRING']) > 0) {
+      $url .= "?" . $_SERVER['QUERY_STRING'];
+    }
+    header("Location: $url");
+    die();
+  }
+  
+  /**
    * @return SessionQuestion
    */
   public static function getNextPruneQuestion($queryId = 0, $lastId = 0) {

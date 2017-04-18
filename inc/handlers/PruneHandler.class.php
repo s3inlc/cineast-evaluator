@@ -15,7 +15,6 @@ class PruneHandler extends Handler {
   public function handle($answer) {
     global $FACTORIES;
     
-    // TODO: handle answer
     $answeredTuple = $FACTORIES::getResultTupleFactory()->get($_POST['tuple']);
     if ($answeredTuple == null) {
       UI::addErrorMessage("Invalid submission!");
@@ -23,13 +22,13 @@ class PruneHandler extends Handler {
     }
     else if ($answer == AnswerType::COMPARE_TWO_SKIP) {
       // no action required
-      $SESSION['lastId'] = $answeredTuple->getId();
+      $_SESSION['lastId'] = $answeredTuple->getId();
     }
     else{
       $pruneSession = $FACTORIES::getAnswerSessionFactory()->get($_SESSION['pruneSessionId']);
       $twoCompareAnswer = new TwoCompareAnswer(0, time(), $answeredTuple->getId(), $answer, $pruneSession->getId());
       $FACTORIES::getTwoCompareAnswerFactory()->save($twoCompareAnswer);
-      $SESSION['lastId'] = $answeredTuple->getId();
+      $_SESSION['lastId'] = $answeredTuple->getId();
     }
   }
 }

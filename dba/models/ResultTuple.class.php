@@ -15,13 +15,15 @@ class ResultTuple extends AbstractModel {
   private $objectId2;
   private $sigma;
   private $mu;
+  private $isFinal;
   
-  function __construct($resultTupleId, $objectId1, $objectId2, $sigma, $mu) {
+  function __construct($resultTupleId, $objectId1, $objectId2, $sigma, $mu, $isFinal) {
     $this->resultTupleId = $resultTupleId;
     $this->objectId1 = $objectId1;
     $this->objectId2 = $objectId2;
     $this->sigma = $sigma;
     $this->mu = $mu;
+    $this->isFinal = $isFinal;
   }
   
   function getKeyValueDict() {
@@ -31,6 +33,7 @@ class ResultTuple extends AbstractModel {
     $dict['objectId2'] = $this->objectId2;
     $dict['sigma'] = $this->sigma;
     $dict['mu'] = $this->mu;
+    $dict['isFinal'] = $this->isFinal;
     
     return $dict;
   }
@@ -82,10 +85,19 @@ class ResultTuple extends AbstractModel {
   function setMu($mu){
     $this->mu = $mu;
   }
+  
+  function getIsFinal(){
+    return $this->isFinal;
+  }
+  
+  function setIsFinal($isFinal){
+    $this->isFinal = $isFinal;
+  }
 
   const RESULT_TUPLE_ID = "resultTupleId";
   const OBJECT_ID1 = "objectId1";
   const OBJECT_ID2 = "objectId2";
   const SIGMA = "sigma";
   const MU = "mu";
+  const IS_FINAL = "isFinal";
 }

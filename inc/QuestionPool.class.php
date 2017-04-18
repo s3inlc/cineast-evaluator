@@ -65,10 +65,11 @@ class QuestionPool {
     for ($i = 0; $i < SESSION_SIZE; $i++) {
       $query = Util::getQueryWeightedWithPriority($queries); // get a random query weighed by the priority
       
-      $qF = new QueryFilter(QueryResultTuple::QUERY_ID, $query->getId(), "=", $FACTORIES::getQueryResultTupleFactory());
+      $qF1 = new QueryFilter(QueryResultTuple::QUERY_ID, $query->getId(), "=", $FACTORIES::getQueryResultTupleFactory());
+      $qF2 = new QueryFilter(ResultTuple::IS_FINAL, "0", "=");
       $jF = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
       $oF = new OrderFilter(QueryResultTuple::RANK, "ASC", $FACTORIES::getQueryResultTupleFactory());
-      $joined = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF, $FACTORIES::JOIN => $jF));
+      $joined = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2), $FACTORIES::ORDER => $oF, $FACTORIES::JOIN => $jF));
       
       if (sizeof($joined['ResultTuple']) == 0) {
         continue;

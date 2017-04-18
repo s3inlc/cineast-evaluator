@@ -30,7 +30,7 @@ class ResultTupleFactory extends AbstractModelFactory {
    * @return ResultTuple
    */
   function getNullObject() {
-    $o = new ResultTuple(-1, null, null, null, null);
+    $o = new ResultTuple(-1, null, null, null, null, null);
     return $o;
   }
 
@@ -40,7 +40,7 @@ class ResultTupleFactory extends AbstractModelFactory {
    * @return ResultTuple
    */
   function createObjectFromDict($pk, $dict) {
-    $o = new ResultTuple($pk, $dict['objectId1'], $dict['objectId2'], $dict['sigma'], $dict['mu']);
+    $o = new ResultTuple($pk, $dict['objectId1'], $dict['objectId2'], $dict['sigma'], $dict['mu'], $dict['isFinal']);
     return $o;
   }
 

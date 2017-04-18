@@ -38,7 +38,8 @@ $CONF['ResultTuple'] = array(
   'objectId1',
   'objectId2',
   'sigma',
-  'mu'
+  'mu',
+  'isFinal'
 );
 $CONF['QueryResultTuple'] = array(
   'queryResultTupleId',

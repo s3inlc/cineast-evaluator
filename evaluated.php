@@ -38,7 +38,11 @@ if (isset($_GET['view'])) {
     Util::prepare2CompareQuestion($mediaObject1, $mediaObject2, false);
     
     $imageData = false;
-    if($resultTuple->getSigma() > 0){
+    if($resultTuple->getSigma() >= 0){
+      if($resultTuple->getSigma() == 0){
+        // so we can at least draw something
+        $resultTuple->setSigma(0.01);
+      }
       $imageData = SimpleGauss::generateCurve($resultTuple->getSigma(), $resultTuple->getMu());
     }
     $OBJECTS['imageData'] = $imageData;

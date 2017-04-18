@@ -115,7 +115,7 @@ class SimpleGauss {
     return 1 / ($sigma * sqrt(2 * pi())) * exp($exponent);
   }
   
-  public static function generateCurve($sigma, $mu, $steps = array(2500, 500), $range = array(array(0, 3)), $border = 60) {
+  public static function generateCurve($sigma, $mu, $steps = array(1000, 400), $range = array(array(0, 3)), $border = 60) {
     $im = imagecreatetruecolor($steps[0] + $border * 2, $steps[1] + $border);
     $bg = imagecolorallocate($im, 255, 255, 255);
     imagefilledrectangle($im, 0, 0, $steps[0] + $border * 2 - 1, $steps[1] + $border - 1, $bg);
@@ -149,9 +149,15 @@ class SimpleGauss {
     $yMax += 0.1;
     
     // draw part
+    $prev = array(-1, -1);
     for ($x = 0; $x < $steps[0]; $x++) {
       $y = round($pos[1][$x] * $steps[1] / ($yMax));
       imagesetpixel($im, $x + $border, $steps[1] - $y, $red);
+      if ($x * $x + $y * $y >= 1.5 && $prev[0] > -1) {
+        // we draw a line between the points
+        imageline($im, $prev[0], $prev[1], $x, $y, $red);
+      }
+      $prev = array($x, $y);
     }
     
     ob_start();

@@ -18,7 +18,7 @@ $OBJECTS['pageTitle'] = "Cineast Evaluator";
 $lastId = 0;
 $queryId = 0;
 session_start();
-if (!isset($_GET['queryId'])) {
+if (isset($_GET['queryId'])) {
   $query = $FACTORIES::getQueryFactory()->get($_GET['queryId']);
   if ($query != null) {
     $queryId = $query->getId();

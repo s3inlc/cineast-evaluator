@@ -57,5 +57,13 @@ if ($question == null) {
 Util::prepare2CompareQuestion($question->getMediaObjects()[0], $question->getMediaObjects()[1], true);
 $OBJECTS['tuple'] = $question->getResultTuples()[0];
 
+if (ini_get("display_errors") == "1") {
+  $debug = array(
+    "Last ID" => $_SESSION['lastId'],
+    "PruneSessionId" => $_SESSION['pruneSessionId']
+  );
+  $OBJECTS['debug'] = $debug;
+}
+
 $TEMPLATE = new Template("views/prune");
 echo $TEMPLATE->render($OBJECTS);

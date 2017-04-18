@@ -2,6 +2,7 @@
 use DBA\JoinFilter;
 use DBA\MediaObject;
 use DBA\MediaType;
+use DBA\OrderFilter;
 use DBA\Query;
 use DBA\QueryFilter;
 use DBA\QueryResultTuple;
@@ -410,12 +411,23 @@ class Util {
   /**
    * @return SessionQuestion
    */
-  public static function getRandomQuestion() {
+  public static function getNextPruneQuestion($queryId = 0, $lastId = 0) {
     global $FACTORIES;
     
     $qF = new QueryFilter(ResultTuple::IS_FINAL, "0", "=");
-    $oF = new RandOrderFilter(1);
-    $resultTuple = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF), true);
+    $oF = new OrderFilter(ResultTuple::RESULT_TUPLE_ID, "ASC LIMIT 1");
+    $options = array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF);
+    if ($queryId > 0) {
+      $filters[$FACTORIES::JOIN] = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
+      $filters[$FACTORIES::FILTER][] = new QueryFilter(QueryResultTuple::QUERY_ID, $queryId, "=", $FACTORIES::getQueryResultTupleFactory());
+    }
+    else if($lastId > 0){
+      $filters[$FACTORIES::FILTER][] = new QueryFilter(ResultTuple::RESULT_TUPLE_ID, $lastId, ">");
+    }
+    $resultTuple = $FACTORIES::getResultTupleFactory()->filter($options, true);
+    if($resultTuple == null){
+      return null;
+    }
     return new SessionQuestion(
       SessionQuestion::TYPE_COMPARE_TWO,
       array($FACTORIES::getMediaObjectFactory()->get($resultTuple->getObjectId1()), $FACTORIES::getMediaObjectFactory()->get($resultTuple->getObjectId2())),

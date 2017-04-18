@@ -46,7 +46,7 @@ class Util {
    * @return ResultTuple
    */
   public static function getTupleWeightedWithRankAndSigma($resultTuples, $queryResultTuples, $excludingTuples) {
-    if(sizeof($resultTuples) == 0){
+    if (sizeof($resultTuples) == 0) {
       return null;
     }
     
@@ -71,7 +71,7 @@ class Util {
     
     $random = random_int(0, $totalCount - 1);
     $currentCount = 0;
-    for($i=0;$i<sizeof($resultTuples);$i++){
+    for ($i = 0; $i < sizeof($resultTuples); $i++) {
       if (in_array($resultTuples[$i]->getId(), $excludingTuples)) {
         continue; // exclude the already answered tuples
       }
@@ -80,7 +80,7 @@ class Util {
         $add += 2; // TODO: elaborate this value, or make it dependant from highest rank
       }
       $currentCount += $add + sqrt($highestRank - $queryResultTuples[$i]->getRank());
-      if($currentCount > $random){
+      if ($currentCount > $random) {
         return $resultTuples[$i];
       }
     }
@@ -92,27 +92,27 @@ class Util {
    * @param $mediaObject2 MediaObject
    * @param $randomOrder bool
    */
-  public static function prepare2CompareQuestion($mediaObject1, $mediaObject2, $randomOrder = true){
+  public static function prepare2CompareQuestion($mediaObject1, $mediaObject2, $randomOrder = true) {
     global $FACTORIES, $OBJECTS;
     
     $value1 = new DataSet();
     $value2 = new DataSet();
-  
-    if(random_int(0, 1) > 0 && $randomOrder){
+    
+    if (random_int(0, 1) > 0 && $randomOrder) {
       $m = $mediaObject2;
       $mediaObject2 = $mediaObject1;
       $mediaObject1 = $m;
     }
-  
+    
     $value1->addValue('objData', array("serve.php?id=" . $mediaObject1->getChecksum()));
     $value2->addValue('objData', array("serve.php?id=" . $mediaObject2->getChecksum()));
-  
+    
     $mediaType1 = $FACTORIES::getMediaTypeFactory()->get($mediaObject1->getMediaTypeId());
     $mediaType2 = $FACTORIES::getMediaTypeFactory()->get($mediaObject2->getMediaTypeId());
-  
+    
     $value1->addValue('template', $mediaType1->getTemplate());
     $value2->addValue('template', $mediaType2->getTemplate());
-  
+    
     $OBJECTS['object1'] = $mediaObject1;
     $OBJECTS['object2'] = $mediaObject2;
     $OBJECTS['value1'] = $value1;
@@ -406,4 +406,29 @@ class Util {
     }
     return $result;
   }
+  
+  /**
+   * @return SessionQuestion
+   */
+  public static function getRandomQuestion() {
+    global $FACTORIES;
+    
+    $qF = new QueryFilter(ResultTuple::IS_FINAL, "0", "=");
+    $oF = new RandOrderFilter(1);
+    $resultTuple = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF), true);
+    return new SessionQuestion(
+      SessionQuestion::TYPE_COMPARE_TWO,
+      array($FACTORIES::getMediaObjectFactory()->get($resultTuple->getObjectId1()), $FACTORIES::getMediaObjectFactory()->get($resultTuple->getObjectId2())),
+      array($resultTuple)
+    );
+  }
 }
+
+
+
+
+
+
+
+
+

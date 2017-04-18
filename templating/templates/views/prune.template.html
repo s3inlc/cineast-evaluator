@@ -1,0 +1,62 @@
+{%TEMPLATE->struct/head%}
+<main style="margin-top: 50px;">
+  <div class="container">
+    <style>
+      .valign-wrapper {
+        align-items: baseline;
+      }
+    </style>
+    <h3>ATTENTION: pruning session</h3>
+    <div class="row valign-wrapper" style="height: 100%;">
+      <div class="col m12" style="text-align: center;">
+        {{FOREACH objectSource;[[value1.getVal('objData')]]}}
+          {{IF [[value1.getVal('template')]] == "default"}}
+            {%TEMPLATE->media/default%}
+          {{ENDIF}}
+          {{IF [[value1.getVal('template')]] == "image"}}
+            {%TEMPLATE->media/image%}
+          {{ENDIF}}
+        {{ENDFOREACH}}
+        &nbsp;&nbsp;&nbsp;
+        {{FOREACH objectSource;[[value2.getVal('objData')]]}}
+          {{IF [[value2.getVal('template')]] == "default"}}
+            {%TEMPLATE->media/default%}
+          {{ENDIF}}
+          {{IF [[value2.getVal('template')]] == "image"}}
+            {%TEMPLATE->media/image%}
+          {{ENDIF}}
+        {{ENDFOREACH}}
+      </div>
+    </div>
+    <br>
+    <div class="row" style="text-align: center;">
+      <form action="" method="post">
+        <input type="hidden" name="objectId1" value="[[object1.getId()]]">
+        <input type="hidden" name="objectId2" value="[[object2.getId()]]">
+
+        <b>How similar are these two objects?</b><br><br>
+
+        <div class="row">
+          <button class="btn waves-effect waves-light" name="answer" value="0" type="submit">No Similarity</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button class="btn waves-effect waves-light" name="answer" value="1" type="submit">Slightly Similar</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button class="btn waves-effect waves-light" name="answer" value="2" type="submit">Very Similar</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button class="btn waves-effect waves-light" name="answer" value="3" type="submit">Nearly Identical</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button class="btn waves-effect waves-light yellow" name="answer" value="-1" type="submit">Skip</button>
+        </div>
+      </form>
+    </div>
+    {{IF [[debug]]}}
+      <div class="row">
+        {{FOREACH deb;[[debug]]}}
+          <p>[[deb]]</p>
+        {{ENDFOREACH}}
+      </div>
+    {{ENDIF}}
+  </div>
+</main>
+<!-- [[loadTime]] - [[security]] -->
+{%TEMPLATE->struct/emptyfoot%}

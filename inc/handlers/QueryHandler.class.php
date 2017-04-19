@@ -26,7 +26,16 @@ class QueryHandler extends Handler {
     }
   }
   
-  private function addQuery($FILE, $queryName) {
+  /**
+   * @param $FILE array
+   *   This array must contain following values:
+   *   - "name" name of the file including the extension (.zip)
+   *   - "tmp_name" the current location where it's saved
+   *   - "error" should be 0 to avoid an error
+   * @param $queryName string name of the query
+   * @param bool $isUpload should be set to false if import is not from webinterface upload
+   */
+  private function addQuery($FILE, $queryName, $isUpload = true) {
     /** @var $LOGIN Login */
     global $FACTORIES, $LOGIN;
     
@@ -47,7 +56,11 @@ class QueryHandler extends Handler {
       return;
     }
     
-    if (!move_uploaded_file($FILE['tmp_name'], $filename)) {
+    if ($isUpload && !move_uploaded_file($FILE['tmp_name'], $filename)) {
+      UI::addErrorMessage("Failed to move uploaded file into storage directory!");
+      return;
+    }
+    else if (rename($FILE['tmp_name'], $filename)) {
       UI::addErrorMessage("Failed to move uploaded file into storage directory!");
       return;
     }

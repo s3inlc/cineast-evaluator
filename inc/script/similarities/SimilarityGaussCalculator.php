@@ -15,6 +15,9 @@ class SimilarityGaussCalculator extends Calculator {
    */
   function updateSimilarities(&$resultSets, &$changed) {
     foreach ($resultSets as $resultSet) {
+      if($resultSet->getIsFinal() == 1){
+        continue; // we ignore the sets marked as final
+      }
       $gauss = new SimpleGauss($resultSet);
       if ($gauss->getSigma() != $resultSet->getSigma() || $gauss->getMu() != $resultSet->getMu()) {
         $resultSet->setSigma($gauss->getSigma());

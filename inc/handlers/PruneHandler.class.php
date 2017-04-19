@@ -10,7 +10,7 @@ use DBA\TwoCompareAnswer;
 class PruneHandler extends Handler {
   
   /**
-   * @param $action string action type which should be handled
+   * @param string $answer
    */
   public function handle($answer) {
     global $FACTORIES;
@@ -25,6 +25,7 @@ class PruneHandler extends Handler {
       $_SESSION['lastId'] = $answeredTuple->getId();
     }
     else{
+      // an answer was given for this tuple -> mark it as final and save the answer
       $pruneSession = $FACTORIES::getAnswerSessionFactory()->get($_SESSION['pruneSessionId']);
       $twoCompareAnswer = new TwoCompareAnswer(0, time(), $answeredTuple->getId(), $answer, $pruneSession->getId());
       $FACTORIES::getTwoCompareAnswerFactory()->save($twoCompareAnswer);

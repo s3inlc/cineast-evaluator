@@ -432,7 +432,7 @@ class Util {
     
     $qF = new QueryFilter(ResultTuple::IS_FINAL, "0", "=");
     $oF = new OrderFilter(ResultTuple::RESULT_TUPLE_ID, "ASC LIMIT 1");
-    $options = array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF);
+    $options = array($FACTORIES::FILTER => array($qF), $FACTORIES::ORDER => $oF);
     if ($queryId > 0) {
       $options[$FACTORIES::JOIN] = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
       $options[$FACTORIES::FILTER][] = new QueryFilter(QueryResultTuple::QUERY_ID, $queryId, "=", $FACTORIES::getQueryResultTupleFactory());

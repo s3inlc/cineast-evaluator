@@ -437,7 +437,7 @@ class Util {
       $options[$FACTORIES::JOIN] = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
       $options[$FACTORIES::FILTER][] = new QueryFilter(QueryResultTuple::QUERY_ID, $queryId, "=", $FACTORIES::getQueryResultTupleFactory());
     }
-    else if ($lastId > 0) {
+    if ($lastId > 0) {
       $options[$FACTORIES::FILTER][] = new QueryFilter(ResultTuple::RESULT_TUPLE_ID, $lastId, ">", $FACTORIES::getResultTupleFactory());
     }
     $resultTuple = $FACTORIES::getResultTupleFactory()->filter($options);

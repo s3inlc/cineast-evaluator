@@ -15,7 +15,7 @@ class PruneHandler extends Handler {
   public function handle($answer) {
     global $FACTORIES;
     
-    $answeredTuple = $FACTORIES::getResultTupleFactory()->get($_POST['tuple']);
+    $answeredTuple = $FACTORIES::getResultTupleFactory()->get($_POST['resultTupleId']);
     if ($answeredTuple == null) {
       UI::addErrorMessage("Invalid submission!");
       return;

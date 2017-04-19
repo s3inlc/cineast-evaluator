@@ -59,7 +59,7 @@ $OBJECTS['tuple'] = $question->getResultTuples()[0];
 
 if (ini_get("display_errors") == "1") {
   $debug = array(
-    "Last ID:" . $_SESSION['lastId'],
+    "Last ID: " . $_SESSION['lastId'],
     "Prune Session ID: " . $_SESSION['pruneSessionId'],
     "Query ID: " . $_SESSION['queryId']
   );

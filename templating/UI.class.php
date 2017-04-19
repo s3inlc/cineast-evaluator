@@ -1,6 +1,8 @@
 <?php
 
 class UI {
+  public static $numMessages = 0;
+  
   public static function printError($level, $message) {
     $OBJECTS = array();
     $TEMPLATE = new Template("errors/error");
@@ -22,6 +24,7 @@ class UI {
       $OBJECTS[$type . "Messages"] = array();
     }
     $OBJECTS[$type . "Messages"][] = $message;
+    self::$numMessages++;
   }
   
   public static function addErrorMessage($message) {
@@ -31,17 +34,8 @@ class UI {
     UI::addMessage($message, "error");
   }
   
-  public static function getNumMessages($type = "ALL") {
-    global $OBJECTS;
-    
-    $count = 0;
-    foreach ($OBJECTS['messages'] as $message) {
-      /** @var $message DataSet */
-      if ($message->getVal('type') == $type || $type == "ALL") {
-        $count++;
-      }
-    }
-    return $count;
+  public static function getNumMessages() {
+    return self::$numMessages;
   }
   
   public static function addSuccessMessage($message) {

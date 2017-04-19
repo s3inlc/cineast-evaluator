@@ -437,12 +437,15 @@ class Util {
       $options[$FACTORIES::JOIN] = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
       $options[$FACTORIES::FILTER][] = new QueryFilter(QueryResultTuple::QUERY_ID, $queryId, "=", $FACTORIES::getQueryResultTupleFactory());
     }
-    else if($lastId > 0){
+    else if ($lastId > 0) {
       $options[$FACTORIES::FILTER][] = new QueryFilter(ResultTuple::RESULT_TUPLE_ID, $lastId, ">", $FACTORIES::getResultTupleFactory());
     }
-    $resultTuple = $FACTORIES::getResultTupleFactory()->filter($options, true);
-    if($resultTuple == null){
+    $resultTuple = $FACTORIES::getResultTupleFactory()->filter($options);
+    if ($resultTuple == null || (sizeof($options[$FACTORIES::FILTER]) > 0 && sizeof($resultTuple['ResultTuple']) == 0)) {
       return null;
+    }
+    if (sizeof($options[$FACTORIES::FILTER]) > 0) {
+      $resultTuple = $resultTuple['ResultTuple'][0];
     }
     return new SessionQuestion(
       SessionQuestion::TYPE_COMPARE_TWO,

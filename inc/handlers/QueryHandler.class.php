@@ -18,7 +18,7 @@ class QueryHandler extends Handler {
   public function handle($action) {
     switch ($action) {
       case "addQuery":
-        $this->addQuery();
+        $this->addQuery($_FILES['file'], $_POST['queryName']);
         break;
       default:
         UI::addErrorMessage("Unknown action!");
@@ -26,27 +26,28 @@ class QueryHandler extends Handler {
     }
   }
   
-  private function addQuery() {
+  private function addQuery($FILE, $queryName) {
     /** @var $LOGIN Login */
     global $FACTORIES, $LOGIN;
+    
     ini_set("max_execution_time", "0");
     
     $path = STORAGE_PATH . TMP_FOLDER . "import-" . time() . "/";
     mkdir($path);
     $filename = $path . "import.zip";
     
-    $queryName = htmlentities($_POST['queryName'], false, "UTF-8");
+    $queryName = htmlentities($queryName, false, "UTF-8");
     
-    if ($_FILES['file']['error'] != 0) {
+    if ($FILE['error'] != 0) {
       UI::addErrorMessage("Error happened on file upload!");
       return;
     }
-    else if (strpos($_FILES['file']['name'], ".zip") === false) {
+    else if (strpos($FILE['name'], ".zip") === false) {
       UI::addErrorMessage("File must be uploaded as .zip archive!");
       return;
     }
     
-    if (!move_uploaded_file($_FILES['file']['tmp_name'], $filename)) {
+    if (!move_uploaded_file($FILE['tmp_name'], $filename)) {
       UI::addErrorMessage("Failed to move uploaded file into storage directory!");
       return;
     }
@@ -76,7 +77,7 @@ class QueryHandler extends Handler {
     }
     $queryObject = $meta['queryObject'];
     $querySource = "";
-    if(isset($meta['source'])){
+    if (isset($meta['source'])) {
       $querySource = $meta['source'];
     }
     $resultSet = $meta['resultSet'];
@@ -125,7 +126,7 @@ class QueryHandler extends Handler {
       if ($resultMediaObject == null) {
         $mediaName = STORAGE_PATH . MEDIA_FOLDER . $checksum;
         copy($path . "data/" . $result['mediaObject'], $mediaName);
-        if(!isset($result['source'])){
+        if (!isset($result['source'])) {
           $result['source'] = "";
         }
         $resultMediaObject = new MediaObject(0, $mediaType->getId(), $mediaName, time(), $checksum, $result['source']);

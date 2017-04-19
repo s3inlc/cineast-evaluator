@@ -28,6 +28,10 @@ class PruneHandler extends Handler {
       $pruneSession = $FACTORIES::getAnswerSessionFactory()->get($_SESSION['pruneSessionId']);
       $twoCompareAnswer = new TwoCompareAnswer(0, time(), $answeredTuple->getId(), $answer, $pruneSession->getId());
       $FACTORIES::getTwoCompareAnswerFactory()->save($twoCompareAnswer);
+      $answeredTuple->setIsFinal(1);
+      $answeredTuple->setMu($answer);
+      $answeredTuple->setSigma(0);
+      $FACTORIES::getResultTupleFactory()->update($answeredTuple);
       $_SESSION['lastId'] = $answeredTuple->getId();
     }
   }

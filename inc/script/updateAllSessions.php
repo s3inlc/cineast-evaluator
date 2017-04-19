@@ -15,6 +15,13 @@ require_once(dirname(__FILE__) . "/../load.php");
 
 /** @var $VALIDATORS Validator[] */
 
+/*
+ * IMPORTANT:
+ * This script is only for experimental purposes and should not be called regularly.
+ *
+ * It can negatively affect the validity of the evaluation results when running this!
+ */
+
 $sessions = $FACTORIES::getAnswerSessionFactory()->filter(array());
 foreach ($sessions as $session) {
   $currentValidity = 0;

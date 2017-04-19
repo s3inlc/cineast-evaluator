@@ -423,6 +423,8 @@ class Util {
   }
   
   /**
+   * @param int $queryId
+   * @param int $lastId
    * @return SessionQuestion
    */
   public static function getNextPruneQuestion($queryId = 0, $lastId = 0) {
@@ -432,11 +434,11 @@ class Util {
     $oF = new OrderFilter(ResultTuple::RESULT_TUPLE_ID, "ASC LIMIT 1");
     $options = array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF);
     if ($queryId > 0) {
-      $filters[$FACTORIES::JOIN] = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
-      $filters[$FACTORIES::FILTER][] = new QueryFilter(QueryResultTuple::QUERY_ID, $queryId, "=", $FACTORIES::getQueryResultTupleFactory());
+      $options[$FACTORIES::JOIN] = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
+      $options[$FACTORIES::FILTER][] = new QueryFilter(QueryResultTuple::QUERY_ID, $queryId, "=", $FACTORIES::getQueryResultTupleFactory());
     }
     else if($lastId > 0){
-      $filters[$FACTORIES::FILTER][] = new QueryFilter(ResultTuple::RESULT_TUPLE_ID, $lastId, ">");
+      $options[$FACTORIES::FILTER][] = new QueryFilter(ResultTuple::RESULT_TUPLE_ID, $lastId, ">", $FACTORIES::getResultTupleFactory());
     }
     $resultTuple = $FACTORIES::getResultTupleFactory()->filter($options, true);
     if($resultTuple == null){

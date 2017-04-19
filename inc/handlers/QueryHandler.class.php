@@ -35,7 +35,7 @@ class QueryHandler extends Handler {
    * @param $queryName string name of the query
    * @param bool $isUpload should be set to false if import is not from webinterface upload
    */
-  private function addQuery($FILE, $queryName, $isUpload = true) {
+  public function addQuery($FILE, $queryName, $isUpload = true) {
     /** @var $LOGIN Login */
     global $FACTORIES, $LOGIN;
     

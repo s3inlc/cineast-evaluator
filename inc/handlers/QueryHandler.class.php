@@ -76,7 +76,11 @@ class QueryHandler extends Handler {
     }
     $meta = file_get_contents($path . "meta.json");
     $meta = json_decode($meta, true);
-    if (!isset($meta['queryObject'])) {
+    if(!$meta){
+      UI::addErrorMessage("Invalid JSON in meta.json!");
+      return;
+    }
+    else if (!isset($meta['queryObject'])) {
       UI::addErrorMessage("Invalid packed uploaded: queryObject is missing!");
       return;
     }

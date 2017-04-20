@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 19.04.17
- * Time: 15:12
- */
 
 /**
  * This script can be used to import queries which are located in a folder (which needs to be provided as command line argument).
@@ -45,10 +39,10 @@ foreach ($entries as $entry) {
   );
   $OBJECTS = array();
   $queryHandler->addQuery($FILE, $queryName, false);
-  if(UI::getNumMessages() > 0){
+  if (UI::getNumMessages() > 0) {
     print_r($OBJECTS);
   }
-  else{
+  else {
     echo "OK\n";
   }
 }

@@ -2,12 +2,6 @@
 use DBA\MediaObject;
 use DBA\ResultTuple;
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 30.03.17
- * Time: 14:09
- */
 class SessionQuestion {
   const TYPE_UNDEFINED      = "undefined";
   const TYPE_COMPARE_TWO    = "compare2";

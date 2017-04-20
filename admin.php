@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 22.03.17
- * Time: 17:35
- */
 
 /** @var $OBJECTS array */
 

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 05.04.17
- * Time: 17:04
- */
 
 use DBA\QueryFilter;
 use DBA\ThreeCompareAnswer;
@@ -34,18 +28,18 @@ foreach ($sessions as $session) {
       $currentValidity = $validator->validateFinished($session, $currentValidity);
     }
   }
-  else{
-    if(time() - $session->getTimeOpened() >= SESSION_TIMEOUT){
+  else {
+    if (time() - $session->getTimeOpened() >= SESSION_TIMEOUT) {
       $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $session->getId(), "=");
       $count = $FACTORIES::getTwoCompareAnswerFactory()->countFilter(array($FACTORIES::FILTER => $qF));
       $qF = new QueryFilter(ThreeCompareAnswer::ANSWER_SESSION_ID, $session->getId(), "=");
       $count += $FACTORIES::getThreeCompareAnswerFactory()->countFilter(array($FACTORIES::FILTER => $qF));
-      if($count == 0){
+      if ($count == 0) {
         // TODO: should we really delete here?
         $FACTORIES::getAnswerSessionFactory()->delete($session);
         continue;
       }
-      else{
+      else {
         $session->setIsOpen(0);
         foreach ($VALIDATORS as $validator) {
           $currentValidity = $validator->validateFinished($session, $currentValidity);

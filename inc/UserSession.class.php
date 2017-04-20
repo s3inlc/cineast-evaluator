@@ -5,12 +5,6 @@ use DBA\QueryFilter;
 use DBA\ThreeCompareAnswer;
 use DBA\TwoCompareAnswer;
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 29.03.17
- * Time: 16:17
- */
 class UserSession {
   /** @var $answerSession AnswerSession */
   private $answerSession = null;
@@ -147,9 +141,7 @@ class UserSession {
   }
   
   public function getNextQuestion() {
-    global $OBJECTS, $FACTORIES;
-    
-    // TODO: here we update the session quality and we decide if we need to do a security question or not
+    global $OBJECTS;
     
     $numSecurityQuestions = 0;
     if (isset($_SESSION['numSecurityQuestions'])) {

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 23.03.17
- * Time: 11:59
- */
 class AccountHandler extends Handler {
   
   /**
@@ -35,18 +29,18 @@ class AccountHandler extends Handler {
     $newPassword = $_POST['newPassword'];
     $repeatPassword = $_POST['repeatPassword'];
     
-    if(strlen($oldPassword) == 0 || strlen($newPassword) == 0 || strlen($repeatPassword) == 0){
+    if (strlen($oldPassword) == 0 || strlen($newPassword) == 0 || strlen($repeatPassword) == 0) {
       UI::addErrorMessage("Fields cannot be empty!");
       return;
     }
-    else if($newPassword != $repeatPassword){
+    else if ($newPassword != $repeatPassword) {
       UI::addErrorMessage("New passwords do not match!");
       return;
     }
     
     $user = $LOGIN->getUser();
     $matching = Encryption::passwordVerify($oldPassword, $user->getPasswordSalt(), $user->getPasswordHash());
-    if(!$matching){
+    if (!$matching) {
       UI::addErrorMessage("Invalid old password entered!");
       return;
     }

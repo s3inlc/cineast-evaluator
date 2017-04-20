@@ -5,12 +5,6 @@ use DBA\QueryFilter;
 use DBA\ResultTuple;
 use DBA\TwoCompareAnswer;
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 06.04.17
- * Time: 14:25
- */
 class SimpleGauss {
   private $mu;
   private $sigma;

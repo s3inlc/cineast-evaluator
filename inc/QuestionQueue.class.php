@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 30.03.17
- * Time: 16:46
- */
 class QuestionQueue {
   private $questions;
   

@@ -5,12 +5,6 @@ use DBA\QueryFilter;
 use DBA\ResultTuple;
 use DBA\TwoCompareAnswer;
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 27.03.17
- * Time: 18:23
- */
 // TODO: here do some really basic similarity stuff
 
 class ExampleCalculator extends Calculator {
@@ -32,11 +26,11 @@ class ExampleCalculator extends Calculator {
         /** @var $answerSession AnswerSession */
         $answerSession = $joined['AnswerSession'][$i];
         $certaintySum += $answerSession->getCurrentValidity();
-        $answerSum += $twoCompareAnswer->getAnswer()*$answerSession->getCurrentValidity();
+        $answerSum += $twoCompareAnswer->getAnswer() * $answerSession->getCurrentValidity();
       }
-      if(sizeof($joined['TwoCompareAnswer']) > 0 && $certaintySum > 0) {
+      if (sizeof($joined['TwoCompareAnswer']) > 0 && $certaintySum > 0) {
         $changed[$resultSet->getId()] = true;
-        $resultSet->setSimilarity($answerSum / $certaintySum);
+        $resultSet->setSigma($answerSum / $certaintySum);
       }
     }
   }

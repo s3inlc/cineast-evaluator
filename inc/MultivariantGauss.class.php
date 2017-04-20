@@ -2,12 +2,6 @@
 use DBA\AnswerSession;
 use DBA\ResultTuple;
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 06.04.17
- * Time: 15:05
- */
 class MultivariantGauss {
   private $mu;
   private $sigma; // array containing the values of the diagonal sparse matrix for sigma
@@ -39,10 +33,10 @@ class MultivariantGauss {
     return $quot * exp($this->calculateExp($answers));
   }
   
-  private function getValidsize($vector){
+  private function getValidsize($vector) {
     $count = 0;
-    foreach($vector as $val){
-      if($val != -1){
+    foreach ($vector as $val) {
+      if ($val != -1) {
         $count++;
       }
     }
@@ -57,10 +51,10 @@ class MultivariantGauss {
   private function det() {
     $val = 1;
     foreach ($this->sigma as $sig) {
-      if($sig == -1){
+      if ($sig == -1) {
         continue;
       }
-      else if($sig == 0){
+      else if ($sig == 0) {
         $sig = 0.005;
       }
       $val *= $sig;
@@ -75,7 +69,7 @@ class MultivariantGauss {
   private function calculateExp($x) {
     $part = array();
     for ($i = 0; $i < sizeof($x); $i++) {
-      if($this->mu[$i] == -1){
+      if ($this->mu[$i] == -1) {
         $part[$i] = -1;
         continue;
       }
@@ -89,7 +83,7 @@ class MultivariantGauss {
     
     $scalar = 0;
     for ($i = 0; $i < sizeof($this->sigma); $i++) {
-      if($part[$i] == -1){
+      if ($part[$i] == -1) {
         continue;
       }
       $scalar += $part[$i] * $firstMult[$i];

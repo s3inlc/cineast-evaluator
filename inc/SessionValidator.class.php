@@ -1,12 +1,6 @@
 <?php
 use DBA\AnswerSession;
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 30.03.17
- * Time: 16:30
- */
 class SessionValidator {
   private $answerSession;
   

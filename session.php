@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 29.03.17
- * Time: 16:15
- */
 
 require_once(dirname(__FILE__) . "/inc/load.php");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";

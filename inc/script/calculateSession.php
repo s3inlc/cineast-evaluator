@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 05.04.17
- * Time: 17:04
- */
 
 require_once(dirname(__FILE__) . "/../load.php");
 

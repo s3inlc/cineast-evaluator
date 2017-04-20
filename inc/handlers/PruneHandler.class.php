@@ -1,12 +1,6 @@
 <?php
 use DBA\TwoCompareAnswer;
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 18.04.17
- * Time: 16:57
- */
 class PruneHandler extends Handler {
   
   /**
@@ -24,7 +18,7 @@ class PruneHandler extends Handler {
       // no action required
       $_SESSION['lastId'] = $answeredTuple->getId();
     }
-    else{
+    else {
       // an answer was given for this tuple -> mark it as final and save the answer
       $pruneSession = $FACTORIES::getAnswerSessionFactory()->get($_SESSION['pruneSessionId']);
       $twoCompareAnswer = new TwoCompareAnswer(0, time(), $answeredTuple->getId(), $answer, $pruneSession->getId());

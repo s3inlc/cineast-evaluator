@@ -1,12 +1,6 @@
 <?php
 use DBA\ResultTuple;
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 06.04.17
- * Time: 14:51
- */
 class SimilarityGaussCalculator extends Calculator {
   
   /**
@@ -15,7 +9,7 @@ class SimilarityGaussCalculator extends Calculator {
    */
   function updateSimilarities(&$resultSets, &$changed) {
     foreach ($resultSets as $resultSet) {
-      if($resultSet->getIsFinal() == 1){
+      if ($resultSet->getIsFinal() == 1) {
         continue; // we ignore the sets marked as final
       }
       $gauss = new SimpleGauss($resultSet);

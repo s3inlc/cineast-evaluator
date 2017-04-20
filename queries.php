@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 22.03.17
- * Time: 17:35
- */
 use DBA\JoinFilter;
 use DBA\QueryFilter;
 use DBA\QueryResultTuple;
@@ -23,17 +17,17 @@ $MENU->setActive("queries");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 $OBJECTS['administrator'] = true;
 
-if(isset($_POST['action'])){
+if (isset($_POST['action'])) {
   $queryHandler = new QueryHandler();
   $queryHandler->handle($_POST['action']);
 }
 
-if(isset($_GET['new'])){
+if (isset($_GET['new'])) {
   $TEMPLATE = new Template("content/queries/new");
 }
-else if(isset($_GET['view'])){
+else if (isset($_GET['view'])) {
   $query = $FACTORIES::getQueryFactory()->get($_GET['view']);
-  if($query != null){
+  if ($query != null) {
     $TEMPLATE = new Template("content/queries/detail");
     $OBJECTS['query'] = $query;
     
@@ -47,7 +41,7 @@ else if(isset($_GET['view'])){
     
     $mediaTypes = $FACTORIES::getMediaTypeFactory()->filter(array());
     $types = new DataSet();
-    foreach($mediaTypes as $mediaType){
+    foreach ($mediaTypes as $mediaType) {
       $types->addValue($mediaType->getId(), $mediaType);
     }
     $OBJECTS['mediaTypes'] = new DataSet($types);

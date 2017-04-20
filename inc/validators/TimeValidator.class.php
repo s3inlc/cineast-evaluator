@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 31.03.17
- * Time: 12:35
- */
 use DBA\AnswerSession;
 use DBA\OrderFilter;
 use DBA\QueryFilter;

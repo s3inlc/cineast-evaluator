@@ -1,14 +1,6 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 31.03.17
- * Time: 15:43
- */
+
 use DBA\AnswerSession;
-use DBA\QueryFilter;
-use DBA\TwoCompareAnswer;
-use DBA\Validation;
 
 /**
  * Class CrowdValidator validates a session based on similarities where enough answers were given and match the one the user gave

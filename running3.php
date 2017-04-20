@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: Sein Coray
- * Date: 3/26/2017
- * Time: 2:20 PM
- */
 
 use DBA\QueryFilter;
 use DBA\RandOrderFilter;
@@ -60,8 +54,8 @@ else {
 }
 
 $lastAnswer = false;
-if(isset($_POST['answer'])){
-  $lastAnswer = "Your last answer was '".htmlentities($_POST['answer'], false, "UTF-8")."'.";
+if (isset($_POST['answer'])) {
+  $lastAnswer = "Your last answer was '" . htmlentities($_POST['answer'], false, "UTF-8") . "'.";
 }
 $OBJECTS['lastAnswer'] = $lastAnswer;
 

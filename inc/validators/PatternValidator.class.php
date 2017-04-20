@@ -5,12 +5,6 @@ use DBA\QueryFilter;
 use DBA\TwoCompareAnswer;
 use DBA\Validation;
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 06.04.17
- * Time: 10:26
- */
 class PatternValidator extends Validator {
   const SAME_ANSWER_THRESHOLD = 3;
   

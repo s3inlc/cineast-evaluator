@@ -25,7 +25,7 @@ define("IMAGE_MAX_HEIGHT", 1500);
 define("IMAGE_MAX_WIDTH", 1500);
 
 define("SECURITY_QUESTION_THRESHOLD", 0.5);
-define("SESSION_TIMEOUT", 3600*24); // set time limit after which a session is considered as closed even if not all questions are answered
+define("SESSION_TIMEOUT", 3600 * 24); // set time limit after which a session is considered as closed even if not all questions are answered
 define("GAUSS_LIMIT", 3); // defines the number of answers which is required to be able to put a gauss curve for a tuple
 define("RESULT_TUPLE_EVALUATED_SIGMA_THRESHOLD", 0.1); // sigma of the result tuple has to be <= this value
 define("RESULT_TUPLE_EVALUATED_ANSWERS_THRESHOLD", 10); // number of questions answered for this tuple has to >= this value
@@ -39,8 +39,8 @@ foreach ($dir as $entry) {
 }
 
 // include all handlers
-require_once(dirname(__FILE__)."/handlers/Handler.class.php");
-$dir = scandir(dirname(__FILE__)."/handlers/");
+require_once(dirname(__FILE__) . "/handlers/Handler.class.php");
+$dir = scandir(dirname(__FILE__) . "/handlers/");
 foreach ($dir as $entry) {
   if (strpos($entry, ".class.php") !== false) {
     require_once(dirname(__FILE__) . "/handlers/" . $entry);
@@ -49,8 +49,8 @@ foreach ($dir as $entry) {
 
 // include all validators
 $VALIDATORS = array();
-require_once(dirname(__FILE__)."/validators/Validator.class.php");
-$dir = scandir(dirname(__FILE__)."/validators/");
+require_once(dirname(__FILE__) . "/validators/Validator.class.php");
+$dir = scandir(dirname(__FILE__) . "/validators/");
 foreach ($dir as $entry) {
   if (strpos($entry, ".class.php") !== false) {
     require_once(dirname(__FILE__) . "/validators/" . $entry);

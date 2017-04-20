@@ -6,11 +6,9 @@ use DBA\ResultTuple;
 use DBA\TwoCompareAnswer;
 
 /**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 27.03.17
- * Time: 18:23
+ * This file is OUTDATED!
  */
+
 class SimilaritySumCalculator extends Calculator {
   /**
    * @param $resultSets ResultTuple[]
@@ -42,7 +40,7 @@ class SimilaritySumCalculator extends Calculator {
         continue;
       }
       $idealValue /= $totalSum;
-      if($idealValue > 3){
+      if ($idealValue > 3) {
         $idealValue = 3;
       }
       for ($i = 0; $i < 4; $i++) {
@@ -51,7 +49,7 @@ class SimilaritySumCalculator extends Calculator {
       if (floor($idealValue) == $idealValue) { // if it really matches one value
         $quality = $qualityNormalized[$idealValue];
       }
-      else if(floor($idealValue) == 3){
+      else if (floor($idealValue) == 3) {
         $quality = $qualityNormalized[$idealValue];
       }
       else { // otherwise just interpolate linearly between the two nearest values
@@ -64,8 +62,8 @@ class SimilaritySumCalculator extends Calculator {
       
       if (sizeof($joined['TwoCompareAnswer']) > 0) {
         $changed[$resultSet->getId()] = true;
-        $resultSet->setSimilarity($idealValue);
-        $resultSet->setCertainty($quality);
+        $resultSet->setMu($idealValue);
+        $resultSet->setSigma($quality);
       }
     }
   }

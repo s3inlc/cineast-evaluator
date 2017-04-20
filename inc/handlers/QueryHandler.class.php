@@ -4,12 +4,6 @@ use DBA\Query;
 use DBA\QueryResultTuple;
 use DBA\ResultTuple;
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 23.03.17
- * Time: 11:59
- */
 class QueryHandler extends Handler {
   
   /**
@@ -76,7 +70,7 @@ class QueryHandler extends Handler {
     }
     $meta = file_get_contents($path . "meta.json");
     $meta = json_decode($meta, true);
-    if(!$meta){
+    if (!$meta) {
       UI::addErrorMessage("Invalid JSON in meta.json!");
       return;
     }

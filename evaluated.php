@@ -1,6 +1,5 @@
 <?php
 
-/** @var Login $LOGIN */
 use DBA\JoinFilter;
 use DBA\OrderFilter;
 use DBA\Query;
@@ -10,6 +9,7 @@ use DBA\ResultTuple;
 use DBA\TwoCompareAnswer;
 
 /** @var array $OBJECTS */
+/** @var Login $LOGIN */
 
 require_once(dirname(__FILE__) . "/inc/load.php");
 if (!$LOGIN->isLoggedin()) {
@@ -28,18 +28,18 @@ if (isset($_POST['action'])) {
 
 if (isset($_GET['view'])) {
   $resultTuple = $FACTORIES::getResultTupleFactory()->get($_GET['view']);
-  if($resultTuple == null){
+  if ($resultTuple == null) {
     UI::addErrorMessage("Invalid Tuple!");
   }
-  else{
+  else {
     $TEMPLATE = new Template("content/evaluated/tuple");
     $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($resultTuple->getObjectId1());
     $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($resultTuple->getObjectId2());
     Util::prepare2CompareQuestion($mediaObject1, $mediaObject2, false);
     
     $imageData = false;
-    if($resultTuple->getSigma() >= 0){
-      if($resultTuple->getSigma() == 0){
+    if ($resultTuple->getSigma() >= 0) {
+      if ($resultTuple->getSigma() == 0) {
         // so we can at least draw something
         $resultTuple->setSigma(0.01);
       }

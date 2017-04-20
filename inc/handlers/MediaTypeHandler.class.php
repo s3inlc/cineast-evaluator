@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 23.03.17
- * Time: 11:59
- */
 class MediaTypeHandler extends Handler {
   
   /**
@@ -22,14 +16,14 @@ class MediaTypeHandler extends Handler {
     }
   }
   
-  private function updateType(){
+  private function updateType() {
     global $FACTORIES;
     
     $typeName = htmlentities($_POST['typeName'], false, "UTF-8");
     $template = htmlentities($_POST['template'], false, "UTF-8");
     
     $mediaType = $FACTORIES::getMediaTypeFactory()->get($_POST['mediaTypeId']);
-    if($mediaType == null){
+    if ($mediaType == null) {
       UI::addErrorMessage("Invalid mediaType!");
       return;
     }

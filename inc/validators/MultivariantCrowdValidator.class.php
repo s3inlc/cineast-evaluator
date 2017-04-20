@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 31.03.17
- * Time: 15:43
- */
+
 use DBA\AnswerSession;
 use DBA\QueryFilter;
 use DBA\TwoCompareAnswer;
@@ -66,16 +61,16 @@ class MultivariantCrowdValidator extends Validator {
     
     $sum = 0;
     $count = 0;
-    for($i=0;$i<sizeof($resultSets);$i++){
+    for ($i = 0; $i < sizeof($resultSets); $i++) {
       $gaussian = new SimpleGauss($resultSets[$i], $answerSession);
-      if($gaussian->isValid()){
+      if ($gaussian->isValid()) {
         $count++;
         $sum += pow($gaussian->getProbability($answers[$i]), 2);
       }
     }
     
     $probability = 0;
-    if($count > 0) {
+    if ($count > 0) {
       $probability = $sum / $count;
     }
     

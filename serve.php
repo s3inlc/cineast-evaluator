@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: Sein Coray
- * Date: 3/26/2017
- * Time: 3:00 PM
- */
-
 use DBA\MediaObject;
 use DBA\QueryFilter;
 

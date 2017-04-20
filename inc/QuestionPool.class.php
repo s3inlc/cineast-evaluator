@@ -9,12 +9,6 @@ use DBA\QueryResultTuple;
 use DBA\ResultTuple;
 use DBA\TwoCompareAnswer;
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 30.03.17
- * Time: 11:52
- */
 class QuestionPool {
   private $pool = array();
   

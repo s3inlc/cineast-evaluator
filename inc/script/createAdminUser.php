@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 23.03.17
- * Time: 10:58
- */
 
 /*
  * Use this script to add admin users (especially the first one)

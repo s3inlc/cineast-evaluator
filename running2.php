@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: Sein Coray
- * Date: 3/26/2017
- * Time: 2:20 PM
- */
 
 use DBA\RandOrderFilter;
 
@@ -47,9 +41,9 @@ else {
 }
 
 $lastAnswer = false;
-if(isset($_POST['answer'])){
+if (isset($_POST['answer'])) {
   $arr = array("No Similarity", "Slightly Similar", "Very Similar", "Nearly Identical");
-  $lastAnswer = "Your last answer was '".$arr[$_POST['answer']]."'.";
+  $lastAnswer = "Your last answer was '" . $arr[$_POST['answer']] . "'.";
 }
 $OBJECTS['lastAnswer'] = $lastAnswer;
 

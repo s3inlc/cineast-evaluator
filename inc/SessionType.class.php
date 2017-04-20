@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by IntelliJ IDEA.
- * User: sein
- * Date: 29.03.17
- * Time: 16:51
- */
 class SessionType {
   const SESSION_TYPE_FREE        = "free";
   const SESSION_TYPE_MICROWORKER = "micro";

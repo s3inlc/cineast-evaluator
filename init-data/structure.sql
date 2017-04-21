@@ -89,7 +89,7 @@ CREATE TABLE `Query` (
   `queryId` int(11) NOT NULL,
   `isClosed` tinyint(11) NOT NULL,
   `time` int(11) NOT NULL,
-  `displayName` varchar(50) COLLATE utf8_bin NOT NULL,
+  `displayName` varchar(100) COLLATE utf8_bin NOT NULL,
   `userId` int(11) NOT NULL,
   `meta` text COLLATE utf8_bin NOT NULL,
   `priority` int(11) NOT NULL

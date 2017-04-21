@@ -55,6 +55,7 @@ class Login {
    * @param $user User
    */
   public function overrideUser($user) {
+    $this->valid = true;
     $this->user = $user;
   }
   

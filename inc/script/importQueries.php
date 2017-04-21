@@ -29,6 +29,7 @@ $user = $FACTORIES::getUserFactory()->filter(array($FACTORIES::FILTER => $qF), t
 if ($user == null) {
   die("Username is not valid!\n");
 }
+$LOGIN = @new Login();
 $LOGIN->overrideUser($user);
 
 $folder = $argv[1];

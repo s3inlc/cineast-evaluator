@@ -68,7 +68,6 @@ Util::checkFolders();
 
 $FACTORIES = new Factory();
 
-$LOGIN = null;
 $MENU = new Menu();
 $OBJECTS['menu'] = $MENU;
 $OBJECTS['messages'] = array();

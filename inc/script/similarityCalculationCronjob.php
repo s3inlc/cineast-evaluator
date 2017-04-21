@@ -1,5 +1,8 @@
 <?php
 
+use DBA\QueryFilter;
+use DBA\ResultTuple;
+
 require_once(dirname(__FILE__) . "/../load.php");
 
 // TODO: get which script should be used
@@ -13,7 +16,8 @@ require_once(dirname(__FILE__) . "/similarities/SimilarityGaussCalculator.php");
 echo "calculating...\n";
 
 $calculator = new SimilarityGaussCalculator();
-$resultSets = $FACTORIES::getResultTupleFactory()->filter(array());
+$qF = new QueryFilter(ResultTuple::IS_FINAL, "0", "=");
+$resultSets = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF));
 $changed = array();
 $calculator->updateSimilarities($resultSets, $changed);
 

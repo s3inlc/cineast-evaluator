@@ -54,7 +54,7 @@ class QueryHandler extends Handler {
       UI::addErrorMessage("Failed to move uploaded file into storage directory!");
       return;
     }
-    else if (!$isUpload && rename($FILE['tmp_name'], $filename)) {
+    else if (!$isUpload && !copy($FILE['tmp_name'], $filename)) {
       UI::addErrorMessage("Failed to move uploaded file into storage directory!");
       return;
     }

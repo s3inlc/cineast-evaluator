@@ -148,7 +148,7 @@ class QueryHandler extends Handler {
       // check result tuple
       $resultTuple = Util::getResultTuple($queryMediaObject, $resultMediaObject);
       if ($resultTuple == null) {
-        $resultTuple = new ResultTuple(0, $queryMediaObject->getId(), $resultMediaObject->getId(), DEFAULT_SIMILARITY, DEFAULT_CERTAINTY, 0);
+        $resultTuple = new ResultTuple(0, $queryMediaObject->getId(), $resultMediaObject->getId(), -1, -1, 0);
         $resultTuple = $FACTORIES::getResultTupleFactory()->save($resultTuple);
       }
       

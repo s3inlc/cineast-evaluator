@@ -50,6 +50,15 @@ class Login {
   }
   
   /**
+   * This is a very dirty hack to allow importing of queries from commandline and just provide the username there
+   *
+   * @param $user User
+   */
+  public function overrideUser($user) {
+    $this->user = $user;
+  }
+  
+  /**
    * Returns true if the user currently is loggedin with a valid session
    */
   public function isLoggedin() {

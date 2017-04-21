@@ -8,6 +8,9 @@
  * Files which get imported will be deleted on successful import!
  */
 
+use DBA\QueryFilter;
+use DBA\User;
+
 require_once(dirname(__FILE__) . "/../load.php");
 
 if (!isset($argv[1])) {
@@ -16,6 +19,17 @@ if (!isset($argv[1])) {
 else if (!is_dir($argv[1])) {
   die("Provided path does not exist or is not a folder!\n");
 }
+else if (!isset($argv[2])) {
+  die("You need to provide an admin username as which the queries are imported!\n");
+}
+
+$username = $argv[2];
+$qF = new QueryFilter(User::USERNAME, $username, "=");
+$user = $FACTORIES::getUserFactory()->filter(array($FACTORIES::FILTER => $qF), true);
+if ($user == null) {
+  die("Username is not valid!\n");
+}
+$LOGIN->overrideUser($user);
 
 $folder = $argv[1];
 $entries = scandir($argv[1]);

@@ -32,6 +32,9 @@ if ($user == null) {
 $LOGIN = @new Login();
 $LOGIN->overrideUser($user);
 
+$count = 0;
+$startTime = time();
+
 $folder = $argv[1];
 $entries = scandir($argv[1]);
 $queryHandler = new QueryHandler();
@@ -59,10 +62,11 @@ foreach ($entries as $entry) {
   }
   else {
     echo "OK\n";
+    $count++;
   }
 }
 
-
+echo "Successfully imported $count queries, required " . (time() - $startTime) . " seconds\n";
 
 
 

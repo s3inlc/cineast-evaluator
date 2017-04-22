@@ -24,7 +24,7 @@
           <th>Evaluation Progress</th>
           <td>
             <div class="progress">
-              {{IF [[progressPercentage]]}}
+              {{IF [[progressPercentage]] >= 0}}
                 <div class="determinate" style="width: [[progressPercentage]]%"></div>
               {{ELSE}}
                 <div class="indeterminate"></div>

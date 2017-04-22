@@ -52,7 +52,7 @@ else if (isset($_GET['view'])) {
       $OBJECTS['progressPercentage'] = floor($progress[1] / $progress[0] * 100);
     }
     else {
-      $OBJECTS['progressPercentage'] = false;
+      $OBJECTS['progressPercentage'] = -1;
     }
   }
 }

@@ -57,6 +57,9 @@ if (ini_get("display_errors") == "1") {
     "Prune Session ID: " . $_SESSION['pruneSessionId'],
     "Query ID: " . $_SESSION['queryId']
   );
+  if ($queryId > 0) {
+    $debug[] = "ResultTuples left to prune: " . Util::getPruneLeft($queryId, $lastId);
+  }
   $OBJECTS['debug'] = $debug;
 }
 

@@ -453,6 +453,18 @@ class Util {
       array($resultTuple)
     );
   }
+  
+  public static function getPruneLeft($queryId, $lastId) {
+    global $FACTORIES;
+    
+    $qF1 = new QueryFilter(ResultTuple::IS_FINAL, "0", "=");
+    $oF = new OrderFilter(ResultTuple::RESULT_TUPLE_ID, "ASC");
+    $jF = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
+    $qF2 = new QueryFilter(QueryResultTuple::QUERY_ID, $queryId, "=", $FACTORIES::getQueryResultTupleFactory());
+    $qF3 = new QueryFilter(ResultTuple::RESULT_TUPLE_ID, $lastId, ">", $FACTORIES::getResultTupleFactory());
+    $joined = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2, $qF3), $FACTORIES::JOIN = $jF, $FACTORIES::ORDER => $oF));
+    return sizeof($joined[$FACTORIES::getResultTupleFactory()->getModelName()]);
+  }
 }
 
 

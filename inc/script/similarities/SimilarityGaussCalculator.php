@@ -1,5 +1,7 @@
 <?php
+use DBA\QueryFilter;
 use DBA\ResultTuple;
+use DBA\TwoCompareAnswer;
 
 class SimilarityGaussCalculator extends Calculator {
   
@@ -8,6 +10,8 @@ class SimilarityGaussCalculator extends Calculator {
    * @param $changed bool[]
    */
   function updateSimilarities(&$resultSets, &$changed) {
+    global $FACTORIES;
+    
     foreach ($resultSets as $resultSet) {
       if ($resultSet->getIsFinal() == 1) {
         continue; // we ignore the sets marked as final
@@ -17,6 +21,14 @@ class SimilarityGaussCalculator extends Calculator {
         $resultSet->setSigma($gauss->getSigma());
         $resultSet->setMu($gauss->getMu());
         $changed[$resultSet->getId()] = true;
+      }
+      if ($resultSet->getSigma() <= RESULT_TUPLE_EVALUATED_SIGMA_THRESHOLD) {
+        $qF = new QueryFilter(TwoCompareAnswer::RESULT_TUPLE_ID, $resultSet->getId(), "=");
+        $count = $FACTORIES::getTwoCompareAnswerFactory()->countFilter(array($FACTORIES::FILTER => $qF));
+        if ($count >= RESULT_TUPLE_EVALUATED_ANSWERS_THRESHOLD) {
+          $resultSet->setIsFinal(1);
+          $changed[$resultSet->getId()] = true;
+        }
       }
     }
   }

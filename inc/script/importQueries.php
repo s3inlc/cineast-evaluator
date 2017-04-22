@@ -8,6 +8,11 @@
  * Files which get imported will be deleted on successful import!
  */
 
+/*
+ * Speed for importing example:
+ * Successfully imported 312 queries, required 6863 seconds
+ */
+
 use DBA\QueryFilter;
 use DBA\User;
 

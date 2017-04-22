@@ -45,6 +45,15 @@ else if (isset($_GET['view'])) {
       $types->addValue($mediaType->getId(), $mediaType);
     }
     $OBJECTS['mediaTypes'] = new DataSet($types);
+    
+    $progress = Util::getQueryEvaluationProgress($query);
+    $OBJECTS['progress'] = new DataSet(array('total' => $progress[0], 'done' => $progress[1], 'partial' => $progress[2]));
+    if ($progress[0] > 0) {
+      $OBJECTS['progressPercentage'] = $progress[1] / $progress[0];
+    }
+    else {
+      $OBJECTS['progressPercentage'] = false;
+    }
   }
 }
 

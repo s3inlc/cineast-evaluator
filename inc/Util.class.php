@@ -454,6 +454,11 @@ class Util {
     );
   }
   
+  /**
+   * @param $queryId int
+   * @param $lastId int
+   * @return int
+   */
   public static function getPruneLeft($queryId, $lastId) {
     global $FACTORIES;
     
@@ -464,6 +469,32 @@ class Util {
     $qF3 = new QueryFilter(ResultTuple::RESULT_TUPLE_ID, $lastId, ">", $FACTORIES::getResultTupleFactory());
     $joined = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2, $qF3), $FACTORIES::JOIN => $jF, $FACTORIES::ORDER => $oF));
     return sizeof($joined[$FACTORIES::getResultTupleFactory()->getModelName()]);
+  }
+  
+  /**
+   * @param $query Query
+   * @return int[]
+   */
+  public static function getQueryEvaluationProgress($query) {
+    global $FACTORIES;
+    
+    $oF = new OrderFilter(ResultTuple::RESULT_TUPLE_ID, "ASC");
+    $jF = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
+    $qF = new QueryFilter(QueryResultTuple::QUERY_ID, $query->getId(), "=", $FACTORIES::getQueryResultTupleFactory());
+    $joined = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF, $FACTORIES::ORDER => $oF));
+    $progress = array(0, 0, 0);
+    /** @var $resultTuples ResultTuple[] */
+    $resultTuples = $joined[$FACTORIES::getResultTupleFactory()->getModelName()];
+    foreach ($resultTuples as $resultTuple) {
+      $progress[0]++; // total
+      if ($resultTuple->getIsFinal() == 1) {
+        $progress[1]++; // finished
+      }
+      else if ($resultTuple->getSigma() >= 0) {
+        $progress[2]++; // partial
+      }
+    }
+    return $progress;
   }
 }
 

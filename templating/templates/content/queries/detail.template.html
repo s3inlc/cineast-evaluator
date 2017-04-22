@@ -21,6 +21,21 @@
           </td>
         </tr>
         <tr>
+          <th>Evaluation Progress</th>
+          <td>
+            <div class="progress">
+              {{IF [[progressPercentage]]}}
+                <div class="determinate" style="width: [[progressPercentage]]%"></div>
+              {{ELSE}}
+                <div class="indeterminate"></div>
+              {{ENDIF}}
+            </div><br>
+            Total Result Tuples: [[progress.getVal('total')]]<br>
+            Fully evaulated: [[progress.getVal('done')]]<br>
+            Partially evaluated: [[progress.getVal('partial')]]
+          </td>
+        </tr>
+        <tr>
           <th>Pruning Session</th>
           <td>
             <a class="btn-large waves-effect waves-light yellow black-text" href="prune.php?queryId=[[query.getId()]]" target="_blank">Start Prune Session</a><br><br>(Important: what you answer here will be immediately taken as evaluated result and will not be included in the evaluation)

@@ -56,8 +56,20 @@ else if (isset($_GET['view'])) {
     }
   }
 }
-
-$queries = $FACTORIES::getQueryFactory()->filter(array());
-$OBJECTS['queries'] = $queries;
+else {
+  $queries = $FACTORIES::getQueryFactory()->filter(array());
+  $percentages = new DataSet();
+  foreach ($queries as $query) {
+    $progress = Util::getQueryEvaluationProgress($query);
+    if ($progress[0] > 0) {
+      $percentages->addValue($query->getId(), floor($progress[1] / $progress[0] * 100));
+    }
+    else {
+      $percentages->addValue($query->getId(), 0);
+    }
+  }
+  $OBJECTS['percentages'] = $percentages;
+  $OBJECTS['queries'] = $queries;
+}
 
 echo $TEMPLATE->render($OBJECTS);

@@ -1,3 +1,4 @@
 .idea/
 cineast-evaluator.iml
 vendor
+composer.lock

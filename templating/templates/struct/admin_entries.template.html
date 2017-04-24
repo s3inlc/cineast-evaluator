@@ -1,4 +1,5 @@
-<li[[menu.isActive('admin')]]><a href="admin.php">Home</a></li>
+<li[[menu.isActive('home')]]><a href="index.php">Home</a></li>
+<li[[menu.isActive('admin')]]><a href="admin.php">Admin</a></li>
 {{IF [[login.isLoggedin()]]}}
   <li[[menu.isActive('queries')]]><a href="queries.php">Queries</a></li>
   <li[[menu.isActive('mediatypes')]]><a href="mediatypes.php">Mediatypes</a></li>

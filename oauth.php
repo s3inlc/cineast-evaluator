@@ -11,7 +11,7 @@ require_once __DIR__.'/vendor/autoload.php';
 session_start();
 
 $client = new Google_Client();
-$client->setAuthConfig('client_secrets.json');
+$client->setAuthConfig('inc/oauth_google_clients_secret.json');
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 
 if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {

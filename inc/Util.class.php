@@ -71,6 +71,10 @@ class Util {
       $totalCount += $add + sqrt($highestRank - $queryResultTuples[$i]->getRank());
     }
     
+    if($totalCount <= 0){
+      return null;
+    }
+    
     $random = random_int(0, $totalCount - 1);
     $currentCount = 0;
     for ($i = 0; $i < sizeof($resultTuples); $i++) {

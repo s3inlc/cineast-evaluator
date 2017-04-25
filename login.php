@@ -4,6 +4,15 @@ require_once(dirname(__FILE__) . "/inc/load.php");
 /** @var Login $LOGIN */
 /** @var array $OBJECTS */
 
+if(isset($_GET['provider'])){
+  switch($_GET['provider']){
+    case "oauth":
+      $OAUTH->login();
+      header("Location: index.php");
+      die();
+  }
+}
+
 if (!isset($_POST['username']) || !isset($_POST['password'])) {
   header("Location: admin.php?err=1" . time());
   die();

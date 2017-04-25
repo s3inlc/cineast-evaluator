@@ -47,6 +47,7 @@ class OAuthLogin {
       return;
     }
     header('Location: oauth2callback.php');
+    die();
   }
   
   public function logout() {

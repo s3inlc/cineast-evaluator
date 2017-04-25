@@ -8,7 +8,7 @@
           {{IF [[oauth.isLoggedin()]]}}
             <div class="row black-text large center">
               <div class="col s12 m12">
-                <h4>Hey [[oauth.getPlayer().getPlayerName()]]</h4><br>
+                <h4>Hey [[oauth.getPlayer().getPlayerName()]]</h4>
                 <h5>Play some more games to get missing achievements ;)</h5>
               </div>
             </div>
@@ -19,7 +19,7 @@
             </div>
 
             <div class="col s12 m8 center">
-              <h2 class="center black-text">Hey, wanna have some fun and play a game?</h2>
+              {{IF ![[oauth.isLoggedin()]]}}<h2 class="center black-text">Hey, wanna have some fun and play a game?</h2>{{ENDIF}}
               <a class="btn-large waves-effect waves-light green" href="session.php">Start</a>
             </div>
 

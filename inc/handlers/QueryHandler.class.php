@@ -67,11 +67,7 @@ class QueryHandler extends Handler {
     // upload was successful
     // processing the .zip now
     if (strpos($filename, ".zip") === true) {
-      copy($filename, STORAGE_PATH . QUERIES_FOLDER . "import-" . time() . ".zip");
       exec("cd '$path' && unzip '$filename'");
-    }
-    else {
-      system("cp -r '" . $filename . "' '" . STORAGE_PATH . QUERIES_FOLDER . "import-" . time() . "'");
     }
     
     // read meta file
@@ -80,6 +76,10 @@ class QueryHandler extends Handler {
       return;
     }
     $meta = file_get_contents($path . "meta.json");
+    
+    $securityCopyPath = STORAGE_PATH . QUERIES_FOLDER . "import-" . time() . $queryName . ".json";
+    file_put_contents($securityCopyPath, $meta);
+    
     $meta = json_decode($meta, true);
     if (!$meta) {
       UI::addErrorMessage("Invalid JSON in meta.json!");

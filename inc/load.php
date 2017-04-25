@@ -59,6 +59,21 @@ foreach ($dir as $entry) {
   }
 }
 
+// include gamification parts
+$dir = scandir(dirname(__FILE__) . "/gamification/");
+foreach ($dir as $entry) {
+  if (strpos($entry, ".class.php") !== false) {
+    require_once(dirname(__FILE__) . "/validators/" . $entry);
+  }
+}
+require_once(dirname(__FILE__) . "/gamification/achievements/Achievement.class.php");
+$dir = scandir(dirname(__FILE__) . "/gamification/achievements");
+foreach ($dir as $entry) {
+  if (strpos($entry, ".class.php") !== false) {
+    require_once(dirname(__FILE__) . "/validators/" . $entry);
+  }
+}
+
 // include DBA
 require_once(dirname(__FILE__) . "/../dba/init.php");
 

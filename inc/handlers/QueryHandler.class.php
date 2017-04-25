@@ -37,7 +37,7 @@ class QueryHandler extends Handler {
     
     $path = STORAGE_PATH . TMP_FOLDER . "import-" . time() . "/";
     $filename = $path;
-    if(strpos($FILE['name'], ".zip") === true){
+    if (strpos($FILE['name'], ".zip") === true) {
       mkdir($path);
       $filename .= "import.zip";
     }
@@ -57,17 +57,21 @@ class QueryHandler extends Handler {
       UI::addErrorMessage("Failed to move uploaded file into storage directory!");
       return;
     }
-    else if (!$isUpload && !copy($FILE['tmp_name'], $filename)) {
+    else if (!$isUpload && !is_dir($FILE['tmp_name']) && !copy($FILE['tmp_name'], $filename)) {
+      UI::addErrorMessage("Failed to move uploaded file into storage directory!");
+      return;
+    }
+    else if (!$isUpload && is_dir($FILE['tmp_name']) && !system("cp -r '" . $FILE['tmp_name'] . "' '" . $filename . "'")) {
       UI::addErrorMessage("Failed to move uploaded file into storage directory!");
       return;
     }
     // upload was successful
     // processing the .zip now
-    if(strpos($filename, ".zip") === true) {
+    if (strpos($filename, ".zip") === true) {
       copy($filename, STORAGE_PATH . QUERIES_FOLDER . "import-" . time() . ".zip");
       exec("cd '$path' && unzip '$filename'");
     }
-    else{
+    else {
       copy($filename, STORAGE_PATH . QUERIES_FOLDER . "import-" . time());
     }
     

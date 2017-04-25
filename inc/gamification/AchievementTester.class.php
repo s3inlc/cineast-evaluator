@@ -17,6 +17,10 @@ class AchievementTester {
   public function __construct() {
     $this->ACHIEVEMENTS[] = new StarterAchievement();
     $this->ACHIEVEMENTS[] = new ScoreLevel1Achievement();
+    $this->ACHIEVEMENTS[] = new ScoreLevel2Achievement();
+    $this->ACHIEVEMENTS[] = new ScoreLevel3Achievement();
+    $this->ACHIEVEMENTS[] = new ScoreLevel4Achievement();
+    $this->ACHIEVEMENTS[] = new ScoreLevel5Achievement();
   }
   
   /**

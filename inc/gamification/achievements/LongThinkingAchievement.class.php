@@ -37,7 +37,7 @@ class LongThinkingAchievement extends GameAchievement {
     }
     
     // this achievement is reached when the player required more than 30 seconds to answer a question
-    $qF = new QueryFilter(Game::PLAYER_ID, $player->getId(), "=");
+    $qF = new QueryFilter(Game::PLAYER_ID, $player->getId(), "=", $FACTORIES::getGameFactory());
     $jF = new JoinFilter($FACTORIES::getAnswerSessionFactory(), Game::ANSWER_SESSION_ID, AnswerSession::ANSWER_SESSION_ID);
     $joined = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));
     $answerSessions = $joined[$FACTORIES::getAnswerSessionFactory()->getModelName()];

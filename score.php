@@ -6,7 +6,6 @@ use DBA\Game;
 use DBA\QueryFilter;
 
 require_once(dirname(__FILE__) . "/inc/load.php");
-$TEMPLATE = new Template("content/home");
 
 $MENU->setActive("score");
 $OBJECTS['pageTitle'] = "Game Score";

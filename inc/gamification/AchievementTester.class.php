@@ -1,5 +1,5 @@
 <?php
-use DBA\AnswerSession;
+use DBA\Achievement;
 use DBA\Player;
 
 /**
@@ -25,12 +25,23 @@ class AchievementTester {
    * @return GameAchievement[]
    */
   public function getAchievements($player = null) {
+    global $FACTORIES;
+    
+    /** @var $reached GameAchievement[] */
     $reached = array();
     foreach ($this->ACHIEVEMENTS as $achievement) {
       if ($achievement->isReachedByPlayer($player)) {
         $reached[] = $achievement;
       }
     }
+    
+    if ($player != null) {
+      foreach ($reached as $reach) {
+        $achievement = new Achievement(0, $player->getId(), $reach->getAchievementName(), time());
+        $FACTORIES::getAchievementFactory()->save($achievement);
+      }
+    }
+    
     return $reached;
   }
 }

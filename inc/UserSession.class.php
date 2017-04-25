@@ -213,6 +213,10 @@ class UserSession {
     $_SESSION['isSecurityQuestion'] = false;
   }
   
+  public function getRemainingQuestions() {
+    return sizeof($this->questionQueue->getQuestions());
+  }
+  
   public function close() {
     global $FACTORIES;
     

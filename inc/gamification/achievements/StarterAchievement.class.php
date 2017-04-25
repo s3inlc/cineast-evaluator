@@ -1,7 +1,5 @@
 <?php
-use DBA\Achievement;
 use DBA\Player;
-use DBA\QueryFilter;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,11 +24,8 @@ class StarterGameAchievement extends GameAchievement {
     global $FACTORIES;
     
     if ($player != null) {
-      $qF1 = new QueryFilter(Achievement::PLAYER_ID, $player->getId(), "=");
-      $qF2 = new QueryFilter(Achievement::ACHIEVEMENT_NAME, $this->getAchievementName(), "=");
-      $achievement = $FACTORIES::getAchievementFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2)), true);
-      if ($achievement != null) {
-        return false; // he already reached it so he can't get it twice
+      if($this->alreadyReached($player)){
+        return false;
       }
     }
     

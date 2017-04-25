@@ -16,6 +16,7 @@ class AchievementTester {
   
   public function __construct() {
     $this->ACHIEVEMENTS[] = new StarterGameAchievement();
+    $this->ACHIEVEMENTS[] = new ScoreLevel1Achievement();
   }
   
   /**
@@ -49,9 +50,9 @@ class AchievementTester {
    * @param $name string
    * @return GameAchievement
    */
-  public function getAchievement($name){
+  public function getAchievement($name) {
     foreach ($this->ACHIEVEMENTS as $achievement) {
-      if($achievement->getAchievementName() == $name){
+      if ($achievement->getAchievementName() == $name) {
         return $achievement;
       }
     }

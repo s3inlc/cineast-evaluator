@@ -1,1 +1,6 @@
 <li[[menu.isActive('home')]]><a href="index.php">Home</a></li>
+{{IF [[oauth.isLoggedin()]]}}
+  <li[[menu.isActive('logout')]]><a href="logout.php">Logout</a></li>
+{{ELSE}}
+  <li[[menu.isActive('login')]]><a href="login.php?provider=oauth">Login</a></li>
+{{ENDIF}}

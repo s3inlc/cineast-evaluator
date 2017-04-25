@@ -3,11 +3,26 @@
 require_once(dirname(__FILE__) . "/inc/load.php");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
+if(isset($_POST['disclaimerAccept'])){
+  // user accepted the disclaimer
+  setcookie("disclaimer", "accepted", time() + 3600*24*30);
+  header("Location: session.php");
+  die();
+}
+else if(!isset($_COOKIE['disclaimer']) || $_COOKIE['disclaimer'] != 'accepted'){
+  // user has not accepted disclaimer yet
+  $TEMPLATE = new Template("content/disclaimer");
+  echo $TEMPLATE->render($OBJECTS);
+  die();
+}
+
 $USER_SESSION = new UserSession();
 
 if (isset($_POST['answer'])) {
   $USER_SESSION->answerQuestion();
 }
+
+// TODO: test here if the user is not authenticated and has finished a session now
 
 $question = $USER_SESSION->getNextQuestion();
 if ($question == null) {

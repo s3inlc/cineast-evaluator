@@ -17,6 +17,12 @@ class SimpleGauss {
   public function __construct($tuple, $excludedAnswerSession = null) {
     global $FACTORIES;
     
+    if($tuple->getIsFinal() == 1){
+      $this->mu = $tuple->getMu();
+      $this->sigma = $tuple->getSigma();
+      return;
+    }
+    
     $qF1 = new QueryFilter(TwoCompareAnswer::RESULT_TUPLE_ID, $tuple->getId(), "=");
     $qF2 = new QueryFilter(AnswerSession::IS_OPEN, 0, "=", $FACTORIES::getAnswerSessionFactory()); // only consider completed sessions
     $filters = array($qF1, $qF2);
@@ -28,7 +34,7 @@ class SimpleGauss {
     $jF = new JoinFilter($FACTORIES::getAnswerSessionFactory(), TwoCompareAnswer::ANSWER_SESSION_ID, AnswerSession::ANSWER_SESSION_ID);
     $joined = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $filters, $FACTORIES::JOIN => $jF));
     
-    if (sizeof($joined['TwoCompareAnswer']) < GAUSS_LIMIT && $tuple->getIsFinal() == 0) {
+    if (sizeof($joined['TwoCompareAnswer']) < GAUSS_LIMIT) {
       $this->mu = -1;
       $this->sigma = -1;
       return;

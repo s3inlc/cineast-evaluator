@@ -15,7 +15,7 @@ class AchievementTester {
   private $ACHIEVEMENTS = array();
   
   public function __construct() {
-    $this->ACHIEVEMENTS[] = new StarterGameAchievement();
+    $this->ACHIEVEMENTS[] = new StarterAchievement();
     $this->ACHIEVEMENTS[] = new ScoreLevel1Achievement();
   }
   

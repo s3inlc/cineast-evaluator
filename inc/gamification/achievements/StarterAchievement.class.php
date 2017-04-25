@@ -7,7 +7,7 @@ use DBA\Player;
  * Date: 25.04.17
  * Time: 15:31
  */
-class StarterGameAchievement extends GameAchievement {
+class StarterAchievement extends GameAchievement {
   
   /**
    * @return string

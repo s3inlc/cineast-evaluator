@@ -63,14 +63,14 @@ foreach ($dir as $entry) {
 $dir = scandir(dirname(__FILE__) . "/gamification/");
 foreach ($dir as $entry) {
   if (strpos($entry, ".class.php") !== false) {
-    require_once(dirname(__FILE__) . "/validators/" . $entry);
+    require_once(dirname(__FILE__) . "/gamification/" . $entry);
   }
 }
 require_once(dirname(__FILE__) . "/gamification/achievements/Achievement.class.php");
 $dir = scandir(dirname(__FILE__) . "/gamification/achievements");
 foreach ($dir as $entry) {
   if (strpos($entry, ".class.php") !== false) {
-    require_once(dirname(__FILE__) . "/validators/" . $entry);
+    require_once(dirname(__FILE__) . "/gamification/achievements/" . $entry);
   }
 }
 

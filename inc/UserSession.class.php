@@ -102,6 +102,7 @@ class UserSession {
       }
       else if ($playerId != null && $this->isUnknownUser()) {
         // -> player authenticated now, but was not authenticated when the session started
+        $this->answerSession->setPlayerId($playerId);
         $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
       }
       // TODO: I think it's not a good idea to later assign sessions to microworkers

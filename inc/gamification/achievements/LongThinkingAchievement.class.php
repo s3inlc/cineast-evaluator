@@ -1,7 +1,10 @@
 <?php
+use DBA\AnswerSession;
 use DBA\Game;
+use DBA\JoinFilter;
 use DBA\Player;
 use DBA\QueryFilter;
+use DBA\TwoCompareAnswer;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,15 +36,27 @@ class LongThinkingAchievement extends GameAchievement {
       return false;
     }
     
-    // this achievement is reached when a total score of 100'000 is reached
+    // this achievement is reached when the player required more than 30 seconds to answer a question
     $qF = new QueryFilter(Game::PLAYER_ID, $player->getId(), "=");
-    $games = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF));
-    $total = 0;
-    foreach ($games as $game) {
-      $total += $game->getFullScore();
-    }
-    if ($total > 100000) {
-      return true;
+    $jF = new JoinFilter($FACTORIES::getAnswerSessionFactory(), Game::ANSWER_SESSION_ID, AnswerSession::ANSWER_SESSION_ID);
+    $joined = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));
+    $answerSessions = $joined[$FACTORIES::getAnswerSessionFactory()->getModelName()];
+    foreach ($answerSessions as $answerSession) {
+      /** @var $answerSession AnswerSession */
+      $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSession->getId(), "=");
+      $answers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
+      /** @var $last TwoCompareAnswer */
+      $last = null;
+      foreach ($answers as $answer) {
+        if ($last == null) {
+          $last = $answer;
+          continue;
+        }
+        $delta = $answer->getTime() - $last->getTime();
+        if ($delta >= 30) {
+          return true;
+        }
+      }
     }
     return false;
   }

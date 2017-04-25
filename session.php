@@ -16,6 +16,13 @@ else if (!isset($_COOKIE['disclaimer']) || $_COOKIE['disclaimer'] != 'accepted')
   die();
 }
 
+// show the help modal immediately when a user starts his first session
+$OBJECTS['forceOpenHelp'] = false;
+if (!isset($_COOKIE['help'])) {
+  $OBJECTS['forceOpenHelp'] = true;
+  setcookie("help", "done", time() + 3600 * 24 * 30);
+}
+
 $USER_SESSION = new UserSession();
 
 if (isset($_POST['answer'])) {

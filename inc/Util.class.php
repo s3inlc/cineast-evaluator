@@ -496,6 +496,10 @@ class Util {
     }
     return $progress;
   }
+  
+  public static function getUserinfo($accessToken) {
+    return file_get_contents("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" . $accessToken);
+  }
 }
 
 

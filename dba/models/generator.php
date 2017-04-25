@@ -76,6 +76,7 @@ $CONF['AnswerSession'] = array(
 $CONF['Player'] = array(
   'playerId',
   'playerName',
+  'oauthId',
   'firstLogin',
   'lastLogin'
 );

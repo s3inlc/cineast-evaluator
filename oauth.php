@@ -6,7 +6,8 @@
  * Time: 15:11
  */
 
-ini_set("display_errors", "1");
+die("OLD");
+/*
 require_once __DIR__.'/vendor/autoload.php';
 
 session_start();
@@ -23,4 +24,4 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
 } else {
   $redirect_uri = 'oauth2callback.php';
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-}
+}*/

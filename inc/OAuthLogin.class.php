@@ -1,37 +1,65 @@
 <?php
+
 /**
  * Created by IntelliJ IDEA.
  * User: sein
  * Date: 24.04.17
  * Time: 16:53
  */
-
 class OAuthLogin {
+  private $client = null;
+  private $valid  = false;
+  private $player = null;
+  
   /**
    * OAuthLogin constructor.
    */
   public function __construct() {
-    // TODO: check if a oauth user session is active
+    global $FACTORIES;
+    
+    $this->valid = false;
+    $this->client = new Google_Client();
+    $this->client->setAuthConfig(dirname(__FILE__) . '/oauth_google_clients_secret.json');
+    $this->client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
+    $this->client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);
+    
+    if (isset($_SESSION['access_token']) && $_SESSION['access_token'] && isset($_SESSION['playerId']) && $_SESSION['playerId']) {
+      $this->client->setAccessToken($_SESSION['access_token']);
+      if ($this->client->isAccessTokenExpired()) {
+        unset($_SESSION['access_token']);
+      }
+      else {
+        $this->player = $FACTORIES::getPlayerFactory()->get($_SESSION['playerId']);
+        $this->valid = true;
+      }
+    }
   }
   
   /**
    * @return bool
    */
-  public function isLoggedin(){
-    // TODO:
-    return false;
+  public function isLoggedin() {
+    return $this->valid;
   }
   
-  public function login(){
-    // TODO: log user in with OAuth
+  public function login() {
+    if ($this->isLoggedin()) {
+      return;
+    }
+    header('Location: oauth2callback.php');
   }
   
-  public function logout(){
-    // TODO: log user out
+  public function logout() {
+    unset($_SESSION['access_token']);
+    $this->client = null;
+    $this->valid = false;
+    $this->player = null;
   }
   
-  public function getPlayer(){
-    // TODO: return player which is assigned to this login session
-    return null;
+  public function getPlayer() {
+    if (!$this->isLoggedin()) {
+      return null;
+    }
+    return $this->player;
   }
 }

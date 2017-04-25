@@ -63,6 +63,11 @@ require_once(dirname(__FILE__) . "/../dba/init.php");
 // include Template
 require_once(dirname(__FILE__) . "/../templating/init.php");
 
+// load OAuth stuff
+require_once(__DIR__ . '/../vendor/autoload.php');
+
+session_start();
+
 // check required folders
 Util::checkFolders();
 
@@ -72,7 +77,9 @@ $MENU = new Menu();
 $OBJECTS['menu'] = $MENU;
 $OBJECTS['messages'] = array();
 $LOGIN = new Login();
+$OAUTH = new OAuthLogin();
 $OBJECTS['login'] = $LOGIN;
+$OBJECTS['oauth'] = $OAUTH;
 $OBJECTS['administrator'] = false;
 if ($LOGIN->isLoggedin()) {
   $OBJECTS['user'] = $LOGIN->getUser();

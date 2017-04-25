@@ -6,22 +6,38 @@
  * Time: 15:12
  */
 
-require_once __DIR__.'/vendor/autoload.php';
+use DBA\Player;
+use DBA\QueryFilter;
+
+require_once(dirname(__FILE__) . "/inc/load.php");
 
 session_start();
 
 $client = new Google_Client();
-$client->setAuthConfigFile('inc/oauth_google_clients_secret.json');
+$client->setAuthConfigFile(dirname(__FILE__) . '/inc/oauth_google_clients_secret.json');
 $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
 $client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);
 $client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
 
-if (! isset($_GET['code'])) {
+if (!isset($_GET['code'])) {
   $auth_url = $client->createAuthUrl();
   header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
-} else {
+}
+else {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
-  $redirect_uri = 'oauth.php';
-  header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+  
+  $userinfo = Util::getUserInfo($client->getAccessToken()['access_token']);
+  $qF = new QueryFilter(Player::OAUTH_ID, $userinfo['id'], "=");
+  $player = $FACTORIES::getPlayerFactory()->filter(array($FACTORIES::FILTER => $qF), true);
+  if($player == null){
+    $player = new Player(0, $userinfo['name'], $userinfo['id'], time(), 0);
+    $player = $FACTORIES::getPlayerFactory()->save($player);
+  }
+  $player->setLastLogin(time());
+  $FACTORIES::getPlayerFactory()->update($player);
+  
+  // TODO: start user session
+  
+  header('Location: index.php');
 }

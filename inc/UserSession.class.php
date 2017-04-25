@@ -17,8 +17,6 @@ class UserSession {
   
   public function __construct() {
     // start session
-    session_start();
-    
     $this->init();
   }
   

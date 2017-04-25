@@ -6,6 +6,7 @@
  * Time: 15:11
  */
 
+ini_set("display_errors", "1");
 require_once __DIR__.'/vendor/autoload.php';
 
 session_start();
@@ -17,9 +18,9 @@ $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
   $client->setAccessToken($_SESSION['access_token']);
   $drive = new Google_Service_Drive($client);
-  $files = $drive->files->listFiles(array())->getItems();
+  $files = $drive->files->listFiles(array())->getFiles();
   echo json_encode($files);
 } else {
-  $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/cineast-evaluator/oauth2callback.php';
+  $redirect_uri = 'oauth2callback.php';
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }

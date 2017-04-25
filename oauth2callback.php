@@ -12,7 +12,7 @@ session_start();
 
 $client = new Google_Client();
 $client->setAuthConfigFile('inc/oauth_google_clients_secret.json');
-$client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/cineast-evaluator/oauth2callback.php');
+$client->setRedirectUri('https://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
 $client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
 
 if (! isset($_GET['code'])) {
@@ -21,6 +21,6 @@ if (! isset($_GET['code'])) {
 } else {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
-  $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/cineast-evaluator/oauth.php';
+  $redirect_uri = 'oauth.php';
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }

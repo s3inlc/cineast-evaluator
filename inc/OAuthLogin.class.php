@@ -21,14 +21,15 @@ class OAuthLogin {
     $this->client = new Google_Client();
     $this->client->setAuthConfig(dirname(__FILE__) . '/oauth_google_clients_secret.json');
     $this->client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
-    $this->client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);
     
     if (isset($_SESSION['access_token']) && $_SESSION['access_token'] && isset($_SESSION['playerId']) && $_SESSION['playerId']) {
       $this->client->setAccessToken($_SESSION['access_token']);
       if ($this->client->isAccessTokenExpired()) {
         $this->client->refreshToken($_SESSION['access_token']);
-        
-        //unset($_SESSION['access_token']);
+        $_SESSION['access_token'] = $this->client->getAccessToken();
+        if(!$_SESSION['access_token']){
+          unset($_SESSION['access_token']);
+        }
       }
       else {
         $this->player = $FACTORIES::getPlayerFactory()->get($_SESSION['playerId']);

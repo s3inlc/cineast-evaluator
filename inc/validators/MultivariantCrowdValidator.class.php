@@ -31,19 +31,21 @@ class MultivariantCrowdValidator extends Validator {
   /**
    * @param $answerSession AnswerSession
    * @param $validity float
+   * @param bool $history
    * @return float updated validity
    */
-  function validateFinished($answerSession, $validity) {
-    return $this->validate($answerSession);
+  function validateFinished($answerSession, $validity, $history = false) {
+    return $this->validate($answerSession, $history);
   }
   
   /**
    * @param $answerSession AnswerSession
-   * @param $validity float
-   * @param $isFinished bool
+   * @param bool $history
    * @return float updated validity
+   * @internal param float $validity
+   * @internal param bool $isFinished
    */
-  private function validate($answerSession) {
+  private function validate($answerSession, $history = false) {
     global $FACTORIES;
     
     $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSession->getId(), "=");
@@ -54,10 +56,6 @@ class MultivariantCrowdValidator extends Validator {
       $resultSets[] = $FACTORIES::getResultTupleFactory()->get($twoAnswer->getResultTupleId());
       $answers[] = $twoAnswer->getAnswer();
     }
-    /*$multivariantGaussian = new MultivariantGauss($resultSets, $answerSession);
-    
-    $probability = $multivariantGaussian->getProbability($answers);
-    */
     
     $sum = 0;
     $count = 0;
@@ -66,6 +64,9 @@ class MultivariantCrowdValidator extends Validator {
       if ($gaussian->isValid()) {
         $count++;
         $sum += pow($gaussian->getProbability($answers[$i]), 2);
+        if ($history) {
+          echo "Probability on " . $resultSets[$i]->getId() . ": " . pow($gaussian->getProbability($answers[$i]), 2) . "\n";
+        }
       }
     }
     

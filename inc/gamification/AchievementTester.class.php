@@ -83,7 +83,7 @@ class AchievementTester {
    */
   public function getAchievement($name) {
     foreach ($this->ACHIEVEMENTS as $achievement) {
-      if ($achievement->getAchievementName() == $name) {
+      if ($achievement->getIdentifier() == $name) {
         return $achievement;
       }
     }

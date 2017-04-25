@@ -10,14 +10,22 @@ class SessionType {
   private $id   = 0;
   
   public function __construct() {
-    global $LOGIN;
+    global $LOGIN, $OAUTH;
     
+    // check if it's an admin user
     if ($LOGIN->isLoggedin()) {
       $this->type = SessionType::SESSION_TYPE_USER;
       $this->id = $LOGIN->getUserID();
       return;
     }
-    // TODO: load player Id here
+    
+    // check if it's a player
+    if($OAUTH->isLoggedin()){
+      $this->type = SessionType::SESSION_TYPE_PLAYER;
+      $this->id = $OAUTH->getPlayer()->getId();
+      return;
+    }
+    
     // TODO: load microworker Id here
   }
   

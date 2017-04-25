@@ -27,7 +27,7 @@ class StarterGameAchievement extends GameAchievement {
     
     if ($player != null) {
       $qF1 = new QueryFilter(Achievement::PLAYER_ID, $player->getId(), "=");
-      $qF2 = new QueryFilter(Achievement::NAME, $this->getAchievementName(), "=");
+      $qF2 = new QueryFilter(Achievement::ACHIEVEMENT_NAME, $this->getAchievementName(), "=");
       $achievement = $FACTORIES::getAchievementFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2)), true);
       if ($achievement != null) {
         return false; // he already reached it so he can't get it twice

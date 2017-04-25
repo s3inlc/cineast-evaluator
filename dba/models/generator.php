@@ -111,10 +111,10 @@ $CONF['Game'] = array(
   'gameScore',
   'fullScore'
 );
-$CONF['GameAchievement'] = array(
+$CONF['Achievement'] = array(
   'achievementId',
   'playerId',
-  'name',
+  'achievementName',
   'time'
 );
 

@@ -40,7 +40,7 @@ class AchievementFactory extends AbstractModelFactory {
    * @return Achievement
    */
   function createObjectFromDict($pk, $dict) {
-    $o = new Achievement($pk, $dict['playerId'], $dict['name'], $dict['time']);
+    $o = new Achievement($pk, $dict['playerId'], $dict['achievementName'], $dict['time']);
     return $o;
   }
 

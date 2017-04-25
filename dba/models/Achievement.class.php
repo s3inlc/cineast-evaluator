@@ -12,13 +12,13 @@ namespace DBA;
 class Achievement extends AbstractModel {
   private $achievementId;
   private $playerId;
-  private $name;
+  private $achievementName;
   private $time;
   
-  function __construct($achievementId, $playerId, $name, $time) {
+  function __construct($achievementId, $playerId, $achievementName, $time) {
     $this->achievementId = $achievementId;
     $this->playerId = $playerId;
-    $this->name = $name;
+    $this->achievementName = $achievementName;
     $this->time = $time;
   }
   
@@ -26,7 +26,7 @@ class Achievement extends AbstractModel {
     $dict = array();
     $dict['achievementId'] = $this->achievementId;
     $dict['playerId'] = $this->playerId;
-    $dict['name'] = $this->name;
+    $dict['achievementName'] = $this->achievementName;
     $dict['time'] = $this->time;
     
     return $dict;
@@ -56,12 +56,12 @@ class Achievement extends AbstractModel {
     $this->playerId = $playerId;
   }
   
-  function getName(){
-    return $this->name;
+  function getAchievementName(){
+    return $this->achievementName;
   }
   
-  function setName($name){
-    $this->name = $name;
+  function setAchievementName($achievementName){
+    $this->achievementName = $achievementName;
   }
   
   function getTime(){
@@ -74,6 +74,6 @@ class Achievement extends AbstractModel {
 
   const ACHIEVEMENT_ID = "achievementId";
   const PLAYER_ID = "playerId";
-  const NAME = "name";
+  const ACHIEVEMENT_NAME = "achievementName";
   const TIME = "time";
 }

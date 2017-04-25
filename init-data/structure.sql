@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 18. Apr 2017 um 14:04
+-- Erstellungszeit: 25. Apr 2017 um 13:51
 -- Server-Version: 5.7.17-0ubuntu0.16.04.2
 -- PHP-Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -23,6 +23,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `Achievement`
+--
+
+CREATE TABLE `Achievement` (
+  `achievementId` int(11) NOT NULL,
+  `playerId` int(11) NOT NULL,
+  `achievementName` varchar(50) COLLATE utf8_bin NOT NULL,
+  `time` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `AnswerSession`
 --
 
@@ -36,6 +49,21 @@ CREATE TABLE `AnswerSession` (
   `timeOpened` int(11) NOT NULL,
   `userAgentIp` varchar(50) COLLATE utf8_bin NOT NULL,
   `userAgentHeader` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Game`
+--
+
+CREATE TABLE `Game` (
+  `gameId` int(11) NOT NULL,
+  `playerId` int(11) NOT NULL,
+  `answerSessionId` int(11) NOT NULL,
+  `finishedTime` int(11) NOT NULL,
+  `gameScore` int(11) NOT NULL,
+  `fullScore` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -75,6 +103,7 @@ CREATE TABLE `MediaType` (
 CREATE TABLE `Player` (
   `playerId` int(11) NOT NULL,
   `playerName` varchar(50) COLLATE utf8_bin NOT NULL,
+  `oauthId` varchar(50) COLLATE utf8_bin NOT NULL,
   `firstLogin` int(11) NOT NULL,
   `lastLogin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -208,12 +237,27 @@ CREATE TABLE `Validation` (
 --
 
 --
+-- Indizes für die Tabelle `Achievement`
+--
+ALTER TABLE `Achievement`
+  ADD PRIMARY KEY (`achievementId`),
+  ADD KEY `playerId` (`playerId`);
+
+--
 -- Indizes für die Tabelle `AnswerSession`
 --
 ALTER TABLE `AnswerSession`
   ADD PRIMARY KEY (`answerSessionId`),
   ADD KEY `userId` (`userId`),
   ADD KEY `playerId` (`playerId`);
+
+--
+-- Indizes für die Tabelle `Game`
+--
+ALTER TABLE `Game`
+  ADD PRIMARY KEY (`gameId`),
+  ADD KEY `playerId` (`playerId`),
+  ADD KEY `answerSessionId` (`answerSessionId`);
 
 --
 -- Indizes für die Tabelle `MediaObject`
@@ -299,15 +343,25 @@ ALTER TABLE `Validation`
 --
 
 --
+-- AUTO_INCREMENT für Tabelle `Achievement`
+--
+ALTER TABLE `Achievement`
+  MODIFY `achievementId` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT für Tabelle `AnswerSession`
 --
 ALTER TABLE `AnswerSession`
-  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
+  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
+--
+-- AUTO_INCREMENT für Tabelle `Game`
+--
+ALTER TABLE `Game`
+  MODIFY `gameId` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT für Tabelle `MediaObject`
 --
 ALTER TABLE `MediaObject`
-  MODIFY `mediaObjectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3629;
+  MODIFY `mediaObjectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30454;
 --
 -- AUTO_INCREMENT für Tabelle `MediaType`
 --
@@ -317,27 +371,27 @@ ALTER TABLE `MediaType`
 -- AUTO_INCREMENT für Tabelle `Player`
 --
 ALTER TABLE `Player`
-  MODIFY `playerId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `playerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT für Tabelle `Query`
 --
 ALTER TABLE `Query`
-  MODIFY `queryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `queryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=343;
 --
 -- AUTO_INCREMENT für Tabelle `QueryResultTuple`
 --
 ALTER TABLE `QueryResultTuple`
-  MODIFY `queryResultTupleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4014;
+  MODIFY `queryResultTupleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82514;
 --
 -- AUTO_INCREMENT für Tabelle `ResultTuple`
 --
 ALTER TABLE `ResultTuple`
-  MODIFY `resultTupleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3643;
+  MODIFY `resultTupleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32296;
 --
 -- AUTO_INCREMENT für Tabelle `Session`
 --
 ALTER TABLE `Session`
-  MODIFY `sessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `sessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 --
 -- AUTO_INCREMENT für Tabelle `ThreeCompareAnswer`
 --
@@ -347,7 +401,7 @@ ALTER TABLE `ThreeCompareAnswer`
 -- AUTO_INCREMENT für Tabelle `TwoCompareAnswer`
 --
 ALTER TABLE `TwoCompareAnswer`
-  MODIFY `twoCompareAnswerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3168;
+  MODIFY `twoCompareAnswerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7366;
 --
 -- AUTO_INCREMENT für Tabelle `User`
 --
@@ -357,10 +411,16 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT für Tabelle `Validation`
 --
 ALTER TABLE `Validation`
-  MODIFY `validationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=250;
+  MODIFY `validationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=282;
 --
 -- Constraints der exportierten Tabellen
 --
+
+--
+-- Constraints der Tabelle `Achievement`
+--
+ALTER TABLE `Achievement`
+  ADD CONSTRAINT `Achievement_ibfk_1` FOREIGN KEY (`playerId`) REFERENCES `Player` (`playerId`);
 
 --
 -- Constraints der Tabelle `AnswerSession`
@@ -368,6 +428,13 @@ ALTER TABLE `Validation`
 ALTER TABLE `AnswerSession`
   ADD CONSTRAINT `AnswerSession_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`),
   ADD CONSTRAINT `AnswerSession_ibfk_2` FOREIGN KEY (`playerId`) REFERENCES `Player` (`playerId`);
+
+--
+-- Constraints der Tabelle `Game`
+--
+ALTER TABLE `Game`
+  ADD CONSTRAINT `Game_ibfk_1` FOREIGN KEY (`playerId`) REFERENCES `Player` (`playerId`),
+  ADD CONSTRAINT `Game_ibfk_2` FOREIGN KEY (`answerSessionId`) REFERENCES `AnswerSession` (`answerSessionId`);
 
 --
 -- Constraints der Tabelle `MediaObject`

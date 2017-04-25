@@ -58,13 +58,19 @@ class AchievementTester {
         $all[0] = $achievement;
         continue;
       }
+      $inserted = false;
       for ($i = 0; $i < sizeof($all); $i++) {
         if (strcasecmp($achievement->getIdentifier(), $all[$i]->getIdentifier()) < 0) {
-          for ($j = sizeof($all); $j > $i; $j--) {
+          $start = sizeof($all);
+          for ($j = $start; $j > $i; $j--) {
             $all[$j] = $all[$j - 1];
           }
           $all[$i] = $achievement;
+          $inserted = true;
         }
+      }
+      if (!$inserted) {
+        $all[] = $achievement;
       }
     }
     return $all;

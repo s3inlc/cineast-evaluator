@@ -73,6 +73,7 @@ foreach ($queriesToTest as $queryId) {
   }
   else if ($progress != $query->getProgress()) {
     $updated = true;
+    $query->setProgress($progress);
   }
   if($updated){
     $FACTORIES::getQueryFactory()->update($query);

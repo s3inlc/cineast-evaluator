@@ -95,6 +95,7 @@ main {
 .achievement-img-container img{
     border: 3px solid #808080;
     border-radius: 6px;
+    width: 100px;
     filter: brightness(.75) grayscale(0.5);
 }
 

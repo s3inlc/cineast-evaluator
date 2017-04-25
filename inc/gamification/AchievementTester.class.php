@@ -67,6 +67,7 @@ class AchievementTester {
           }
           $all[$i] = $achievement;
           $inserted = true;
+          break;
         }
       }
       if (!$inserted) {

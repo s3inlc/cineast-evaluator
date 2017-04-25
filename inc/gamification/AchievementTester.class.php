@@ -44,4 +44,17 @@ class AchievementTester {
     
     return $reached;
   }
+  
+  /**
+   * @param $name string
+   * @return GameAchievement
+   */
+  public function getAchievement($name){
+    foreach ($this->ACHIEVEMENTS as $achievement) {
+      if($achievement->getAchievementName() == $name){
+        return $achievement;
+      }
+    }
+    return null;
+  }
 }

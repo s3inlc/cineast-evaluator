@@ -1,4 +1,5 @@
 <?php
+use DBA\Achievement;
 use DBA\AnswerSession;
 use DBA\QueryFilter;
 use DBA\TwoCompareAnswer;
@@ -31,7 +32,7 @@ class ScoreCalculator {
    * @return int[]
    */
   public function getScore() {
-    global $FACTORIES;
+    global $FACTORIES, $OAUTH;
     
     $totalScore = array();
     
@@ -55,7 +56,19 @@ class ScoreCalculator {
     
     $totalScore[ScoreCalculator::SCORE_BASE] = $score;
     
-    // TODO: add score for achievements
+    $achievementTester = new AchievementTester();
+    
+    // add score for achievements
+    if ($OAUTH->isLoggedin()) {
+      $qF = new QueryFilter(Achievement::PLAYER_ID, $OAUTH->getPlayer()->getId(), "=");
+      $achievements = $FACTORIES::getAchievementFactory()->filter(array($FACTORIES::FILTER => $qF));
+      foreach($achievements as $achievement){
+        $gameAchievement = $achievementTester->getAchievement($achievement->getAchievementName());
+        if($gameAchievement != null){
+          $score *= $gameAchievement->getMultiplicatorGain(); // apply the gain for the received achievements
+        }
+      }
+    }
     
     $totalScore[ScoreCalculator::SCORE_TOTAL] = $score;
     $totalScore[ScoreCalculator::SCORE_MULTIPLICATORS] = $multiplicators;

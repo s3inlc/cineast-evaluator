@@ -53,6 +53,6 @@ class StarterGameAchievement extends GameAchievement {
    * @return float
    */
   function getMultiplicatorGain() {
-    return 1.0;
+    return 1.1;
   }
 }

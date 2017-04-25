@@ -2,6 +2,7 @@
 {{IF [[showMenu]]}}
   {%TEMPLATE->struct/menu%}
 {{ENDIF}}
+{%TEMPLATE->views/help%}
 <main style="margin-top: 50px;">
   <div class="container">
     <style>
@@ -9,6 +10,7 @@
         align-items: baseline;
       }
     </style>
+    <a class="btn-floating btn-large waves-effect waves-light green right" href="#helpModal">Help</a>
     <div class="row valign-wrapper" style="height: 100%;">
       <div class="col m12" style="text-align: center;">
         {{FOREACH objectSource;[[value1.getVal('objData')]]}}

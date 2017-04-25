@@ -31,7 +31,8 @@ $CONF['Query'] = array(
   'displayName',
   'userId',
   'meta',
-  'priority'
+  'priority',
+  'progress'
 );
 $CONF['ResultTuple'] = array(
   'resultTupleId',

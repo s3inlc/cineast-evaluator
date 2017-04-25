@@ -86,6 +86,6 @@ class LongThinkingAchievement extends GameAchievement {
    * @return string
    */
   function getDescription() {
-    return "Think more than 30 seconds on an question<br>Gives 5% extra score";
+    return "Think more than 30 seconds on an question.<br>Gives 5% extra score";
   }
 }

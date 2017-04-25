@@ -17,8 +17,9 @@ class Query extends AbstractModel {
   private $userId;
   private $meta;
   private $priority;
+  private $progress;
   
-  function __construct($queryId, $isClosed, $time, $displayName, $userId, $meta, $priority) {
+  function __construct($queryId, $isClosed, $time, $displayName, $userId, $meta, $priority, $progress) {
     $this->queryId = $queryId;
     $this->isClosed = $isClosed;
     $this->time = $time;
@@ -26,6 +27,7 @@ class Query extends AbstractModel {
     $this->userId = $userId;
     $this->meta = $meta;
     $this->priority = $priority;
+    $this->progress = $progress;
   }
   
   function getKeyValueDict() {
@@ -37,6 +39,7 @@ class Query extends AbstractModel {
     $dict['userId'] = $this->userId;
     $dict['meta'] = $this->meta;
     $dict['priority'] = $this->priority;
+    $dict['progress'] = $this->progress;
     
     return $dict;
   }
@@ -104,6 +107,14 @@ class Query extends AbstractModel {
   function setPriority($priority){
     $this->priority = $priority;
   }
+  
+  function getProgress(){
+    return $this->progress;
+  }
+  
+  function setProgress($progress){
+    $this->progress = $progress;
+  }
 
   const QUERY_ID = "queryId";
   const IS_CLOSED = "isClosed";
@@ -112,4 +123,5 @@ class Query extends AbstractModel {
   const USER_ID = "userId";
   const META = "meta";
   const PRIORITY = "priority";
+  const PROGRESS = "progress";
 }

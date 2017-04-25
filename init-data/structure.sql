@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 25. Apr 2017 um 13:51
+-- Erstellungszeit: 25. Apr 2017 um 19:28
 -- Server-Version: 5.7.17-0ubuntu0.16.04.2
 -- PHP-Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -121,7 +121,8 @@ CREATE TABLE `Query` (
   `displayName` varchar(100) COLLATE utf8_bin NOT NULL,
   `userId` int(11) NOT NULL,
   `meta` text COLLATE utf8_bin NOT NULL,
-  `priority` int(11) NOT NULL
+  `priority` int(11) NOT NULL,
+  `progress` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -346,17 +347,17 @@ ALTER TABLE `Validation`
 -- AUTO_INCREMENT für Tabelle `Achievement`
 --
 ALTER TABLE `Achievement`
-  MODIFY `achievementId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `achievementId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT für Tabelle `AnswerSession`
 --
 ALTER TABLE `AnswerSession`
-  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
+  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=280;
 --
 -- AUTO_INCREMENT für Tabelle `Game`
 --
 ALTER TABLE `Game`
-  MODIFY `gameId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `gameId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT für Tabelle `MediaObject`
 --
@@ -371,7 +372,7 @@ ALTER TABLE `MediaType`
 -- AUTO_INCREMENT für Tabelle `Player`
 --
 ALTER TABLE `Player`
-  MODIFY `playerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `playerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT für Tabelle `Query`
 --
@@ -391,7 +392,7 @@ ALTER TABLE `ResultTuple`
 -- AUTO_INCREMENT für Tabelle `Session`
 --
 ALTER TABLE `Session`
-  MODIFY `sessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `sessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 --
 -- AUTO_INCREMENT für Tabelle `ThreeCompareAnswer`
 --
@@ -401,7 +402,7 @@ ALTER TABLE `ThreeCompareAnswer`
 -- AUTO_INCREMENT für Tabelle `TwoCompareAnswer`
 --
 ALTER TABLE `TwoCompareAnswer`
-  MODIFY `twoCompareAnswerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7366;
+  MODIFY `twoCompareAnswerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9173;
 --
 -- AUTO_INCREMENT für Tabelle `User`
 --
@@ -411,7 +412,7 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT für Tabelle `Validation`
 --
 ALTER TABLE `Validation`
-  MODIFY `validationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=282;
+  MODIFY `validationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=283;
 --
 -- Constraints der exportierten Tabellen
 --

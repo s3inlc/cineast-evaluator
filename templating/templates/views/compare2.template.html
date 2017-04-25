@@ -1,4 +1,7 @@
 {%TEMPLATE->struct/head%}
+{{IF [[showMenu]]}}
+  {%TEMPLATE->struct/menu%}
+{{ENDIF}}
 <main style="margin-top: 50px;">
   <div class="container">
     <style>
@@ -56,4 +59,8 @@
   </div>
 </main>
 <!-- [[loadTime]] - [[security]] -->
-{%TEMPLATE->struct/emptyfoot%}
+{{IF [[showMenu]]}}
+  {%TEMPLATE->struct/foot%}
+{{ELSE}}
+  {%TEMPLATE->struct/emptyfoot%}
+{{ENDIF}}

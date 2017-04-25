@@ -42,5 +42,9 @@ if (ini_get("display_errors") == "1") {
   $OBJECTS['debug'] = $debug;
 }
 
+if($USER_SESSION->getAnswerSession()->getMicroworkerId() == null){
+  $OBJECTS['showMenu'] = true;
+}
+
 $TEMPLATE = new Template("views/" . $question->getQuestionType());
 echo $TEMPLATE->render($OBJECTS);

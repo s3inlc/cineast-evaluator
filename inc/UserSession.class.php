@@ -133,6 +133,7 @@ class UserSession {
     $this->questionQueue = new QuestionQueue($questions);
     $_SESSION['questions'] = serialize($questions);
     $_SESSION['numSecurityQuestions'] = 0;
+    $_SESSION['answerSessionId'] = $this->answerSession->getId();
   }
   
   public function getAnswerSession() {

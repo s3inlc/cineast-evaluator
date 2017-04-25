@@ -26,6 +26,6 @@ foreach ($achievements as $achievement) {
 $OBJECTS['achieved'] = $achieved;
 
 $achievementTester = new AchievementTester();
-$OBJECTS['achievements'] = $achievementTester->getAllAchievemens();
+$OBJECTS['achievements'] = $achievementTester->getAllAchievements();
 
 echo $TEMPLATE->render($OBJECTS);

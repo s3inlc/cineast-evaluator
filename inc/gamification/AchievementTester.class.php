@@ -50,7 +50,7 @@ class AchievementTester {
    * Get all achievements ordered by name
    * @return GameAchievement[]
    */
-  public function getAllAchievemens() {
+  public function getAllAchievements() {
     /** @var $all GameAchievement[] */
     $all = array();
     foreach ($this->ACHIEVEMENTS as $achievement) {

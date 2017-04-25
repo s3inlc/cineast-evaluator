@@ -6,9 +6,9 @@
     <div class="row">
       {{FOREACH achievement;[[achievements]]}}
         <div class="col s12 m6">
-          <div class="achievement hoverable{{IF [[reached.getVal([[achievement.getIdentifier()]])]]}} achieved{{ENDIF}}">
+          <div class="achievement hoverable{{IF [[achieved.getVal([[achievement.getIdentifier()]])]]}} achieved{{ENDIF}}">
             <div class="achievement-img-container">
-              {{IF [[reached.getVal([[achievement.getIdentifier()]])]]}}
+              {{IF [[achieved.getVal([[achievement.getIdentifier()]])]]}}
                 <img src="static/[[achievement.getAchievementImage()]]">
               {{ELSE}}
                 <img src="static/placeholder.png">

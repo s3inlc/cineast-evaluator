@@ -71,3 +71,52 @@ body {
 main {
     flex: 1 0 auto;
 }
+
+.achievement{
+    height: 100px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background-color: #E0E0E0;
+}
+
+.achievement.achieved{
+    background-color: #00CC00;
+}
+
+.achievement-img-container{
+    float: left;
+    width: 100px;
+    height: 100px;
+    padding-left: 7px;
+    padding-top: 7px;
+    overflow: hidden;
+}
+
+.achievement-img-container img{
+    border: 3px solid #808080;
+    border-radius: 6px;
+    filter: brightness(.75) grayscale(0.5);
+}
+
+.achievement.achieved .achievement-img-container img{
+    filter: none;
+    border: 3px solid #006633;
+}
+
+.achievement-content-container{
+    padding: 7px;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+.achievement-header{
+    padding-right: 7px;
+}
+
+.achievement-title{
+    font-weight: bold;
+}
+
+.achievement-description{
+    font-size: 12px;
+}

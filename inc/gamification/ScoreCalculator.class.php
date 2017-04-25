@@ -43,7 +43,7 @@ class ScoreCalculator {
       $tuple = $FACTORIES::getResultTupleFactory()->get($answer->getResultTupleId());
       $gaussian = new SimpleGauss($tuple, $this->answerSession);
       if ($gaussian->isValid()) {
-        $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + $gaussian->getProbability($answer->getAnswer());
+        $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + min(5, $gaussian->getProbability($answer->getAnswer()));
       }
       else {
         $score *= ScoreCalculator::BASIC_CONST_MULT;

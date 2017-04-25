@@ -13,7 +13,8 @@ session_start();
 $client = new Google_Client();
 $client->setAuthConfigFile('inc/oauth_google_clients_secret.json');
 $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
-$client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
+$client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);
+$client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
 
 if (! isset($_GET['code'])) {
   $auth_url = $client->createAuthUrl();

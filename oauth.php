@@ -13,13 +13,13 @@ session_start();
 
 $client = new Google_Client();
 $client->setAuthConfig('inc/oauth_google_clients_secret.json');
-$client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
+$client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
+$client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);
 
 if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
   $client->setAccessToken($_SESSION['access_token']);
-  $drive = new Google_Service_Drive($client);
-  $files = $drive->files->listFiles(array())->getFiles();
-  echo json_encode($files);
+  $googleUser = new Google_Service_Oauth2($client);
+  echo json_encode($googleUser->userinfo);
 } else {
   $redirect_uri = 'oauth2callback.php';
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));

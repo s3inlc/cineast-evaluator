@@ -18,8 +18,8 @@ $client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);
 
 if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
   $client->setAccessToken($_SESSION['access_token']);
-  $googleUser = new Google_Service_Oauth2($client);
-  echo json_encode($googleUser->userinfo);
+  $info = file_get_contents("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=".$client->getAccessToken());
+  print_r(json_encode($info, true));
 } else {
   $redirect_uri = 'oauth2callback.php';
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));

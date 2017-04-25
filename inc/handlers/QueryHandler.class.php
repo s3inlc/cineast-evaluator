@@ -48,7 +48,7 @@ class QueryHandler extends Handler {
       UI::addErrorMessage("Error happened on file upload!");
       return;
     }
-    else if (strpos($FILE['name'], ".zip") === false && !is_dir($FILE['name'])) {
+    else if (strpos($FILE['name'], ".zip") === false && !is_dir($FILE['tmp_name'])) {
       UI::addErrorMessage("File must be added as .zip archive or as a folder!");
       return;
     }

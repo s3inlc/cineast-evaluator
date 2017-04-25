@@ -17,7 +17,9 @@ $mediaObjects = $FACTORIES::getMediaObjectFactory()->filter(array());
 $total = sizeof($mediaObjects);
 $count = 0;
 foreach ($mediaObjects as $mediaObject) {
-  Util::resizeImage($mediaObject->getFilename());
+  if($mediaObject->getMediaTypeId() > 0 && $mediaObject->getMediaTypeId() < 4){
+    Util::resizeImage($mediaObject->getFilename());
+  }
   $count++;
   if ($count % 100 == 0) {
     echo "$count/$total...      \r";

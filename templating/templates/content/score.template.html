@@ -14,7 +14,19 @@
               <div class="col s12 m12">
                 <h3>You reached achievements!</h3>
                 {{FOREACH achievement;[[achievements]]}}
-                  Reached: [[achievement.getAchievementName()]]<br>
+                  <div class="col s12 m6">
+                    <div class="achievement hoverable achieved">
+                      <div class="achievement-img-container">
+                        <img src="static/[[achievement.getAchievementImage()]]">
+                      </div>
+                      <div class="achievement-content-container">
+                        <div class="achievement-header">
+                          <span class="achievement-title">[[achievement.getAchievementName()]]</span>
+                        </div>
+                        <span class="achievement-description">[[achievement.getDescription()]]</span>
+                      </div>
+                    </div>
+                  </div>
                 {{ENDFOREACH}}
               </div>
             {{ENDIF}}

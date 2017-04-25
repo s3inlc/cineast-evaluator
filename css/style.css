@@ -94,14 +94,14 @@ main {
 
 .achievement-img-container img{
     border: 3px solid #808080;
-    width: 80px;
+    width: 86px;
     border-radius: 6px;
     filter: brightness(.75) grayscale(0.5);
 }
 
 .achievement.achieved .achievement-img-container img{
     filter: none;
-    width: 80px;
+    width: 86px;
     border: 3px solid #006633;
 }
 

@@ -4,7 +4,12 @@
   <div class="container">
     <div class="row">
       Welcome to <i>TODO: insert some title here</i>!<br><br>
-      This is the gamification part of the Cineast Evaluator
+      This is the gamification part of the Cineast Evaluator<br><br>
+      {{IF [[oauth.isLoggedin()]]}}
+        Hey [[oauth.getPlayer().getPlayerName()]], you are logged in with oauth!
+      {{ELSE}}
+        You are not logged in!
+      {{ENDIF}}
     </div>
   </div>
 </main>

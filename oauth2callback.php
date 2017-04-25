@@ -27,7 +27,7 @@ else {
   $client->authenticate($_GET['code']);
   $_SESSION['access_token'] = $client->getAccessToken();
   
-  $userinfo = json_encode(Util::getUserInfo($client->getAccessToken()['access_token']));
+  $userinfo = json_decode(Util::getUserInfo($client->getAccessToken()['access_token']), true);
   $qF = new QueryFilter(Player::OAUTH_ID, $userinfo['id'], "=");
   $player = $FACTORIES::getPlayerFactory()->filter(array($FACTORIES::FILTER => $qF), true);
   if ($player == null) {

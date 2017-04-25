@@ -51,6 +51,7 @@ class AchievementTester {
    * @return GameAchievement[]
    */
   public function getAllAchievemens() {
+    /** @var $all GameAchievement[] */
     $all = array();
     foreach ($this->ACHIEVEMENTS as $achievement) {
       if (sizeof($all) == 0) {
@@ -58,7 +59,7 @@ class AchievementTester {
         continue;
       }
       for ($i = 0; $i < sizeof($all); $i++) {
-        if (strcasecmp($achievement->getIdentifier(), $all[$i]) < 0) {
+        if (strcasecmp($achievement->getIdentifier(), $all[$i]->getIdentifier()) < 0) {
           for ($j = sizeof($all); $j > $i; $j--) {
             $all[$j] = $all[$j - 1];
           }

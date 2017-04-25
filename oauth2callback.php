@@ -30,14 +30,15 @@ else {
   $userinfo = Util::getUserInfo($client->getAccessToken()['access_token']);
   $qF = new QueryFilter(Player::OAUTH_ID, $userinfo['id'], "=");
   $player = $FACTORIES::getPlayerFactory()->filter(array($FACTORIES::FILTER => $qF), true);
-  if($player == null){
+  if ($player == null) {
     $player = new Player(0, $userinfo['name'], $userinfo['id'], time(), 0);
     $player = $FACTORIES::getPlayerFactory()->save($player);
   }
   $player->setLastLogin(time());
   $FACTORIES::getPlayerFactory()->update($player);
   
-  // TODO: start user session
+  // start user session
+  $_SESSION['playerId'] = $player->getId();
   
   header('Location: index.php');
 }

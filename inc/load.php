@@ -66,7 +66,7 @@ foreach ($dir as $entry) {
     require_once(dirname(__FILE__) . "/gamification/" . $entry);
   }
 }
-require_once(dirname(__FILE__) . "/gamification/achievements/Achievement.class.php");
+require_once(dirname(__FILE__) . "/gamification/achievements/GameAchievement.class.php");
 $dir = scandir(dirname(__FILE__) . "/gamification/achievements");
 foreach ($dir as $entry) {
   if (strpos($entry, ".class.php") !== false) {

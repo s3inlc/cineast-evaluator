@@ -17,8 +17,9 @@ class ScoreCalculator {
   const SCORE_TOTAL          = "totalScore";
   const SCORE_MULTIPLICATORS = "multiplicators";
   
-  const GAUSSIAN_CONST_MULT = 1;
-  const BASIC_CONST_MULT    = 1.1;
+  const GAUSSIAN_CONST_MULT     = 1.1;
+  const GAUSSIAN_CONST_MULT_ADD = 0.3;
+  const BASIC_CONST_MULT        = 1.1;
   
   /**
    * ScoreCalculator constructor.
@@ -40,11 +41,13 @@ class ScoreCalculator {
     $answers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
     
     $score = sizeof($answers) * $this->answerSession->getCurrentValidity(); // TODO: check if it's a good idea to include the validity
+    $count = 0;
     foreach ($answers as $answer) {
       $tuple = $FACTORIES::getResultTupleFactory()->get($answer->getResultTupleId());
       $gaussian = new SimpleGauss($tuple, $this->answerSession);
+      $count++;
       if ($gaussian->isValid()) {
-        $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + min(5, $gaussian->getProbability($answer->getAnswer()));
+        $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() + min(5, $gaussian->getProbability($answer->getAnswer()));
       }
       else {
         $score *= ScoreCalculator::BASIC_CONST_MULT;
@@ -62,9 +65,9 @@ class ScoreCalculator {
     if ($OAUTH->isLoggedin()) {
       $qF = new QueryFilter(Achievement::PLAYER_ID, $OAUTH->getPlayer()->getId(), "=");
       $achievements = $FACTORIES::getAchievementFactory()->filter(array($FACTORIES::FILTER => $qF));
-      foreach($achievements as $achievement){
+      foreach ($achievements as $achievement) {
         $gameAchievement = $achievementTester->getAchievement($achievement->getAchievementName());
-        if($gameAchievement != null){
+        if ($gameAchievement != null) {
           $score *= $gameAchievement->getMultiplicatorGain(); // apply the gain for the received achievements
         }
       }

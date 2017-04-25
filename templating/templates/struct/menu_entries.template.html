@@ -1,6 +1,9 @@
 <li[[menu.isActive('home')]]><a href="index.php">Home</a></li>
+<li[[menu.isActive('leaderboards')]]><a href="leaderboards.php">Leaderboards</a></li>
 {{IF [[oauth.isLoggedin()]]}}
+  <li[[menu.isActive('achievements')]]><a href="achievements.php">Achievements</a></li>
+  <li[[menu.isActive('settings')]]><a href="settings.php">Settings</a></li>
   <li[[menu.isActive('logout')]]><a href="logout.php">Logout</a></li>
 {{ELSE}}
-  <li[[menu.isActive('login')]]><a href="login.php?provider=oauth">Login</a></li>
+  <li[[menu.isActive('login')]]><a href="login.php?provider=oauth">Google Login</a></li>
 {{ENDIF}}

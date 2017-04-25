@@ -41,7 +41,7 @@ class StarterAchievement extends GameAchievement {
    * @return string
    */
   function getAchievementImage() {
-    return "placeholder"; // TODO: add image
+    return "success.png"; // TODO: add image
   }
   
   /**
@@ -49,5 +49,19 @@ class StarterAchievement extends GameAchievement {
    */
   function getMultiplicatorGain() {
     return 1.1;
+  }
+  
+  /**
+   * @return string
+   */
+  function getIdentifier() {
+    return "starter";
+  }
+  
+  /**
+   * @return string
+   */
+  function getDescription() {
+    return "Complete your first game.";
   }
 }

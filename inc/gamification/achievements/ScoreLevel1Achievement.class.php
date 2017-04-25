@@ -46,7 +46,7 @@ class ScoreLevel1Achievement extends GameAchievement {
    * @return string
    */
   function getAchievementImage() {
-    return "placeholder"; // TODO: add image
+    return "success.png"; // TODO: add image
   }
   
   /**
@@ -54,5 +54,19 @@ class ScoreLevel1Achievement extends GameAchievement {
    */
   function getMultiplicatorGain() {
     return 1.05;
+  }
+  
+  /**
+   * @return string
+   */
+  function getIdentifier() {
+    return "scoreLevel1";
+  }
+  
+  /**
+   * @return string
+   */
+  function getDescription() {
+    return "Get 100'000 score points in total of all your games.";
   }
 }

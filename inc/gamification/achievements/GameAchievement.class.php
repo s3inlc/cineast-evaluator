@@ -16,6 +16,16 @@ abstract class GameAchievement {
   abstract function getAchievementName();
   
   /**
+   * @return string
+   */
+  abstract function getIdentifier();
+  
+  /**
+   * @return string
+   */
+  abstract function getDescription();
+  
+  /**
    * @param $player Player
    * @return bool
    */

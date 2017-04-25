@@ -2,46 +2,27 @@
 {%TEMPLATE->struct/menu%}
 <main>
   <div class="container">
+    <h3>Achievements</h3>
     <div class="row">
-      <div class="col s12 m6">
-        <div class="achievement hoverable">
-          <div class="achievement-img-container">
-            <img src="static/placeholder.png">
-          </div>
-          <div class="achievement-content-container">
-            <div class="achievement-header">
-              <span class="achievement-title">Test Achievement 1</span>
+      {{FOREACH achievement;[[achievements]]}}
+        <div class="col s12 m6">
+          <div class="achievement hoverable{{IF [[reached.getVal([[achievement.getIdentifier()]])]]}} achieved{{ENDIF}}">
+            <div class="achievement-img-container">
+              {{IF [[reached.getVal([[achievement.getIdentifier()]])]]}}
+                <img src="static/placeholder.png">
+              {{ELSE}}
+                <img src="static/[[achievement.getAchievementImage()]]">
+              {{ENDIF}}
             </div>
-            <span class="achievement-description">Blublublublub description</span>
+            <div class="achievement-content-container">
+              <div class="achievement-header">
+                <span class="achievement-title">[[achievement.getAchievementName()]]</span>
+              </div>
+              <span class="achievement-description">[[achievement.getDescription()]]</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col s12 m6">
-        <div class="achievement hoverable achieved">
-          <div class="achievement-img-container">
-            <img src="static/placeholder.png">
-          </div>
-          <div class="achievement-content-container">
-            <div class="achievement-header">
-              <span class="achievement-title">Test Achievement 2</span>
-            </div>
-            <span class="achievement-description">Blublublublub description</span>
-          </div>
-        </div>
-      </div>
-      <div class="col s12 m6">
-        <div class="achievement hoverable">
-          <div class="achievement-img-container">
-            <img src="static/placeholder.png">
-          </div>
-          <div class="achievement-content-container">
-            <div class="achievement-header">
-              <span class="achievement-title">Test Achievement 3</span>
-            </div>
-            <span class="achievement-description">Blublublublub description</span>
-          </div>
-        </div>
-      </div>
+      {{ENDFOREACH}}
     </div>
   </div>
 </main>

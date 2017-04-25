@@ -38,12 +38,35 @@ class AchievementTester {
     
     if ($player != null) {
       foreach ($reached as $reach) {
-        $achievement = new Achievement(0, $player->getId(), $reach->getAchievementName(), time());
+        $achievement = new Achievement(0, $player->getId(), $reach->getIdentifier(), time());
         $FACTORIES::getAchievementFactory()->save($achievement);
       }
     }
     
     return $reached;
+  }
+  
+  /**
+   * Get all achievements ordered by name
+   * @return GameAchievement[]
+   */
+  public function getAllAchievemens() {
+    $all = array();
+    foreach ($this->ACHIEVEMENTS as $achievement) {
+      if (sizeof($all) == 0) {
+        $all[0] = $achievement;
+        continue;
+      }
+      for ($i = 0; $i < sizeof($all); $i++) {
+        if (strcasecmp($achievement->getIdentifier(), $all[$i]) < 0) {
+          for ($j = sizeof($all); $j > $i; $j--) {
+            $all[$j] = $all[$j - 1];
+          }
+          $all[$i] = $achievement;
+        }
+      }
+    }
+    return $all;
   }
   
   /**

@@ -1,4 +1,5 @@
 <?php
+use DBA\AnswerSession;
 use DBA\JoinFilter;
 use DBA\MediaObject;
 use DBA\MediaType;
@@ -495,6 +496,13 @@ class Util {
       }
     }
     return $progress;
+  }
+  
+  /**
+   * @param $answerSession AnswerSession
+   */
+  public static function saveGame($answerSession){
+    // TODO: save game
   }
   
   public static function getUserinfo($accessToken) {

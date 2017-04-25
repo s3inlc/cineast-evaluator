@@ -3,13 +3,13 @@
 require_once(dirname(__FILE__) . "/inc/load.php");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
-if(isset($_POST['disclaimerAccept'])){
+if (isset($_POST['disclaimerAccept'])) {
   // user accepted the disclaimer
-  setcookie("disclaimer", "accepted", time() + 3600*24*30);
+  setcookie("disclaimer", "accepted", time() + 3600 * 24 * 30);
   header("Location: session.php");
   die();
 }
-else if(!isset($_COOKIE['disclaimer']) || $_COOKIE['disclaimer'] != 'accepted'){
+else if (!isset($_COOKIE['disclaimer']) || $_COOKIE['disclaimer'] != 'accepted') {
   // user has not accepted disclaimer yet
   $TEMPLATE = new Template("content/disclaimer");
   echo $TEMPLATE->render($OBJECTS);
@@ -23,6 +23,15 @@ if (isset($_POST['answer'])) {
 }
 
 // TODO: test here if the user is not authenticated and has finished a session now
+if ($USER_SESSION->getAnswerSession()->getMicroworkerId() == null && $USER_SESSION->getAnswerSession()->getUserId() == null) {
+  $USER_SESSION->close();
+  header("Location: score.php");
+  die();
+}
+else if ($USER_SESSION->getAnswerSession()->getMicroworkerId() != null) {
+  // it's a microworker
+  // we need to handle this special here and not start a new session
+}
 
 $question = $USER_SESSION->getNextQuestion();
 if ($question == null) {
@@ -42,7 +51,7 @@ if (ini_get("display_errors") == "1") {
   $OBJECTS['debug'] = $debug;
 }
 
-if($USER_SESSION->getAnswerSession()->getMicroworkerId() == null){
+if ($USER_SESSION->getAnswerSession()->getMicroworkerId() == null) {
   $OBJECTS['showMenu'] = true;
 }
 

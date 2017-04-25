@@ -27,7 +27,7 @@ class OAuthLogin {
       if ($this->client->isAccessTokenExpired()) {
         $this->client->refreshToken($_SESSION['access_token']);
         $_SESSION['access_token'] = $this->client->getAccessToken();
-        if(!$_SESSION['access_token']){
+        if (!$_SESSION['access_token']) {
           unset($_SESSION['access_token']);
         }
       }
@@ -45,11 +45,11 @@ class OAuthLogin {
     return $this->valid;
   }
   
-  public function login() {
+  public function login($refer) {
     if ($this->isLoggedin()) {
       return;
     }
-    header('Location: oauth2callback.php');
+    header('Location: oauth2callback.php?refer=' . urlencode($refer));
     die();
   }
   

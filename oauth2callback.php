@@ -40,6 +40,15 @@ else {
   
   // start user session
   $_SESSION['playerId'] = $player->getId();
+  if (isset($_SESSION['answerSessionId'])) {
+    $answerSession = $FACTORIES::getAnswerSessionFactory()->get($_SESSION['answerSessionId']);
+    if ($answerSession->getIsOpen() == 0 && $answerSession->getPlayerId() == null && $answerSession->getMicroworkerId() == null && $answerSession->getUserId() == null) {
+      $answerSession->setPlayerId($player->getId());
+      $FACTORIES::getAnswerSessionFactory()->update($answerSession);
+      header("Location: score.php");
+      die();
+    }
+  }
   
   header('Location: index.php');
 }

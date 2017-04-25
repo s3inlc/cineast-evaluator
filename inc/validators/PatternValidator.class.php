@@ -6,7 +6,7 @@ use DBA\TwoCompareAnswer;
 use DBA\Validation;
 
 class PatternValidator extends Validator {
-  const SAME_ANSWER_THRESHOLD = 3;
+  const SAME_ANSWER_THRESHOLD = 1;
   
   const SAME_ANSWER_MALUS = 0.3;
   

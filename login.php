@@ -7,7 +7,11 @@ require_once(dirname(__FILE__) . "/inc/load.php");
 if(isset($_GET['provider'])){
   switch($_GET['provider']){
     case "oauth":
-      $OAUTH->login();
+      $refer = "";
+      if(isset($_GET['refer'])){
+        $refer = $_GET['refer'];
+      }
+      $OAUTH->login($refer);
       header("Location: index.php");
       die();
   }

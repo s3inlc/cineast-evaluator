@@ -1,0 +1,30 @@
+{%TEMPLATE->struct/head%}
+{%TEMPLATE->struct/menu%}
+<main>
+  <div class="container">
+    <div class="row">
+      <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+          <div class="row">
+            <div class="col s12 m12 black-text">
+              <h3>Round Finished!</h3>
+              Total Score: [[score.getVal('totalScore')]]<br>
+            </div>
+          </div>
+          <div class="row center">
+              <a class="btn-large waves-effect waves-light green" href="login.php?provider=oauth&refer=game">I have read the disclaimer and I
+                accept it</a>
+          </div>
+          <div class="row center">
+            <form action="session.php" method="post">
+              <button type="submit" name="disclaimerAccept" class="btn-large waves-effect waves-light green">I have read the disclaimer and I
+                accept it
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{%TEMPLATE->struct/foot%}

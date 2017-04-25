@@ -16,6 +16,15 @@ class SimilarityGaussCalculator extends Calculator {
       if ($resultSet->getIsFinal() == 1) {
         continue; // we ignore the sets marked as final
       }
+      
+      if($resultSet->getObjectId2() == $resultSet->getObjectId1()){
+        $resultSet->setIsFinal(1);
+        $resultSet->setSigma(0);
+        $resultSet->setMu(AnswerType::COMPARE_TWO_NEARLY_IDENTICAL);
+        $changed[$resultSet->getId()] = true;
+        continue;
+      }
+      
       $gauss = new SimpleGauss($resultSet);
       if ($gauss->getSigma() != $resultSet->getSigma() || $gauss->getMu() != $resultSet->getMu()) {
         $resultSet->setSigma($gauss->getSigma());

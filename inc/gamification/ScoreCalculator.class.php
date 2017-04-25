@@ -70,7 +70,7 @@ class ScoreCalculator {
       }
     }
     
-    $totalScore[ScoreCalculator::SCORE_TOTAL] = $score;
+    $totalScore[ScoreCalculator::SCORE_TOTAL] = floor($score);
     $totalScore[ScoreCalculator::SCORE_MULTIPLICATORS] = $multiplicators;
     return $totalScore;
   }

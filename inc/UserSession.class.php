@@ -46,23 +46,26 @@ class UserSession {
       if ($this->answerSession != null) {
         // test if last answer was too long ago, so we should create a new session
         $lastAnswer = 0;
+        $noAnswer = true;
         $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $this->answerSession->getId(), "=");
         $oF = new OrderFilter(TwoCompareAnswer::TIME, "DESC LIMIT 1");
         $last = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF), 1);
         if ($last != null && $last->getTime() > $lastAnswer) {
           $lastAnswer = $last->getTime();
+          $noAnswer = false;
         }
         $qF = new QueryFilter(ThreeCompareAnswer::ANSWER_SESSION_ID, $this->answerSession->getId(), "=");
         $oF = new OrderFilter(ThreeCompareAnswer::TIME, "DESC LIMIT 1");
         $last = $FACTORIES::getThreeCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF), 1);
         if ($last != null && $last->getTime() > $lastAnswer) {
           $lastAnswer = $last->getTime();
+          $noAnswer = false;
         }
         
-        if (time() - $lastAnswer > UserSession::$OPEN_SESSION_TIMEOUT && $this->answerSession->getPlayerId() != null) {
+        if (!$noAnswer && time() - $lastAnswer > UserSession::$OPEN_SESSION_TIMEOUT && $this->answerSession->getPlayerId() != null) {
           $this->close();
         }
-        else if (time() - $lastAnswer > UserSession::$MICROWORKER_SESSION_TIMEOUT && $this->answerSession->getMicroworkerId() != null) {
+        else if ($noAnswer && time() - $lastAnswer > UserSession::$MICROWORKER_SESSION_TIMEOUT && $this->answerSession->getMicroworkerId() != null) {
           $this->close();
         }
       }
@@ -133,7 +136,6 @@ class UserSession {
     $this->questionQueue = new QuestionQueue($questions);
     $_SESSION['questions'] = serialize($questions);
     $_SESSION['numSecurityQuestions'] = 0;
-    $_SESSION['answerSessionId'] = $this->answerSession->getId();
   }
   
   public function getAnswerSession() {

@@ -16,6 +16,7 @@ else if (!$LOGIN->isLoggedin()) {
 if($OAUTH->isLoggedin()){
   $OAUTH->logout();
   header("Location: index.php");
+  die();
 }
 
 $LOGIN->logout();

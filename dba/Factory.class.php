@@ -22,6 +22,8 @@ class Factory {
   private static $threeCompareAnswerFactory = null;
   private static $twoCompareAnswerFactory = null;
   private static $validationFactory = null;
+  private static $gameFactory = null;
+  private static $achievementFactory = null;
 
   public static function getUserFactory() {
     if (self::$userFactory == null) {
@@ -105,6 +107,20 @@ class Factory {
       self::$validationFactory = new ValidationFactory();
     }
     return self::$validationFactory;
+  }
+  
+  public static function getGameFactory() {
+    if (self::$gameFactory == null) {
+      self::$gameFactory = new GameFactory();
+    }
+    return self::$gameFactory;
+  }
+  
+  public static function getAchievementFactory() {
+    if (self::$achievementFactory == null) {
+      self::$achievementFactory = new AchievementFactory();
+    }
+    return self::$achievementFactory;
   }
 
   const FILTER = "filter";

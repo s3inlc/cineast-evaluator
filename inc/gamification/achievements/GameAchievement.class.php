@@ -7,7 +7,7 @@ use DBA\Player;
  * Date: 25.04.17
  * Time: 14:33
  */
-abstract class Achievement {
+abstract class GameAchievement {
   /**
    * @return string
    */

@@ -10,17 +10,20 @@
               <h3>Round Finished!</h3>
               Total Score: [[score.getVal('totalScore')]]<br>
             </div>
+            {{IF [[sizeof([[achievements]])]] > 0}}
+              <h3>You reached achievements!</h3>
+              {{FOREACH achievement;[[achievements]]}}
+                Reached: [[achievement.getAchievementName()]]<br>
+              {{ENDFOREACH}}
+            {{ENDIF}}
           </div>
+          {{IF ![[oauth.isLoggedin()]]}}
+            <div class="row center">
+                <a class="btn-large waves-effect waves-light green" href="login.php?provider=oauth&refer=game">Login with Google and save my game</a>
+            </div>
+          {{ENDIF}}
           <div class="row center">
-              <a class="btn-large waves-effect waves-light green" href="login.php?provider=oauth&refer=game">I have read the disclaimer and I
-                accept it</a>
-          </div>
-          <div class="row center">
-            <form action="session.php" method="post">
-              <button type="submit" name="disclaimerAccept" class="btn-large waves-effect waves-light green">I have read the disclaimer and I
-                accept it
-              </button>
-            </form>
+            <a class="btn-large waves-effect waves-light blue" href="session.php">Start new Game</a>
           </div>
         </div>
       </div>

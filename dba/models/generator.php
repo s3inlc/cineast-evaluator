@@ -103,6 +103,20 @@ $CONF['Validation'] = array(
   'bonus',
   'malus'
 );
+$CONF['Game'] = array(
+  'gameId',
+  'playerId',
+  'answerSessionId',
+  'finishedTime',
+  'gameScore',
+  'fullScore'
+);
+$CONF['GameAchievement'] = array(
+  'achievementId',
+  'playerId',
+  'name',
+  'time'
+);
 
 foreach ($CONF as $NAME => $COLUMNS) {
   $class = file_get_contents(dirname(__FILE__) . "/AbstractModel.template.txt");

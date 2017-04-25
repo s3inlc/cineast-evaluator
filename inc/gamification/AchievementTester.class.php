@@ -21,6 +21,7 @@ class AchievementTester {
     $this->ACHIEVEMENTS[] = new ScoreLevel3Achievement();
     $this->ACHIEVEMENTS[] = new ScoreLevel4Achievement();
     $this->ACHIEVEMENTS[] = new ScoreLevel5Achievement();
+    $this->ACHIEVEMENTS[] = new LongThinkingAchievement();
   }
   
   /**

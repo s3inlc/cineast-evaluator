@@ -56,4 +56,11 @@ abstract class GameAchievement {
     }
     return false;
   }
+  
+  /**
+   * @return bool true if the description is hidden when not achieved
+   */
+  function getIsHidden(){
+    return false;
+  }
 }

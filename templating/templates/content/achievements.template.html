@@ -18,7 +18,13 @@
               <div class="achievement-header">
                 <span class="achievement-title">[[achievement.getAchievementName()]]</span>
               </div>
-              <span class="achievement-description">[[achievement.getDescription()]]</span>
+              <span class="achievement-description">
+                {{IF [[achievement.getIsHidden()]] && ![[achieved.getVal([[achievement.getIdentifier()]])]]}}
+                  Hidden...
+                {{ELSE}}
+                  [[achievement.getDescription()]]
+                {{ENDIF}}
+              </span>
             </div>
           </div>
         </div>

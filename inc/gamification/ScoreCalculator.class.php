@@ -12,8 +12,9 @@ use DBA\TwoCompareAnswer;
 class ScoreCalculator {
   private $answerSession;
   
-  const SCORE_BASE  = "baseScore";
-  const SCORE_TOTAL = "totalScore";
+  const SCORE_BASE           = "baseScore";
+  const SCORE_TOTAL          = "totalScore";
+  const SCORE_MULTIPLICATORS = "multiplicators";
   
   const GAUSSIAN_CONST_MULT = 1;
   const BASIC_CONST_MULT    = 1.1;
@@ -50,12 +51,14 @@ class ScoreCalculator {
     }
     
     $score = floor($score);
+    $multiplicators = array();
     
     $totalScore[ScoreCalculator::SCORE_BASE] = $score;
     
     // TODO: add score for achievements
     
     $totalScore[ScoreCalculator::SCORE_TOTAL] = $score;
+    $totalScore[ScoreCalculator::SCORE_MULTIPLICATORS] = $multiplicators;
     return $totalScore;
   }
 }

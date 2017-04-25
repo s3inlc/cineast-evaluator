@@ -48,8 +48,8 @@ foreach ($entries as $entry) {
     continue;
   }
   $path = $folder . "/" . $entry;
-  if (Util::getExtension($path) != "zip") {
-    continue; // skip all files which are not zip archives
+  if (Util::getExtension($path) != "zip" && !is_dir($path)) {
+    continue; // skip all files which are not zip archives or folders
   }
   $queryName = str_replace(".zip", "", $entry);
   echo "Importing query '$queryName'...\n";

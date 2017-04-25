@@ -58,11 +58,11 @@ class QueryHandler extends Handler {
       return;
     }
     else if (!$isUpload && !is_dir($FILE['tmp_name']) && !copy($FILE['tmp_name'], $filename)) {
-      UI::addErrorMessage("Failed to move uploaded file into storage directory!");
+      UI::addErrorMessage("Failed to copy uploaded file into storage directory!");
       return;
     }
     else if (!$isUpload && is_dir($FILE['tmp_name']) && !system("cp -r '" . $FILE['tmp_name'] . "' '" . $filename . "'")) {
-      UI::addErrorMessage("Failed to move uploaded file into storage directory!");
+      UI::addErrorMessage("Failed to recursively copy uploaded file into storage directory!");
       return;
     }
     // upload was successful

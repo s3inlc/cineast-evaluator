@@ -28,6 +28,8 @@ else {
   $_SESSION['access_token'] = $client->getAccessToken();
   
   $userinfo = json_decode(Util::getUserInfo($client->getAccessToken()['access_token']), true);
+  
+  // check if player exists with this oauth id
   $qF = new QueryFilter(Player::OAUTH_ID, $userinfo['id'], "=");
   $player = $FACTORIES::getPlayerFactory()->filter(array($FACTORIES::FILTER => $qF), true);
   if ($player == null) {

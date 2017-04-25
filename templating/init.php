@@ -15,5 +15,4 @@ foreach ($entries as $entry) {
 
 $LANGUAGE = new Lang();
 
-$OBJECTS = array();
 $OBJECTS['TEMPLATE_VERSION'] = "1.0.0";

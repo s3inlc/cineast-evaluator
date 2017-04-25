@@ -53,7 +53,7 @@ class ScoreLevel5Achievement extends GameAchievement {
    * @return float
    */
   function getMultiplicatorGain() {
-    return 1.1;
+    return 1.2;
   }
   
   /**
@@ -67,6 +67,6 @@ class ScoreLevel5Achievement extends GameAchievement {
    * @return string
    */
   function getDescription() {
-    return "Get 50'000'000 score points in total of all your games.";
+    return "Get 50'000'000 score points in total of all your games.<br>Gives 20% extra score";
   }
 }

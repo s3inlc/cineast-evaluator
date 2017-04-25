@@ -67,6 +67,6 @@ class ScoreLevel1Achievement extends GameAchievement {
    * @return string
    */
   function getDescription() {
-    return "Get 100'000 score points in total of all your games.";
+    return "Get 100'000 score points in total of all your games.<br>Gives 5% extra score";
   }
 }

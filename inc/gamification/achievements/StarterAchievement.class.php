@@ -62,6 +62,6 @@ class StarterAchievement extends GameAchievement {
    * @return string
    */
   function getDescription() {
-    return "Complete your first game.";
+    return "Complete your first game.<br>Gives 10% extra score";
   }
 }

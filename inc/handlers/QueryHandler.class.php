@@ -71,7 +71,7 @@ class QueryHandler extends Handler {
       exec("cd '$path' && unzip '$filename'");
     }
     else {
-      copy($filename, STORAGE_PATH . QUERIES_FOLDER . "import-" . time());
+      system("cp -r '" . $filename . "' '" . STORAGE_PATH . QUERIES_FOLDER . "import-" . time() . "'");
     }
     
     // read meta file

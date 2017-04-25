@@ -28,6 +28,12 @@ class SimpleGauss {
     $jF = new JoinFilter($FACTORIES::getAnswerSessionFactory(), TwoCompareAnswer::ANSWER_SESSION_ID, AnswerSession::ANSWER_SESSION_ID);
     $joined = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $filters, $FACTORIES::JOIN => $jF));
     
+    if (sizeof($joined['TwoCompareAnswer']) < GAUSS_LIMIT && $tuple->getIsFinal() == 0) {
+      $this->mu = -1;
+      $this->sigma = -1;
+      return;
+    }
+    
     $weightedSum = 0;
     $probabilitySum = 0;
     for ($i = 0; $i < sizeof($joined['TwoCompareAnswer']); $i++) {

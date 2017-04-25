@@ -36,8 +36,11 @@ class QueryHandler extends Handler {
     ini_set("max_execution_time", "0");
     
     $path = STORAGE_PATH . TMP_FOLDER . "import-" . time() . "/";
-    mkdir($path);
-    $filename = $path . "import.zip";
+    $filename = $path;
+    if(strpos($FILE['name'], ".zip") === true){
+      mkdir($path);
+      $filename .= "import.zip";
+    }
     
     $queryName = htmlentities($queryName, false, "UTF-8");
     
@@ -45,8 +48,8 @@ class QueryHandler extends Handler {
       UI::addErrorMessage("Error happened on file upload!");
       return;
     }
-    else if (strpos($FILE['name'], ".zip") === false) {
-      UI::addErrorMessage("File must be uploaded as .zip archive!");
+    else if (strpos($FILE['name'], ".zip") === false && !is_dir($FILE['name'])) {
+      UI::addErrorMessage("File must be added as .zip archive or as a folder!");
       return;
     }
     
@@ -60,8 +63,13 @@ class QueryHandler extends Handler {
     }
     // upload was successful
     // processing the .zip now
-    copy($filename, STORAGE_PATH . QUERIES_FOLDER . "import-" . time() . ".zip");
-    exec("cd '$path' && unzip '$filename'");
+    if(strpos($filename, ".zip") === true) {
+      copy($filename, STORAGE_PATH . QUERIES_FOLDER . "import-" . time() . ".zip");
+      exec("cd '$path' && unzip '$filename'");
+    }
+    else{
+      copy($filename, STORAGE_PATH . QUERIES_FOLDER . "import-" . time());
+    }
     
     // read meta file
     if (!file_exists($path . "meta.json")) {

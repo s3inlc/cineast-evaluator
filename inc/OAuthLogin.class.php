@@ -26,7 +26,9 @@ class OAuthLogin {
     if (isset($_SESSION['access_token']) && $_SESSION['access_token'] && isset($_SESSION['playerId']) && $_SESSION['playerId']) {
       $this->client->setAccessToken($_SESSION['access_token']);
       if ($this->client->isAccessTokenExpired()) {
-        unset($_SESSION['access_token']);
+        $this->client->refreshToken($_SESSION['access_token']);
+        
+        //unset($_SESSION['access_token']);
       }
       else {
         $this->player = $FACTORIES::getPlayerFactory()->get($_SESSION['playerId']);

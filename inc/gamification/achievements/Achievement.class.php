@@ -23,4 +23,9 @@ abstract class Achievement {
    * @return string
    */
   abstract function getAchievementImage();
+  
+  /**
+   * @return float
+   */
+  abstract function getMultiplicatorGain();
 }

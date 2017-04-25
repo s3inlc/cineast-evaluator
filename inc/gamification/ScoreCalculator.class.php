@@ -38,7 +38,7 @@ class ScoreCalculator {
     $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $this->answerSession->getId(), "=");
     $answers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
     
-    $score = sizeof($answers);
+    $score = sizeof($answers) * $this->answerSession->getCurrentValidity(); // TODO: check if it's a good idea to include the validity
     foreach ($answers as $answer) {
       $tuple = $FACTORIES::getResultTupleFactory()->get($answer->getResultTupleId());
       $gaussian = new SimpleGauss($tuple, $this->answerSession);

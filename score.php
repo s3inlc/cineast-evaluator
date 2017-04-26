@@ -34,7 +34,7 @@ if ($answerSession == null) {
 // we show a score here
 $scoreCalculator = new ScoreCalculator($answerSession);
 $scoreData = $scoreCalculator->getScore();
-$scoreData[ScoreCalculator::SCORE_MULTIPLICATOR] = ($scoreData[ScoreCalculator::SCORE_MULTIPLICATOR] - 1) * 100;
+$scoreData[ScoreCalculator::SCORE_MULTIPLICATOR] = round(($scoreData[ScoreCalculator::SCORE_MULTIPLICATOR] - 1) * 100, 2);
 $OBJECTS['score'] = new DataSet($scoreData);
 
 $OBJECTS['achievements'] = array();

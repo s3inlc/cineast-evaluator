@@ -36,7 +36,7 @@ class ScoreLevel4Achievement extends GameAchievement {
     foreach ($games as $game) {
       $total += $game->getFullScore();
     }
-    if ($total > 5000000) {
+    if ($total >= 5000000) {
       return true;
     }
     return false;

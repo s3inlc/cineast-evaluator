@@ -24,21 +24,23 @@ p {
     height: auto;
     color: #26a69a;
 }
+
 .parallax-container .section {
     width: 100%;
 }
 
-@media only screen and (max-width : 992px) {
+@media only screen and (max-width: 992px) {
     .parallax-container .section {
         position: absolute;
         top: 40%;
     }
+
     #index-banner .section {
         top: 10%;
     }
 }
 
-@media only screen and (max-width : 600px) {
+@media only screen and (max-width: 600px) {
     #index-banner .section {
         top: 0;
     }
@@ -47,6 +49,7 @@ p {
 .icon-block {
     padding: 0 15px;
 }
+
 .icon-block .material-icons {
     font-size: inherit;
 }
@@ -72,18 +75,18 @@ main {
     flex: 1 0 auto;
 }
 
-.achievement{
+.achievement {
     height: 100px;
     margin-bottom: 10px;
     overflow: hidden;
     background-color: #E0E0E0;
 }
 
-.achievement.achieved{
+.achievement.achieved {
     background-color: #00CC00;
 }
 
-.achievement-img-container{
+.achievement-img-container {
     float: left;
     width: 100px;
     height: 100px;
@@ -92,33 +95,45 @@ main {
     overflow: hidden;
 }
 
-.achievement-img-container img{
+.achievement-img-container img {
     border: 3px solid #808080;
     width: 86px;
     border-radius: 6px;
     filter: brightness(.75) grayscale(0.5);
 }
 
-.achievement.achieved .achievement-img-container img{
+.achievement.achieved .achievement-img-container img {
     filter: none;
     width: 86px;
     border: 3px solid #006633;
 }
 
-.achievement-content-container{
+.achievement-content-container {
     padding: 7px;
     overflow: hidden;
     font-size: 15px;
 }
 
-.achievement-header{
+.achievement-header {
     padding-right: 7px;
 }
 
-.achievement-title{
+.achievement-title {
     font-weight: bold;
 }
 
-.achievement-description{
+.achievement-description {
     font-size: 12px;
+}
+
+.game-score {
+    font-size: 30px;
+}
+
+.game-total {
+    font-size: 50px;
+}
+
+.game-bonus {
+    font-size: 20px;
 }

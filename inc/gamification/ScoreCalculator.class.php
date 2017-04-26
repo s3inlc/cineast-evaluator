@@ -16,6 +16,7 @@ class ScoreCalculator {
   const SCORE_BASE           = "baseScore";
   const SCORE_TOTAL          = "totalScore";
   const SCORE_MULTIPLICATORS = "multiplicators";
+  const SCORE_MULTIPLICATOR  = "multiplicator";
   
   const GAUSSIAN_CONST_MULT     = 1.1;
   const GAUSSIAN_CONST_MULT_ADD = 0.3;
@@ -56,6 +57,7 @@ class ScoreCalculator {
     
     $score = floor($score);
     $multiplicators = array();
+    $multiplication = 1;
     
     $totalScore[ScoreCalculator::SCORE_BASE] = $score;
     
@@ -69,12 +71,14 @@ class ScoreCalculator {
         $gameAchievement = $achievementTester->getAchievement($achievement->getAchievementName());
         if ($gameAchievement != null) {
           $score *= $gameAchievement->getMultiplicatorGain(); // apply the gain for the received achievements
+          $multiplication *= $gameAchievement->getMultiplicatorGain();
         }
       }
     }
     
     $totalScore[ScoreCalculator::SCORE_TOTAL] = floor($score);
     $totalScore[ScoreCalculator::SCORE_MULTIPLICATORS] = $multiplicators;
+    $totalScore[ScoreCalculator::SCORE_MULTIPLICATOR] = $multiplication;
     return $totalScore;
   }
 }

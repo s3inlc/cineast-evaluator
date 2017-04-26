@@ -44,6 +44,7 @@ if ($isFresh) {
     $qF = new QueryFilter(Game::ANSWER_SESSION_ID, $answerSession->getId(), "=");
     $game = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF), true);
     if ($game == null) {
+      $_SESSION['lastCompleted'] = time();
       $game = new Game(0, $OAUTH->getPlayer()->getId(), $answerSession->getId(), time(), $scoreData[ScoreCalculator::SCORE_BASE], $scoreData[ScoreCalculator::SCORE_TOTAL]);
       $FACTORIES::getGameFactory()->save($game);
     }

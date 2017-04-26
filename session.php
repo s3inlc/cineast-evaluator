@@ -16,6 +16,25 @@ else if (!isset($_COOKIE['disclaimer']) || $_COOKIE['disclaimer'] != 'accepted')
   die();
 }
 
+if (isset($_GET['refer']) && $_GET['refer'] == "game") {
+  // user plays a game in a row
+  if (time() - $_SESSION['lastCompleted'] < 100) {
+    // increase count
+    if (!isset($_SESSION['gamesInRow'])) {
+      $_SESSION['gamesInRow'] = 1;
+    }
+    else {
+      $_SESSION['gamesInRow'] = $_SESSION['gamesInRow'] + 1;
+    }
+  }
+  else {
+    $_SESSION['gamesInRow'] = 0;
+  }
+}
+else {
+  $_SESSION['gamesInRow'] = 0;
+}
+
 // show the help modal immediately when a user starts his first session
 $OBJECTS['forceOpenHelp'] = false;
 if (!isset($_COOKIE['help'])) {

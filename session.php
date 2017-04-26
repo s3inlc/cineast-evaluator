@@ -19,6 +19,7 @@ else if (!isset($_COOKIE['disclaimer']) || $_COOKIE['disclaimer'] != 'accepted')
 if (isset($_GET['refer']) && $_GET['refer'] == "game") {
   // user plays a game in a row
   if (time() - $_SESSION['lastCompleted'] < 100) {
+    $_SESSION['lastCompleted'] = 0;
     // increase count
     if (!isset($_SESSION['gamesInRow'])) {
       $_SESSION['gamesInRow'] = 1;

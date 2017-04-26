@@ -126,14 +126,18 @@ main {
     font-size: 12px;
 }
 
-.score-game {
-    font-size: 30px;
+.score-text {
+    font-size: 20px;
 }
 
-.score-total {
+.score-game {
     font-size: 50px;
 }
 
+.score-total {
+    font-size: 80px;
+}
+
 .score-bonus {
-    font-size: 20px;
+    font-size: 25px;
 }

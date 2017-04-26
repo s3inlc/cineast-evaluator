@@ -32,9 +32,6 @@ if (isset($_GET['refer']) && $_GET['refer'] == "game") {
     $_SESSION['gamesInRow'] = 0;
   }
 }
-else {
-  $_SESSION['gamesInRow'] = 0;
-}
 
 // show the help modal immediately when a user starts his first session
 $OBJECTS['forceOpenHelp'] = false;

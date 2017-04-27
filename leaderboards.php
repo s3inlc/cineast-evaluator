@@ -31,7 +31,7 @@ foreach ($players as $player) {
   }
   $inserted = false;
   for ($i = 0; $i < sizeof($scores); $i++) {
-    if ($scores[$i] < $sum) {
+    if ($scores[$i]->getVal('score') < $sum) {
       $size = sizeof($scores);
       for ($j = $size; $j > $i; $j--) {
         $scores[$j] = $scores[$j - 1];

@@ -66,4 +66,8 @@ class OAuthLogin {
     }
     return $this->player;
   }
+  
+  public function updatePlayerName($newUsername) {
+    $this->player->setPlayerName($newUsername);
+  }
 }

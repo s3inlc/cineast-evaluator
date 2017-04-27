@@ -16,6 +16,11 @@ $MENU->setActive("settings");
 $OBJECTS['pageTitle'] = "Settings";
 $TEMPLATE = new Template("content/settings");
 
+if (isset($_POST['action'])) {
+  $settingsHandler = new SettingsHandler();
+  $settingsHandler->handle($_POST['action']);
+}
+
 $OBJECTS['player'] = $OAUTH->getPlayer();
 
 echo $TEMPLATE->render($OBJECTS);

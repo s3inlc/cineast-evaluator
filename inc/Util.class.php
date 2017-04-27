@@ -67,6 +67,9 @@ class Util {
     }
     $updated = $force;
     $progress = floor($finishedCount / $all * 100);
+    if ($force) {
+      $query->setProgress($progress);
+    }
     if ($fullyEvaluated) {
       // all tuples of this query are final and therefore we can close the query
       $query->setIsClosed(1);

@@ -22,7 +22,7 @@ class SettingsHandler extends Handler {
   private function changeUsername() {
     global $FACTORIES, $OAUTH;
     
-    $newUsername = substr(htmlentities($_POST['playerName'], false, "UTF-8"), 45);
+    $newUsername = substr(htmlentities($_POST['playerName'], false, "UTF-8"), 0, 45);
     $qF = new QueryFilter(Player::PLAYER_NAME, $newUsername, "=");
     $check = $FACTORIES::getPlayerFactory()->filter(array($FACTORIES::FILTER => $qF), true);
     if ($check != null) {

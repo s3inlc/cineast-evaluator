@@ -16,4 +16,7 @@ $TEMPLATE = new Template("content/leaderboards");
 $oF = new OrderFilter(Game::FULL_SCORE, "DESC LIMIT 10");
 $OBJECTS['games'] = $FACTORIES::getGameFactory()->filter(array($FACTORIES::ORDER => $oF));
 
+$oF = new OrderFilter(Game::GAME_SCORE, "DESC LIMIT 10");
+$OBJECTS['baseGames'] = $FACTORIES::getGameFactory()->filter(array($FACTORIES::ORDER => $oF));
+
 echo $TEMPLATE->render($OBJECTS);

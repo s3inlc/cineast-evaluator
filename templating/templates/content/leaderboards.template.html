@@ -25,6 +25,27 @@
           {{ENDFOREACH}}
         </tbody>
       </table>
+
+      <h4>Game Highscores (Base Score only)</h4>
+      <table class="striped">
+        <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th class="right">Score</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {{FOREACH game;[[baseGames]];counter}}
+        <tr>
+          <td>[[Util::calculate([[counter]] + 1)]]</td>
+          <td>[[Util::getPlayerNameById([[game.getPlayerId()]])]]</td>
+          <td class="right">[[game.getGameScore()]]</td>
+        </tr>
+        {{ENDFOREACH}}
+        </tbody>
+      </table>
     </div>
   </div>
 </main>

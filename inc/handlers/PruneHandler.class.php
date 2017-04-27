@@ -1,4 +1,6 @@
 <?php
+use DBA\QueryFilter;
+use DBA\QueryResultTuple;
 use DBA\TwoCompareAnswer;
 
 class PruneHandler extends Handler {
@@ -27,6 +29,14 @@ class PruneHandler extends Handler {
       $answeredTuple->setMu($answer);
       $answeredTuple->setSigma(0);
       $FACTORIES::getResultTupleFactory()->update($answeredTuple);
+      
+      // update the query progress
+      $qF = new QueryFilter(QueryResultTuple::RESULT_TUPLE_ID, $answeredTuple->getId(), "=");
+      $queryResults = $FACTORIES::getQueryResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF));
+      foreach ($queryResults as $queryResult) {
+        Util::checkQueryUpdate($queryResult->getQueryId());
+      }
+      
       $_SESSION['lastId'] = $answeredTuple->getId();
     }
   }

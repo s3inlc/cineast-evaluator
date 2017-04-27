@@ -43,42 +43,7 @@ foreach ($resultSets as $resultSet) {
 echo "checking for finished queries and update query progress...\n";
 
 foreach ($queriesToTest as $queryId) {
-  $query = $FACTORIES::getQueryFactory()->get($queryId);
-  if ($query->getIsClosed() == 1) {
-    continue; // query is already finished
-  }
-  $qF = new QueryFilter(QueryResultTuple::QUERY_ID, $queryId, "=", $FACTORIES::getQueryResultTupleFactory());
-  $jF = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
-  $joined = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));
-  $fullyEvaluated = true;
-  $all = 0;
-  $finishedCount = 0;
-  for ($i = 0; $i < sizeof($joined[$FACTORIES::getResultTupleFactory()->getModelName()]); $i++) {
-    /** @var $resultTuple ResultTuple */
-    $resultTuple = $joined[$FACTORIES::getResultTupleFactory()->getModelName()][$i];
-    if ($resultTuple->getIsFinal() == 0) {
-      $fullyEvaluated = false;
-    }
-    else {
-      $finishedCount++;
-    }
-    $all++;
-  }
-  $updated = false;
-  $progress = floor($finishedCount / $all * 100);
-  if ($fullyEvaluated) {
-    // all tuples of this query are final and therefore we can close the query
-    $query->setIsClosed(1);
-    $query->setProgress(100);
-    $updated = true;
-  }
-  else if ($progress != $query->getProgress()) {
-    $updated = true;
-    $query->setProgress($progress);
-  }
-  if($updated){
-    $FACTORIES::getQueryFactory()->update($query);
-  }
+  Util::checkQueryUpdate($queryId);
 }
 
 echo "finished!\n";

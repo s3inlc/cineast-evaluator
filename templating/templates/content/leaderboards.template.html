@@ -18,9 +18,9 @@
         <tbody>
           {{FOREACH game;[[games]];counter}}
             <tr>
-              <td>[[counter]]</td>
+              <td>[[Util::calculate([[counter]] + 1)]]</td>
               <td>[[Util::getPlayerNameById([[game.getPlayerId()]])]]</td>
-              <td>[[game.getFullScore()]]</td>
+              <td class="right">[[game.getFullScore()]]</td>
             </tr>
           {{ENDFOREACH}}
         </tbody>

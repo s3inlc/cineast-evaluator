@@ -19,7 +19,7 @@ class ScoreCalculator {
   const SCORE_MULTIPLICATOR  = "multiplicator";
   
   const GAUSSIAN_CONST_MULT = 1.1;
-  const CONST_MULT_ADD      = 0.3;
+  const CONST_MULT_ADD      = 0.15;
   const BASIC_CONST_MULT    = 1.1;
   
   /**

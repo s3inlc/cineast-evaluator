@@ -25,7 +25,7 @@ class GamesRowLevel1Achievement extends GameAchievement {
       return false;
     }
     
-    if ($_SESSION['gamesInRow'] + 1 >= 2) {
+    if (isset($_SESSION['gamesInRow']) && $_SESSION['gamesInRow'] + 1 >= 2) {
       return true;
     }
     return false;

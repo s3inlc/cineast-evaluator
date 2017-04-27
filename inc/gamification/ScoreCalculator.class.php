@@ -18,9 +18,9 @@ class ScoreCalculator {
   const SCORE_MULTIPLICATORS = "multiplicators";
   const SCORE_MULTIPLICATOR  = "multiplicator";
   
-  const GAUSSIAN_CONST_MULT     = 1.1;
-  const GAUSSIAN_CONST_MULT_ADD = 0.3;
-  const BASIC_CONST_MULT        = 1.1;
+  const GAUSSIAN_CONST_MULT = 1.1;
+  const CONST_MULT_ADD      = 0.3;
+  const BASIC_CONST_MULT    = 1.1;
   
   /**
    * ScoreCalculator constructor.
@@ -48,10 +48,10 @@ class ScoreCalculator {
       $gaussian = new SimpleGauss($tuple, $this->answerSession);
       $count++;
       if ($gaussian->isValid()) {
-        $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() + min(5, $gaussian->getProbability($answer->getAnswer()));
+        $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD - $tuple->getSigma() + min(5, $gaussian->getProbability($answer->getAnswer()));
       }
       else {
-        $score *= ScoreCalculator::BASIC_CONST_MULT;
+        $score *= ScoreCalculator::BASIC_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD;
       }
     }
     

@@ -30,18 +30,7 @@ class EveryDayLevel1Achievement extends GameAchievement {
       return false;
     }
     
-    // this achievement is reached when the user answered 100 questions
-    $qF = new QueryFilter(Game::PLAYER_ID, $player->getId(), "=");
-    $answerSessions = $FACTORIES::getAnswerSessionFactory()->filter(array($FACTORIES::FILTER => $qF));
-    $total = 0;
-    foreach ($answerSessions as $answerSession) {
-      $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSession->getId(), "=");
-      $total += $FACTORIES::getTwoCompareAnswerFactory()->countFilter(array($FACTORIES::FILTER => $qF));
-    }
-    
-    if ($total >= 100) {
-      return true;
-    }
+    // TODO:
     return false;
   }
   
@@ -63,7 +52,7 @@ class EveryDayLevel1Achievement extends GameAchievement {
    * @return string
    */
   function getIdentifier() {
-    return "answersLevel1";
+    return "gameDayLevel1";
   }
   
   /**

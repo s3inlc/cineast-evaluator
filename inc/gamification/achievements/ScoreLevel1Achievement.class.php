@@ -29,14 +29,14 @@ class ScoreLevel1Achievement extends GameAchievement {
       return false;
     }
     
-    // this achievement is reached when a total score of 100'000 is reached
+    // this achievement is reached when a total score of 1'000'000 is reached
     $qF = new QueryFilter(Game::PLAYER_ID, $player->getId(), "=");
     $games = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF));
     $total = 0;
     foreach ($games as $game) {
       $total += $game->getFullScore();
     }
-    if ($total >= 100000) {
+    if ($total >= 1000000) {
       return true;
     }
     return false;
@@ -67,6 +67,6 @@ class ScoreLevel1Achievement extends GameAchievement {
    * @return string
    */
   function getDescription() {
-    return "Get 100'000 score points in total of all your games.<br>Gives 5% extra score";
+    return "Get 1'000'000 score points in total of all your games.<br>Gives 5% extra score";
   }
 }

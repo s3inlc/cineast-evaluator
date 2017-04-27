@@ -36,7 +36,7 @@ class ScoreLevel4Achievement extends GameAchievement {
     foreach ($games as $game) {
       $total += $game->getFullScore();
     }
-    if ($total >= 5000000) {
+    if ($total >= 50000000) {
       return true;
     }
     return false;
@@ -67,6 +67,6 @@ class ScoreLevel4Achievement extends GameAchievement {
    * @return string
    */
   function getDescription() {
-    return "Get 5'000'000 score points in total of all your games.<br>Gives 10% extra score";
+    return "Get 50'000'000 score points in total of all your games.<br>Gives 10% extra score";
   }
 }

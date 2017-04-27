@@ -69,6 +69,7 @@ foreach ($queriesToTest as $queryId) {
   if ($fullyEvaluated) {
     // all tuples of this query are final and therefore we can close the query
     $query->setIsClosed(1);
+    $query->setProgress(100);
     $updated = true;
   }
   else if ($progress != $query->getProgress()) {

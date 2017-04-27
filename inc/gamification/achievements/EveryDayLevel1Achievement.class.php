@@ -36,7 +36,7 @@ class EveryDayLevel1Achievement extends GameAchievement {
     if (sizeof($games) < 2) {
       return false;
     }
-    $currentDay = strtotime("midnight", $games[0]);
+    $currentDay = strtotime("midnight", $games[0]->getFinishedTime());
     $nextDay = $currentDay + 3600 * 24;
     $count = 0;
     foreach ($games as $game) {

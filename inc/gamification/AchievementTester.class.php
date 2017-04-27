@@ -31,6 +31,7 @@ class AchievementTester {
     $this->ACHIEVEMENTS[] = new GamesRowLevel2Achievement();
     $this->ACHIEVEMENTS[] = new GamesRowLevel3Achievement();
     $this->ACHIEVEMENTS[] = new GamesRowLevel4Achievement();
+    $this->ACHIEVEMENTS[] = new EveryDayLevel1Achievement();
   }
   
   /**

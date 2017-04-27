@@ -2,9 +2,21 @@
 {%TEMPLATE->struct/menu%}
 <main>
   <div class="container">
-    <div class="row">
+    <h3>Settings</h3>
 
-    </div>
+    <form action="settings.php" method="post">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="playerName" type="text" name="playerName" value="[[player.getPlayerName()]]" class="validate">
+          <label for="playerName">Change Player Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn waves-effect waves-light" type="submit">Update
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </form>
   </div>
 </main>
 {%TEMPLATE->struct/foot%}

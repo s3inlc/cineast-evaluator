@@ -38,6 +38,7 @@ foreach ($players as $player) {
       }
       $scores[$i] = new DataSet(array('score' => $sum, 'playerId' => $player->getId()));
       $inserted = true;
+      break;
     }
   }
   if (!$inserted) {

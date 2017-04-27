@@ -47,7 +47,7 @@ class EveryDayLevel2Achievement extends GameAchievement {
       }
     }
     
-    if ($count >= 5) {
+    if ($count >= 4) {
       return true;
     }
     
@@ -79,6 +79,6 @@ class EveryDayLevel2Achievement extends GameAchievement {
    * @return string
    */
   function getDescription() {
-    return "Play at least one game per day for 5 days in row.<br>Gives 5% extra score";
+    return "Play at least one game per day for 4 days in row.<br>Gives 5% extra score";
   }
 }

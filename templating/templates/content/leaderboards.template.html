@@ -61,7 +61,7 @@
           {{FOREACH score;[[totalScore]];counter}}
             <tr>
               <td>[[Util::calculate([[counter]] + 1)]]</td>
-              <td>[[Util::getPlayerNameById([[score.getVal('player')]])]]</td>
+              <td>[[Util::getPlayerNameById([[score.getVal('playerId')]])]]</td>
               <td class="right">[[score.getVal('score')]]</td>
             </tr>
           {{ENDFOREACH}}

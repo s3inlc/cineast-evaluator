@@ -1,8 +1,8 @@
 <?php
 use DBA\Game;
+use DBA\OrderFilter;
 use DBA\Player;
 use DBA\QueryFilter;
-use DBA\TwoCompareAnswer;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,7 +30,27 @@ class EveryDayLevel1Achievement extends GameAchievement {
       return false;
     }
     
-    // TODO:
+    $oF = new OrderFilter(Game::FINISHED_TIME, "DESC");
+    $qF = new QueryFilter(Game::PLAYER_ID, $player->getId(), "=");
+    $games = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF));
+    if (sizeof($games) < 2) {
+      return false;
+    }
+    $currentDay = strtotime("midnight", $games[0]);
+    $nextDay = $currentDay + 3600 * 24;
+    $count = 0;
+    foreach ($games as $game) {
+      if ($game->getFinishedTime() >= $currentDay && $game->getFinishedTime() < $nextDay) {
+        $count++;
+        $currentDay -= 3600 * 24;
+        $nextDay -= 3600 * 24;
+      }
+    }
+    
+    if ($count >= 2) {
+      return true;
+    }
+    
     return false;
   }
   

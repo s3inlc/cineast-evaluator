@@ -71,7 +71,7 @@ class Util {
       $totalCount += $add + sqrt($highestRank - $queryResultTuples[$i]->getRank());
     }
     
-    if($totalCount <= 0){
+    if ($totalCount <= 0) {
       return null;
     }
     
@@ -123,6 +123,12 @@ class Util {
     $OBJECTS['object2'] = $mediaObject2;
     $OBJECTS['value1'] = $value1;
     $OBJECTS['value2'] = $value2;
+  }
+  
+  public static function getPlayerNameById($playerId) {
+    global $FACTORIES;
+    
+    return $FACTORIES::getPlayerFactory()->get($playerId)->getPlayerName();
   }
   
   /**
@@ -505,7 +511,7 @@ class Util {
   /**
    * @param $answerSession AnswerSession
    */
-  public static function saveGame($answerSession){
+  public static function saveGame($answerSession) {
     // TODO: save game
   }
   

@@ -3,7 +3,28 @@
 <main>
   <div class="container">
     <div class="row">
-      
+      <h3>Leaderboards</h3>
+
+      <h4>Game Highscores</h4>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th class="right">Score</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{FOREACH game;[[games]];counter}}
+            <tr>
+              <td>[[counter]]</td>
+              <td>[[Util::getPlayerNameById([[game.getPlayerId()]])]]</td>
+              <td>[[game.getFullScore()]]</td>
+            </tr>
+          {{ENDFOREACH}}
+        </tbody>
+      </table>
     </div>
   </div>
 </main>

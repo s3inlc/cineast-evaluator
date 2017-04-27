@@ -46,6 +46,27 @@
         {{ENDFOREACH}}
         </tbody>
       </table>
+
+      <h4>Total Score</h4>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th class="right">Score</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{FOREACH score;[[totalScore]];counter}}
+            <tr>
+              <td>[[Util::calculate([[counter]] + 1)]]</td>
+              <td>[[Util::getPlayerNameById([[score.getVal('player')]])]]</td>
+              <td class="right">[[score.getVal('score')]]</td>
+            </tr>
+          {{ENDFOREACH}}
+        </tbody>
+      </table>
     </div>
   </div>
 </main>

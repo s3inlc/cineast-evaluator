@@ -4,6 +4,7 @@ use DBA\JoinFilter;
 use DBA\MediaObject;
 use DBA\MediaType;
 use DBA\OrderFilter;
+use DBA\Player;
 use DBA\Query;
 use DBA\QueryFilter;
 use DBA\QueryResultTuple;
@@ -41,6 +42,11 @@ class Util {
     }
   }
   
+  /**
+   * The progress of a query is updated, and if it changed it writes the new progress value to the DB
+   * @param $queryId int
+   * @param $force bool force the query to be calculated and updated
+   */
   public static function checkQueryUpdate($queryId, $force = false) {
     global $FACTORIES;
     
@@ -169,6 +175,10 @@ class Util {
     $OBJECTS['value2'] = $value2;
   }
   
+  /**
+   * @param $playerId int
+   * @return Player null if player was not found
+   */
   public static function getPlayerNameById($playerId) {
     global $FACTORIES;
     
@@ -217,8 +227,10 @@ class Util {
   }
   
   /**
+   * get the result tuple which consists of the two given media objects
    * @param $object1 MediaObject
    * @param $object2 MediaObject
+   * @return ResultTuple
    */
   public static function getResultTuple($object1, $object2) {
     global $FACTORIES;
@@ -228,6 +240,11 @@ class Util {
     return $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2)), true);
   }
   
+  /**
+   * Get a media object for the given checksum
+   * @param $checksum string
+   * @return MediaObject
+   */
   public static function getMediaObject($checksum) {
     global $FACTORIES;
     
@@ -235,6 +252,11 @@ class Util {
     return $FACTORIES::getMediaObjectFactory()->filter(array($FACTORIES::FILTER => $qF), true);
   }
   
+  /**
+   * Get the media type for a given file. Type is determined by file extension. If the media type does not exist yet, it will be created.
+   * @param $file string
+   * @return MediaType
+   */
   public static function getMediaType($file) {
     global $FACTORIES;
     
@@ -302,6 +324,10 @@ class Util {
     return $pos;
   }
   
+  /**
+   * gives a security question
+   * @return SessionQuestion
+   */
   public static function getSecurityQuestion() {
     global $FACTORIES;
     
@@ -345,6 +371,10 @@ class Util {
     return $question;
   }
   
+  /**
+   * Resizes the given image if it's too big
+   * @param $path string
+   */
   public static function resizeImage($path) {
     $size = getimagesize($path);
     if ($size[0] <= IMAGE_MAX_WIDTH && $size[1] <= IMAGE_MAX_HEIGHT) {
@@ -559,6 +589,11 @@ class Util {
     // TODO: save game
   }
   
+  /**
+   * Gets the userinfo from an oauth token from google
+   * @param $accessToken string
+   * @return string
+   */
   public static function getUserinfo($accessToken) {
     return file_get_contents("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" . $accessToken);
   }

@@ -79,7 +79,7 @@ else {
     $qF = new QueryFilter(QueryResultTuple::RESULT_TUPLE_ID, $resultTuple->getId(), "=");
     $jF = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), Query::QUERY_ID, QueryResultTuple::QUERY_ID);
     $joined = $FACTORIES::getQueryFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));
-    $queries->addValue($resultTuple->getId(), $joined['Query']);
+    $queries->addValue($resultTuple->getId(), $joined[$FACTORIES::getQueryFactory()->getModelName()]);
   }
   
   $OBJECTS['resultTuples'] = $resultTuples;

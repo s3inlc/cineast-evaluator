@@ -65,14 +65,14 @@ class QuestionPool {
       $oF = new OrderFilter(QueryResultTuple::RANK, "ASC", $FACTORIES::getQueryResultTupleFactory());
       $joined = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2), $FACTORIES::ORDER => $oF, $FACTORIES::JOIN => $jF));
       
-      if (sizeof($joined['ResultTuple']) == 0) {
+      if (sizeof($joined[$FACTORIES::getResultTupleFactory()->getModelName()]) == 0) {
         continue;
       }
       
       /** @var $tuple ResultTuple */
       $found = false;
       while (!$found) {
-        $tuple = Util::getTupleWeightedWithRankAndSigma($joined['ResultTuple'], $joined['QueryResultTuple'], $tupleIds);
+        $tuple = Util::getTupleWeightedWithRankAndSigma($joined[$FACTORIES::getResultTupleFactory()->getModelName()], $joined[$FACTORIES::getQueryResultTupleFactory()->getModelName()], $tupleIds);
         if ($tuple == null) {
           break; // we have no tuples left on this query
         }

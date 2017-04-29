@@ -17,7 +17,7 @@ class SimpleGauss {
   public function __construct($tuple, $excludedAnswerSession = null) {
     global $FACTORIES;
     
-    if($tuple->getIsFinal() == 1){
+    if ($tuple->getIsFinal() == 1) {
       $this->mu = $tuple->getMu();
       $this->sigma = $tuple->getSigma();
       return;
@@ -34,7 +34,7 @@ class SimpleGauss {
     $jF = new JoinFilter($FACTORIES::getAnswerSessionFactory(), TwoCompareAnswer::ANSWER_SESSION_ID, AnswerSession::ANSWER_SESSION_ID);
     $joined = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $filters, $FACTORIES::JOIN => $jF));
     
-    if (sizeof($joined['TwoCompareAnswer']) < GAUSS_LIMIT) {
+    if (sizeof($joined[$FACTORIES::getTwoCompareAnswerFactory()->getModelName()]) < GAUSS_LIMIT) {
       $this->mu = -1;
       $this->sigma = -1;
       return;
@@ -42,11 +42,11 @@ class SimpleGauss {
     
     $weightedSum = 0;
     $probabilitySum = 0;
-    for ($i = 0; $i < sizeof($joined['TwoCompareAnswer']); $i++) {
+    for ($i = 0; $i < sizeof($joined[$FACTORIES::getTwoCompareAnswerFactory()->getModelName()]); $i++) {
       /** @var $twoCompareAnswer TwoCompareAnswer */
-      $twoCompareAnswer = $joined['TwoCompareAnswer'][$i];
+      $twoCompareAnswer = $joined[$FACTORIES::getTwoCompareAnswerFactory()->getModelName()][$i];
       /** @var $answerSession AnswerSession */
-      $answerSession = $joined['AnswerSession'][$i];
+      $answerSession = $joined[$FACTORIES::getAnswerSessionFactory()->getModelName()][$i];
       
       $weightedSum += $twoCompareAnswer->getAnswer() * $answerSession->getCurrentValidity();
       $probabilitySum += $answerSession->getCurrentValidity();
@@ -61,14 +61,14 @@ class SimpleGauss {
     $this->mu = $weightedSum / $probabilitySum;
     
     $sigmaSum = 0;
-    for ($i = 0; $i < sizeof($joined['TwoCompareAnswer']); $i++) {
+    for ($i = 0; $i < sizeof($joined[$FACTORIES::getTwoCompareAnswerFactory()->getModelName()]); $i++) {
       /** @var $twoCompareAnswer TwoCompareAnswer */
-      $twoCompareAnswer = $joined['TwoCompareAnswer'][$i];
+      $twoCompareAnswer = $joined[$FACTORIES::getTwoCompareAnswerFactory()->getModelName()][$i];
       
       $sigmaSum += ($twoCompareAnswer->getAnswer() - $this->mu) * ($twoCompareAnswer->getAnswer() - $this->mu);
     }
     
-    $this->sigma = sqrt($sigmaSum / sizeof($joined['TwoCompareAnswer']));
+    $this->sigma = sqrt($sigmaSum / sizeof($joined[$FACTORIES::getTwoCompareAnswerFactory()->getModelName()]));
   }
   
   /**

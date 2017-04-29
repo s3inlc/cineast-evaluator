@@ -17,7 +17,7 @@ $mediaObjects = $FACTORIES::getMediaObjectFactory()->filter(array());
 $total = sizeof($mediaObjects);
 $count = 0;
 foreach ($mediaObjects as $mediaObject) {
-  if($mediaObject->getMediaTypeId() > 0 && $mediaObject->getMediaTypeId() < 4){
+  if ($mediaObject->getMediaTypeId() > 0 && $mediaObject->getMediaTypeId() < 4) {
     Util::resizeImage($mediaObject->getFilename());
   }
   $count++;

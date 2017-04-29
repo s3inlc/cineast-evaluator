@@ -11,7 +11,6 @@ class SessionValidator {
    * @param $answerSession AnswerSession
    */
   public function __construct($answerSession) {
-    // TODO: load some session info here
     $this->answerSession = $answerSession;
   }
   

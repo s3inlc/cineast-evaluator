@@ -20,7 +20,7 @@ class SessionType {
     }
     
     // check if it's a player
-    if($OAUTH->isLoggedin()){
+    if ($OAUTH->isLoggedin()) {
       $this->type = SessionType::SESSION_TYPE_PLAYER;
       $this->id = $OAUTH->getPlayer()->getId();
       return;

@@ -17,7 +17,7 @@ class SimilarityGaussCalculator extends Calculator {
         continue; // we ignore the sets marked as final
       }
       
-      if($resultSet->getObjectId2() == $resultSet->getObjectId1()){
+      if ($resultSet->getObjectId2() == $resultSet->getObjectId1()) {
         $resultSet->setIsFinal(1);
         $resultSet->setSigma(0);
         $resultSet->setMu(AnswerType::COMPARE_TWO_NEARLY_IDENTICAL);

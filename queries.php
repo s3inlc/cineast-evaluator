@@ -34,10 +34,10 @@ else if (isset($_GET['view'])) {
     $qF = new QueryFilter(QueryResultTuple::QUERY_ID, $query->getId(), "=");
     $jF = new JoinFilter($FACTORIES::getQueryResultTupleFactory(), ResultTuple::RESULT_TUPLE_ID, QueryResultTuple::RESULT_TUPLE_ID);
     $joinedResults = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));
-    $OBJECTS['results'] = $joinedResults['ResultTuple'];
+    $OBJECTS['results'] = $joinedResults[$FACTORIES::getResultTupleFactory()->getModelName()];
     
     /** @var ResultTuple $singleTuple */
-    $singleTuple = $joinedResults['ResultTuple'][0];
+    $singleTuple = $joinedResults[$FACTORIES::getResultTupleFactory()->getModelName()][0];
     $OBJECTS['queryObjectId'] = $singleTuple->getObjectId1();
     
     $mediaTypes = $FACTORIES::getMediaTypeFactory()->filter(array());

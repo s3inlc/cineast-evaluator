@@ -4,11 +4,11 @@ require_once(dirname(__FILE__) . "/inc/load.php");
 /** @var Login $LOGIN */
 /** @var array $OBJECTS */
 
-if(isset($_GET['provider'])){
-  switch($_GET['provider']){
+if (isset($_GET['provider'])) {
+  switch ($_GET['provider']) {
     case "oauth":
       $refer = "";
-      if(isset($_GET['refer'])){
+      if (isset($_GET['refer'])) {
         $refer = $_GET['refer'];
       }
       $OAUTH->login($refer);

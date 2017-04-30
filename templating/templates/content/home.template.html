@@ -2,32 +2,28 @@
 {%TEMPLATE->struct/menu%}
 <main>
   <div class="container">
-    <div class="row">
-      <div id="index-banner" class="parallax-container">
-        <div class="section no-pad-bot">
-          {{IF [[oauth.isLoggedin()]]}}
-            <div class="row black-text large center">
-              <div class="col s12 m12">
-                <h4>Hey [[oauth.getPlayer().getPlayerName()]]</h4>
-                <h5>Play some more games to get missing achievements ;)</h5>
-              </div>
-            </div>
-          {{ENDIF}}
-          <div class="row">
-            <div class="col s12 m2">
-              <!-- placeholder -->
-            </div>
-
-            <div class="col s12 m8 center">
-              {{IF ![[oauth.isLoggedin()]]}}<h2 class="center black-text">Hey, wanna have some fun and play a game?</h2>{{ENDIF}}
-              <a class="btn-large waves-effect waves-light green" href="session.php">Start</a>
-            </div>
-
-            <div class="col s12 m2">
-              <!-- placeholder -->
-            </div>
-          </div>
+    {{IF [[oauth.isLoggedin()]]}}
+      <div class="row black-text large center">
+        <div class="col s12 m12">
+          <h4>Hey [[oauth.getPlayer().getPlayerName()]]</h4>
+          <h5>Play some more games to get missing achievements ;)</h5>
         </div>
+      </div>
+    {{ENDIF}}
+    <div class="row">
+      <div class="col s12 m2">
+        <!-- placeholder -->
+      </div>
+
+      <div class="col s12 m8 center">
+        {{IF ![[oauth.isLoggedin()]]}}
+          <h2 class="center black-text">Hey, wanna have some fun and play a game?</h2>
+        {{ENDIF}}
+        <a class="btn-large waves-effect waves-light green" href="session.php">Start</a>
+      </div>
+
+      <div class="col s12 m2">
+        <!-- placeholder -->
       </div>
     </div>
   </div>

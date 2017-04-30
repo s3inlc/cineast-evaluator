@@ -498,6 +498,26 @@ class Util {
   }
   
   /**
+   * Formats the number with 1000s separators
+   * @param $num int|string
+   * @return string
+   */
+  static function number($num = "") {
+    $value = "$num";
+    if (strlen($value) == 0) {
+      return "0";
+    }
+    $string = $value[0];
+    for ($x = 1; $x < strlen($value); $x++) {
+      if ((strlen($value) - $x) % 3 == 0) {
+        $string .= "'";
+      }
+      $string .= $value[$x];
+    }
+    return $string;
+  }
+  
+  /**
    * This sends a given email with text and subject to the address.
    *
    * @param string $address

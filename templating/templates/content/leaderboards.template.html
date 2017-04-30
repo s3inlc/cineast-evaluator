@@ -22,7 +22,7 @@
               <td>[[Util::calculate([[counter]] + 1)]]</td>
               <td>[[Util::getPlayerNameById([[game.getPlayerId()]])]]</td>
               <td>[[date("d.m.Y", [[game.getFinishedTime()]])]]</td>
-              <td class="right">[[game.getFullScore()]]</td>
+              <td class="right">[[Util::number([[game.getFullScore()]])]]</td>
             </tr>
           {{ENDFOREACH}}
         </tbody>
@@ -45,7 +45,7 @@
               <td>[[Util::calculate([[counter]] + 1)]]</td>
               <td>[[Util::getPlayerNameById([[game.getPlayerId()]])]]</td>
               <td>[[date("d.m.Y", [[game.getFinishedTime()]])]]</td>
-              <td class="right">[[game.getGameScore()]]</td>
+              <td class="right">[[Util::number([[game.getGameScore()]])]]</td>
             </tr>
           {{ENDFOREACH}}
         </tbody>
@@ -66,7 +66,7 @@
             <tr>
               <td>[[Util::calculate([[counter]] + 1)]]</td>
               <td>[[Util::getPlayerNameById([[score.getVal('playerId')]])]]</td>
-              <td class="right">[[score.getVal('score')]]</td>
+              <td class="right">[[Util::number([[score.getVal('score')]])]]</td>
             </tr>
           {{ENDFOREACH}}
         </tbody>

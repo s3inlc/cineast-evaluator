@@ -11,6 +11,7 @@
           <tr>
             <th>Rank</th>
             <th>Player</th>
+            <th>Date</th>
             <th class="right">Score</th>
           </tr>
         </thead>
@@ -20,6 +21,7 @@
             <tr>
               <td>[[Util::calculate([[counter]] + 1)]]</td>
               <td>[[Util::getPlayerNameById([[game.getPlayerId()]])]]</td>
+              <td>[[date("d.m.Y", [[game.getFinishedTime()]])]]</td>
               <td class="right">[[game.getFullScore()]]</td>
             </tr>
           {{ENDFOREACH}}
@@ -32,6 +34,7 @@
         <tr>
           <th>Rank</th>
           <th>Player</th>
+          <th>Date</th>
           <th class="right">Score</th>
         </tr>
         </thead>
@@ -41,6 +44,7 @@
             <tr>
               <td>[[Util::calculate([[counter]] + 1)]]</td>
               <td>[[Util::getPlayerNameById([[game.getPlayerId()]])]]</td>
+              <td>[[date("d.m.Y", [[game.getFinishedTime()]])]]</td>
               <td class="right">[[game.getGameScore()]]</td>
             </tr>
           {{ENDFOREACH}}

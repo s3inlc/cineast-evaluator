@@ -62,6 +62,13 @@ footer.page-footer {
     color: #000000;
 }
 
+.question-image {
+    image-rendering:pixelated;
+    height: 40vh;
+    width: auto;
+    margin: 0px auto;
+}
+
 /**
  * 	Footer sticks to bottom of the site
  */

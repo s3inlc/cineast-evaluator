@@ -157,7 +157,14 @@ main {
 
 .question-image {
     image-rendering:pixelated;
-    height: 40vh;
+    height: 40vh !important;
     width: auto;
     margin: 0px auto;
+}
+
+@media only screen and (max-width: 800px) {
+    .question-image {
+        width: 100%;
+        height: auto;
+    }
 }

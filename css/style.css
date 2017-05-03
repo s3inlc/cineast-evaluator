@@ -142,3 +142,7 @@ main {
 .score-bonus {
     font-size: 25px;
 }
+
+.fullwidth {
+    width: 100%;
+}

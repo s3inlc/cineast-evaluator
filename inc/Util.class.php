@@ -98,7 +98,7 @@ class Util {
    * @return ResultTuple
    */
   public static function getTupleWeightedWithRankAndSigma($resultTuples, $queryResultTuples, $excludingTuples) {
-    global $DEBUG;
+    //global $DEBUG;
     
     if (sizeof($resultTuples) == 0) {
       return null;
@@ -117,7 +117,7 @@ class Util {
     }
     
     $totalCount = 0;
-    $DEBUG[] = "Getting tuple from " . sizeof($resultTuples) . " tuples, excluding " . sizeof($excludingTuples) . "ones..";
+    //$DEBUG[] = "Getting tuple from " . sizeof($resultTuples) . " tuples, excluding " . sizeof($excludingTuples) . " ones..";
     for ($i = 0; $i < sizeof($resultTuples); $i++) {
       if (isset($exclude[$resultTuples[$i]->getId()])) {
         continue; // exclude the already answered tuples

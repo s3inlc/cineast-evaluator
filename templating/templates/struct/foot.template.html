@@ -40,6 +40,12 @@
   </script>
 {{ENDIF}}
 
+{{IF [[sizeof([[DEBUG]])]] > 0}}
+  {{FOREACH entry;[[DEBUG]]}}
+    <p>[[entry]]</p><br>
+  {{ENDFOREACH}}
+{{ENDIF}}
+
 <script type="text/javascript">
   $(document).ready(function() {
       $('select').material_select();

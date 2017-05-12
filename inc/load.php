@@ -92,6 +92,7 @@ $FACTORIES = new Factory();
 
 $MENU = new Menu();
 $OBJECTS['menu'] = $MENU;
+$DEBUG = array();
 $OBJECTS['messages'] = array();
 $LOGIN = new Login();
 $OAUTH = new OAuthLogin();

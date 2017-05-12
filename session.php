@@ -3,6 +3,10 @@
 require_once(dirname(__FILE__) . "/inc/load.php");
 $OBJECTS['pageTitle'] = "Cineast Evaluator";
 
+/**
+ * @var $DEBUG string[]
+ */
+
 if (isset($_POST['disclaimerAccept'])) {
   // user accepted the disclaimer
   setcookie("disclaimer", "accepted", time() + 3600 * 24 * 30);
@@ -75,6 +79,7 @@ if (ini_get("display_errors") == "1") {
     "Current Validity: " . $USER_SESSION->getAnswerSession()->getCurrentValidity()
   );
   $OBJECTS['debug'] = $debug;
+  $OBJECTS['DEBUG'] = $DEBUG;
 }
 
 if ($USER_SESSION->getAnswerSession()->getMicroworkerId() == null) {

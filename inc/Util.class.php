@@ -98,6 +98,8 @@ class Util {
    * @return ResultTuple
    */
   public static function getTupleWeightedWithRankAndSigma($resultTuples, $queryResultTuples, $excludingTuples) {
+    global $DEBUG;
+    
     if (sizeof($resultTuples) == 0) {
       return null;
     }
@@ -110,6 +112,7 @@ class Util {
     }
     
     $totalCount = 0;
+    $DEBUG[] = "Getting tuple from " . sizeof($resultTuples) . " tuples, excluding " . sizeof($excludingTuples) . "ones..";
     for ($i = 0; $i < sizeof($resultTuples); $i++) {
       if (in_array($resultTuples[$i]->getId(), $excludingTuples)) {
         continue; // exclude the already answered tuples
@@ -148,9 +151,9 @@ class Util {
    * @param $resultSet2 ResultTuple
    * @param $randomOrder bool
    */
-  public static function prepare3CompareQuestion($resultSet1, $resultSet2, $randomOrder = true){
+  public static function prepare3CompareQuestion($resultSet1, $resultSet2, $randomOrder = true) {
     global $FACTORIES, $OBJECTS;
-  
+    
     $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($resultSet1->getObjectId1());
     if (mt_rand(0, 1) == 0 || $randomOrder == false) {
       $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($resultSet1->getObjectId2());
@@ -160,23 +163,23 @@ class Util {
       $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($resultSet2->getObjectId2());
       $mediaObject3 = $FACTORIES::getMediaObjectFactory()->get($resultSet1->getObjectId2());
     }
-  
+    
     $value1 = new DataSet();
     $value2 = new DataSet();
     $value3 = new DataSet();
-  
+    
     $value1->addValue('objData', array("serve.php?id=" . $mediaObject1->getChecksum()));
     $value2->addValue('objData', array("serve.php?id=" . $mediaObject2->getChecksum()));
     $value3->addValue('objData', array("serve.php?id=" . $mediaObject3->getChecksum()));
-  
+    
     $mediaType1 = $FACTORIES::getMediaTypeFactory()->get($mediaObject1->getMediaTypeId());
     $mediaType2 = $FACTORIES::getMediaTypeFactory()->get($mediaObject2->getMediaTypeId());
     $mediaType3 = $FACTORIES::getMediaTypeFactory()->get($mediaObject3->getMediaTypeId());
-  
+    
     $value1->addValue('template', $mediaType1->getTemplate());
     $value2->addValue('template', $mediaType2->getTemplate());
     $value3->addValue('template', $mediaType3->getTemplate());
-  
+    
     $OBJECTS['object1'] = $mediaObject1;
     $OBJECTS['object2'] = $mediaObject2;
     $OBJECTS['object3'] = $mediaObject3;

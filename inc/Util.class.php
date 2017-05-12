@@ -104,6 +104,11 @@ class Util {
       return null;
     }
     
+    $exclude = array();
+    foreach ($excludingTuples as $excludingTuple) {
+      $exclude[$excludingTuple] = true;
+    }
+    
     $highestRank = 0;
     foreach ($queryResultTuples as $queryResultTuple) {
       if ($queryResultTuple->getRank() > $highestRank) {
@@ -114,7 +119,7 @@ class Util {
     $totalCount = 0;
     $DEBUG[] = "Getting tuple from " . sizeof($resultTuples) . " tuples, excluding " . sizeof($excludingTuples) . "ones..";
     for ($i = 0; $i < sizeof($resultTuples); $i++) {
-      if (in_array($resultTuples[$i]->getId(), $excludingTuples)) {
+      if (isset($exclude[$resultTuples[$i]->getId()])) {
         continue; // exclude the already answered tuples
       }
       $add = 1;
@@ -131,7 +136,7 @@ class Util {
     $random = random_int(0, $totalCount - 1);
     $currentCount = 0;
     for ($i = 0; $i < sizeof($resultTuples); $i++) {
-      if (in_array($resultTuples[$i]->getId(), $excludingTuples)) {
+      if (isset($exclude[$resultTuples[$i]->getId()])) {
         continue; // exclude the already answered tuples
       }
       $add = 1;

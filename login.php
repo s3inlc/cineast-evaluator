@@ -6,12 +6,13 @@ require_once(dirname(__FILE__) . "/inc/load.php");
 
 if (isset($_GET['provider'])) {
   switch ($_GET['provider']) {
-    case "oauth":
+    case OAuthLogin::TYPE_FACEBOOK:
+    case OAuthLogin::TYPE_GOOGLE:
       $refer = "";
       if (isset($_GET['refer'])) {
         $refer = $_GET['refer'];
       }
-      $OAUTH->login($refer);
+      $OAUTH->login($refer, $_GET['provider']);
       header("Location: index.php");
       die();
   }

@@ -44,9 +44,9 @@ class OAuthLogin {
           break;
         case OAuthLogin::TYPE_FACEBOOK:
           $fb = new Facebook\Facebook(json_decode(file_get_contents(dirname(__FILE__) . '/oauth_facebook_clients_secret.json'), true));
-          $this->client = $fb->getClient();
+          $helper = $fb->getCanvasHelper();
           try {
-            $fb->get('/me', $_SESSION['accessToken']);
+            $helper->getAccessToken();
             $this->valid = true;
             $this->player = $FACTORIES::getPlayerFactory()->get($_SESSION['playerId']);
           }

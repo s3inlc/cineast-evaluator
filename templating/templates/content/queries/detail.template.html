@@ -70,6 +70,11 @@
             </td>
             <td>{{IF [[result.getIsFinal()]] == 1}}Yes{{ELSE}}No{{ENDIF}}</td>
             <td class="right-align">
+              <form action="queries.php?view=[[query.getId()]]" method="post" onsubmit="return confirm('You really want to reset the tuple?');">
+                <input type="hidden" name="action" value="resetTuple">
+                <input type="hidden" name="tupleId" value="[[result.getId()]]">
+                <button type="submit" class="btn-floating waves-effect waves-light red"><i class="material-icons">not_interested</i></button>
+              </form>&nbsp;&nbsp;
               <a class="btn-floating waves-effect waves-light green" href="evaluated.php?view=[[result.getId()]]"><i class="material-icons">trending_up</i></a>&nbsp;&nbsp;
               <a class="btn-floating waves-effect waves-light blue" target="_blank" href="preview.php?object=[[result.getObjectId2()]]"><i class="material-icons">visibility</i></a>
             </td>

@@ -1,8 +1,10 @@
 <?php
 use DBA\MediaObject;
 use DBA\Query;
+use DBA\QueryFilter;
 use DBA\QueryResultTuple;
 use DBA\ResultTuple;
+use DBA\TwoCompareAnswer;
 
 class QueryHandler extends Handler {
   
@@ -14,10 +16,30 @@ class QueryHandler extends Handler {
       case "addQuery":
         $this->addQuery($_FILES['file'], $_POST['queryName']);
         break;
+      case "resetTuple":
+        $this->resetTuple($_POST['tupleId']);
+        break;
       default:
         UI::addErrorMessage("Unknown action!");
         break;
     }
+  }
+  
+  private function resetTuple($tupleId) {
+    global $FACTORIES;
+    
+    $tuple = $FACTORIES::getResultTupleFactory()->get($tupleId);
+    if ($tuple == null) {
+      UI::addErrorMessage("Invalid tuple!");
+      return;
+    }
+    $tuple->setSigma(-1);
+    $tuple->setMu(-1);
+    $tuple->setIsFinal(0);
+    $qF = new QueryFilter(TwoCompareAnswer::RESULT_TUPLE_ID, $tuple->getId(), "=");
+    $FACTORIES::getTwoCompareAnswerFactory()->massDeletion(array($FACTORIES::FILTER => $qF));
+    $FACTORIES::getResultTupleFactory()->update($tuple);
+    UI::addSuccessMessage("Reseted tuple successfully!");
   }
   
   /**

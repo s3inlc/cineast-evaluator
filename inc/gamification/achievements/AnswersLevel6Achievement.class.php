@@ -10,13 +10,13 @@ use DBA\TwoCompareAnswer;
  * Date: 25.04.17
  * Time: 15:31
  */
-class AnswersLevel5Achievement extends GameAchievement {
+class AnswersLevel6Achievement extends GameAchievement {
   
   /**
    * @return string
    */
   function getAchievementName() {
-    return "Answered Questions Level 5";
+    return "Answered Questions Level 6";
   }
   
   /**
@@ -39,7 +39,7 @@ class AnswersLevel5Achievement extends GameAchievement {
       $total += $FACTORIES::getTwoCompareAnswerFactory()->countFilter(array($FACTORIES::FILTER => $qF));
     }
     
-    if ($total >= 2000) {
+    if ($total >= 5000) {
       return true;
     }
     return false;
@@ -63,13 +63,13 @@ class AnswersLevel5Achievement extends GameAchievement {
    * @return string
    */
   function getIdentifier() {
-    return "answersLevel5";
+    return "answersLevel6";
   }
   
   /**
    * @return string
    */
   function getDescription() {
-    return "Answer at least 2'000 questions.<br>Gives 10% extra score";
+    return "Answer at least 5'000 questions.<br>Gives 10% extra score";
   }
 }

@@ -70,6 +70,6 @@ class AnswersLevel4Achievement extends GameAchievement {
    * @return string
    */
   function getDescription() {
-    return "Answer at least 1000 questions.<br>Gives 10% extra score";
+    return "Answer at least 1'000 questions.<br>Gives 10% extra score";
   }
 }

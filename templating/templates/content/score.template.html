@@ -5,9 +5,9 @@
     <div class="row black-text">
       <div class="col s12 m12 center score-text">
         <br><br>Base Score:<br>
-        <span class="score-game">[[score.getVal('baseScore')]]</span><br><br>
+        <span class="score-game">[[Util::number([[score.getVal('baseScore')]])]]</span><br><br>
         <span class="score-bonus">Achievement multiplier: [[score.getVal('multiplicator')]]%</span><br><br><br>
-        <span class="score-total">[[score.getVal('totalScore')]]</span><br>
+        <span class="score-total">[[Util::number([[score.getVal('totalScore')]])]]</span><br>
       </div>
       {{IF [[sizeof([[achievements]])]] > 0}}
         <div class="col s12 m12">

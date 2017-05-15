@@ -9,13 +9,13 @@
 
 namespace DBA;
 
-class PlayerFactory extends AbstractModelFactory {
+class OauthFactory extends AbstractModelFactory {
   function getModelName() {
-    return "Player";
+    return "Oauth";
   }
   
   function getModelTable() {
-    return "Player";
+    return "Oauth";
   }
   
   function isCachable() {
@@ -27,27 +27,27 @@ class PlayerFactory extends AbstractModelFactory {
   }
 
   /**
-   * @return Player
+   * @return Oauth
    */
   function getNullObject() {
-    $o = new Player(-1, null);
+    $o = new Oauth(-1, null, null, null, null, null);
     return $o;
   }
 
   /**
    * @param string $pk
    * @param array $dict
-   * @return Player
+   * @return Oauth
    */
   function createObjectFromDict($pk, $dict) {
-    $o = new Player($pk, $dict['playerName']);
+    $o = new Oauth($pk, $dict['playerId'], $dict['type'], $dict['firstLogin'], $dict['lastLogin'], $dict['oauthIdentifier']);
     return $o;
   }
 
   /**
    * @param array $options
    * @param bool $single
-   * @return Player|Player[]
+   * @return Oauth|Oauth[]
    */
   function filter($options, $single = false) {
     $join = false;
@@ -58,7 +58,7 @@ class PlayerFactory extends AbstractModelFactory {
       if($join){
         return parent::filter($options, $single);
       }
-      return Util::cast(parent::filter($options, $single), Player::class);
+      return Util::cast(parent::filter($options, $single), Oauth::class);
     }
     $objects = parent::filter($options, $single);
     if($join){
@@ -66,24 +66,24 @@ class PlayerFactory extends AbstractModelFactory {
     }
     $models = array();
     foreach($objects as $object){
-      $models[] = Util::cast($object, Player::class);
+      $models[] = Util::cast($object, Oauth::class);
     }
     return $models;
   }
 
   /**
    * @param string $pk
-   * @return Player
+   * @return Oauth
    */
   function get($pk) {
-    return Util::cast(parent::get($pk), Player::class);
+    return Util::cast(parent::get($pk), Oauth::class);
   }
 
   /**
-   * @param Player $model
-   * @return Player
+   * @param Oauth $model
+   * @return Oauth
    */
   function save($model) {
-    return Util::cast(parent::save($model), Player::class);
+    return Util::cast(parent::save($model), Oauth::class);
   }
 }

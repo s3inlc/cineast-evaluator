@@ -23,8 +23,8 @@ define("DEFAULT_CERTAINTY", "0"); // TODO: should be removed
 define("SESSION_SIZE", "20"); // number of questions for a session (excluding the security questions)
 
 // max size an image can have before it will be resized to these sizes
-define("IMAGE_MAX_HEIGHT", 1500);
-define("IMAGE_MAX_WIDTH", 1500);
+define("IMAGE_MAX_HEIGHT", 1000);
+define("IMAGE_MAX_WIDTH", 1000);
 
 define("SECURITY_QUESTION_THRESHOLD", 0.5);
 define("SESSION_TIMEOUT", 3600 * 24); // set time limit after which a session is considered as closed even if not all questions are answered

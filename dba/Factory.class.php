@@ -19,6 +19,7 @@ class Factory {
   private static $mediaTypeFactory = null;
   private static $answerSessionFactory = null;
   private static $playerFactory = null;
+  private static $oauthFactory = null;
   private static $threeCompareAnswerFactory = null;
   private static $twoCompareAnswerFactory = null;
   private static $validationFactory = null;
@@ -86,6 +87,13 @@ class Factory {
       self::$playerFactory = new PlayerFactory();
     }
     return self::$playerFactory;
+  }
+  
+  public static function getOauthFactory() {
+    if (self::$oauthFactory == null) {
+      self::$oauthFactory = new OauthFactory();
+    }
+    return self::$oauthFactory;
   }
   
   public static function getThreeCompareAnswerFactory() {

@@ -76,10 +76,15 @@ $CONF['AnswerSession'] = array(
 );
 $CONF['Player'] = array(
   'playerId',
-  'playerName',
+  'playerName'
+);
+$CONF['Oauth'] = array(
   'oauthId',
+  'playerId',
+  'type',
   'firstLogin',
-  'lastLogin'
+  'lastLogin',
+  'oauthIdentifier'
 );
 $CONF['ThreeCompareAnswer'] = array(
   'threeCompareAnswerId',

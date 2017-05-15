@@ -4,11 +4,13 @@
   <div class="container">
     <h4>Connect your Account</h4>
     <p>You can connect your account with multiple logins on different systems.</p>
-    <div class="col s12 m3">
-      <a class="btn-large waves-effect waves-light green{{IF [[activated.getVal('google')]]}} disabled{{ENDIF}}" href="login.php?provider=google">Google</a>
-    </div>
-    <div class="col s12 m3">
-      <a class="btn-large waves-effect waves-light blue{{IF [[activated.getVal('facebook')]]}} disabled{{ENDIF}}" href="login.php?provider=facebook">Facebook</a>
+    <div class="row">
+      <div class="col s12 m3">
+        <a class="btn-large waves-effect waves-light{{IF [[activated.getVal('google')]]}} disabled{{ELSE}} green{{ENDIF}}" href="login.php?provider=google">Google</a>
+      </div>
+      <div class="col s12 m3">
+        <a class="btn-large waves-effect waves-light{{IF [[activated.getVal('facebook')]]}} disabled{{ELSE}} blue{{ENDIF}}" href="login.php?provider=facebook">Facebook</a>
+      </div>
     </div>
 
     <h4>Change your username</h4>

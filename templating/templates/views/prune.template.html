@@ -10,6 +10,7 @@
       document.addEventListener('keydown', function(event) {
         if(event.keyCode === 32) {
             alert('Space was pressed');
+            document.getElementById('skipButton').submit();
         }
       });
     </script>
@@ -53,7 +54,7 @@
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button class="btn waves-effect waves-light" name="answer" value="3" type="submit">Nearly Identical</button>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button class="btn waves-effect waves-light yellow black-text" name="answer" value="-1" type="submit">Skip</button>
+          <button class="btn waves-effect waves-light yellow black-text" id="skipButton" name="answer" value="-1" type="submit">Skip</button>
         </div>
       </form>
     </div>

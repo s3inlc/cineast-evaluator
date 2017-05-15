@@ -2,6 +2,7 @@
 use DBA\MediaObject;
 use DBA\QueryFilter;
 
+$OVERRIDELOGIN = true;
 require_once(dirname(__FILE__) . "/inc/load.php");
 
 if (!isset($_GET['id'])) {

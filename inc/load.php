@@ -95,7 +95,9 @@ $OBJECTS['menu'] = $MENU;
 $DEBUG = array();
 $OBJECTS['messages'] = array();
 $LOGIN = new Login();
-$OAUTH = new OAuthLogin();
+if (!isset($OVERRIDELOGIN) || !$OVERRIDELOGIN) {
+  $OAUTH = new OAuthLogin();
+}
 $OBJECTS['login'] = $LOGIN;
 $OBJECTS['oauth'] = $OAUTH;
 $OBJECTS['administrator'] = false;

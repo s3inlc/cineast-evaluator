@@ -66,6 +66,7 @@ else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
     $helper = $fb->getRedirectLoginHelper();
     
     $permissions = ['email']; // Optional permissions
+    $_SESSION['provider'] = OAuthLogin::TYPE_FACEBOOK;
     $loginUrl = $helper->getLoginUrl('https://dev-evaluate.vitrivr.org/oauth2callback.php', $permissions);
     header("Location: " . $loginUrl);
     die();

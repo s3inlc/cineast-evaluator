@@ -105,11 +105,6 @@ else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
   }
   
   $oAuth2Client = $fb->getOAuth2Client();
-  /*
-  $tokenMetadata->validateAppId(file_get_contents(dirname(__FILE__) . '/inc/oauth_facebook_clients_app.txt'));
-  // If you know the user ID this access token belongs to, you can validate it here
-  //$tokenMetadata->validateUserId('123');
-  $tokenMetadata->validateExpiration();*/
   
   if (!$accessToken->isLongLived()) {
     // Exchanges a short-lived access token for a long-lived one
@@ -137,7 +132,7 @@ else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
   }
   $user = $response->getGraphUser();
   print_r($user);
-  die();
+  die("UserId:" . $user->getId() . " name:" . $user->getName());
 }
 
 // start user session

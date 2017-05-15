@@ -36,6 +36,8 @@ class AchievementTester {
     $this->ACHIEVEMENTS[] = new EveryDayLevel3Achievement();
     $this->ACHIEVEMENTS[] = new EveryDayLevel4Achievement();
     $this->ACHIEVEMENTS[] = new EveryDayLevel5Achievement();
+    $this->ACHIEVEMENTS[] = new OAuthGoogleAchievement();
+    $this->ACHIEVEMENTS[] = new OAuthFacebookAchievement();
   }
   
   /**

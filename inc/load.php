@@ -97,9 +97,9 @@ $OBJECTS['messages'] = array();
 $LOGIN = new Login();
 if (!isset($OVERRIDELOGIN) || !$OVERRIDELOGIN) {
   $OAUTH = new OAuthLogin();
+  $OBJECTS['oauth'] = $OAUTH;
 }
 $OBJECTS['login'] = $LOGIN;
-$OBJECTS['oauth'] = $OAUTH;
 $OBJECTS['administrator'] = false;
 if ($LOGIN->isLoggedin()) {
   $OBJECTS['user'] = $LOGIN->getUser();

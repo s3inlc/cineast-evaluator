@@ -2,8 +2,20 @@
 {%TEMPLATE->struct/menu%}
 <main>
   <div class="container">
-    <h3>Settings</h3>
+    <h3>My Account</h3>
 
+    <h4>Connect your Account</h4>
+    <p>You can connect your account with multiple logins on different systems.</p>
+    <div>
+      <div class="col s12 m3">
+        <a class="btn-large waves-effect waves-light green{{IF [[activated.getVal('google')]]}} disabled{{ENDIF}}" href="login.php?provider=google">Google</a>
+      </div>
+      <div class="col s12 m3">
+        <a class="btn-large waves-effect waves-light blue{{IF [[activated.getVal('facebook')]]}} disabled{{ENDIF}}" href="login.php?provider=facebook">Facebook</a>
+      </div>
+    </div>
+
+    <h4>Change your username</h4>
     <form action="settings.php" method="post">
       <input type="hidden" name="action" value="changeUsername">
       <div class="row">

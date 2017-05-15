@@ -2,8 +2,8 @@
 
 /** @var $OBJECTS array */
 
-use DBA\Game;
 use DBA\QueryFilter;
+use DBA\Oauth;
 
 require_once(dirname(__FILE__) . "/inc/load.php");
 
@@ -22,5 +22,13 @@ if (isset($_POST['action'])) {
 }
 
 $OBJECTS['player'] = $OAUTH->getPlayer();
+
+$qF = new QueryFilter(Oauth::PLAYER_ID, $OAUTH->getPlayer()->getId(), "=");
+$providers = $FACTORIES::getOauthFactory()->filter(array($FACTORIES::FILTER => $qF));
+$activated = new DataSet();
+foreach ($providers as $provider) {
+  $activated->addValue($provider->getType(), true);
+}
+$OBJECTS['activated'] = $activated;
 
 echo $TEMPLATE->render($OBJECTS);

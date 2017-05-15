@@ -42,23 +42,6 @@ else if ($provider == OAuthLogin::TYPE_GOOGLE) {
   
   $userinfo = json_decode(Util::getUserInfo($client->getAccessToken()['access_token']), true);
   
-  // check if player exists with this oauth id
-  $qF = new QueryFilter(Oauth::OAUTH_IDENTIFIER, $userinfo['id'], "=");
-  $oauth = $FACTORIES::getOauthFactory()->filter(array($FACTORIES::FILTER => $qF), true);
-  if ($oauth == null) {
-    // check if player is logged in with another provider
-    if ($OAUTH->isLoggedin()) {
-      $player = $OAUTH->getPlayer();
-    }
-    else {
-      $player = new Player(0, $userinfo['name']);
-      $player = $FACTORIES::getPlayerFactory()->save($player);
-    }
-    $oauth = new Oauth(0, $player->getId(), $provider, time(), time(), $userinfo['id']);
-    $oauth = $FACTORIES::getOauthFactory()->save($oauth);
-  }
-  $oauth->setLastLogin(time());
-  $FACTORIES::getOauthFactory()->update($oauth);
 }
 else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
   if (isset($_GET['provider'])) {
@@ -131,9 +114,33 @@ else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
     die();
   }
   $user = $response->getGraphUser();
-  print_r($user);
-  die("UserId:" . $user->getId() . " name:" . $user->getName());
+  $userinfo['id'] = $user->getId();
+  $userinfo['name'] = $user->getName();
 }
+else {
+  header('HTTP/1.0 400 Bad Request');
+  echo 'Bad request';
+  die();
+}
+
+// check if player exists with this oauth id
+$qF1 = new QueryFilter(Oauth::OAUTH_IDENTIFIER, $userinfo['id'], "=");
+$qF2 = new QueryFilter(Oauth::TYPE, $provider, "=");
+$oauth = $FACTORIES::getOauthFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2)), true);
+if ($oauth == null) {
+  // check if player is logged in with another provider
+  if ($OAUTH->isLoggedin()) {
+    $player = $OAUTH->getPlayer();
+  }
+  else {
+    $player = new Player(0, $userinfo['name']);
+    $player = $FACTORIES::getPlayerFactory()->save($player);
+  }
+  $oauth = new Oauth(0, $player->getId(), $provider, time(), time(), $userinfo['id']);
+  $oauth = $FACTORIES::getOauthFactory()->save($oauth);
+}
+$oauth->setLastLogin(time());
+$FACTORIES::getOauthFactory()->update($oauth);
 
 // start user session
 $_SESSION['playerId'] = $oauth->getPlayerId();

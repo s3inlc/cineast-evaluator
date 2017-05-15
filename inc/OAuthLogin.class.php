@@ -43,6 +43,19 @@ class OAuthLogin {
           }
           break;
         case OAuthLogin::TYPE_FACEBOOK:
+          $fb = new Facebook\Facebook(json_decode(file_get_contents(dirname(__FILE__) . '/inc/oauth_facebook_clients_secret.json'), true));
+          $this->client = $fb->getClient();
+          try {
+            $fb->get('/me');
+            $this->valid = true;
+            $this->player = $FACTORIES::getPlayerFactory()->get($_SESSION['playerId']);
+          }
+          catch (\Facebook\Exceptions\FacebookAuthenticationException $e) {
+            $this->valid = false;
+            unset($_SESSION['accessToken']);
+            unset($_SESSION['playerId']);
+            $this->login("", OAuthLogin::TYPE_FACEBOOK);
+          }
           break;
         case OAuthLogin::TYPE_UNDEFINED:
         default:

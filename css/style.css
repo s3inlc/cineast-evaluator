@@ -188,3 +188,13 @@ main {
     border-bottom: 1px solid green;
     box-shadow: 0 1px 0 0 green;
 }
+
+/* label focus color */
+.input-field select:focus + label {
+    color: green;
+}
+/* label underline focus color */
+.input-field select:focus {
+    border-bottom: 1px solid green;
+    box-shadow: 0 1px 0 0 green;
+}

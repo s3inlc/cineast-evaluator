@@ -62,7 +62,7 @@ else if ($provider == OAuthLogin::TYPE_GOOGLE) {
 }
 else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
   if (isset($_GET['provider'])) {
-    $fb = new Facebook\Facebook(json_encode(file_get_contents(dirname(__FILE__) . '/inc/oauth_facebook_clients_secret.json')));
+    $fb = new Facebook\Facebook(json_decode(file_get_contents(dirname(__FILE__) . '/inc/oauth_facebook_clients_secret.json'), true));
     $helper = $fb->getRedirectLoginHelper();
     
     $permissions = ['email']; // Optional permissions

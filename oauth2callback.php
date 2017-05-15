@@ -115,6 +115,8 @@ else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
   //$tokenMetadata->validateUserId('123');
   $tokenMetadata->validateExpiration();
   
+  print_r($accessToken);
+  die();
   if (!$accessToken->isLongLived()) {
     // Exchanges a short-lived access token for a long-lived one
     try {
@@ -129,8 +131,6 @@ else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
   //$_SESSION['accessToken'] = (string)$accessToken;
   try {
     // Returns a `Facebook\FacebookResponse` object
-    print_r($accessToken);
-    die();
     $response = $fb->get('/me?fields=id,name', $accessToken);
   }
   catch (Facebook\Exceptions\FacebookResponseException $e) {

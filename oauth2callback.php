@@ -12,8 +12,6 @@ use DBA\Oauth;
 
 require_once(dirname(__FILE__) . "/inc/load.php");
 
-session_start();
-
 if (!isset($_GET['provider'])) {
   header('HTTP/1.0 400 Bad Request');
   echo 'Bad request';
@@ -36,6 +34,7 @@ if (!isset($_GET['code']) && $provider == OAuthLogin::TYPE_GOOGLE) {
   $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
   $client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
   $auth_url = $client->createAuthUrl();
+  $_SESSION['provider'] = OAuthLogin::TYPE_GOOGLE;
   header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
   die();
 }

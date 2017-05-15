@@ -40,7 +40,7 @@ else if ($provider == OAuthLogin::TYPE_GOOGLE) {
   $client->authenticate($_GET['code']);
   $_SESSION['accessToken'] = $client->getAccessToken();
   
-  $userinfo = json_decode(Util::getUserInfo($client->getAccessToken()['accessToken']), true);
+  $userinfo = json_decode(Util::getUserInfo($client->getAccessToken()['access_token']), true);
   
   // check if player exists with this oauth id
   $qF = new QueryFilter(Oauth::OAUTH_IDENTIFIER, $userinfo['id'], "=");

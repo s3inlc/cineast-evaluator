@@ -12,12 +12,6 @@ use DBA\Oauth;
 
 require_once(dirname(__FILE__) . "/inc/load.php");
 
-if (!isset($_GET['provider'])) {
-  header('HTTP/1.0 400 Bad Request');
-  echo 'Bad request';
-  die();
-}
-
 $provider = @$_GET['provider'];
 if (!$provider) {
   $provider = @$_SESSION['provider'];

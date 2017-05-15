@@ -145,6 +145,7 @@ else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
 
 // start user session
 $_SESSION['playerId'] = $oauth->getPlayerId();
+$_SESSION['sessionType'] = $provider;
 if (isset($_SESSION['answerSessionId'])) {
   $answerSession = $FACTORIES::getAnswerSessionFactory()->get($_SESSION['answerSessionId']);
   if ($answerSession->getIsOpen() == 0 && $answerSession->getPlayerId() == null && $answerSession->getMicroworkerId() == null && $answerSession->getUserId() == null) {

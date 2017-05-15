@@ -129,6 +129,7 @@ else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
   //$_SESSION['accessToken'] = (string)$accessToken;
   try {
     // Returns a `Facebook\FacebookResponse` object
+    print_r($accessToken);
     $response = $fb->get('/me?fields=id,name', $accessToken);
   }
   catch (Facebook\Exceptions\FacebookResponseException $e) {

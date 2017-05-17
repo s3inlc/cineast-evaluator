@@ -11,15 +11,17 @@ namespace DBA;
 
 class Microworker extends AbstractModel {
   private $microworkerId;
-  private $assignmentId;
+  private $token;
+  private $isLocked;
   private $timeStarted;
   private $timeClosed;
   private $surveyCode;
   private $isConfirmed;
   
-  function __construct($microworkerId, $assignmentId, $timeStarted, $timeClosed, $surveyCode, $isConfirmed) {
+  function __construct($microworkerId, $token, $isLocked, $timeStarted, $timeClosed, $surveyCode, $isConfirmed) {
     $this->microworkerId = $microworkerId;
-    $this->assignmentId = $assignmentId;
+    $this->token = $token;
+    $this->isLocked = $isLocked;
     $this->timeStarted = $timeStarted;
     $this->timeClosed = $timeClosed;
     $this->surveyCode = $surveyCode;
@@ -29,7 +31,8 @@ class Microworker extends AbstractModel {
   function getKeyValueDict() {
     $dict = array();
     $dict['microworkerId'] = $this->microworkerId;
-    $dict['assignmentId'] = $this->assignmentId;
+    $dict['token'] = $this->token;
+    $dict['isLocked'] = $this->isLocked;
     $dict['timeStarted'] = $this->timeStarted;
     $dict['timeClosed'] = $this->timeClosed;
     $dict['surveyCode'] = $this->surveyCode;
@@ -54,12 +57,20 @@ class Microworker extends AbstractModel {
     $this->microworkerId = $id;
   }
   
-  function getAssignmentId(){
-    return $this->assignmentId;
+  function getToken(){
+    return $this->token;
   }
   
-  function setAssignmentId($assignmentId){
-    $this->assignmentId = $assignmentId;
+  function setToken($token){
+    $this->token = $token;
+  }
+  
+  function getIsLocked(){
+    return $this->isLocked;
+  }
+  
+  function setIsLocked($isLocked){
+    $this->isLocked = $isLocked;
   }
   
   function getTimeStarted(){
@@ -95,7 +106,8 @@ class Microworker extends AbstractModel {
   }
 
   const MICROWORKER_ID = "microworkerId";
-  const ASSIGNMENT_ID = "assignmentId";
+  const TOKEN = "token";
+  const IS_LOCKED = "isLocked";
   const TIME_STARTED = "timeStarted";
   const TIME_CLOSED = "timeClosed";
   const SURVEY_CODE = "surveyCode";

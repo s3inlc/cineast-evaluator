@@ -125,6 +125,8 @@ $CONF['Achievement'] = array(
 );
 $CONF['Microworker'] = array(
   'microworkerId',
+  'token',
+  'isLocked',
   'timeStarted',
   'timeClosed',
   'surveyCode',

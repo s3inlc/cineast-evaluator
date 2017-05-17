@@ -30,7 +30,7 @@ class MicroworkerFactory extends AbstractModelFactory {
    * @return Microworker
    */
   function getNullObject() {
-    $o = new Microworker(-1, null, null, null, null, null);
+    $o = new Microworker(-1, null, null, null, null, null, null);
     return $o;
   }
 
@@ -40,7 +40,7 @@ class MicroworkerFactory extends AbstractModelFactory {
    * @return Microworker
    */
   function createObjectFromDict($pk, $dict) {
-    $o = new Microworker($pk, $dict['assignmentId'], $dict['timeStarted'], $dict['timeClosed'], $dict['surveyCode'], $dict['isConfirmed']);
+    $o = new Microworker($pk, $dict['token'], $dict['isLocked'], $dict['timeStarted'], $dict['timeClosed'], $dict['surveyCode'], $dict['isConfirmed']);
     return $o;
   }
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 17. Mai 2017 um 12:41
+-- Erstellungszeit: 17. Mai 2017 um 15:51
 -- Server-Version: 5.7.17-0ubuntu0.16.04.2
 -- PHP-Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -102,6 +102,8 @@ CREATE TABLE `MediaType` (
 
 CREATE TABLE `Microworker` (
   `microworkerId` int(11) NOT NULL,
+  `token` varchar(100) COLLATE utf8_bin NOT NULL,
+  `isLocked` int(11) NOT NULL,
   `timeStarted` int(11) NOT NULL,
   `timeClosed` int(11) NOT NULL,
   `surveyCode` varchar(100) COLLATE utf8_bin NOT NULL,
@@ -390,12 +392,12 @@ ALTER TABLE `Achievement`
 -- AUTO_INCREMENT für Tabelle `AnswerSession`
 --
 ALTER TABLE `AnswerSession`
-  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=814;
+  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=815;
 --
 -- AUTO_INCREMENT für Tabelle `Game`
 --
 ALTER TABLE `Game`
-  MODIFY `gameId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=435;
+  MODIFY `gameId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=436;
 --
 -- AUTO_INCREMENT für Tabelle `MediaObject`
 --
@@ -450,7 +452,7 @@ ALTER TABLE `ThreeCompareAnswer`
 -- AUTO_INCREMENT für Tabelle `TwoCompareAnswer`
 --
 ALTER TABLE `TwoCompareAnswer`
-  MODIFY `twoCompareAnswerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33507;
+  MODIFY `twoCompareAnswerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33533;
 --
 -- AUTO_INCREMENT für Tabelle `User`
 --

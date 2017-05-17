@@ -25,6 +25,7 @@ class Factory {
   private static $validationFactory = null;
   private static $gameFactory = null;
   private static $achievementFactory = null;
+  private static $microworkerFactory = null;
 
   public static function getUserFactory() {
     if (self::$userFactory == null) {
@@ -129,6 +130,13 @@ class Factory {
       self::$achievementFactory = new AchievementFactory();
     }
     return self::$achievementFactory;
+  }
+  
+  public static function getMicroworkerFactory() {
+    if (self::$microworkerFactory == null) {
+      self::$microworkerFactory = new MicroworkerFactory();
+    }
+    return self::$microworkerFactory;
   }
 
   const FILTER = "filter";

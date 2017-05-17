@@ -123,6 +123,13 @@ $CONF['Achievement'] = array(
   'achievementName',
   'time'
 );
+$CONF['Microworker'] = array(
+  'microworkerId',
+  'timeStarted',
+  'timeClosed',
+  'surveyCode',
+  'isConfirmed'
+);
 
 foreach ($CONF as $NAME => $COLUMNS) {
   $class = file_get_contents(dirname(__FILE__) . "/AbstractModel.template.txt");

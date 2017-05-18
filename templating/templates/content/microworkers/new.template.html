@@ -1,0 +1,25 @@
+{%TEMPLATE->struct/head%}
+{%TEMPLATE->struct/menu%}
+<main>
+  <div class="container">
+    <h3>Generate Microworker Batch</h3>
+
+    <form action="microworkers.php" method="post">
+      <input type="hidden" name="action" value="createBatch">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="numTokens" type="text" name="numTokens" class="validate">
+          <label for="numTokens">Number of tokens to generate</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <button class="btn waves-effect waves-light green" type="submit">Generate Batch</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</main>
+
+{%TEMPLATE->struct/foot%}

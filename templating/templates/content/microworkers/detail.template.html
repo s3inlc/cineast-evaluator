@@ -1,0 +1,72 @@
+{%TEMPLATE->struct/head%}
+{%TEMPLATE->struct/menu%}
+<main>
+  <div class="container">
+    <h3>Microworker Batch Details</h3>
+
+    <table class="striped">
+      <tbody>
+        <tr>
+          <th>ID</th>
+          <td>[[batch.getId()]]</td>
+        </tr>
+        <tr>
+          <th>Time created</th>
+          <td>[[date("d.m.Y - H:i:s", [[batch.getTimeCreated()]])]]</td>
+        </tr>
+        <tr>
+          <th>Number of Tokens</th>
+          <td>[[sizeof([[microworkers]])]]</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h5>Entries</h5>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Token</th>
+          <th>Status</th>
+          <th>Locked</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{FOREACH microworker;[[microworkers]]}}
+          <tr>
+            <td>[[microworker.getId()]]</td>
+            <td>[[microworker.getToken()]]</td>
+            <td>
+              {{IF [[microworker.getTimeStarted()]] == 0}}
+                Ready
+              {{ELSE}}
+                {{IF [[microworker.getTimeClosed()]] == 0}}
+                  Running
+                {{ELSE}}
+                  {{IF [[microworker.getIsConfirmed()]] == 0}}
+                    Finished &amp; Waiting for confirmation
+                  {{ELSE}}
+                    Finished &amp; Confirmed
+                  {{ENDIF}}
+                {{ENDIF}}
+              {{ENDIF}}
+            </td>
+            <td>{{IF [[microworker.getIsLocked()]] == 1}}Yes{{ELSE}}No{{ENDIF}}</td>
+            <td class="right-align">
+              <form style="display: inline;" action="microworkers.php?view=[[batch.getId()]]" method="post">
+                <input type="hidden" name="action" value="toggleLock">
+                <input type="hidden" name="microworkerId" value="[[microworker.getId()]]">
+                <button type="submit" class="btn-floating waves-effect waves-light yellow"><i class="material-icons">{{IF [[microworker.getIsLocked()]] == 1}}lock_open{{ELSE}}lock{{ENDIF}}</i></button>
+              </form>&nbsp;&nbsp;
+            </td>
+          </tr>
+        {{ENDFOREACH}}
+      </tbody>
+    </table>
+
+  </div>
+</main>
+
+{%TEMPLATE->struct/foot%}

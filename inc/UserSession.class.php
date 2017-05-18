@@ -72,7 +72,7 @@ class UserSession {
         if (!$noAnswer && time() - $lastAnswer > UserSession::$OPEN_SESSION_TIMEOUT && $this->answerSession->getPlayerId() != null) {
           $this->close();
         }
-        else if ($noAnswer && time() - $lastAnswer > UserSession::$MICROWORKER_SESSION_TIMEOUT && $this->answerSession->getMicroworkerId() != null) {
+        else if (!$noAnswer && time() - $lastAnswer > UserSession::$MICROWORKER_SESSION_TIMEOUT && $this->answerSession->getMicroworkerId() != null) {
           $this->close();
         }
       }

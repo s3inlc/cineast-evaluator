@@ -9,6 +9,7 @@
     <table class="striped">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Time Created</th>
           <th>&nbsp;</th>
         </tr>
@@ -17,7 +18,8 @@
       <tbody>
         {{FOREACH batch;[[batches]]}}
           <tr>
-            <td>[[Util::date("d.m.Y - H:i:s", [[batch.getTimeCreated()]])]]</td>
+            <td>[[batch.getId()]]</td>
+            <td>[[date("d.m.Y - H:i:s", [[batch.getTimeCreated()]])]]</td>
             <td class="right-align">
               <a class="btn-floating waves-effect waves-light blue" href="microworkers.php?view=[[batch.getId()]]"><i class="material-icons">mode_edit</i></a>
             </td>

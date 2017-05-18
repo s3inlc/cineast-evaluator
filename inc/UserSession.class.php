@@ -34,7 +34,7 @@ class UserSession {
       else if ($this->answerSession->getIsOpen() == 0) {
         $this->answerSession = null;
       }
-      else if (sizeof(unserialize($_SESSION['questions'])) == 0) {
+      else if (sizeof(unserialize($_SESSION['questions'])) == 0 && $this->answerSession->getMicroworkerId() == null) {
         // no more questions available, so we close the session
         $this->close();
         $this->answerSession = null;

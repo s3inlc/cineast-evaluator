@@ -73,7 +73,7 @@
               <form style="display: inline;" action="microworkers.php?view=[[batch.getId()]]" method="post">
                 <input type="hidden" name="action" value="toggleLock">
                 <input type="hidden" name="microworkerId" value="[[microworker.getId()]]">
-                <button type="submit" class="btn-floating waves-effect waves-light yellow"><i class="material-icons black-text">{{IF [[microworker.getIsLocked()]] == 1}}lock_open{{ELSE}}lock{{ENDIF}}</i></button>
+                <button type="submit" class="btn-floating waves-effect waves-light {{IF [[microworker.getIsLocked()]] == 1}}green{{ELSE}}red{{ENDIF}}"><i class="material-icons black-text">{{IF [[microworker.getIsLocked()]] == 1}}lock_open{{ELSE}}lock{{ENDIF}}</i></button>
               </form>&nbsp;&nbsp;
             </td>
           </tr>

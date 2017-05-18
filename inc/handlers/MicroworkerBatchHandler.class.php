@@ -14,10 +14,56 @@ class MicroworkerBatchHandler extends Handler {
       case "createBatch":
         $this->create();
         break;
+      case "toggleLock":
+        $this->toggleLock();
+        break;
+      case "lockAll":
+        $this->toggleAll(true);
+        break;
+      case "unlockAll":
+        $this->toggleAll(false);
+        break;
       default:
         UI::addErrorMessage("Unknown action!");
         break;
     }
+  }
+  
+  private function toggleAll($lock) {
+    global $FACTORIES;
+    
+    $batch = $FACTORIES::getMicroworkerBatchFactory()->get($_POST['batchId']);
+    if ($batch == null) {
+      UI::addErrorMessage("Invalid Microworker Batch!");
+      return;
+    }
+    $locked = 0;
+    if ($lock) {
+      $locked = 1;
+    }
+    $uS = new UpdateSet(Microworker::IS_LOCKED, $locked);
+    $qF = new QueryFilter(Microworker::MICROWORKER_BATCH_ID, $batch->getId(), "=");
+    $FACTORIES::getMicroworkerFactory()->massUpdate(array($FACTORIES::FILTER => $qF, $FACTORIES::UPDATE => $uS));
+    UI::addSuccessMessage("Applied mass action successfully!");
+  }
+  
+  private function toggleLock() {
+    global $FACTORIES;
+    
+    $microworker = $FACTORIES::getMicroworkerFactory()->get($_POST['microworkerId']);
+    if ($microworker == null) {
+      UI::addErrorMessage("Invalid microworker!");
+      return;
+    }
+    if ($microworker->getIsLocked() == 0) {
+      $microworker->setIsLocked(1);
+      UI::addSuccessMessage("Microworker successfully locked!");
+    }
+    else {
+      $microworker->setIsLocked(0);
+      UI::addSuccessMessage("Microworker successfully unlocked!");
+    }
+    $FACTORIES::getMicroworkerFactory()->update($microworker);
   }
   
   private function create() {

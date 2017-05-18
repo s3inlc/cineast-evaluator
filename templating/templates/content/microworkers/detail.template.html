@@ -33,6 +33,16 @@
             </form>
           </td>
         </tr>
+        <tr>
+          <th>Download token file</th>
+          <td>
+            <form style="display: inline;" action="microworkers.php?view=[[batch.getId()]]" method="post">
+              <input type="hidden" name="action" value="download">
+              <input type="hidden" name="batchId" value="[[batch.getId()]]">
+              <button type="submit" class="btn-floating waves-effect waves-light blue">Download</button>
+            </form>
+          </td>
+        </tr>
       </tbody>
     </table>
 

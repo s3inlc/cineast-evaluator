@@ -23,10 +23,35 @@ class MicroworkerBatchHandler extends Handler {
       case "unlockAll":
         $this->toggleAll(false);
         break;
+      case "download":
+        $this->download();
+        break;
       default:
         UI::addErrorMessage("Unknown action!");
         break;
     }
+  }
+  
+  private function download() {
+    global $FACTORIES;
+    
+    $batch = $FACTORIES::getMicroworkerBatchFactory()->get($_POST['batchId']);
+    if ($batch == null) {
+      UI::addErrorMessage("Invalid Microworker Batch!");
+      return;
+    }
+    
+    $qF = new QueryFilter(Microworker::MICROWORKER_BATCH_ID, $batch->getId(), "=");
+    $microworkers = $FACTORIES::getMicroworkerFactory()->filter(array($FACTORIES::FILTER => $qF));
+    
+    header("Content-Type: application/force-download");
+    header("Content-Description: batch_" . $batch->getId() . ".csv");
+    header("Content-Disposition: attachment; filename=\"batch_" . $batch->getId() . ".csv\"");
+    
+    foreach ($microworkers as $microworker) {
+      echo $microworker->getToken() . "\n";
+    }
+    die();
   }
   
   private function toggleAll($lock) {

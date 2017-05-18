@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 17. Mai 2017 um 15:51
+-- Erstellungszeit: 18. Mai 2017 um 10:14
 -- Server-Version: 5.7.17-0ubuntu0.16.04.2
 -- PHP-Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -102,12 +102,24 @@ CREATE TABLE `MediaType` (
 
 CREATE TABLE `Microworker` (
   `microworkerId` int(11) NOT NULL,
+  `microworkerBatchId` int(11) NOT NULL,
   `token` varchar(100) COLLATE utf8_bin NOT NULL,
   `isLocked` int(11) NOT NULL,
   `timeStarted` int(11) NOT NULL,
   `timeClosed` int(11) NOT NULL,
   `surveyCode` varchar(100) COLLATE utf8_bin NOT NULL,
   `isConfirmed` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `MicroworkerBatch`
+--
+
+CREATE TABLE `MicroworkerBatch` (
+  `microworkerBatchId` int(11) NOT NULL,
+  `timeCreated` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -308,6 +320,12 @@ ALTER TABLE `Microworker`
   ADD PRIMARY KEY (`microworkerId`);
 
 --
+-- Indizes für die Tabelle `MicroworkerBatch`
+--
+ALTER TABLE `MicroworkerBatch`
+  ADD PRIMARY KEY (`microworkerBatchId`);
+
+--
 -- Indizes für die Tabelle `Oauth`
 --
 ALTER TABLE `Oauth`
@@ -387,17 +405,17 @@ ALTER TABLE `Validation`
 -- AUTO_INCREMENT für Tabelle `Achievement`
 --
 ALTER TABLE `Achievement`
-  MODIFY `achievementId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `achievementId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 --
 -- AUTO_INCREMENT für Tabelle `AnswerSession`
 --
 ALTER TABLE `AnswerSession`
-  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=815;
+  MODIFY `answerSessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=864;
 --
 -- AUTO_INCREMENT für Tabelle `Game`
 --
 ALTER TABLE `Game`
-  MODIFY `gameId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=436;
+  MODIFY `gameId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=480;
 --
 -- AUTO_INCREMENT für Tabelle `MediaObject`
 --
@@ -413,6 +431,11 @@ ALTER TABLE `MediaType`
 --
 ALTER TABLE `Microworker`
   MODIFY `microworkerId` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT für Tabelle `MicroworkerBatch`
+--
+ALTER TABLE `MicroworkerBatch`
+  MODIFY `microworkerBatchId` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT für Tabelle `Oauth`
 --
@@ -442,7 +465,7 @@ ALTER TABLE `ResultTuple`
 -- AUTO_INCREMENT für Tabelle `Session`
 --
 ALTER TABLE `Session`
-  MODIFY `sessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `sessionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
 --
 -- AUTO_INCREMENT für Tabelle `ThreeCompareAnswer`
 --
@@ -452,7 +475,7 @@ ALTER TABLE `ThreeCompareAnswer`
 -- AUTO_INCREMENT für Tabelle `TwoCompareAnswer`
 --
 ALTER TABLE `TwoCompareAnswer`
-  MODIFY `twoCompareAnswerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33533;
+  MODIFY `twoCompareAnswerId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35638;
 --
 -- AUTO_INCREMENT für Tabelle `User`
 --
@@ -462,7 +485,7 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT für Tabelle `Validation`
 --
 ALTER TABLE `Validation`
-  MODIFY `validationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=393;
+  MODIFY `validationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=416;
 --
 -- Constraints der exportierten Tabellen
 --

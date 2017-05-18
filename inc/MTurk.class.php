@@ -16,11 +16,19 @@ class MTurk {
   public function __construct() {
     global $FACTORIES;
     
+    $this->valid = false;
     if (isset($_SESSION['microworkerId'])) {
       $this->microworkerId = $_SESSION['microworkerId'];
       $this->microworker = $FACTORIES::getMicroworkerFactory()->get($this->microworkerId);
-      if ($this->microworker != null) {
+      if ($this->microworker->getIsLocked() == 1) {
+        // TODO: maybe additional action required
+        unset($_SESSION['microworkerId']);
+      }
+      else if ($this->microworker != null && $this->microworker->getIsConfirmed() == 0) {
         $this->valid = true;
+      }
+      else {
+        unset($_SESSION['microworkerId']);
       }
     }
   }

@@ -11,6 +11,7 @@ namespace DBA;
 
 class Microworker extends AbstractModel {
   private $microworkerId;
+  private $microworkerBatchId;
   private $token;
   private $isLocked;
   private $timeStarted;
@@ -18,8 +19,9 @@ class Microworker extends AbstractModel {
   private $surveyCode;
   private $isConfirmed;
   
-  function __construct($microworkerId, $token, $isLocked, $timeStarted, $timeClosed, $surveyCode, $isConfirmed) {
+  function __construct($microworkerId, $microworkerBatchId, $token, $isLocked, $timeStarted, $timeClosed, $surveyCode, $isConfirmed) {
     $this->microworkerId = $microworkerId;
+    $this->microworkerBatchId = $microworkerBatchId;
     $this->token = $token;
     $this->isLocked = $isLocked;
     $this->timeStarted = $timeStarted;
@@ -31,6 +33,7 @@ class Microworker extends AbstractModel {
   function getKeyValueDict() {
     $dict = array();
     $dict['microworkerId'] = $this->microworkerId;
+    $dict['microworkerBatchId'] = $this->microworkerBatchId;
     $dict['token'] = $this->token;
     $dict['isLocked'] = $this->isLocked;
     $dict['timeStarted'] = $this->timeStarted;
@@ -55,6 +58,14 @@ class Microworker extends AbstractModel {
   
   function setId($id) {
     $this->microworkerId = $id;
+  }
+  
+  function getMicroworkerBatchId(){
+    return $this->microworkerBatchId;
+  }
+  
+  function setMicroworkerBatchId($microworkerBatchId){
+    $this->microworkerBatchId = $microworkerBatchId;
   }
   
   function getToken(){
@@ -106,6 +117,7 @@ class Microworker extends AbstractModel {
   }
 
   const MICROWORKER_ID = "microworkerId";
+  const MICROWORKER_BATCH_ID = "microworkerBatchId";
   const TOKEN = "token";
   const IS_LOCKED = "isLocked";
   const TIME_STARTED = "timeStarted";

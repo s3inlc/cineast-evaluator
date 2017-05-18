@@ -1,0 +1,28 @@
+{%TEMPLATE->struct/head%}
+{%TEMPLATE->struct/menu%}
+<main>
+  <div class="container">
+    <h3>Microworker Batches</h3>
+
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Time Created</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{FOREACH batch;[[batches]]}}
+          <tr>
+            <td>[[Util::date("d.m.Y - H:i:s", [[batch.getTimeCreated()]])]]</td>
+            <td class="right-align">
+              <a class="btn-floating waves-effect waves-light blue" href="microworkers.php?view=[[batch.getId()]]"><i class="material-icons">mode_edit</i></a>
+            </td>
+          </tr>
+        {{ENDFOREACH}}
+      </tbody>
+    </table>
+  </div>
+</main>
+{%TEMPLATE->struct/foot%}

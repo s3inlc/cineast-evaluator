@@ -9,13 +9,13 @@
 
 namespace DBA;
 
-class MicroworkerFactory extends AbstractModelFactory {
+class MicroworkerBatchFactory extends AbstractModelFactory {
   function getModelName() {
-    return "Microworker";
+    return "MicroworkerBatch";
   }
   
   function getModelTable() {
-    return "Microworker";
+    return "MicroworkerBatch";
   }
   
   function isCachable() {
@@ -27,27 +27,27 @@ class MicroworkerFactory extends AbstractModelFactory {
   }
 
   /**
-   * @return Microworker
+   * @return MicroworkerBatch
    */
   function getNullObject() {
-    $o = new Microworker(-1, null, null, null, null, null, null, null);
+    $o = new MicroworkerBatch(-1, null);
     return $o;
   }
 
   /**
    * @param string $pk
    * @param array $dict
-   * @return Microworker
+   * @return MicroworkerBatch
    */
   function createObjectFromDict($pk, $dict) {
-    $o = new Microworker($pk, $dict['microworkerBatchId'], $dict['token'], $dict['isLocked'], $dict['timeStarted'], $dict['timeClosed'], $dict['surveyCode'], $dict['isConfirmed']);
+    $o = new MicroworkerBatch($pk, $dict['timeCreated']);
     return $o;
   }
 
   /**
    * @param array $options
    * @param bool $single
-   * @return Microworker|Microworker[]
+   * @return MicroworkerBatch|MicroworkerBatch[]
    */
   function filter($options, $single = false) {
     $join = false;
@@ -58,7 +58,7 @@ class MicroworkerFactory extends AbstractModelFactory {
       if($join){
         return parent::filter($options, $single);
       }
-      return Util::cast(parent::filter($options, $single), Microworker::class);
+      return Util::cast(parent::filter($options, $single), MicroworkerBatch::class);
     }
     $objects = parent::filter($options, $single);
     if($join){
@@ -66,24 +66,24 @@ class MicroworkerFactory extends AbstractModelFactory {
     }
     $models = array();
     foreach($objects as $object){
-      $models[] = Util::cast($object, Microworker::class);
+      $models[] = Util::cast($object, MicroworkerBatch::class);
     }
     return $models;
   }
 
   /**
    * @param string $pk
-   * @return Microworker
+   * @return MicroworkerBatch
    */
   function get($pk) {
-    return Util::cast(parent::get($pk), Microworker::class);
+    return Util::cast(parent::get($pk), MicroworkerBatch::class);
   }
 
   /**
-   * @param Microworker $model
-   * @return Microworker
+   * @param MicroworkerBatch $model
+   * @return MicroworkerBatch
    */
   function save($model) {
-    return Util::cast(parent::save($model), Microworker::class);
+    return Util::cast(parent::save($model), MicroworkerBatch::class);
   }
 }

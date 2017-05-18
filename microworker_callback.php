@@ -1,23 +1,38 @@
 <?php
 
+use DBA\Microworker;
+use DBA\QueryFilter;
+
 require_once(dirname(__FILE__) . "/inc/load.php");
 
 $MTURK = new MTurk();
 
-if($MTURK->isMechanicalTurk()){
-
+if ($MTURK->isMechanicalTurk()) {
+  // continue with current session or close session if it's finished
+  header("Location: session.php");
+  die();
 }
-else{
+else if (isset($_GET['token'])) {
   // start a new microworker
+  $qF = new QueryFilter(Microworker::TOKEN, $_GET['token'], "=");
+  $microworker = $FACTORIES::getMicroworkerFactory()->filter(array($FACTORIES::FILTER => $qF), true);
+  if ($microworker == null) {
+    // TODO: show error
+    die("Invalid token!");
+  }
+  else if ($microworker->getTimeClosed() != 0 || $microworker->getTimeStarted() != 0) {
+    // TODO: handle closed
+    die("Already started/finished!");
+  }
+  else if ($microworker->getIsLocked() == 1) {
+    // TODO: handle locked
+    die("Currently not available!");
+  }
+  else {
+    // we can create a session
+  }
+}
+else {
+  // TODO: Error
 }
 
-
-
-$hitId        = $_REQUEST["hitId"];
-$assignmentId = $_REQUEST["assignmentId"];
-$workerId     = $_REQUEST["workerId"];
-
-echo "Hit ID: $hitId\n";
-echo "Ass ID: $assignmentId\n";
-echo "Worker ID: $workerId\n";
-?>

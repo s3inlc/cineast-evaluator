@@ -125,12 +125,17 @@ $CONF['Achievement'] = array(
 );
 $CONF['Microworker'] = array(
   'microworkerId',
+  'microworkerBatchId',
   'token',
   'isLocked',
   'timeStarted',
   'timeClosed',
   'surveyCode',
   'isConfirmed'
+);
+$CONF['MicroworkerBatch'] = array(
+  'microworkerBatchId',
+  'timeCreated'
 );
 
 foreach ($CONF as $NAME => $COLUMNS) {

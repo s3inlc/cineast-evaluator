@@ -55,7 +55,11 @@
             <td><code>[[microworker.getToken()]]</code></td>
             <td>
               {{IF [[microworker.getTimeStarted()]] == 0}}
-                Ready
+                {{IF [[microworker.getIsLocked()]] == 1}}
+                  Locked
+                {{ELSE}}
+                  Ready
+                {{ENDIF}}
               {{ELSE}}
                 {{IF [[microworker.getTimeClosed()]] == 0}}
                   Running

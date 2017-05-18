@@ -18,6 +18,21 @@
           <th>Number of Tokens</th>
           <td>[[sizeof([[microworkers]])]]</td>
         </tr>
+        <tr>
+          <th>Lock/Unlock all</th>
+          <td>
+            <form style="display: inline;" action="microworkers.php?view=[[batch.getId()]]" method="post">
+              <input type="hidden" name="action" value="unlockAll">
+              <input type="hidden" name="batchId" value="[[batch.getId()]]">
+              <button type="submit" class="btn-floating waves-effect waves-light green"><i class="material-icons black-text">lock_open</i></button>
+            </form>&nbsp;&nbsp;
+            <form style="display: inline;" action="microworkers.php?view=[[batch.getId()]]" method="post">
+              <input type="hidden" name="action" value="lockAll">
+              <input type="hidden" name="batchId" value="[[batch.getId()]]">
+              <button type="submit" class="btn-floating waves-effect waves-light red"><i class="material-icons black-text">lock</i></button>
+            </form>
+          </td>
+        </tr>
       </tbody>
     </table>
 
@@ -37,7 +52,7 @@
         {{FOREACH microworker;[[microworkers]]}}
           <tr>
             <td>[[microworker.getId()]]</td>
-            <td>[[microworker.getToken()]]</td>
+            <td><code>[[microworker.getToken()]]</code></td>
             <td>
               {{IF [[microworker.getTimeStarted()]] == 0}}
                 Ready
@@ -58,7 +73,7 @@
               <form style="display: inline;" action="microworkers.php?view=[[batch.getId()]]" method="post">
                 <input type="hidden" name="action" value="toggleLock">
                 <input type="hidden" name="microworkerId" value="[[microworker.getId()]]">
-                <button type="submit" class="btn-floating waves-effect waves-light yellow"><i class="material-icons">{{IF [[microworker.getIsLocked()]] == 1}}lock_open{{ELSE}}lock{{ENDIF}}</i></button>
+                <button type="submit" class="btn-floating waves-effect waves-light yellow"><i class="material-icons black-text">{{IF [[microworker.getIsLocked()]] == 1}}lock_open{{ELSE}}lock{{ENDIF}}</i></button>
               </form>&nbsp;&nbsp;
             </td>
           </tr>

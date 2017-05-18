@@ -22,12 +22,14 @@ class MTurk {
       $this->microworker = $FACTORIES::getMicroworkerFactory()->get($this->microworkerId);
       if ($this->microworker->getIsLocked() == 1) {
         // TODO: maybe additional action required
+        die("LOCKED");
         unset($_SESSION['microworkerId']);
       }
-      else if ($this->microworker != null && $this->microworker->getIsConfirmed() == 0) {
+      else if ($this->microworker != null && !$this->isClosed()) {
         $this->valid = true;
       }
       else {
+        die("ELSE");
         unset($_SESSION['microworkerId']);
       }
     }

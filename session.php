@@ -90,3 +90,5 @@ if ($USER_SESSION->getAnswerSession()->getMicroworkerId() == null) {
 
 $TEMPLATE = new Template("views/" . $question->getQuestionType());
 echo $TEMPLATE->render($OBJECTS);
+
+print_r($_SESSION);

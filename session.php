@@ -58,9 +58,11 @@ if ($USER_SESSION->getAnswerSession()->getMicroworkerId() == null && $USER_SESSI
   header("Location: score.php");
   die();
 }
-else if ($USER_SESSION->getAnswerSession()->getMicroworkerId() != null) {
+else if ($USER_SESSION->getAnswerSession()->getMicroworkerId() != null && $USER_SESSION->getRemainingQuestions() == 0) {
   // it's a microworker
   // we need to handle this special here and not start a new session
+  header("Location: microworker_finished.php");
+  die();
 }
 
 $question = $USER_SESSION->getNextQuestion();

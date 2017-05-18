@@ -33,6 +33,10 @@ class MTurk {
     }
   }
   
+  public function getMicroworker() {
+    return $this->microworker;
+  }
+  
   public function isMechanicalTurk() {
     return $this->valid;
   }

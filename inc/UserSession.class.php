@@ -28,7 +28,10 @@ class UserSession {
     // search for existing session and check it if present
     if (isset($_SESSION['answerSessionId'])) {
       $this->answerSession = $FACTORIES::getAnswerSessionFactory()->get($_SESSION['answerSessionId']);
-      if ($this->answerSession->getIsOpen() == 0) {
+      if ($this->answerSession == null) {
+        $this->answerSession = null;
+      }
+      else if ($this->answerSession->getIsOpen() == 0) {
         $this->answerSession = null;
       }
       else if (sizeof(unserialize($_SESSION['questions'])) == 0) {
@@ -37,7 +40,11 @@ class UserSession {
         $this->answerSession = null;
       }
       else if ($this->answerSession->getMicroworkerId() != null) {
-        // TODO: check if microworker session is still open and valid
+        $mturk = new MTurk();
+        if (!$mturk->isMechanicalTurk()) {
+          $this->close();
+          $this->answerSession = null;
+        }
       }
       else {
         // TODO: Test if session type is still valid

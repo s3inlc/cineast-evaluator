@@ -10,6 +10,7 @@ class SessionType {
   private $id   = 0;
   
   public function __construct() {
+    /** @var $OAUTH OAuthLogin */
     global $LOGIN, $OAUTH;
     
     // check if it's an admin user
@@ -26,7 +27,12 @@ class SessionType {
       return;
     }
     
-    // TODO: load microworker Id here
+    // check if it's a microworker
+    if (isset($_SESSION['microworkerId'])) {
+      $this->type = SessionType::SESSION_TYPE_MICROWORKER;
+      $this->id = $_SESSION['microworkerId'];
+      return;
+    }
   }
   
   public function getId() {

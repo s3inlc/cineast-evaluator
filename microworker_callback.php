@@ -30,9 +30,15 @@ else if (isset($_GET['token'])) {
   }
   else {
     // we can create a session
+    $microworker->setTimeStarted(time());
+    $FACTORIES::getMicroworkerFactory()->update($microworker);
+    $_SESSION['microworkerId'] = $microworker->getId();
+    unset($_SESSION['answerSessionId']);
+    header("Location: session.php");
   }
 }
 else {
   // TODO: Error
+  die("Invalid access!");
 }
 

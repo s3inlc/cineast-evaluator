@@ -6,7 +6,7 @@ $MTURK = new MTurk();
 $OBJECTS['pageTitle'] = "Finished";
 
 if (!$MTURK->isMechanicalTurk()) {
-  // continue with current session or close session if it's finished
+  // forward to start page
   header("Location: index.php");
   die();
 }

@@ -48,6 +48,7 @@ class MicroworkerBatchHandler extends Handler {
     header("Content-Description: batch_" . $batch->getId() . ".csv");
     header("Content-Disposition: attachment; filename=\"batch_" . $batch->getId() . ".csv\"");
     
+    echo "token\n"; // header
     foreach ($microworkers as $microworker) {
       echo $microworker->getToken() . "\n";
     }

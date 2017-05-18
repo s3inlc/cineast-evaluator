@@ -24,7 +24,7 @@ else if (isset($_GET['token'])) {
     // TODO: handle closed
     die("Already started/finished!");
   }
-  else if ($microworker->getIsLocked() == 1) {
+  else if ($microworker->getIsLocked() == "1") {
     // TODO: handle locked
     die("Currently not available!");
   }

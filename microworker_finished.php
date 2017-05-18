@@ -21,6 +21,7 @@ if ($USER_SESSION->getRemainingQuestions() > 0) {
 // close session
 $USER_SESSION->close();
 $microworker = $MTURK->getMicroworker();
+$microworker->setTimeClosed(time());
 
 if (strlen($microworker->getSurveyCode()) == 0) {
   // we need to generate a new confirmation code

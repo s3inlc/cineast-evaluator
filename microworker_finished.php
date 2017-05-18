@@ -27,8 +27,9 @@ if (strlen($microworker->getSurveyCode()) == 0) {
   // we need to generate a new confirmation code
   $confirmCode = Util::randomString(20);
   $microworker->setSurveyCode($confirmCode);
-  $FACTORIES::getMicroworkerFactory()->update($microworker);
 }
+$FACTORIES::getMicroworkerFactory()->update($microworker);
+unset($_SESSION['microworkerId']);
 
 $OBJECTS['surveyCode'] = $microworker->getSurveyCode();
 

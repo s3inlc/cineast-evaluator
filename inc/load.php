@@ -33,6 +33,8 @@ define("GAUSS_LIMIT", 3); // defines the number of answers which is required to 
 define("RESULT_TUPLE_EVALUATED_SIGMA_THRESHOLD", 0.1); // sigma of the result tuple has to be <= this value
 define("RESULT_TUPLE_EVALUATED_ANSWERS_THRESHOLD", 3); // number of questions answered for this tuple has to >= this value
 
+define("MICROWORKER_VALIDITY_CONFIRM_LIMIT", 0.5); // this is the limit where a microworker gets rejected when his validity is below this value
+
 // include all .class.php files in inc dir
 $dir = scandir(dirname(__FILE__));
 foreach ($dir as $entry) {

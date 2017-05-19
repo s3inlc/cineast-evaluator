@@ -6,6 +6,7 @@
  * Time: 11:04
  */
 
+use DBA\AnswerSession;
 use DBA\Microworker;
 use DBA\QueryFilter;
 
@@ -59,7 +60,7 @@ do {
       continue;
     }
     
-    echo "Getting Assignments... ";
+    echo "Getting Assignments...";
     
     $result = $client->listAssignmentsForHIT(array(
         "HITId" => $hit['HITId'],
@@ -68,15 +69,63 @@ do {
     );
     $assignments = $result->toArray()['Assignments'];
     if (sizeof($assignments) == 0) {
-      echo "  EMPTY\n";
+      echo " EMPTY\n";
     }
     else {
       echo " " . sizeof($assignments) . "\n";
       foreach ($assignments as $assignment) {
         $matches = array();
         preg_match('/\<FreeText\>(.*?)\<\/FreeText\>/', $assignment['Answer'], $matches);
-        $answer = $matches[1];
+        $answer = trim($matches[1]);
         echo "  Assignment " . $assignment['AssignmentId'] . " by " . $assignment['WorkerId'] . ": " . $answer . "\n";
+        
+        // check here if the code was correctly
+        if ($microworker->getSurveyCode() != $answer) {
+          // user entered wrong code
+          $client->rejectAssignment(array(
+              "AssignmentId" => $assignment['AssignmentId'],
+              "RequesterFeedback" => "Invalid survey code was entered."
+            )
+          );
+        }
+        else {
+          // check if he got enough validity
+          $qF = new QueryFilter(AnswerSession::MICROWORKER_ID, $microworker->getId(), "=");
+          $answerSessions = $FACTORIES::getAnswerSessionFactory()->filter(array($FACTORIES::FILTER => $qF));
+          // take the completed one (normally there should not be more than one, but just in case
+          $session = null;
+          foreach ($answerSessions as $answerSession) {
+            if ($answerSession->getIsOpen() == 0) {
+              $session = $answerSession;
+              break;
+            }
+          }
+          if ($session == null) {
+            // for some reason the user had a correct survey code but did not complete any session
+            $client->rejectAssignment(array(
+                "AssignmentId" => $assignment['AssignmentId'],
+                "RequesterFeedback" => "No data found for survey code."
+              )
+            );
+          }
+          else {
+            if ($session->getCurrentValidity() >= MICROWORKER_VALIDITY_CONFIRM_LIMIT) {
+              $client->approveAssignment(array(
+                  "AssignmentId" => $assignment['AssignmentId'],
+                  "RequesterFeedback" => "Well done :)"
+                )
+              );
+              // TODO: maybe we can here give bonuses later
+            }
+            else {
+              $client->rejectAssignment(array(
+                  "AssignmentId" => $assignment['AssignmentId'],
+                  "RequesterFeedback" => "You did not pass the checks to detect not correctly answering workers."
+                )
+              );
+            }
+          }
+        }
       }
     }
   }

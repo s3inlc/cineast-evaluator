@@ -1,5 +1,7 @@
 {%TEMPLATE->struct/head%}
-{%TEMPLATE->struct/menu%}
+{{IF [[showMenu]]}}
+  {%TEMPLATE->struct/menu%}
+{{ENDIF}}
 <main>
   <div class="container">
     <div class="row">

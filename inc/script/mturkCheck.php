@@ -21,6 +21,8 @@ $client = new \Aws\MTurk\MTurkClient(array(
 $result = $client->listHITs();
 $hits = $result->toArray();
 foreach ($hits as $hit) {
+  print_r($hit);
+  die();
   $assignments = $client->listAssignmentsForHIT(array(
     "HITId" => $hit['HITId'],
     "AssignmentStatuses" => array("Submitted")

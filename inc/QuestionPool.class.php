@@ -101,6 +101,9 @@ class QuestionPool {
         if ($count < RESULT_TUPLE_EVALUATED_ANSWERS_THRESHOLD || $tuple->getSigma() > RESULT_TUPLE_EVALUATED_SIGMA_THRESHOLD) {
           $found = true;
         }
+        else{
+          $tupleIds[] = $tuple->getId();
+        }
       }
       
       if (!$found) {

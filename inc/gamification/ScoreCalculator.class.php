@@ -56,7 +56,7 @@ class ScoreCalculator {
       }
     }
     
-    $score = floor($score);
+    $score = floor($score/100);
     $multiplicators = array();
     $multiplication = 1;
     

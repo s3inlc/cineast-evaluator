@@ -21,8 +21,6 @@ $client = new \Aws\MTurk\MTurkClient(array(
   )
 );
 
-$client->listAs
-
 $nextToken = null;
 do {
   $opts = array();

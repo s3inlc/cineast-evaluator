@@ -148,7 +148,6 @@ class Util {
         return $resultTuples[$i];
       }
     }
-    echo "NULL on resultTuple weight: " . sizeof($resultTuples) . " available, " . sizeof($excludingTuples) . " tuples excluded\n";
     return null;
   }
   

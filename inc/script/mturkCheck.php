@@ -30,7 +30,7 @@ do {
     $nextToken = $result->toArray()['NextToken'];
   }
   foreach ($hits as $hit) {
-    echo "Processing HIT " . $hit['HITId'] . " with status " . $hit['HITStatus'] . "... ";
+    echo "Processing HIT " . $hit['HITId'] . " with status: " . $hit['HITStatus'] . ", expiration: " . $hit['Expiration'] . "... ";
     $result = $client->listAssignmentsForHIT(array(
         "HITId" => $hit['HITId'],
         "AssignmentStatuses" => array("Submitted")

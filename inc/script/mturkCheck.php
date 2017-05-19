@@ -48,7 +48,7 @@ do {
     $qF = new QueryFilter(Microworker::TOKEN, $token, "=");
     $microworker = $FACTORIES::getMicroworkerFactory()->filter(array($FACTORIES::FILTER => $qF), true);
     if ($microworker->getTimeClosed() == 0) {
-      echo "Not started yet\n";
+      echo "Not finished yet\n";
       continue;
     }
     else if ($microworker->getIsConfirmed() != 0) {

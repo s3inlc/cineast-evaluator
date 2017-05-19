@@ -157,7 +157,11 @@ class UserSession {
       $numSecurityQuestions = $_SESSION['numSecurityQuestions'];
     }
     
-    if (random_int(0, SESSION_SIZE) > $numSecurityQuestions * SESSION_SIZE / 6) {
+    $sessionSize = SESSION_SIZE_GAME;
+    if ($this->answerSession->getMicroworkerId() != null) {
+      $sessionSize = SESSION_SIZE_MICROWORKER;
+    }
+    if (random_int(0, $sessionSize) > $numSecurityQuestions * $sessionSize / 6) {
       $question = Util::getSecurityQuestion();
       if ($question != null) {
         $numSecurityQuestions++;

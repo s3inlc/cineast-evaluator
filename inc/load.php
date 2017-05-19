@@ -20,7 +20,8 @@ define("QUERIES_FOLDER", "queries/"); // subfolder of the storage path where the
 
 define("DEFAULT_SIMILARITY", "0"); // TODO: should be removed
 define("DEFAULT_CERTAINTY", "0"); // TODO: should be removed
-define("SESSION_SIZE", "20"); // number of questions for a session (excluding the security questions)
+define("SESSION_SIZE_GAME", 50); // number of questions for a session (excluding the security questions)
+define("SESSION_SIZE_MICROWORKER", 100);
 
 // max size an image can have before it will be resized to these sizes
 define("IMAGE_MAX_HEIGHT", 1000);

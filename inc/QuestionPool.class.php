@@ -56,7 +56,12 @@ class QuestionPool {
     $queries = $FACTORIES::getQueryFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF));
     
     $questions = array();
-    for ($i = 0; $i < SESSION_SIZE; $i++) {
+    $sessionSize = SESSION_SIZE_GAME;
+    if ($answerSession->getMicroworkerId() != null) {
+      $sessionSize = SESSION_SIZE_MICROWORKER;
+    }
+    
+    for ($i = 0; $i < $sessionSize; $i++) {
       $query = Util::getQueryWeightedWithPriority($queries); // get a random query weighed by the priority
       
       $qF1 = new QueryFilter(QueryResultTuple::QUERY_ID, $query->getId(), "=", $FACTORIES::getQueryResultTupleFactory());

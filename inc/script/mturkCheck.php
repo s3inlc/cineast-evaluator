@@ -59,6 +59,8 @@ do {
       continue;
     }
     
+    echo "Getting Assignments... ";
+    
     $result = $client->listAssignmentsForHIT(array(
         "HITId" => $hit['HITId'],
         "AssignmentStatuses" => array("Submitted")
@@ -66,15 +68,15 @@ do {
     );
     $assignments = $result->toArray()['Assignments'];
     if (sizeof($assignments) == 0) {
-      echo " EMPTY\n";
+      echo "  EMPTY\n";
     }
     else {
-      echo " " . sizeof($assignments) . " Assignments:\n";
+      echo " " . sizeof($assignments) . "\n";
       foreach ($assignments as $assignment) {
         $matches = array();
         preg_match('/\<FreeText\>(.*?)\<\/FreeText\>/', $assignment['Answer'], $matches);
         $answer = $matches[1];
-        echo "  " . $assignment['AssignmentId'] . " by " . $assignment['WorkerId'] . ": " . $answer . "\n";
+        echo "  Assignment " . $assignment['AssignmentId'] . " by " . $assignment['WorkerId'] . ": " . $answer . "\n";
       }
     }
   }

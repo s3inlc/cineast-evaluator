@@ -19,14 +19,15 @@ $client = new \Aws\MTurk\MTurkClient(array(
 );
 
 $result = $client->listHITs();
-$hits = $result->toArray();
-foreach ($hits as $hit) {
+$keys = $result->toArray();
+foreach ($keys as $key) {
+  $hit = $result->get($key);
   print_r($hit);
   die();
   $assignments = $client->listAssignmentsForHIT(array(
-    "HITId" => $hit['HITId'],
-    "AssignmentStatuses" => array("Submitted")
-  )
+      "HITId" => $hit['HITId'],
+      "AssignmentStatuses" => array("Submitted")
+    )
   );
 }
 

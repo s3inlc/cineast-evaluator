@@ -131,7 +131,8 @@ $CONF['Microworker'] = array(
   'timeStarted',
   'timeClosed',
   'surveyCode',
-  'isConfirmed'
+  'isConfirmed',
+  'workerId'
 );
 $CONF['MicroworkerBatch'] = array(
   'microworkerBatchId',

@@ -18,8 +18,9 @@ class Microworker extends AbstractModel {
   private $timeClosed;
   private $surveyCode;
   private $isConfirmed;
+  private $workerId;
   
-  function __construct($microworkerId, $microworkerBatchId, $token, $isLocked, $timeStarted, $timeClosed, $surveyCode, $isConfirmed) {
+  function __construct($microworkerId, $microworkerBatchId, $token, $isLocked, $timeStarted, $timeClosed, $surveyCode, $isConfirmed, $workerId) {
     $this->microworkerId = $microworkerId;
     $this->microworkerBatchId = $microworkerBatchId;
     $this->token = $token;
@@ -28,6 +29,7 @@ class Microworker extends AbstractModel {
     $this->timeClosed = $timeClosed;
     $this->surveyCode = $surveyCode;
     $this->isConfirmed = $isConfirmed;
+    $this->workerId = $workerId;
   }
   
   function getKeyValueDict() {
@@ -40,6 +42,7 @@ class Microworker extends AbstractModel {
     $dict['timeClosed'] = $this->timeClosed;
     $dict['surveyCode'] = $this->surveyCode;
     $dict['isConfirmed'] = $this->isConfirmed;
+    $dict['workerId'] = $this->workerId;
     
     return $dict;
   }
@@ -115,6 +118,14 @@ class Microworker extends AbstractModel {
   function setIsConfirmed($isConfirmed){
     $this->isConfirmed = $isConfirmed;
   }
+  
+  function getWorkerId(){
+    return $this->workerId;
+  }
+  
+  function setWorkerId($workerId){
+    $this->workerId = $workerId;
+  }
 
   const MICROWORKER_ID = "microworkerId";
   const MICROWORKER_BATCH_ID = "microworkerBatchId";
@@ -124,4 +135,5 @@ class Microworker extends AbstractModel {
   const TIME_CLOSED = "timeClosed";
   const SURVEY_CODE = "surveyCode";
   const IS_CONFIRMED = "isConfirmed";
+  const WORKER_ID = "workerId";
 }

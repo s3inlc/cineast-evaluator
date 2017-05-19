@@ -7,7 +7,7 @@ ini_set("display_errors", "0");
 
 $OBJECTS = array();
 
-define("GAME_NAME", "DirtyMind");
+define("GAME_NAME", "ArtSimily");
 $VERSION = "0.1.0";
 $OBJECTS['GameName'] = GAME_NAME;
 $OBJECTS['version'] = $VERSION;

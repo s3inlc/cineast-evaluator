@@ -50,6 +50,7 @@ class QuestionPool {
     foreach ($twoAnswers as $twoAnswer) {
       $tupleIds[] = $twoAnswer->getResultTupleId();
     }
+    echo "excluding ".sizeof($tupleIds)."tuples...\n";
     
     $qF = new QueryFilter(Query::IS_CLOSED, 0, "=");
     $oF = new OrderFilter(Query::PRIORITY, "DESC");
@@ -85,7 +86,11 @@ class QuestionPool {
       /** @var $tuple ResultTuple */
       $found = false;
       while (!$found) {
-        $tuple = Util::getTupleWeightedWithRankAndSigma($joined[$FACTORIES::getResultTupleFactory()->getModelName()], $joined[$FACTORIES::getQueryResultTupleFactory()->getModelName()], $tupleIds);
+        $tuple = Util::getTupleWeightedWithRankAndSigma(
+          $joined[$FACTORIES::getResultTupleFactory()->getModelName()],
+          $joined[$FACTORIES::getQueryResultTupleFactory()->getModelName()],
+          $tupleIds
+        );
         if ($tuple == null) {
           break; // we have no tuples left on this query
         }

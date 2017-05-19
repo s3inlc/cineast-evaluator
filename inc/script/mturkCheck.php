@@ -130,6 +130,7 @@ do {
             }
           }
         }
+        $microworker->setWorkerId($assignment['WorkerId']);
         $FACTORIES::getMicroworkerFactory()->update($microworker);
       }
     }

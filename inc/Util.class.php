@@ -105,12 +105,9 @@ class Util {
     }
     
     $exclude = array();
-    echo "Before exclude process\n";
     foreach ($excludingTuples as $excludingTuple) {
-      echo "Excluding " . $excludingTuple . "\n";
       $exclude[$excludingTuple] = true;
     }
-    echo "After exclude process\n";
     
     $highestRank = 0;
     foreach ($queryResultTuples as $queryResultTuple) {
@@ -151,6 +148,7 @@ class Util {
         return $resultTuples[$i];
       }
     }
+    echo "NULL on resultTuple weight: " . sizeof($resultTuples) . " available, " . sizeof($excludingTuples) . " tuples excluded\n";
     return null;
   }
   

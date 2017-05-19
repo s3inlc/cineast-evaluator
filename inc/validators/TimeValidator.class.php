@@ -11,7 +11,7 @@ use DBA\Validation;
  * This class will only validate sessions when the last question is finished
  */
 class TimeValidator extends Validator {
-  const AVG_TIME_LOWER_LIMIT = 1.5;
+  const AVG_TIME_LOWER_LIMIT = 1.1;
   const PEAK_DIST_FROM_AVG   = 60;
   const AVG_TIME_UPPER_LIMIT = 100;
   

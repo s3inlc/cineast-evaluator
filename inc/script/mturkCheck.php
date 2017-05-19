@@ -22,11 +22,11 @@ $nextToken = null;
 do {
   $opts = array();
   if ($nextToken != null) {
-    $opts['nextToken'] = $nextToken;
+    $opts['NextToken'] = $nextToken;
   }
   $result = $client->listHITs($opts);
   $hits = $result->toArray()['HITs'];
-  $nextToken = $result->toArray()['nextToken'];
+  $nextToken = $result->toArray()['NextToken'];
   foreach ($hits as $hit) {
     echo "Processing HIT " . $hit['HITId'];
     $result = $client->listAssignmentsForHIT(array(

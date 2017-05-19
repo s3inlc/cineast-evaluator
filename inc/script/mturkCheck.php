@@ -26,9 +26,11 @@ do {
   }
   $result = $client->listHITs($opts);
   $hits = $result->toArray()['HITs'];
-  $nextToken = $result->toArray()['NextToken'];
+  if (isset($result->toArray()['NextToken'])) {
+    $nextToken = $result->toArray()['NextToken'];
+  }
   foreach ($hits as $hit) {
-    echo "Processing HIT " . $hit['HITId'];
+    echo "Processing HIT " . $hit['HITId'] . " with status " . $hit['HITStatus'] . "... ";
     $result = $client->listAssignmentsForHIT(array(
         "HITId" => $hit['HITId'],
         "AssignmentStatuses" => array("Submitted")

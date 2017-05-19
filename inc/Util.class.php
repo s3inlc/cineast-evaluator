@@ -106,6 +106,7 @@ class Util {
     
     $exclude = array();
     foreach ($excludingTuples as $excludingTuple) {
+      echo "Excluding " . $excludingTuple . "\n";
       $exclude[$excludingTuple] = true;
     }
     

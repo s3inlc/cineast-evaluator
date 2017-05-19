@@ -50,7 +50,6 @@ class QuestionPool {
     foreach ($twoAnswers as $twoAnswer) {
       $tupleIds[] = $twoAnswer->getResultTupleId();
     }
-    echo "excluding ".sizeof($tupleIds)."tuples...\n";
     
     $qF = new QueryFilter(Query::IS_CLOSED, 0, "=");
     $oF = new OrderFilter(Query::PRIORITY, "DESC");

@@ -51,8 +51,8 @@ do {
       echo "Not started yet\n";
       continue;
     }
-    else if ($microworker->getIsConfirmed() == 1) {
-      echo "Already confirmed\n";
+    else if ($microworker->getIsConfirmed() != 0) {
+      echo "Already confirmed/rejected\n";
       continue;
     }
     else if ($microworker->getIsLocked() == 1) {
@@ -87,6 +87,7 @@ do {
               "RequesterFeedback" => "Invalid survey code was entered."
             )
           );
+          $microworker->setIsConfirmed(-1);
         }
         else {
           // check if he got enough validity
@@ -107,6 +108,7 @@ do {
                 "RequesterFeedback" => "No data found for survey code."
               )
             );
+            $microworker->setIsConfirmed(-1);
           }
           else {
             if ($session->getCurrentValidity() >= MICROWORKER_VALIDITY_CONFIRM_LIMIT) {
@@ -115,6 +117,7 @@ do {
                   "RequesterFeedback" => "Well done :)"
                 )
               );
+              $microworker->setIsConfirmed(1);
               // TODO: maybe we can here give bonuses later
             }
             else {
@@ -123,9 +126,11 @@ do {
                   "RequesterFeedback" => "You did not pass the checks to detect not correctly answering workers."
                 )
               );
+              $microworker->setIsConfirmed(-1);
             }
           }
         }
+        $FACTORIES::getMicroworkerFactory()->update($microworker);
       }
     }
   }

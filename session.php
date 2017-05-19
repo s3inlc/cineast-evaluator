@@ -73,6 +73,13 @@ if ($question == null) {
 // TODO: this needs to be updated later to also adapt for compare3 questions
 Util::prepare2CompareQuestion($question->getMediaObjects()[0], $question->getMediaObjects()[1], $question->getResultTuples()[0]);
 
+$sessionSize = SESSION_SIZE_GAME;
+if ($USER_SESSION->getAnswerSession()->getMicroworkerId() != null) {
+  $sessionSize = SESSION_SIZE_MICROWORKER;
+}
+$progress = floor(($sessionSize - $USER_SESSION->getRemainingQuestions()) * 100 / $sessionSize);
+$OBJECTS['progress'] = $progress;
+
 if (ini_get("display_errors") == "1") {
   $debug = array(
     "Number of security questions pushed: " . $_SESSION['numSecurityQuestions'],

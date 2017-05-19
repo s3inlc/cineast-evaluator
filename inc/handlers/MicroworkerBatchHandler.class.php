@@ -109,7 +109,7 @@ class MicroworkerBatchHandler extends Handler {
         $qF = new QueryFilter(Microworker::TOKEN, $token, "=");
         $check = $FACTORIES::getMicroworkerFactory()->filter(array($FACTORIES::FILTER => $qF), true);
       } while ($check != null);
-      $microworkers[] = new Microworker(0, $batch->getId(), $token, 1, 0, 0, "", 0);
+      $microworkers[] = new Microworker(0, $batch->getId(), $token, 1, 0, 0, "", 0, "");
     }
     $FACTORIES::getMicroworkerFactory()->massSave($microworkers);
     header("Location: microworkers.php");

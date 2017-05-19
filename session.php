@@ -77,7 +77,7 @@ $sessionSize = SESSION_SIZE_GAME;
 if ($USER_SESSION->getAnswerSession()->getMicroworkerId() != null) {
   $sessionSize = SESSION_SIZE_MICROWORKER;
 }
-$progress = floor(($sessionSize - $USER_SESSION->getRemainingQuestions()) * 100 / $sessionSize);
+$progress = floor(($sessionSize - $USER_SESSION->getRemainingQuestions() - 1) * 100 / $sessionSize);
 $OBJECTS['progress'] = $progress;
 
 if (ini_get("display_errors") == "1") {

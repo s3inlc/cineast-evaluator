@@ -20,9 +20,9 @@ else if (isset($_GET['token'])) {
     // TODO: show error
     die("Invalid token!");
   }
-  else if ($microworker->getTimeClosed() != 0 || $microworker->getTimeStarted() != 0) {
+  else if ($microworker->getTimeClosed() != 0 && $microworker->getTimeStarted() != 0) {
     // TODO: handle closed
-    die("Already started/finished!");
+    die("Already finished!");
   }
   else if ($microworker->getIsLocked() == 1) {
     // TODO: handle locked

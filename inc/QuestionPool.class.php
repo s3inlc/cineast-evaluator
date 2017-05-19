@@ -62,6 +62,14 @@ class QuestionPool {
     }
     
     for ($i = 0; $i < $sessionSize; $i++) {
+      if (random_int(0, 100) < 15) {
+        $question = Util::getSecurityQuestion();
+        if ($question != null) {
+          $questions[] = $question;
+          continue;
+        }
+      }
+      
       $query = Util::getQueryWeightedWithPriority($queries); // get a random query weighed by the priority
       
       $qF1 = new QueryFilter(QueryResultTuple::QUERY_ID, $query->getId(), "=", $FACTORIES::getQueryResultTupleFactory());

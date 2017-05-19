@@ -152,27 +152,6 @@ class UserSession {
   public function getNextQuestion() {
     global $OBJECTS;
     
-    $numSecurityQuestions = 0;
-    if (isset($_SESSION['numSecurityQuestions'])) {
-      $numSecurityQuestions = $_SESSION['numSecurityQuestions'];
-    }
-    
-    $sessionSize = SESSION_SIZE_GAME;
-    if ($this->answerSession->getMicroworkerId() != null) {
-      $sessionSize = SESSION_SIZE_MICROWORKER;
-    }
-    if (random_int(0, $sessionSize) > $numSecurityQuestions * 6) {
-      $question = Util::getSecurityQuestion();
-      if ($question != null) {
-        $numSecurityQuestions++;
-        $this->questionQueue->prependQuestion($question);
-        $_SESSION['questions'] = serialize($this->questionQueue->getQuestions());
-        //TODO: debug code should be removed
-        $OBJECTS['security'] = true;
-      }
-    }
-    $_SESSION['numSecurityQuestions'] = $numSecurityQuestions;
-    
     if (!$this->questionQueue->questionAvailable()) {
       $this->close();
       $this->init();

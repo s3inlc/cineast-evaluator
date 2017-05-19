@@ -27,7 +27,6 @@ foreach ($hits as $hit) {
     )
   );
   print_r($assignments);
-  die();
 }
 
 

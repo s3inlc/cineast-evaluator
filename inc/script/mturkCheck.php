@@ -35,7 +35,7 @@ foreach ($hits as $hit) {
     echo " " . sizeof($assignments) . " Assignments:\n";
     foreach ($assignments as $assignment) {
       preg_match('/\<FreeText\>(.*?)\<\/FreeText\>/', $assignment['Answer'], $matches);
-      $answer = $matches[0][1];
+      $answer = $matches[1];
       echo "  " . $assignment['AssignmentId'] . " by " . $assignment['WorkerId'] . ": " . $answer . "\n";
     }
   }

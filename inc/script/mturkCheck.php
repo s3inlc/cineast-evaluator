@@ -37,6 +37,10 @@ do {
     
     $matches = array();
     preg_match('/\&token\=([a-zA-Z0-9]*?)\"/', $hit['Question'], $matches);
+    if (sizeof($matches) < 1) {
+      echo "Invalid HIT!\n";
+      continue;
+    }
     $token = $matches[1];
     echo "\n  check token $token... ";
     

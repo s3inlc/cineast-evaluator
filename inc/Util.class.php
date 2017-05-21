@@ -210,8 +210,8 @@ class Util {
       $mediaObject1 = $m;
     }
     
-    $value1->addValue('objData', array("serve.php?id=" . $mediaObject1->getChecksum()));
-    $value2->addValue('objData', array("serve.php?id=" . $mediaObject2->getChecksum()));
+    $value1->addValue('objData', array(new DataSet(array("data" => "serve.php?id=" . $mediaObject1->getChecksum(), "source" => $mediaObject1->getSource()))));
+    $value2->addValue('objData', array(new DataSet(array("data" => "serve.php?id=" . $mediaObject2->getChecksum(), "source" => $mediaObject2->getSource()))));
     
     $mediaType1 = $FACTORIES::getMediaTypeFactory()->get($mediaObject1->getMediaTypeId());
     $mediaType2 = $FACTORIES::getMediaTypeFactory()->get($mediaObject2->getMediaTypeId());

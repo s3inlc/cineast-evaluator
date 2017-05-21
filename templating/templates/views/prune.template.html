@@ -16,7 +16,7 @@
     <h3>ATTENTION: pruning session</h3>
     <div class="row valign-wrapper" style="height: 100%;">
       <div class="col m12" style="text-align: center;">
-        {{FOREACH objectSource;[[value1.getVal('objData')]]}}
+        {{FOREACH object;[[value1.getVal('objData')]]}}
           {{IF [[value1.getVal('template')]] == "default"}}
             {%TEMPLATE->media/default%}
           {{ENDIF}}
@@ -25,7 +25,7 @@
           {{ENDIF}}
         {{ENDFOREACH}}
         &nbsp;&nbsp;&nbsp;
-        {{FOREACH objectSource;[[value2.getVal('objData')]]}}
+        {{FOREACH object;[[value2.getVal('objData')]]}}
           {{IF [[value2.getVal('template')]] == "default"}}
             {%TEMPLATE->media/default%}
           {{ENDIF}}
@@ -42,7 +42,7 @@
         <input type="hidden" name="objectId2" value="[[object2.getId()]]">
         <input type="hidden" name="resultTupleId" value="[[tuple.getId()]]">
 
-        <b>How similar are these two objects?</b><br><br>
+        <b>How similar are these two pieces?</b><br><br>
 
         <div class="row">
           <button class="btn waves-effect waves-light" name="answer" value="0" type="submit">No Similarity</button>

@@ -38,7 +38,13 @@
         <tr>
           <th>Latest Game</th>
           <td>
-
+            {{IF [[latestGame]] == null}}
+              N/A
+            {{ELSE}}
+              Date: [[date("d.m.Y - H:i:s", [[latestGame.getTimeFinished()]])]]<br>
+              Base Score: [[Util::number([[latestGame.getGameScore()]])]]<br>
+              Full Score: [[Util::number([[latestGame.getFullScore()]])]]
+            {{ENDIF}}
           </td>
         </tr>
       </tbody>

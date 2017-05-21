@@ -52,6 +52,7 @@ foreach ($games as $game) {
   $playedGames++;
   $latestGame = $game;
 }
+$totalScore = Util::number($totalScore);
 
 if ($playedGames > 0) {
   $averageScore = Util::number(floor($totalScore / $playedGames));
@@ -59,7 +60,7 @@ if ($playedGames > 0) {
   $highestFull = Util::number($highestFullGame->getFullScore());
   $oF1 = new OrderFilter(Game::GAME_SCORE, "DESC");
   $oF2 = new OrderFilter(Game::FINISHED_TIME, "DESC");
-  $games = $FACTORIES::getGameFactory()->filter(array($FACTORIES::ORDER => $oF));
+  $games = $FACTORIES::getGameFactory()->filter(array($FACTORIES::ORDER => array($oF1, $oF2)));
   $baseRank = 0;
   $fullRank = 0;
   $count = 1;
@@ -88,6 +89,7 @@ $OBJECTS['averageScore'] = $averageScore;
 $OBJECTS['baseRank'] = $baseRank;
 $OBJECTS['fullRank'] = $fullRank;
 $OBJECTS['latestGame'] = $latestGame;
+$OBJECTS['totalScore'] = $totalScore;
 
 echo $TEMPLATE->render($OBJECTS);
 

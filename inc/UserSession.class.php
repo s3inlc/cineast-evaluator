@@ -29,7 +29,7 @@ class UserSession {
     if (isset($_SESSION['answerSessionId'])) {
       $this->answerSession = $FACTORIES::getAnswerSessionFactory()->get($_SESSION['answerSessionId']);
       if ($this->answerSession == null) {
-        $this->answerSession = null;
+        // nothing
       }
       else if ($this->answerSession->getIsOpen() == 0) {
         $this->answerSession = null;

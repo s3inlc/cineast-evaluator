@@ -560,13 +560,16 @@ class Util {
    *          subject of the email
    * @param string $text
    *          html content of the email
+   * @param string $fromAddress
+   * @param string $fromName
    * @return true on success, false on failure
    */
-  public static function sendMail($address, $subject, $text) {
+  public static function sendMail($address, $subject, $text, $fromAddress = NO_REPLY_EMAIL, $fromName = DEFAULT_EMAIL_FROM) {
     //TODO: make sending email configurable
     
     $header = "Content-type: text/html; charset=utf8\r\n";
-    $header .= "From: todo <todo@to.do>\r\n";
+    $header .= "From: " . DEFAULT_EMAIL_FROM . " <" . NO_REPLY_EMAIL . ">\r\n";
+    $header .= "Reply-To: $fromName <$fromAddress>\r\n";
     if (!mail($address, $subject, $text, $header)) {
       return false;
     }

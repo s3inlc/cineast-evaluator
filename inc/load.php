@@ -20,6 +20,9 @@ define("TMP_FOLDER", "tmp/"); // folder where it extracts zips and stores tempor
 define("MEDIA_FOLDER", "media/"); // subfolder of the storage path where all media is saved
 define("QUERIES_FOLDER", "queries/"); // subfolder of the storage path where the queries will be saved
 
+define("NO_REPLY_EMAIL", "no_reply@artsimily.com");
+define("DEFAULT_EMAIL_FROM", "ArtSimily");
+
 define("DEFAULT_SIMILARITY", "0"); // TODO: should be removed
 define("DEFAULT_CERTAINTY", "0"); // TODO: should be removed
 define("SESSION_SIZE_GAME", 50); // number of questions for a session (excluding the security questions)

@@ -1,6 +1,8 @@
 <?php
 
 use DBA\Factory;
+use DBA\Player;
+use DBA\QueryFilter;
 
 //set to 1 for debugging
 ini_set("display_errors", "0");
@@ -101,10 +103,21 @@ $LOGIN = new Login();
 if (!isset($OVERRIDELOGIN) || !$OVERRIDELOGIN) {
   $OAUTH = new OAuthLogin();
   $OBJECTS['oauth'] = $OAUTH;
+  
+  // handle if user accessed this page with an affiliate link
+  if (!$OAUTH->isLoggedin() && isset($_GET['affiliate']) && !isset($_SESSION['affiliate'])) {
+    $affiliate = $_GET['affiliate'];
+    $qF = new QueryFilter(Player::AFFILIATE_KEY, $affiliate, "=");
+    $check = $FACTORIES::getPlayerFactory()->filter(array($FACTORIES::FILTER => $qF), true);
+    if ($check != null) {
+      $_SESSION['affiliate'] = $affiliate;
+    }
+  }
 }
 $OBJECTS['login'] = $LOGIN;
 $OBJECTS['administrator'] = false;
 if ($LOGIN->isLoggedin()) {
   $OBJECTS['user'] = $LOGIN->getUser();
 }
+
 

@@ -137,7 +137,15 @@ if ($oauth == null) {
     $player = $OAUTH->getPlayer();
   }
   else {
-    $player = new Player(0, $userinfo['name'], $userinfo['email'], "", "");
+    $affiliatedBy = 0;
+    if (isset($_SESSION['affiliate'])) {
+      $qF = new QueryFilter(Player::AFFILIATE_KEY, $_SESSION['affiliate'], "=");
+      $affiliatePlayer = $FACTORIES::getPlayerFactory()->filter(array($FACTORIES::FILTER => $qF), true);
+      if ($affiliatePlayer != null) {
+        $affiliatedBy = $affiliatePlayer->getId();
+      }
+    }
+    $player = new Player(0, $userinfo['name'], $userinfo['email'], "", $affiliatedBy);
     $player = $FACTORIES::getPlayerFactory()->save($player);
   }
   $oauth = new Oauth(0, $player->getId(), $provider, time(), time(), $userinfo['id']);

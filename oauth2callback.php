@@ -149,7 +149,7 @@ $FACTORIES::getOauthFactory()->update($oauth);
 if (!isset($player)) {
   $player = $FACTORIES::getPlayerFactory()->get($oauth->getPlayerId());
 }
-if (strlen($player->getEmail()) == 0) {
+if (strlen($player->getEmail()) == 0 && strlen($userinfo['email']) > 0) {
   $player->setEmail($userinfo['email']);
   $FACTORIES::getPlayerFactory()->update($player);
 }

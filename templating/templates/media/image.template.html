@@ -1,1 +1,5 @@
-<img class="responsive-img question-image z-depth-5 tooltipped" data-position="bottom" data-delay="50" data-tooltip="[[object.getVal('source')]]" src="[[object.getVal('data')]]">
+{{IF [[strlen([[object.getVal('source')]])]] > 0}}
+  <img class="responsive-img question-image z-depth-5 tooltipped" data-position="bottom" data-delay="50" data-tooltip="[[object.getVal('source')]]" src="[[object.getVal('data')]]">
+{{ELSE}}
+  <img class="responsive-img question-image z-depth-5" src="[[object.getVal('data')]]">
+{{ENDIF}}

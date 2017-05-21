@@ -20,6 +20,21 @@
       </div>
     </div>
 
+    <h4>Invite other People</h4>
+    <p>Invite other people to join [[gameName]] and earn achievements!</p>
+    <form action="settings.php" method="post">
+      <input type="hidden" name="action" value="invite">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="invite" type="text" name="email" class="validate">
+          <label for="invite">Email Address</label>
+        </div>
+        <div class="col s12 m3">
+          <button class="btn waves-effect waves-light green" type="submit">Invite</button>
+        </div>
+      </div>
+    </form>
+
     <h4>Change your username</h4>
     <form action="settings.php" method="post">
       <input type="hidden" name="action" value="changeUsername">

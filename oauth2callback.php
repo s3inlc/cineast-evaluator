@@ -135,21 +135,6 @@ if ($oauth == null) {
   // check if player is logged in with another provider
   if ($OAUTH->isLoggedin()) {
     $player = $OAUTH->getPlayer();
-    if ($player->getId() != $oauth->getPlayerId()) {
-      // this case appears when a user created two separate accounts and he wants to connect them now
-      // we merge them here to the account which was logged in first
-      $otherPlayer = $FACTORIES::getPlayerFactory()->get($oauth->getPlayerId());
-      $mergedPlayer = $player;
-      
-      // TODO: update affiliate links
-      // TODO: merge achievements (maybe we can just call the achievement tester once
-      // TODO: change playerId on answer sessions
-      // TODO: change playerId on games
-      // TODO: change playerId on oauth providers
-      
-      // TODO: delete achievements of old user
-      // TODO: delete otherPlayer
-    }
   }
   else {
     $affiliatedBy = 0;
@@ -165,6 +150,22 @@ if ($oauth == null) {
   }
   $oauth = new Oauth(0, $player->getId(), $provider, time(), time(), $userinfo['id']);
   $oauth = $FACTORIES::getOauthFactory()->save($oauth);
+}
+else if ($OAUTH->isLoggedin() && $oauth->getPlayerId() != $OAUTH->getPlayer()->getId()) {
+  // this case appears when a user created two separate accounts and he wants to connect them now
+  // we merge them here to the account which was logged in first
+  $otherPlayer = $FACTORIES::getPlayerFactory()->get($oauth->getPlayerId());
+  $mergedPlayer = $player;
+  
+  // TODO: update affiliate links
+  $qF = new QueryFilter(Player::AFFILIATED_BY, $otherPlayer->getId(), "=");
+  // TODO: merge achievements (maybe we can just call the achievement tester once
+  // TODO: change playerId on answer sessions
+  // TODO: change playerId on games
+  // TODO: change playerId on oauth providers
+  
+  // TODO: delete achievements of old user
+  // TODO: delete otherPlayer
 }
 $oauth->setLastLogin(time());
 $FACTORIES::getOauthFactory()->update($oauth);

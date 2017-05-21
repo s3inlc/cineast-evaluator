@@ -68,7 +68,7 @@ class OAuthLogin {
       }
     }
     
-    if ($this->isLoggedin() && strlen($this->player->getAffiliateKey()) == 0) {
+    if ($this->valid && strlen($this->player->getAffiliateKey()) == 0) {
       do {
         $key = Util::randomString(10);
         $qF = new QueryFilter(Player::AFFILIATE_KEY, $key, "=");

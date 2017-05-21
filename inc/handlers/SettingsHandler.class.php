@@ -31,6 +31,14 @@ class SettingsHandler extends Handler {
       UI::addErrorMessage("Please enter a valid email address!");
       return;
     }
+    
+    $qF = new QueryFilter(Player::EMAIL, $email, "=");
+    $check = $FACTORIES::getPlayerFactory()->filter(array($FACTORIES::FILTER => $qF), true);
+    if ($check != null) {
+      UI::addErrorMessage("This user already has an account!");
+      return;
+    }
+    
     $emailContent = new Template("email/invite");
     $emailObj = array(
       "GameName" => GAME_NAME,

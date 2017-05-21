@@ -41,9 +41,20 @@
             {{IF [[latestGame]] == null}}
               N/A
             {{ELSE}}
-              Date: [[date("d.m.Y - H:i:s", [[latestGame.getFinishedTime()]])]]<br>
-              Base Score: [[Util::number([[latestGame.getGameScore()]])]]<br>
-              Full Score: [[Util::number([[latestGame.getFullScore()]])]]
+              <table>
+                <tr>
+                  <td>Date:</td>
+                  <td class="right">[[date("d.m.Y - H:i:s", [[latestGame.getFinishedTime()]])]]</td>
+                </tr>
+                <tr>
+                  <td>Base Score:</td>
+                  <td class="right">[[Util::number([[latestGame.getGameScore()]])]]</td>
+                </tr>
+                <tr>
+                  <td>Full Score:</td>
+                  <td class="right">[[Util::number([[latestGame.getFullScore()]])]]</td>
+                </tr>
+              </table>
             {{ENDIF}}
           </td>
         </tr>

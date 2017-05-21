@@ -24,6 +24,6 @@ else {
     UI::printError("ERROR", "Invalid User!");
   }
 }
-$OBJECTS['player'];
+$OBJECTS['player'] = $player;
 
 echo $TEMPLATE->render($OBJECTS);

@@ -41,7 +41,7 @@
             {{IF [[latestGame]] == null}}
               N/A
             {{ELSE}}
-              Date: [[date("d.m.Y - H:i:s", [[latestGame.getTimeFinished()]])]]<br>
+              Date: [[date("d.m.Y - H:i:s", [[latestGame.getFinishedTime()]])]]<br>
               Base Score: [[Util::number([[latestGame.getGameScore()]])]]<br>
               Full Score: [[Util::number([[latestGame.getFullScore()]])]]
             {{ENDIF}}

@@ -1,4 +1,6 @@
 <?php
+use DBA\Player;
+use DBA\QueryFilter;
 
 /**
  * Created by IntelliJ IDEA.
@@ -64,6 +66,16 @@ class OAuthLogin {
           $this->valid = false;
           break;
       }
+    }
+    
+    if ($this->isLoggedin() && strlen($this->player->getAffiliateKey()) == 0) {
+      do {
+        $key = Util::randomString(10);
+        $qF = new QueryFilter(Player::AFFILIATE_KEY, $key, "=");
+        $check = $FACTORIES::getPlayerFactory()->filter(array($FACTORIES::FILTER => $qF));
+      } while (sizeof($check) > 0);
+      $this->player->setAffiliateKey($key);
+      $FACTORIES::getPlayerFactory()->update($this->player);
     }
   }
   

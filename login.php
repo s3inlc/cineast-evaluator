@@ -3,6 +3,7 @@ require_once(dirname(__FILE__) . "/inc/load.php");
 
 /** @var Login $LOGIN */
 /** @var array $OBJECTS */
+/** @var $OAUTH OAuthLogin */
 
 if (isset($_GET['provider'])) {
   switch ($_GET['provider']) {

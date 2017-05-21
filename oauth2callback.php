@@ -10,6 +10,8 @@ use DBA\Player;
 use DBA\QueryFilter;
 use DBA\Oauth;
 
+/** @var $OAUTH OAuthLogin */
+
 require_once(dirname(__FILE__) . "/inc/load.php");
 
 $provider = @$_GET['provider'];
@@ -116,6 +118,7 @@ else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
   $user = $response->getGraphUser();
   $userinfo['id'] = $user->getId();
   $userinfo['name'] = $user->getName();
+  $userinfo['email'] = $user->getEmail();
 }
 else {
   header('HTTP/1.0 400 Bad Request');
@@ -133,7 +136,7 @@ if ($oauth == null) {
     $player = $OAUTH->getPlayer();
   }
   else {
-    $player = new Player(0, $userinfo['name']);
+    $player = new Player(0, $userinfo['name'], $userinfo['email'], "", "");
     $player = $FACTORIES::getPlayerFactory()->save($player);
   }
   $oauth = new Oauth(0, $player->getId(), $provider, time(), time(), $userinfo['id']);
@@ -141,6 +144,11 @@ if ($oauth == null) {
 }
 $oauth->setLastLogin(time());
 $FACTORIES::getOauthFactory()->update($oauth);
+
+if (strlen($player->getEmail()) == 0) {
+  $player->setEmail($userinfo['email']);
+  $FACTORIES::getPlayerFactory()->update($player);
+}
 
 // start user session
 $_SESSION['playerId'] = $oauth->getPlayerId();

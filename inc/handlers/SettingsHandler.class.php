@@ -37,6 +37,8 @@ class SettingsHandler extends Handler {
       "playerName" => $OAUTH->getPlayer()->getPlayerName(),
       "affiliateKey" => $OAUTH->getPlayer()->getAffiliateKey()
     );
+    Util::sendMail($email, "Invitation to " . GAME_NAME, $emailContent->render($emailObj));
+    UI::addSuccessMessage("Invitation email was sent!");
   }
   
   private function changeUsername() {

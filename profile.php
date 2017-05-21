@@ -52,7 +52,6 @@ foreach ($games as $game) {
   $playedGames++;
   $latestGame = $game;
 }
-$totalScore = Util::number($totalScore);
 
 if ($playedGames > 0) {
   $averageScore = Util::number(floor($totalScore / $playedGames));
@@ -81,6 +80,7 @@ else {
   $highestFull = "N/A";
   $highestBase = "N/A";
 }
+$totalScore = Util::number($totalScore);
 
 $OBJECTS['highestBase'] = $highestBase;
 $OBJECTS['highestFull'] = $highestFull;

@@ -145,7 +145,7 @@ if ($oauth == null) {
 $oauth->setLastLogin(time());
 $FACTORIES::getOauthFactory()->update($oauth);
 
-if ($player == null) {
+if (!isset($player)) {
   $player = $FACTORIES::getPlayerFactory()->get($oauth->getPlayerId());
 }
 if (strlen($player->getEmail()) == 0) {

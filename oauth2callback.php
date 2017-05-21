@@ -6,6 +6,8 @@
  * Time: 15:12
  */
 
+use DBA\Achievement;
+use DBA\ContainFilter;
 use DBA\Player;
 use DBA\QueryFilter;
 use DBA\Oauth;
@@ -155,11 +157,39 @@ else if ($OAUTH->isLoggedin() && $oauth->getPlayerId() != $OAUTH->getPlayer()->g
   // this case appears when a user created two separate accounts and he wants to connect them now
   // we merge them here to the account which was logged in first
   $otherPlayer = $FACTORIES::getPlayerFactory()->get($oauth->getPlayerId());
-  $mergedPlayer = $player;
+  $mergedPlayer = $OAUTH->getPlayer();
   
-  // TODO: update affiliate links
+  die("NOT READY YET");
+  
+  // update affiliate links
   $qF = new QueryFilter(Player::AFFILIATED_BY, $otherPlayer->getId(), "=");
-  // TODO: merge achievements (maybe we can just call the achievement tester once
+  $uS = new UpdateSet(Player::AFFILIATED_BY, $mergedPlayer->getId());
+  $FACTORIES::getPlayerFactory()->massUpdate(array($FACTORIES::FILTER => $qF, $FACTORIES::UPDATE => $uS));
+  
+  // merge achievements (maybe we can just call the achievement tester once
+  $qF = new QueryFilter(Achievement::PLAYER_ID, $mergedPlayer->getId(), "=");
+  $achievements = $FACTORIES::getAchievementFactory()->filter(array($FACTORIES::FILTER => $qF));
+  $earned = array();
+  foreach ($achievements as $achievement) {
+    $earned[$achievement->getAchievementName()] = true;
+  }
+  $qF = new QueryFilter(Achievement::PLAYER_ID, $otherPlayer->getId(), "=");
+  $achievements = $FACTORIES::getAchievementFactory()->filter(array($FACTORIES::FILTER => $qF));
+  $toDelete = array();
+  foreach ($achievements as $achievement) {
+    if (!$earned[$achievements->getAchievementName()]) {
+      $achievement->setPlayerId($mergedPlayer->getId());
+      $FACTORIES::getAchievementFactory()->update($achievement);
+    }
+    else {
+      $toDelete[] = $achievement->getId();
+    }
+  }
+  if (sizeof($toDelete) > 0) { // delete the not required achievements
+    $qF = new ContainFilter(Achievement::ACHIEVEMENT_ID, $toDelete);
+    $FACTORIES::getAchievementFactory()->massDeletion(array($FACTORIES::FILTER => $qF));
+  }
+  
   // TODO: change playerId on answer sessions
   // TODO: change playerId on games
   // TODO: change playerId on oauth providers

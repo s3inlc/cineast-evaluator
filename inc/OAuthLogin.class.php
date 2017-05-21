@@ -71,7 +71,6 @@ class OAuthLogin {
     if ($this->valid && strlen($this->player->getAffiliateKey()) == 0) {
       do {
         $key = Util::randomString(10);
-        echo "KEY: $key";
         $qF = new QueryFilter(Player::AFFILIATE_KEY, $key, "=");
         $check = $FACTORIES::getPlayerFactory()->filter(array($FACTORIES::FILTER => $qF));
       } while (sizeof($check) > 0);

@@ -56,6 +56,7 @@ class LongThinkingAchievement extends GameAchievement {
         if ($delta >= 30) {
           return true;
         }
+        $last = $answer;
       }
     }
     return false;

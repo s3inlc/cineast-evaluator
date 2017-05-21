@@ -3,9 +3,46 @@
 <main>
   <div class="container">
     <h3>[[player.getPlayerName()]]'s Profile</h3>
-    <div class="row">
-      TODO
-    </div>
+    <table class="striped">
+      <tbody>
+        <tr>
+          <th>Played Games</th>
+          <td>
+            [[playedGames]]
+          </td>
+        </tr>
+        <tr>
+          <th>Highest base score (rank)</th>
+          <td>
+            [[highestBase]] ([[baseRank]])
+          </td>
+        </tr>
+        <tr>
+          <th>Highest full score (rank)</th>
+          <td>
+            [[highestFull]] ([[fullRank]])
+          </td>
+        </tr>
+        <tr>
+          <th>Total score</th>
+          <td>
+            [[totalScore]]
+          </td>
+        </tr>
+        <tr>
+          <th>Average score per game</th>
+          <td>
+            [[averageScore]]
+          </td>
+        </tr>
+        <tr>
+          <th>Latest Game</th>
+          <td>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </main>
 {%TEMPLATE->struct/foot%}

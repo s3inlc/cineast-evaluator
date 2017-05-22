@@ -42,7 +42,7 @@ if (!isset($_GET['code']) && $provider == OAuthLogin::TYPE_GOOGLE) {
 else if ($provider == OAuthLogin::TYPE_GOOGLE) {
   $client = new Google_Client();
   $client->setAuthConfigFile(dirname(__FILE__) . '/inc/oauth_google_clients_secret.json');
-  $client->setRedirectUri('https://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
+  $client->setRedirectUri(DOMAIN . '/oauth2callback.php');
   $client->addScope(Google_Service_Oauth2::USERINFO_PROFILE);
   $client->addScope(Google_Service_Oauth2::USERINFO_EMAIL);
   $client->authenticate($_GET['code']);
@@ -57,7 +57,7 @@ else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
     
     $permissions = ['email']; // Optional permissions
     $_SESSION['provider'] = OAuthLogin::TYPE_FACEBOOK;
-    $loginUrl = $helper->getLoginUrl('https://dev-evaluate.vitrivr.org/oauth2callback.php', $permissions);
+    $loginUrl = $helper->getLoginUrl(DOMAIN . '/oauth2callback.php', $permissions);
     header("Location: " . $loginUrl);
     die();
   }

@@ -41,7 +41,7 @@
     </div>
     <div class="row center">
       <a class="twitter-share-button customer share btn-large waves-effect waves-light blue" target="_blank" title="Twitter Share" href="https://twitter.com/intent/tweet?text=I+just+scored+[[Util::number([[score.getVal('totalScore')]])]]+points+on+%40ArtSimily{{IF [[oauth.isLoggedin()]]}}+https%3A%2F%2Fartsimily.com%2Fprofile.php%3Fid%3D[[oauth.getPlayer().getId()]]%26affiliate%3D[[oauth.getPlayer().getAffiliateKey()]]{{ENDIF}}&hashtags=artsimily" data-size="large">Tweet your Success</a>
-      <a class="facebook btn-large waves-effect waves-light blue" onclick="fbPopup()" href="http://www.facebook.com/sharer.php?s=100&p[title]=YOUR_TITLE&p[summary]=YOUR_SUMMARY&p[url]=YOUR_URL&p[images][0]=YOUR_IMAGE_TO_SHARE_OBJECT" title="Facebook Share" target="_blank">Facebook</a>
+      <a class="facebook btn-large waves-effect waves-light blue" onclick="fbPopup()" title="Facebook Share" target="_blank">Post on Facebook</a>
     </div>
   </div>
 </main>
@@ -49,8 +49,9 @@
     function fbPopup(){
         FB.ui({
             method: 'feed',
-            link: 'https://developers.facebook.com/docs/',
-            caption: 'An example caption'
+            description: "I just scored [[Util::number([[score.getVal('totalScore')]])]] points on ArtSimily!",
+            link: 'https://artsimily.com/profile.php?id=[[oauth.getPlayer().getId()]]&affiliate=[[oauth.getPlayer().getAffiliateKey()]]',
+            caption: 'ArtSimily Link'
         }, function(response){});
     }
 

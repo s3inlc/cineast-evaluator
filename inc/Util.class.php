@@ -559,12 +559,9 @@ class Util {
    *          subject of the email
    * @param string $text
    *          html content of the email
-   * @param string $fromAddress
-   * @param string $fromName
    * @return true on success, false on failure
    */
   public static function sendMail($address, $subject, $text) {
-    //TODO: make sending email configurable
     
     $header = "Content-type: text/html; charset=utf8\r\n";
     $header .= "From: " . DEFAULT_EMAIL_FROM . " <" . NO_REPLY_EMAIL . ">\r\n";

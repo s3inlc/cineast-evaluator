@@ -9,7 +9,7 @@ use DBA\QueryFilter;
  * Date: 25.04.17
  * Time: 15:31
  */
-class AnswersLevel1Achievement extends GameAchievement {
+class AffiliateLevel1Achievement extends GameAchievement {
   
   /**
    * @return string

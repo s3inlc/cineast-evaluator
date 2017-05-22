@@ -66,5 +66,6 @@ $OBJECTS['pageTitle'] = Util::number($game->getFullScore()) . " points";
 if ($OAUTH->isLoggedin()) {
   $OBJECTS['pageTitle'] .= " by " . $OAUTH->getPlayer()->getPlayerName();
 }
+$OBJECTS['isFresh'] = $isFresh;
 
 echo $TEMPLATE->render($OBJECTS);

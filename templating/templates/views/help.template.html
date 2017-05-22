@@ -2,8 +2,12 @@
   <div class="modal-content">
     <h4>[[GameName]] Help</h4>
     <p>
-      TODO:<br>
-      Write some help text here to explain how this works.
+      {{IF [[showMenu]]}}
+        To get a good score in the game you should try to answer the questions as good as possible. You do this by rating how similar the two shown pieces (e.g. images) are.<br>
+        At the end of the round your score will be calculated based on how all the other people answered.
+      {{ELSE}}
+        Rate the two shown pieces (e.g. images) by their similarity. At the end of the survey you will get a code which can be entered as confirmation on the task.
+      {{ENDIF}}
     </p>
   </div>
   <div class="modal-footer">

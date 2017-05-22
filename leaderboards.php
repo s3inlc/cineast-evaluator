@@ -44,6 +44,9 @@ foreach ($players as $player) {
   if (!$inserted) {
     $scores[] = new DataSet(array('score' => $sum, 'playerId' => $player->getId()));
   }
+  if (sizeof($scores) > 10) {
+    unset($scores[sizeof($scores) - 1]); // delete last one if we have more than 10
+  }
 }
 
 $OBJECTS['totalScore'] = $scores;

@@ -253,7 +253,7 @@ class Util {
   
   /**
    * @param $playerId int
-   * @return Player null if player was not found
+   * @return string null if player was not found
    */
   public static function getPlayerNameById($playerId) {
     global $FACTORIES;

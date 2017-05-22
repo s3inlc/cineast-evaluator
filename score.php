@@ -62,10 +62,7 @@ if ($isFresh) {
 $qF = new QueryFilter(Game::ANSWER_SESSION_ID, $answerSession->getId(), "=");
 $game = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF), true);
 $OBJECTS['game'] = $game;
-$OBJECTS['pageTitle'] = Util::number($game->getFullScore()) . " points";
-if ($OAUTH->isLoggedin()) {
-  $OBJECTS['pageTitle'] .= " by " . $OAUTH->getPlayer()->getPlayerName();
-}
+$OBJECTS['pageTitle'] = Util::number($game->getFullScore()) . " points by " . Util::getPlayerNameById($game->getPlayerId());
 $OBJECTS['isFresh'] = $isFresh;
 
 echo $TEMPLATE->render($OBJECTS);

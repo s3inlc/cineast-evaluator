@@ -39,6 +39,9 @@
     <div class="row center">
       <a class="btn-large waves-effect waves-light blue" href="session.php?refer=game">Start new Game</a>
     </div>
+    <div class="row center">
+      <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=I+just+scored+[[score.getVal('totalScore')]]+points+on+%40ArtSimily{{IF [[oauth.isLoggedin()]]}}+https://artsimily.com/profile.php?id=[[oauth.getPlayer().getId()]]&affiliate=[[oauth.getPlayer().getAffiliateKey()]]{{ENDIF}}&hashtags=artsimily" data-size="large">Tweet your Success</a>
+    </div>
   </div>
 </main>
 {%TEMPLATE->struct/foot%}

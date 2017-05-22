@@ -50,17 +50,15 @@ if ($question == null) {
 Util::prepare2CompareQuestion($question->getMediaObjects()[0], $question->getMediaObjects()[1], true);
 $OBJECTS['tuple'] = $question->getResultTuples()[0];
 
-if (ini_get("display_errors") == "1") {
-  $debug = array(
-    "Last ID: " . $_SESSION['lastId'],
-    "Prune Session ID: " . $_SESSION['pruneSessionId'],
-    "Query ID: " . $_SESSION['queryId']
-  );
-  if ($queryId > 0) {
-    $debug[] = "ResultTuples left to prune: " . Util::getPruneLeft($queryId, $lastId);
-  }
-  $OBJECTS['debug'] = $debug;
+$debug = array(
+  "Last ID: " . $_SESSION['lastId'],
+  "Prune Session ID: " . $_SESSION['pruneSessionId'],
+  "Query ID: " . $_SESSION['queryId']
+);
+if ($queryId > 0) {
+  $debug[] = "ResultTuples left to prune: " . Util::getPruneLeft($queryId, $lastId);
 }
+$OBJECTS['debug'] = $debug;
 
 $TEMPLATE = new Template("views/prune");
 echo $TEMPLATE->render($OBJECTS);

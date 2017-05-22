@@ -65,8 +65,8 @@ class ScoreCalculator {
     $achievementTester = new AchievementTester();
     
     // add score for achievements
-    if ($OAUTH->isLoggedin()) {
-      $qF = new QueryFilter(Achievement::PLAYER_ID, $OAUTH->getPlayer()->getId(), "=");
+    if ($this->answerSession->getPlayerId() != null) {
+      $qF = new QueryFilter(Achievement::PLAYER_ID, $this->answerSession->getPlayerId(), "=");
       $achievements = $FACTORIES::getAchievementFactory()->filter(array($FACTORIES::FILTER => $qF));
       foreach ($achievements as $achievement) {
         $gameAchievement = $achievementTester->getAchievement($achievement->getAchievementName());

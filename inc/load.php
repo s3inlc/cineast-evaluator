@@ -10,8 +10,10 @@ ini_set("display_errors", "0");
 $OBJECTS = array();
 
 define("GAME_NAME", "ArtSimily");
+define("DOMAIN", "https://example.org");
 $VERSION = "0.1.0";
 $OBJECTS['GameName'] = GAME_NAME;
+$OBJECTS['Domain'] = DOMAIN;
 $OBJECTS['version'] = $VERSION;
 
 // setting some constants

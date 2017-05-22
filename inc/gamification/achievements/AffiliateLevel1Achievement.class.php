@@ -36,7 +36,7 @@ class AffiliateLevel1Achievement extends GameAchievement {
     foreach ($affiliated as $p) {
       $qF = new QueryFilter(Game::PLAYER_ID, $p->getId(), "=");
       $num = $FACTORIES::getGameFactory()->countFilter(array($FACTORIES::FILTER => $qF));
-      if ($num > 1) {
+      if ($num >= 1) {
         $count++;
       }
     }

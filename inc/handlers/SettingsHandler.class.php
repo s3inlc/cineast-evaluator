@@ -43,7 +43,8 @@ class SettingsHandler extends Handler {
     $emailObj = array(
       "GameName" => GAME_NAME,
       "playerName" => $OAUTH->getPlayer()->getPlayerName(),
-      "affiliateKey" => $OAUTH->getPlayer()->getAffiliateKey()
+      "affiliateKey" => $OAUTH->getPlayer()->getAffiliateKey(),
+      "Domain" => DOMAIN
     );
     $replyEmail = NO_REPLY_EMAIL;
     if (strlen($OAUTH->getPlayer()->getEmail()) > 0) {

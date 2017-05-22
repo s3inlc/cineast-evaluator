@@ -1,7 +1,7 @@
 <?php
 
 require_once(dirname(__FILE__) . "/inc/load.php");
-$OBJECTS['pageTitle'] = "Cineast Evaluator";
+$OBJECTS['pageTitle'] = GAME_NAME;
 
 /**
  * @var $DEBUG string[]

@@ -110,7 +110,7 @@ else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
   $_SESSION['accessToken'] = (string)$accessToken;
   try {
     // Returns a `Facebook\FacebookResponse` object
-    $response = $fb->get('/me?fields=id,name', $accessToken);
+    $response = $fb->get('/me?fields=id,name,email', $accessToken);
   }
   catch (Facebook\Exceptions\FacebookResponseException $e) {
     echo 'Graph returned an error: ' . $e->getMessage();

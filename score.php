@@ -64,7 +64,7 @@ $game = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF), t
 $OBJECTS['game'] = $game;
 $OBJECTS['pageTitle'] = $scoreData['totalScore'] . " points";
 if ($game != null) {
-  $OBJECTS['pageTitle'] .= "by " . Util::getPlayerNameById($game->getPlayerId());
+  $OBJECTS['pageTitle'] .= " by " . Util::getPlayerNameById($game->getPlayerId());
 }
 $OBJECTS['isFresh'] = $isFresh;
 

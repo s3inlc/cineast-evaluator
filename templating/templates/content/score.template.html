@@ -4,8 +4,8 @@
   <div class="container">
     {{IF ![[isFresh]]}}
       <div class="row">
-        <div class="col s12 center score-text">
-          <b>[[Util::getPlayerNameById([[game.getPlayerId()]])]] played</b>
+        <div class="col s12 center">
+          <h4>[[Util::getPlayerNameById([[game.getPlayerId()]])]] played</h4>
         </div>
       </div>
     {{ENDIF}}

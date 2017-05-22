@@ -35,7 +35,7 @@ class ScoreCalculator {
    * @return int[]
    */
   public function getScore() {
-    global $FACTORIES, $OAUTH;
+    global $FACTORIES;
     
     $totalScore = array();
     

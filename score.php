@@ -1,6 +1,7 @@
 <?php
 
 /** @var $OBJECTS array */
+/** @var $OAUTH OAuthLogin */
 
 use DBA\Game;
 use DBA\QueryFilter;
@@ -15,6 +16,10 @@ $answerSession = null;
 $isFresh = false;
 if (isset($_GET['game'])) {
   // we can show historical scores
+  $game = $FACTORIES::getGameFactory()->get($_GET['game']);
+  if ($game != null) {
+    $answerSession = $FACTORIES::getAnswerSessionFactory()->get($game->getAnswerSessionId());
+  }
 }
 else {
   $answerSession = $FACTORIES::getAnswerSessionFactory()->get($_SESSION['answerSessionId']);

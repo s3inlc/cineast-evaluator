@@ -48,8 +48,6 @@ else if ($provider == OAuthLogin::TYPE_GOOGLE) {
   $client->authenticate($_GET['code']);
   $_SESSION['accessToken'] = $client->getAccessToken();
   
-  print_r($client->getAccessToken());
-  
   $userinfo = json_decode(Util::getUserInfo($client->getAccessToken()['access_token']), true);
 }
 else if ($provider == OAuthLogin::TYPE_FACEBOOK) {

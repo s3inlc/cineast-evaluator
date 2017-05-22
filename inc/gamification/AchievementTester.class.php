@@ -40,6 +40,9 @@ class AchievementTester {
     $this->ACHIEVEMENTS[] = new OAuthGoogleAchievement();
     $this->ACHIEVEMENTS[] = new OAuthFacebookAchievement();
     $this->ACHIEVEMENTS[] = new AffiliateLevel1Achievement();
+    $this->ACHIEVEMENTS[] = new AffiliateLevel2Achievement();
+    $this->ACHIEVEMENTS[] = new AffiliateLevel3Achievement();
+    $this->ACHIEVEMENTS[] = new AffiliateLevel4Achievement();
   }
   
   /**

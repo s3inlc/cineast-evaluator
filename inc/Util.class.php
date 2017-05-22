@@ -4,7 +4,6 @@ use DBA\JoinFilter;
 use DBA\MediaObject;
 use DBA\MediaType;
 use DBA\OrderFilter;
-use DBA\Player;
 use DBA\Query;
 use DBA\QueryFilter;
 use DBA\QueryResultTuple;
@@ -564,12 +563,11 @@ class Util {
    * @param string $fromName
    * @return true on success, false on failure
    */
-  public static function sendMail($address, $subject, $text, $fromAddress = NO_REPLY_EMAIL, $fromName = DEFAULT_EMAIL_FROM) {
+  public static function sendMail($address, $subject, $text) {
     //TODO: make sending email configurable
     
     $header = "Content-type: text/html; charset=utf8\r\n";
     $header .= "From: " . DEFAULT_EMAIL_FROM . " <" . NO_REPLY_EMAIL . ">\r\n";
-    $header .= "Reply-To: $fromName <$fromAddress>\r\n";
     if (!mail($address, $subject, $text, $header)) {
       return false;
     }

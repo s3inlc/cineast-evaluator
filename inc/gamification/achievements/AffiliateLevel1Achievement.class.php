@@ -71,6 +71,6 @@ class AffiliateLevel1Achievement extends GameAchievement {
    * @return string
    */
   function getDescription() {
-    return "Invite someone to play [[GameName]] which play at least one game.<br>Gives 5% extra score";
+    return "Invite someone to play " . GAME_NAME . " which play at least one game.<br>Gives 5% extra score";
   }
 }

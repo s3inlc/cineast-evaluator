@@ -61,14 +61,21 @@ if ($playedGames > 0) {
   $oF2 = new OrderFilter(Game::FINISHED_TIME, "DESC");
   $games = $FACTORIES::getGameFactory()->filter(array($FACTORIES::ORDER => array($oF1, $oF2)));
   $baseRank = 0;
-  $fullRank = 0;
   $count = 1;
   foreach ($games as $game) {
     if ($game->getId() == $highestBaseGame->getId()) {
       $baseRank = $count;
     }
+    $count++;
+  }
+  $oF1 = new OrderFilter(Game::FULL_SCORE, "DESC");
+  $oF2 = new OrderFilter(Game::FINISHED_TIME, "DESC");
+  $games = $FACTORIES::getGameFactory()->filter(array($FACTORIES::ORDER => array($oF1, $oF2)));
+  $fullRank = 0;
+  $count = 1;
+  foreach ($games as $game) {
     if ($game->getId() == $highestFullGame->getId()) {
-      $fullRank = $count;
+      $baseRank = $count;
     }
     $count++;
   }

@@ -205,10 +205,6 @@ else if ($OAUTH->isLoggedin() && $oauth->getPlayerId() != $OAUTH->getPlayer()->g
   $uS = new UpdateSet(Oauth::PLAYER_ID, $mergedPlayer->getId());
   $FACTORIES::getOauthFactory()->massUpdate(array($FACTORIES::FILTER => $qF, $FACTORIES::UPDATE => $uS));
   
-  // delete achievements of old user
-  $qF = new QueryFilter(Achievement::PLAYER_ID, $otherPlayer->getId(), "=");
-  $FACTORIES::getAchievementFactory()->massDeletion(array($FACTORIES::FILTER => $qF));
-  
   // delete otherPlayer
   $FACTORIES::getPlayerFactory()->delete($otherPlayer);
 }

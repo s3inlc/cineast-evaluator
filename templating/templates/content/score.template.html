@@ -39,21 +39,25 @@
     <div class="row center">
       <a class="btn-large waves-effect waves-light blue" href="session.php?refer=game">Start new Game</a>
     </div>
-    <div class="row center">
-      <a class="twitter-share-button customer share btn-large waves-effect waves-light blue" target="_blank" title="Twitter Share" href="https://twitter.com/intent/tweet?text=I+just+scored+[[Util::number([[score.getVal('totalScore')]])]]+points+on+%40ArtSimily{{IF [[oauth.isLoggedin()]]}}+https%3A%2F%2Fartsimily.com%2Fprofile.php%3Fid%3D[[oauth.getPlayer().getId()]]%26affiliate%3D[[oauth.getPlayer().getAffiliateKey()]]{{ENDIF}}&hashtags=artsimily" data-size="large">Tweet your Success</a>
-      <a class="facebook btn-large waves-effect waves-light blue" onclick="fbPopup()" title="Facebook Share" target="_blank">Post on Facebook</a>
-    </div>
+    {{IF [[oauth.isLoggedin()]]}}
+      <div class="row center">
+        <a class="twitter-share-button customer share btn-large waves-effect waves-light blue" target="_blank" title="Twitter Share" href="https://twitter.com/intent/tweet?text=I+just+scored+[[Util::number([[score.getVal('totalScore')]])]]+points+on+%40ArtSimily+https%3A%2F%2Fartsimily.com%2Fprofile.php%3Fid%3D[[oauth.getPlayer().getId()]]%26affiliate%3D[[oauth.getPlayer().getAffiliateKey()]]&hashtags=artsimily" data-size="large">Tweet your Success</a>
+        <a class="facebook btn-large waves-effect waves-light blue" onclick="fbPopup()" title="Facebook Share" target="_blank">Post on Facebook</a>
+      </div>
+    {{ENDIF}}
   </div>
 </main>
 <script type="text/javascript">
-    function fbPopup(){
-        FB.ui({
-            method: 'feed',
-            description: "I just scored [[Util::number([[score.getVal('totalScore')]])]] points on ArtSimily!",
-            link: '{{IF [[oauth.isLoggedin()]]}}https://artsimily.com/profile.php?id=[[oauth.getPlayer().getId()]]&affiliate=[[oauth.getPlayer().getAffiliateKey()]]{{ELSE}}https://artsimily.com{{ENDIF}}',
-            caption: 'ArtSimily Link'
-        }, function(response){});
-    }
+    {{IF [[oauth.isLoggedin()]]}}
+      function fbPopup(){
+          FB.ui({
+              method: 'feed',
+              description: "I just scored [[Util::number([[score.getVal('totalScore')]])]] points on ArtSimily!",
+              link: 'https://artsimily.com/game.php?game=[[game.getId()]]&affiliate=[[oauth.getPlayer().getAffiliateKey()]]',
+              caption: 'ArtSimily Link'
+          }, function(response){});
+      }
+    {{ENDIF}}
 
     ;(function($){
 

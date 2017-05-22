@@ -9,7 +9,6 @@ use DBA\QueryFilter;
 require_once(dirname(__FILE__) . "/inc/load.php");
 
 $MENU->setActive("score");
-$OBJECTS['pageTitle'] = "Game Score";
 $TEMPLATE = new Template("content/score");
 
 $answerSession = null;
@@ -58,6 +57,14 @@ if ($isFresh) {
   // TODO: test achievements and add it as info to page
   $achievementTester = new AchievementTester();
   $OBJECTS['achievements'] = $achievementTester->getAchievements($OAUTH->getPlayer());
+}
+
+$qF = new QueryFilter(Game::ANSWER_SESSION_ID, $answerSession->getId(), "=");
+$game = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF), true);
+$OBJECTS['game'] = $game;
+$OBJECTS['pageTitle'] = Util::number($game->getFullScore()) . " points";
+if ($OAUTH->isLoggedin()) {
+  $OBJECTS['pageTitle'] .= " by " . $OAUTH->getPlayer()->getPlayerName();
 }
 
 echo $TEMPLATE->render($OBJECTS);

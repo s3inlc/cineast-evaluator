@@ -62,7 +62,10 @@ if ($isFresh) {
 $qF = new QueryFilter(Game::ANSWER_SESSION_ID, $answerSession->getId(), "=");
 $game = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF), true);
 $OBJECTS['game'] = $game;
-$OBJECTS['pageTitle'] = $scoreData['totalScore'] . " points by " . Util::getPlayerNameById($game->getPlayerId());
+$OBJECTS['pageTitle'] = $scoreData['totalScore'] . " points";
+if ($game != null) {
+  $OBJECTS['pageTitle'] .= "by " . Util::getPlayerNameById($game->getPlayerId());
+}
 $OBJECTS['isFresh'] = $isFresh;
 
 echo $TEMPLATE->render($OBJECTS);

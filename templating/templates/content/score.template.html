@@ -50,7 +50,7 @@
         FB.ui({
             method: 'feed',
             description: "I just scored [[Util::number([[score.getVal('totalScore')]])]] points on ArtSimily!",
-            link: 'https://artsimily.com/profile.php?id=[[oauth.getPlayer().getId()]]&affiliate=[[oauth.getPlayer().getAffiliateKey()]]',
+            link: '{{IF [[oauth.isLoggedin()]]}}https://artsimily.com/profile.php?id=[[oauth.getPlayer().getId()]]&affiliate=[[oauth.getPlayer().getAffiliateKey()]]{{ELSE}}https://artsimily.com{{ENDIF}}',
             caption: 'ArtSimily Link'
         }, function(response){});
     }

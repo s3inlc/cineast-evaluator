@@ -7,7 +7,9 @@
  */
 
 use DBA\Achievement;
+use DBA\AnswerSession;
 use DBA\ContainFilter;
+use DBA\Game;
 use DBA\Player;
 use DBA\QueryFilter;
 use DBA\Oauth;
@@ -159,8 +161,6 @@ else if ($OAUTH->isLoggedin() && $oauth->getPlayerId() != $OAUTH->getPlayer()->g
   $otherPlayer = $FACTORIES::getPlayerFactory()->get($oauth->getPlayerId());
   $mergedPlayer = $OAUTH->getPlayer();
   
-  die("NOT READY YET");
-  
   // update affiliate links
   $qF = new QueryFilter(Player::AFFILIATED_BY, $otherPlayer->getId(), "=");
   $uS = new UpdateSet(Player::AFFILIATED_BY, $mergedPlayer->getId());
@@ -190,12 +190,27 @@ else if ($OAUTH->isLoggedin() && $oauth->getPlayerId() != $OAUTH->getPlayer()->g
     $FACTORIES::getAchievementFactory()->massDeletion(array($FACTORIES::FILTER => $qF));
   }
   
-  // TODO: change playerId on answer sessions
-  // TODO: change playerId on games
-  // TODO: change playerId on oauth providers
+  // change playerId on answer sessions
+  $qF = new QueryFilter(AnswerSession::PLAYER_ID, $otherPlayer->getId(), "=");
+  $uS = new UpdateSet(AnswerSession::PLAYER_ID, $mergedPlayer->getId());
+  $FACTORIES::getAnswerSessionFactory()->massUpdate(array($FACTORIES::FILTER => $qF, $FACTORIES::UPDATE => $uS));
   
-  // TODO: delete achievements of old user
-  // TODO: delete otherPlayer
+  // change playerId on games
+  $qF = new QueryFilter(Game::PLAYER_ID, $otherPlayer->getId(), "=");
+  $uS = new UpdateSet(Game::PLAYER_ID, $mergedPlayer->getId());
+  $FACTORIES::getGameFactory()->massUpdate(array($FACTORIES::FILTER => $qF, $FACTORIES::UPDATE => $uS));
+  
+  // change playerId on oauth providers
+  $qF = new QueryFilter(Oauth::PLAYER_ID, $otherPlayer->getId(), "=");
+  $uS = new UpdateSet(Oauth::PLAYER_ID, $mergedPlayer->getId());
+  $FACTORIES::getOauthFactory()->massUpdate(array($FACTORIES::FILTER => $qF, $FACTORIES::UPDATE => $uS));
+  
+  // delete achievements of old user
+  $qF = new QueryFilter(Achievement::PLAYER_ID, $otherPlayer->getId(), "=");
+  $FACTORIES::getAchievementFactory()->massDeletion(array($FACTORIES::FILTER => $qF));
+  
+  // delete otherPlayer
+  $FACTORIES::getPlayerFactory()->delete($otherPlayer);
 }
 $oauth->setLastLogin(time());
 $FACTORIES::getOauthFactory()->update($oauth);

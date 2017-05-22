@@ -75,7 +75,7 @@ if ($playedGames > 0) {
   $count = 1;
   foreach ($games as $game) {
     if ($game->getId() == $highestFullGame->getId()) {
-      $baseRank = $count;
+      $fullRank = $count;
     }
     $count++;
   }

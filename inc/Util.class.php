@@ -564,6 +564,7 @@ class Util {
   public static function sendMail($address, $subject, $text) {
     
     $header = "Content-type: text/html; charset=utf8\r\n";
+    $header .= "MIME-Version: 1.0\r\n";
     $header .= "From: " . DEFAULT_EMAIL_FROM . " <" . NO_REPLY_EMAIL . ">\r\n";
     if (!mail($address, $subject, $text, $header)) {
       return false;

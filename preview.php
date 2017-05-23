@@ -19,7 +19,7 @@ if ($mediaObject == null) {
 else {
   $mediaType = $FACTORIES::getMediaTypeFactory()->get($mediaObject->getMediaTypeId());
   $OBJECTS['template'] = $mediaType->getTemplate();
-  $OBJECTS['objectSource'] = new DataSet(array("data" => "serve.php?id=" . $mediaObject->getChecksum(), "source" => $mediaObject->getSource()));
+  $OBJECTS['object'] = new DataSet(array("data" => "serve.php?id=" . $mediaObject->getChecksum(), "source" => $mediaObject->getSource()));
 }
 
 echo $TEMPLATE->render($OBJECTS);

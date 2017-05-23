@@ -66,7 +66,7 @@ else if ($provider == OAuthLogin::TYPE_FACEBOOK) {
   $helper = $fb->getRedirectLoginHelper();
   
   try {
-    $accessToken = $helper->getAccessToken();
+    $accessToken = $helper->getAccessToken(DOMAIN . 'oauth2callback.php');
   }
   catch (Facebook\Exceptions\FacebookResponseException $e) {
     // When Graph returns an error

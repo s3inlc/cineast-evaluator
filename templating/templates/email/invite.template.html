@@ -1,9 +1,17 @@
-<html>
-  <body>
-    Hi,<br><br>
-    You are invited by [[playerName]] to join [[GameName]]!<br>
-    Click <a href="[[Domain]]/session.php?affiliate=[[affiliateKey]]">here</a> to start playing ;)<br><br>
-    Sincerely,<br>
-    ArtSimily
-  </body>
-</html>
+{%TEMPLATE->email/struct/head%}
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 center" style="font-size: 20px;">
+        Hi,<br><br>
+        You are invited by [[playerName]] to join [[GameName]]!<br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 center">
+        <a href="[[Domain]]/session.php?affiliate=[[affiliateKey]]" class="btn-large waves-effect waves-light green">Start Playing</a>
+      </div>
+    </div>
+  </div>
+</main>
+{%TEMPLATE->email/struct/foot%}

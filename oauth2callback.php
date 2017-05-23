@@ -177,7 +177,7 @@ else if ($OAUTH->isLoggedin() && $oauth->getPlayerId() != $OAUTH->getPlayer()->g
   $achievements = $FACTORIES::getAchievementFactory()->filter(array($FACTORIES::FILTER => $qF));
   $toDelete = array();
   foreach ($achievements as $achievement) {
-    if (!$earned[$achievements->getAchievementName()]) {
+    if (!$earned[$achievement->getAchievementName()]) {
       $achievement->setPlayerId($mergedPlayer->getId());
       $FACTORIES::getAchievementFactory()->update($achievement);
     }

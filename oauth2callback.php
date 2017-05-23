@@ -211,7 +211,7 @@ else if ($OAUTH->isLoggedin() && $oauth->getPlayerId() != $OAUTH->getPlayer()->g
 $oauth->setLastLogin(time());
 $FACTORIES::getOauthFactory()->update($oauth);
 
-if (!isset($player)) {
+if (!isset($player)|| $player == null) {
   $player = $FACTORIES::getPlayerFactory()->get($oauth->getPlayerId());
 }
 if (strlen($player->getEmail()) == 0 && strlen($userinfo['email']) > 0) {

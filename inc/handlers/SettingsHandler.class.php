@@ -40,11 +40,23 @@ class SettingsHandler extends Handler {
     }
     
     $emailContent = new Template("email/invite");
+    
+    $script = file_get_contents("https://code.jquery.com/jquery-2.1.1.min.js") . "\n";
+    $script .= file_get_contents("https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js") . "\n";
+    $script .= file_get_contents(dirname(__FILE__) . "/../../js/init.js") . "\n";
+    
+    $style = file_get_contents("https://fonts.googleapis.com/icon?family=Material+Icons") . "\n";
+    $style .= file_get_contents("https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css") . "\n";
+    $style .= file_get_contents(dirname(__FILE__) . "/../../css/style.css") . "\n";
+    
     $emailObj = array(
       "GameName" => GAME_NAME,
       "playerName" => $OAUTH->getPlayer()->getPlayerName(),
       "affiliateKey" => $OAUTH->getPlayer()->getAffiliateKey(),
-      "Domain" => DOMAIN
+      "Domain" => DOMAIN,
+      "Script" => $script,
+      "Style" => $style,
+      "Logo" => "data:image/png;base64," . base64_encode(file_get_contents(dirname(__FILE__) . "/../../static/logo.png"))
     );
     Util::sendMail($email, "Invitation to " . GAME_NAME, $emailContent->render($emailObj));
     UI::addSuccessMessage("Invitation email was sent!");

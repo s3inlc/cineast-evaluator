@@ -19,7 +19,7 @@
 <nav class="white" role="navigation">
   <div class="nav-wrapper container">
     {{IF [[administrator]]}}
-      <a id="logo-container" href="admin.php" class="brand-logo"><img src="static/logo.png" alt="logo"></a>
+      <a id="logo-container" href="admin.php" class="brand-logo"><img height="64px" src="static/logo.png" alt="logo"></a>
       <ul class="right hide-on-med-and-down">
         {%TEMPLATE->struct/admin_entries%}
       </ul>
@@ -29,7 +29,7 @@
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     {{ELSE}}
-      <a id="logo-container" href="index.php" class="brand-logo">[[GameName]]</a>
+      <a id="logo-container" href="index.php" class="brand-logo"><img height="64px" src="static/logo.png" alt="logo"></a>
       <ul class="right hide-on-med-and-down">
         {%TEMPLATE->struct/menu_entries%}
       </ul>

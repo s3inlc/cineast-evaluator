@@ -159,7 +159,7 @@ else if ($OAUTH->isLoggedin() && $oauth->getPlayerId() != $OAUTH->getPlayer()->g
   // this case appears when a user created two separate accounts and he wants to connect them now
   // we merge them here to the account which was logged in first
   $otherPlayer = $FACTORIES::getPlayerFactory()->get($oauth->getPlayerId());
-  $mergedPlayer = $OAUTH->getPlayer();
+  $mergedPlayer = $FACTORIES::getPlayerFactory()->get($OAUTH->getPlayer()->getId());
   
   // update affiliate links
   $qF = new QueryFilter(Player::AFFILIATED_BY, $otherPlayer->getId(), "=");

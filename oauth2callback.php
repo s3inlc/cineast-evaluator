@@ -205,13 +205,14 @@ else if ($OAUTH->isLoggedin() && $oauth->getPlayerId() != $OAUTH->getPlayer()->g
   $uS = new UpdateSet(Oauth::PLAYER_ID, $mergedPlayer->getId());
   $FACTORIES::getOauthFactory()->massUpdate(array($FACTORIES::FILTER => $qF, $FACTORIES::UPDATE => $uS));
   
-  // delete otherPlayer
+  // reload oauth object and delete otherPlayer
+  $oauth = $FACTORIES::getOauthFactory()->get($oauth->getId());
   $FACTORIES::getPlayerFactory()->delete($otherPlayer);
 }
 $oauth->setLastLogin(time());
 $FACTORIES::getOauthFactory()->update($oauth);
 
-if (!isset($player)|| $player == null) {
+if (!isset($player) || $player == null) {
   $player = $FACTORIES::getPlayerFactory()->get($oauth->getPlayerId());
 }
 if (strlen($player->getEmail()) == 0 && strlen($userinfo['email']) > 0) {

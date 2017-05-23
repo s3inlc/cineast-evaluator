@@ -23,8 +23,12 @@
     <h4>Invite other People</h4>
     <p>
       Invite other people to join [[GameName]] and earn achievements!<br>
-      If you want to send the link on some other way, send this: <code>[[Domain]]session.php?affiliate=[[oauth.getPlayer().getAffiliateKey()]]</code>
+      If you want to send the link on some other way, just copy the link below.
     </p>
+    <div class="input-field col s12">
+      <input id="inviteLink" type="text" name="link" class="validate">
+      <label for="inviteLink">Link</label>
+    </div>
     <form action="settings.php" method="post">
       <input type="hidden" name="action" value="invite">
       <div class="row">

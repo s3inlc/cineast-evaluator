@@ -2,6 +2,7 @@
 {%TEMPLATE->struct/menu%}
 <main>
   <div class="container">
+    <h3>Welcome to ArtSimily</h3>
     {{IF [[oauth.isLoggedin()]]}}
       <div class="row black-text large center">
         <div class="col s12 m12">
@@ -10,25 +11,17 @@
         </div>
       </div>
     {{ENDIF}}
-    <!--Welcome to Artsimily!
-    [insert game description here]
-    [insert try-a-game button here]
-    To save your highscore, create an account or log in.
-    [insert register/login buttons here]-->
     <div class="row">
-      <div class="col s12 m2">
-        <!-- placeholder -->
+      <div class="col s12">
+        <b>What is ArtSimily about?</b>
+        ArtSimily is a game where you try to rate images by their contextual similarity and the "better" your answers
+        are, the higher your score will get.<br>
+        Start playing with clicking the button below.
       </div>
-
-      <div class="col s12 m8 center">
-        {{IF ![[oauth.isLoggedin()]]}}
-          <h2 class="center black-text">Hey, wanna have some fun and play a game?</h2>
-        {{ENDIF}}
-        <a class="btn-large waves-effect waves-light green" href="session.php">Start</a>
-      </div>
-
-      <div class="col s12 m2">
-        <!-- placeholder -->
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <a class="btn-large waves-effect waves-light green" href="session.php">Play</a>
       </div>
     </div>
   </div>

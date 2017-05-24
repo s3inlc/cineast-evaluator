@@ -65,6 +65,25 @@
         </tr>
       </tbody>
     </table>
+    <div class="row">
+      {{FOREACH achievement;[[achievements]]}}
+      <div class="col s12 m6">
+        <div class="achievement hoverable achieved">
+          <div class="achievement-img-container">
+            <img src="static/[[achievement.getAchievementImage()]]">
+          </div>
+          <div class="achievement-content-container">
+            <div class="achievement-header">
+              <span class="achievement-title">[[achievement.getAchievementName()]]</span>
+            </div>
+            <span class="achievement-description">
+              [[achievement.getDescription()]]
+            </span>
+          </div>
+        </div>
+      </div>
+      {{ENDFOREACH}}
+    </div>
   </div>
 </main>
 {%TEMPLATE->struct/foot%}

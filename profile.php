@@ -1,6 +1,7 @@
 <?php
 
 /** @var $OBJECTS array */
+use DBA\Achievement;
 use DBA\Game;
 use DBA\OrderFilter;
 use DBA\QueryFilter;
@@ -88,6 +89,20 @@ else {
   $highestBase = "N/A";
 }
 $totalScore = Util::number($totalScore);
+
+$qF = new QueryFilter(Achievement::PLAYER_ID, $player->getId(), "=");
+$achievements = $FACTORIES::getAchievementFactory()->filter(array($FACTORIES::FILTER => $qF));
+$earned = array();
+foreach ($achievements as $achievement) {
+  $earned[$achievement->getAchievementName()] = true;
+}
+$achievements = (new AchievementTester())->getAllAchievements();
+for ($i = 0; $i < sizeof($achievements); $i++) {
+  if (!isset($earned[$achievements[$i]->getIdentifier()])) {
+    unset($achievements[$i]);
+  }
+}
+$OBJECTS['achievements'] = $achievements;
 
 $OBJECTS['highestBase'] = $highestBase;
 $OBJECTS['highestFull'] = $highestFull;

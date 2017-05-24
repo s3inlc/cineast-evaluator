@@ -56,13 +56,13 @@ class ScoreCalculator {
       $count++;
       if ($gaussian->isValid()) {
         if ($this->history) {
-          echo "guassian -> ". (ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() + min(5, $gaussian->getProbability($answer->getAnswer())));
+          echo "guassian -> " . (ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma()/3 + min(5, $gaussian->getProbability($answer->getAnswer())));
         }
-        $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() + min(5, $gaussian->getProbability($answer->getAnswer()));
+        $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma()/3 + min(5, $gaussian->getProbability($answer->getAnswer()));
       }
       else {
         if ($this->history) {
-          echo "normal -> ".(ScoreCalculator::BASIC_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD);
+          echo "normal -> " . (ScoreCalculator::BASIC_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD);
         }
         $score *= ScoreCalculator::BASIC_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD;
       }

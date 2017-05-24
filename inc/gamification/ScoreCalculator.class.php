@@ -47,6 +47,7 @@ class ScoreCalculator {
     
     $score = sizeof($answers) * $this->answerSession->getCurrentValidity();
     $count = 0;
+    $latestAnswer = 0;
     foreach ($answers as $answer) {
       $tuple = $FACTORIES::getResultTupleFactory()->get($answer->getResultTupleId());
       if ($this->history) {
@@ -56,9 +57,9 @@ class ScoreCalculator {
       $count++;
       if ($gaussian->isValid()) {
         if ($this->history) {
-          echo "guassian -> " . (ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma()/3 + min(5, $gaussian->getProbability($answer->getAnswer())));
+          echo "guassian -> " . (ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() / 3 + min(5, $gaussian->getProbability($answer->getAnswer())));
         }
-        $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma()/3 + min(5, $gaussian->getProbability($answer->getAnswer()));
+        $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() / 3 + min(5, $gaussian->getProbability($answer->getAnswer()));
       }
       else {
         if ($this->history) {
@@ -68,6 +69,9 @@ class ScoreCalculator {
       }
       if ($this->history) {
         echo "\n";
+      }
+      if ($answer->getTime() > $latestAnswer) {
+        $latestAnswer = $answer->getTime();
       }
     }
     
@@ -81,8 +85,9 @@ class ScoreCalculator {
     
     // add score for achievements
     if ($this->answerSession->getPlayerId() != null) {
-      $qF = new QueryFilter(Achievement::PLAYER_ID, $this->answerSession->getPlayerId(), "=");
-      $achievements = $FACTORIES::getAchievementFactory()->filter(array($FACTORIES::FILTER => $qF));
+      $qF1 = new QueryFilter(Achievement::PLAYER_ID, $this->answerSession->getPlayerId(), "=");
+      $qF2 = new QueryFilter(Achievement::TIME, $latestAnswer, "<=");
+      $achievements = $FACTORIES::getAchievementFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2)));
       foreach ($achievements as $achievement) {
         $gameAchievement = $achievementTester->getAchievement($achievement->getAchievementName());
         if ($gameAchievement != null) {

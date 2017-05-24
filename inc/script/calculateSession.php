@@ -17,6 +17,9 @@ $currentValidity = $validator->validateFinished($session, $currentValidity);
 $validator = new TimeValidator();
 $currentValidity = $validator->validateFinished($session, $currentValidity);
 echo $currentValidity . "\n";
+
+$calculator = new ScoreCalculator($session);
+echo "Base: " . $calculator->getScore()[ScoreCalculator::SCORE_BASE];
   
 
 

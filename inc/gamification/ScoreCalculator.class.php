@@ -42,7 +42,7 @@ class ScoreCalculator {
     $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $this->answerSession->getId(), "=");
     $answers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
     
-    $score = sizeof($answers) * $this->answerSession->getCurrentValidity(); // TODO: check if it's a good idea to include the validity
+    $score = sizeof($answers) * $this->answerSession->getCurrentValidity();
     $count = 0;
     foreach ($answers as $answer) {
       $tuple = $FACTORIES::getResultTupleFactory()->get($answer->getResultTupleId());

@@ -23,12 +23,15 @@ class ScoreCalculator {
   const GAUSSIAN_CONST_MULT_ADD = 0.16;
   const BASIC_CONST_MULT        = 1.1;
   
+  private $history = false;
+  
   /**
    * ScoreCalculator constructor.
    * @param $answerSession AnswerSession
    */
-  public function __construct($answerSession) {
+  public function __construct($answerSession, $history = false) {
     $this->answerSession = $answerSession;
+    $this->history = $history;
   }
   
   /**
@@ -46,17 +49,29 @@ class ScoreCalculator {
     $count = 0;
     foreach ($answers as $answer) {
       $tuple = $FACTORIES::getResultTupleFactory()->get($answer->getResultTupleId());
+      if ($this->history) {
+        echo "Tuple " . $tuple->getId() . ": ";
+      }
       $gaussian = new SimpleGauss($tuple, $this->answerSession);
       $count++;
       if ($gaussian->isValid()) {
+        if ($this->history) {
+          echo "guassian -> ". (ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() + min(5, $gaussian->getProbability($answer->getAnswer())));
+        }
         $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() + min(5, $gaussian->getProbability($answer->getAnswer()));
       }
       else {
+        if ($this->history) {
+          echo "normal -> ".(ScoreCalculator::BASIC_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD);
+        }
         $score *= ScoreCalculator::BASIC_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD;
+      }
+      if ($this->history) {
+        echo "\n";
       }
     }
     
-    $score = floor($score/100);
+    $score = floor($score / 100);
     $multiplicators = array();
     $multiplication = 1;
     

@@ -46,7 +46,7 @@ foreach ($players as $player) {
   }
 }
 while (sizeof($scores) > 10) {
-  unset($scores[sizeof($scores) - 1]); // delete last one if we have more than 10
+  unset($scores[sizeof($scores) - 1]); // delete last ones if we have more than 10
 }
 
 $OBJECTS['totalScore'] = $scores;

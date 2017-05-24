@@ -182,6 +182,11 @@ class QueryHandler extends Handler {
       $resultTuple = Util::getResultTuple($queryMediaObject, $resultMediaObject);
       if ($resultTuple == null) {
         $resultTuple = new ResultTuple(0, $queryMediaObject->getId(), $resultMediaObject->getId(), -1, -1, 0);
+        if ($resultTuple->getObjectId2() == $resultTuple->getObjectId1()) {
+          $resultTuple->setMu(3);
+          $resultTuple->setSigma(0);
+          $resultTuple->setIsFinal(1);
+        }
         $resultTuple = $FACTORIES::getResultTupleFactory()->save($resultTuple);
       }
       

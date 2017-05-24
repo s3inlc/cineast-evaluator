@@ -96,13 +96,14 @@ $earned = array();
 foreach ($achievements as $achievement) {
   $earned[$achievement->getAchievementName()] = true;
 }
-$achievements = (new AchievementTester())->getAllAchievements();
-for ($i = 0; $i < sizeof($achievements); $i++) {
-  if (!isset($earned[$achievements[$i]->getIdentifier()])) {
-    unset($achievements[$i]);
+$allAchievements = (new AchievementTester())->getAllAchievements();
+$earnedAchievements = array();
+foreach ($allAchievements as $achievement) {
+  if (isset($earned[$achievement->getIdentifier()]) && $earned[$achievement->getIdentifier()]) {
+    $earnedAchievements[] = $achievement;
   }
 }
-$OBJECTS['achievements'] = $achievements;
+$OBJECTS['achievements'] = $earnedAchievements;
 
 $OBJECTS['highestBase'] = $highestBase;
 $OBJECTS['highestFull'] = $highestFull;

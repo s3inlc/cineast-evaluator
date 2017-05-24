@@ -177,11 +177,11 @@ class UserSession {
       $answer = intval($_POST['answer']);
       if (!in_array($answer, array(AnswerType::COMPARE_TWO_NO_SIMILARITY, AnswerType::COMPARE_TWO_SLIGHTLY_SIMILAR, AnswerType::COMPARE_TWO_VERY_SIMILAR, AnswerType::COMPARE_TWO_NEARLY_IDENTICAL))) {
         // TODO: handle error
-        die("INVALID ANSWER");
+        //die("INVALID ANSWER");
       }
       else if (($objectId1 != $question->getMediaObjects()[0]->getId() || $objectId2 != $question->getMediaObjects()[1]->getId()) && ($objectId2 != $question->getMediaObjects()[0]->getId() || $objectId1 != $question->getMediaObjects()[1]->getId())) {
         // TODO: handle error
-        die("NOT MATCHING QUESTION");
+        //die("NOT MATCHING QUESTION");
       }
       else {
         // answer matches the current question
@@ -194,11 +194,15 @@ class UserSession {
     }
     else if ($question->getQuestionType() == SessionQuestion::TYPE_COMPARE_TRIPLE) {
       // is a compare3 question
-      die("COMPARE3");
+      //die("COMPARE3");
     }
     else {
       // TODO: strange error, decide what's happening here
-      die("WRONG QUESTION TYPE");
+      //die("WRONG QUESTION TYPE");
+    }
+    
+    if ($errorType != ErrorType::NO_ERROR) {
+      return;
     }
     
     $this->answerSession->setCurrentValidity($validator->update($errorType));

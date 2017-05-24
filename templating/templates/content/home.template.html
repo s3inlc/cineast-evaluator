@@ -2,14 +2,6 @@
 {%TEMPLATE->struct/menu%}
 <main>
   <div class="container">
-    {{IF [[oauth.isLoggedin()]]}}
-      <div class="row black-text large center">
-        <div class="col s12 m12">
-          <h4>Hey [[oauth.getPlayer().getPlayerName()]]</h4>
-          <h5>Play some more games to get missing achievements ;)</h5>
-        </div>
-      </div>
-    {{ENDIF}}
     <h3>Welcome to ArtSimily</h3>
     <div class="row">
       <div class="col s12" style="font-size: 1.3em;">
@@ -19,6 +11,14 @@
         Start playing with clicking the button below.
       </div>
     </div>
+    {{IF [[oauth.isLoggedin()]]}}
+      <div class="row black-text large center">
+        <div class="col s12 m12">
+          <h4>Hey [[oauth.getPlayer().getPlayerName()]]</h4>
+          <h5>Play some more games to get missing achievements ;)</h5>
+        </div>
+      </div>
+    {{ENDIF}}
     <div class="row">
       <div class="col s12 center">
         <a class="btn-large waves-effect waves-light green" href="session.php">Play</a>

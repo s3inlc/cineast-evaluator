@@ -15,6 +15,12 @@
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+
+    $(document).ready(function(){
+        $('.modal-trigger').leanModal({
+            dismissible: false
+        });
+    });
 </script>
 <nav class="white" role="navigation">
   <div class="nav-wrapper container">

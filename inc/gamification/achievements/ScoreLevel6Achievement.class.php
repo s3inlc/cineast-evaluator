@@ -9,13 +9,13 @@ use DBA\QueryFilter;
  * Date: 25.04.17
  * Time: 15:31
  */
-class ScoreLevel5Achievement extends GameAchievement {
+class ScoreLevel6Achievement extends GameAchievement {
   
   /**
    * @return string
    */
   function getAchievementName() {
-    return "Total Score Level 5";
+    return "Total Score Level 6";
   }
   
   /**
@@ -36,7 +36,7 @@ class ScoreLevel5Achievement extends GameAchievement {
     foreach ($games as $game) {
       $total += $game->getFullScore();
     }
-    if ($total >= 100000000) {
+    if ($total >= 250000000) {
       return true;
     }
     return false;
@@ -60,13 +60,13 @@ class ScoreLevel5Achievement extends GameAchievement {
    * @return string
    */
   function getIdentifier() {
-    return "scoreLevel5";
+    return "scoreLevel6";
   }
   
   /**
    * @return string
    */
   function getDescription() {
-    return "Get 100'000'000 score points in total of all your games.<br>Gives 10% extra score";
+    return "Get 250'000'000 score points in total of all your games.<br>Gives 10% extra score";
   }
 }

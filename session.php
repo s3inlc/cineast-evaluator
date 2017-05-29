@@ -80,13 +80,13 @@ if ($USER_SESSION->getAnswerSession()->getMicroworkerId() != null) {
 $progress = floor(($sessionSize - $USER_SESSION->getRemainingQuestions() - 1) * 100 / $sessionSize);
 $OBJECTS['progress'] = $progress;
 
-if (ini_get("display_errors") == "1") {
+if (ini_get("display_errors") == "1" || $USER_SESSION->getAnswerSession()->getPlayerId() == 3) {
+  $tuple = $question->getResultTuples()[0];
   $debug = array(
-    "Number of security questions pushed: " . $_SESSION['numSecurityQuestions'],
-    "Number of questions in queue: " . sizeof(unserialize($_SESSION['questions'])),
     "AnswerSession ID: " . $_SESSION['answerSessionId'],
-    "Current Validity: " . $USER_SESSION->getAnswerSession()->getCurrentValidity()
-  );
+    "Current Validity: " . $USER_SESSION->getAnswerSession()->getCurrentValidity(),
+    "Current Gaussian: <br>" . SimpleGauss::generateCurve($tuple->getSigma(), $tuple->getMu())
+);
   $OBJECTS['debug'] = $debug;
   $OBJECTS['DEBUG'] = $DEBUG;
 }

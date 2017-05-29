@@ -52,7 +52,7 @@ if (isset($_POST['answer'])) {
   $USER_SESSION->answerQuestion();
 }
 
-// TODO: test here if the user is not authenticated and has finished a session now
+// test here if the user is not authenticated and has finished a session now
 if ($USER_SESSION->getAnswerSession()->getMicroworkerId() == null && $USER_SESSION->getAnswerSession()->getUserId() == null && $USER_SESSION->getRemainingQuestions() == 0) {
   $USER_SESSION->close();
   header("Location: score.php");

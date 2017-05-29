@@ -84,9 +84,11 @@ if (ini_get("display_errors") == "1" || $USER_SESSION->getAnswerSession()->getPl
   $tuple = $question->getResultTuples()[0];
   $debug = array(
     "AnswerSession ID: " . $_SESSION['answerSessionId'],
-    "Current Validity: " . $USER_SESSION->getAnswerSession()->getCurrentValidity(),
-    "Current Gaussian: <br><img src='" . SimpleGauss::generateCurve($tuple->getSigma(), $tuple->getMu()) . "' alt='gaussian'>"
+    "Current Validity: " . $USER_SESSION->getAnswerSession()->getCurrentValidity()
   );
+  if ($tuple->getMu() != -1 && $tuple->getSigma() != -1) {
+    $debug[] = "Current Gaussian: <br><img class='img-responsive' src='" . SimpleGauss::generateCurve($tuple->getSigma(), $tuple->getMu()) . "' alt='gaussian'>";
+  }
   $OBJECTS['debug'] = $debug;
   $OBJECTS['DEBUG'] = $DEBUG;
 }

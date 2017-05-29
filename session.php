@@ -93,7 +93,7 @@ if (ini_get("display_errors") == "1" || $USER_SESSION->getAnswerSession()->getPl
     if ($tuple->getSigma() == 0) {
       $tuple->setSigma(0.01);
     }
-    $debug[] = "Current Gaussian: <br><img class='img-responsive' src='" . SimpleGauss::generateCurve($tuple->getSigma(), $tuple->getMu()) . "' alt='gaussian'>";
+    $debug[] = "Current Gaussian: <br><img class='responsive-img' src='" . SimpleGauss::generateCurve($tuple->getSigma(), $tuple->getMu()) . "' alt='gaussian'>";
   }
   $OBJECTS['debug'] = $debug;
   $OBJECTS['DEBUG'] = $DEBUG;

@@ -86,6 +86,9 @@ if (ini_get("display_errors") == "1" || $USER_SESSION->getAnswerSession()->getPl
     "AnswerSession ID: " . $_SESSION['answerSessionId'],
     "Current Validity: " . $USER_SESSION->getAnswerSession()->getCurrentValidity()
   );
+  if ($tuple->getIsFinal()) {
+    $debug[] = "This is a security question!";
+  }
   if ($tuple->getMu() != -1 && $tuple->getSigma() != -1) {
     $debug[] = "Current Gaussian: <br><img class='img-responsive' src='" . SimpleGauss::generateCurve($tuple->getSigma(), $tuple->getMu()) . "' alt='gaussian'>";
   }

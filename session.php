@@ -90,6 +90,9 @@ if (ini_get("display_errors") == "1" || $USER_SESSION->getAnswerSession()->getPl
     $debug[] = "This is a security question!";
   }
   if ($tuple->getMu() != -1 && $tuple->getSigma() != -1) {
+    if ($tuple->getSigma() == 0) {
+      $tuple->setSigma(0.01);
+    }
     $debug[] = "Current Gaussian: <br><img class='img-responsive' src='" . SimpleGauss::generateCurve($tuple->getSigma(), $tuple->getMu()) . "' alt='gaussian'>";
   }
   $OBJECTS['debug'] = $debug;

@@ -66,9 +66,11 @@
     </div>
     {{IF [[debug]]}}
       <div class="row">
-        {{FOREACH deb;[[debug]]}}
-          <p>[[deb]]</p>
-        {{ENDFOREACH}}
+        <div class="col s12">
+          {{FOREACH deb;[[debug]]}}
+            <p>[[deb]]</p>
+          {{ENDFOREACH}}
+        </div>
       </div>
     {{ENDIF}}
     {%TEMPLATE->views/help%}

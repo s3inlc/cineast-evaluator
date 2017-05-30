@@ -43,7 +43,7 @@ if (isset($_GET['logout'])) {
 
 if ($LOGIN->isLoggedin()) {
   // get number of pruned tuples
-  $result = $FACTORIES::getAnswerSessionFactory()->getDB()->query("SELECT count(*) AS pruned FROM `ResultTuple` WHERE isFinal=1 AND (SELECT count(*) FROM TwoCompareAnswer WHERE ResultTuple.resultTupleId=TwoCompareAnswer.resultTupleId) <= 1");
+  $result = $FACTORIES::getAnswerSessionFactory()->getDB()->query("SELECT count(*) AS pruned FROM `ResultTuple` WHERE isFinal=1 AND (SELECT count(*) FROM TwoCompareAnswer WHERE ResultTuple.resultTupleId=TwoCompareAnswer.resultTupleId) <= 3");
   $answer = $result->fetchAll()[0];
   $OBJECTS['prunedTuples'] = $answer['pruned'];
   

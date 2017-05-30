@@ -3,11 +3,12 @@
 <main>
   <div class="container">
     {{IF [[login.isLoggedin()]]}}
+      <h3>Admin Home</h3>
       <div class="row">
-        <h3>Admin Home</h3>
         <a class="btn-large waves-effect waves-light blue" href="session.php" target="_blank">Answer some Questions</a> (Important: These answers will be considered as very certain)<br>
       </div>
 
+      <h4>Statistics Overview</h4>
       <table class="striped">
         <tbody>
           <tr>

@@ -7,6 +7,31 @@
         <h3>Admin Home</h3>
         <a class="btn-large waves-effect waves-light blue" href="session.php" target="_blank">Answer some Questions</a> (Important: These answers will be considered as very certain)<br>
       </div>
+
+      <table class="striped">
+        <tbody>
+          <tr>
+            <th>Total unique tuples</th>
+            <td>[[Util::number([[totalTuples]])]]</td>
+          </tr>
+          <tr>
+            <th>Pruned tuples</th>
+            <td>[[Util::number([[prunedTuples]])]]</td>
+          </tr>
+          <tr>
+            <th>Fully evaluated tuples (excluding pruned ones)</th>
+            <td>[[Util::number([[finalTuples]])]]</td>
+          </tr>
+          <tr>
+            <th>Tuples which have not enough data to build a gaussian curve</th>
+            <td>[[Util::number([[emptyTuples]])]]</td>
+          </tr>
+          <tr>
+            <th>Partially evaluated tuples (three or more answers)</th>
+            <td>[[Util::number([[incompleteTuples]])]]</td>
+          </tr>
+        </tbody>
+      </table>
     {{ELSE}}
       <!--   Icon Section   -->
       <div class="row">

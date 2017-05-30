@@ -2,6 +2,9 @@
 
 /** @var $OBJECTS array */
 
+use DBA\QueryFilter;
+use DBA\ResultTuple;
+
 require_once(dirname(__FILE__) . "/inc/load.php");
 $TEMPLATE = new Template("content/admin");
 
@@ -36,6 +39,27 @@ if (isset($_GET['err'])) {
 
 if (isset($_GET['logout'])) {
   UI::addSuccessMessage("You logged out successfully!");
+}
+
+if ($LOGIN->isLoggedin()) {
+  // get number of pruned tuples
+  $result = $FACTORIES::getAnswerSessionFactory()->getDB()->query("SELECT count(*) AS pruned FROM `ResultTuple` WHERE isFinal=1 AND (SELECT count(*) FROM TwoCompareAnswer WHERE ResultTuple.resultTupleId=TwoCompareAnswer.resultTupleId) <= 1");
+  $answer = $result->fetchAll()[0];
+  $OBJECTS['prunedTuples'] = $answer['pruned'];
+  
+  // get number of total tuples
+  $OBJECTS['totalTuples'] = $FACTORIES::getResultTupleFactory()->countFilter(array());
+  
+  // get number of final tuples
+  $qF = new QueryFilter(ResultTuple::IS_FINAL, 1, "=");
+  $OBJECTS['finalTuples'] = $FACTORIES::getResultTupleFactory()->countFilter(array($FACTORIES::FILTER => $qF)) - $OBJECTS['prunedTuples'];
+  
+  // get number of tuples which have no or not enough data
+  $qF = new QueryFilter(ResultTuple::MU, -1, "=");
+  $OBJECTS['emptyTuples'] = $FACTORIES::getResultTupleFactory()->countFilter(array($FACTORIES::FILTER => $qF));
+  
+  // get number of tuples which have some data (gaussian)
+  $OBJECTS['incompleteTuples'] = $OBJECTS['totalTuples'] - $OBJECTS['finalTuples'] - $OBJECTS['emptyTuples'] - $OBJECTS['prunedTuples'];
 }
 
 echo $TEMPLATE->render($OBJECTS);

@@ -10,13 +10,13 @@ use DBA\QueryFilter;
  * Date: 25.04.17
  * Time: 15:31
  */
-class GamesInDayLevel1Achievement extends GameAchievement {
+class GamesInDayLevel6Achievement extends GameAchievement {
   
   /**
    * @return string
    */
   function getAchievementName() {
-    return "Games per day Level 1";
+    return "Games per day Level 6";
   }
   
   function getIsHidden() {
@@ -37,7 +37,7 @@ class GamesInDayLevel1Achievement extends GameAchievement {
     $oF = new OrderFilter(Game::FINISHED_TIME, "DESC");
     $qF = new QueryFilter(Game::PLAYER_ID, $player->getId(), "=");
     $games = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF));
-    if (sizeof($games) < 5) {
+    if (sizeof($games) < 100) {
       return false;
     }
     $currentDay = strtotime("midnight", $games[0]->getFinishedTime());
@@ -58,7 +58,7 @@ class GamesInDayLevel1Achievement extends GameAchievement {
       }
     }
     
-    if ($maxCount >= 5) {
+    if ($maxCount >= 100) {
       return true;
     }
     return false;
@@ -82,13 +82,13 @@ class GamesInDayLevel1Achievement extends GameAchievement {
    * @return string
    */
   function getIdentifier() {
-    return "gamesPerDayLevel1";
+    return "gamesPerDayLevel6";
   }
   
   /**
    * @return string
    */
   function getDescription() {
-    return "Play 5 games during one day.<br>Gives 5% extra score";
+    return "Play 100 games during one day.<br>Gives 5% extra score";
   }
 }

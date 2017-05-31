@@ -46,7 +46,12 @@ class AchievementTester {
     $this->ACHIEVEMENTS[] = new AffiliateLevel3Achievement();
     $this->ACHIEVEMENTS[] = new AffiliateLevel4Achievement();
     $this->ACHIEVEMENTS[] = new NameAchievement();
-    $this->ACHIEVEMENTS[] = new GamesInDayLevel1();
+    $this->ACHIEVEMENTS[] = new GamesInDayLevel1Achievement();
+    $this->ACHIEVEMENTS[] = new GamesInDayLevel2Achievement();
+    $this->ACHIEVEMENTS[] = new GamesInDayLevel3Achievement();
+    $this->ACHIEVEMENTS[] = new GamesInDayLevel4Achievement();
+    $this->ACHIEVEMENTS[] = new GamesInDayLevel5Achievement();
+    $this->ACHIEVEMENTS[] = new GamesInDayLevel6Achievement();
   }
   
   /**

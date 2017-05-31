@@ -75,7 +75,7 @@ class GamesInDayLevel5Achievement extends GameAchievement {
    * @return float
    */
   function getMultiplicatorGain() {
-    return 1.05;
+    return 1.1;
   }
   
   /**
@@ -89,6 +89,6 @@ class GamesInDayLevel5Achievement extends GameAchievement {
    * @return string
    */
   function getDescription() {
-    return "Play 50 games during one day.<br>Gives 5% extra score";
+    return "Play 50 games during one day.<br>Gives 10% extra score";
   }
 }

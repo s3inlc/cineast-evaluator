@@ -75,6 +75,18 @@ main {
     flex: 1 0 auto;
 }
 
+.numberCircle {
+    border: 3px solid #808080;
+    width: 86px;
+    border-radius: 6px;
+    filter: brightness(.75) grayscale(0.5);
+
+    padding: 8px;
+    text-align: center;
+
+    font: 350px Arial, sans-serif;
+}
+
 .achievement {
     height: 100px;
     margin-bottom: 10px;

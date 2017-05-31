@@ -86,7 +86,7 @@ class ScoreCalculator {
     // add score for achievements
     if ($this->answerSession->getPlayerId() != null) {
       $qF1 = new QueryFilter(Achievement::PLAYER_ID, $this->answerSession->getPlayerId(), "=");
-      $qF2 = new QueryFilter(Achievement::TIME, $latestAnswer, "<=");
+      $qF2 = new QueryFilter(Achievement::TIME, $latestAnswer, "<");
       $achievements = $FACTORIES::getAchievementFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2)));
       foreach ($achievements as $achievement) {
         $gameAchievement = $achievementTester->getAchievement($achievement->getAchievementName());

@@ -54,7 +54,7 @@ if ($isFresh) {
     }
   }
   
-  // TODO: test achievements and add it as info to page
+  // test achievements and add it as info to page
   $achievementTester = new AchievementTester();
   $OBJECTS['achievements'] = $achievementTester->getAchievements($OAUTH->getPlayer());
 }

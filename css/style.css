@@ -81,10 +81,10 @@ main {
     border-radius: 6px;
     filter: brightness(.75) grayscale(0.5);
 
-    padding: 12px;
+    padding: 14px;
     text-align: center;
 
-    font-size: 40px;
+    font-size: 35px;
 }
 
 .achievement {

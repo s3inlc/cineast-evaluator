@@ -79,7 +79,7 @@ class ScoreCalculator {
       $score = floor($score / 100);
     }
     else {
-      $score *= 10;
+      $score *= floor(10);
     }
     $multiplicators = array();
     $multiplication = 1;

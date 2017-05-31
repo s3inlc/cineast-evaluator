@@ -45,6 +45,7 @@ class AchievementTester {
     $this->ACHIEVEMENTS[] = new AffiliateLevel2Achievement();
     $this->ACHIEVEMENTS[] = new AffiliateLevel3Achievement();
     $this->ACHIEVEMENTS[] = new AffiliateLevel4Achievement();
+    $this->ACHIEVEMENTS[] = new NameAchievement();
   }
   
   /**

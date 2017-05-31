@@ -74,7 +74,11 @@ class SettingsHandler extends Handler {
       return;
     }
     $player = $OAUTH->getPlayer();
+    $oldUsername = $player->getPlayerName();
     $player->setPlayerName($newUsername);
+    if ($oldUsername != $newUsername) {
+      $player->setIsInitialName(0);
+    }
     $FACTORIES::getPlayerFactory()->update($player);
     $OAUTH->updatePlayerName($newUsername);
     UI::addSuccessMessage("New player name was set successfully!");

@@ -30,7 +30,7 @@ class PlayerFactory extends AbstractModelFactory {
    * @return Player
    */
   function getNullObject() {
-    $o = new Player(-1, null, null, null, null);
+    $o = new Player(-1, null, null, null, null, null);
     return $o;
   }
 
@@ -40,7 +40,7 @@ class PlayerFactory extends AbstractModelFactory {
    * @return Player
    */
   function createObjectFromDict($pk, $dict) {
-    $o = new Player($pk, $dict['playerName'], $dict['email'], $dict['affiliateKey'], $dict['affiliatedBy']);
+    $o = new Player($pk, $dict['playerName'], $dict['isInitialName'], $dict['email'], $dict['affiliateKey'], $dict['affiliatedBy']);
     return $o;
   }
 

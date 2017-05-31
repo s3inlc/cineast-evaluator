@@ -149,7 +149,7 @@ if ($oauth == null) {
         $affiliatedBy = $affiliatePlayer->getId();
       }
     }
-    $player = new Player(0, $userinfo['name'], $userinfo['email'], "", $affiliatedBy);
+    $player = new Player(0, $userinfo['name'], 1, $userinfo['email'], "", $affiliatedBy);
     $player = $FACTORIES::getPlayerFactory()->save($player);
   }
   $oauth = new Oauth(0, $player->getId(), $provider, time(), time(), $userinfo['id']);

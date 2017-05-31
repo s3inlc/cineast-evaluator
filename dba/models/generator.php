@@ -77,6 +77,7 @@ $CONF['AnswerSession'] = array(
 $CONF['Player'] = array(
   'playerId',
   'playerName',
+  'isInitialName',
   'email',
   'affiliateKey',
   'affiliatedBy'

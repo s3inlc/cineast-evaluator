@@ -1,10 +1,5 @@
 <?php
-use DBA\AnswerSession;
-use DBA\Game;
-use DBA\JoinFilter;
 use DBA\Player;
-use DBA\QueryFilter;
-use DBA\TwoCompareAnswer;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,13 +25,10 @@ class NameAchievement extends GameAchievement {
    * @return bool
    */
   function isReachedByPlayer($player) {
-    global $FACTORIES;
-    
     if ($player == null || $this->alreadyReached($player)) {
       return false;
     }
     
-    // this achievement is reached when the player required more than 30 seconds to answer a question
     if ($player->getIsInitialName() == 0) {
       return true;
     }

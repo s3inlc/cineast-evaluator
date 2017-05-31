@@ -81,7 +81,7 @@ main {
     border-radius: 6px;
     filter: brightness(.75) grayscale(0.5);
 
-    padding: 15px 8px 13px 8px;
+    padding: 16px 8px 12px 8px;
     text-align: center;
 
     font-size: 35px;

@@ -75,7 +75,12 @@ class ScoreCalculator {
       }
     }
     
-    $score = floor($score / 100);
+    if (sizeof($answers) != SESSION_SIZE_GAME_UNREGISTERED) {
+      $score = floor($score / 100);
+    }
+    else {
+      $score *= 10;
+    }
     $multiplicators = array();
     $multiplication = 1;
     

@@ -11,7 +11,7 @@
               {{IF [[achieved.getVal([[achievement.getIdentifier()]])]]}}
                 <img src="static/[[achievement.getAchievementImage()]]">
               {{ELSE}}
-                <div class="numberCircle">[[achievement.getProgress([[oauth.getPlayer()]])]]%</div>
+                <div class="numberCircle">{{IF [[achievement.getProgress([[oauth.getPlayer()]])]] == 100}}99%{{ELSE}}[[achievement.getProgress([[oauth.getPlayer()]])]]%{{ENDIF}}</div>
               {{ENDIF}}
             </div>
             <div class="achievement-content-container">

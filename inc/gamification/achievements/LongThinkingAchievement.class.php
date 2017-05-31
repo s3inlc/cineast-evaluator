@@ -89,4 +89,12 @@ class LongThinkingAchievement extends GameAchievement {
   function getDescription() {
     return "Think for more than 30 seconds on an question.<br>Gives 5% extra score";
   }
+  
+  /**
+   * @param $player Player
+   * @return int progress in %
+   */
+  function getProgress($player) {
+    return 0;
+  }
 }

@@ -64,4 +64,12 @@ class StarterAchievement extends GameAchievement {
   function getDescription() {
     return "Complete your first game.<br>Gives 10% extra score";
   }
+  
+  /**
+   * @param $player Player
+   * @return int progress in %
+   */
+  function getProgress($player) {
+    return 0;
+  }
 }

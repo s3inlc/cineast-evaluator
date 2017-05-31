@@ -71,4 +71,12 @@ class OAuthFacebookAchievement extends GameAchievement {
   function getDescription() {
     return "Log in with your Facebook account<br>Gives 5% extra score";
   }
+  
+  /**
+   * @param $player Player
+   * @return int progress in %
+   */
+  function getProgress($player) {
+    return 0;
+  }
 }

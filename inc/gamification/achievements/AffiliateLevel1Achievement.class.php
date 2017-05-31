@@ -1,7 +1,5 @@
 <?php
-use DBA\Game;
 use DBA\Player;
-use DBA\QueryFilter;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,23 +21,12 @@ class AffiliateLevel1Achievement extends GameAchievement {
    * @return bool
    */
   function isReachedByPlayer($player) {
-    global $FACTORIES;
-    
     if ($player == null || $this->alreadyReached($player)) {
       return false;
     }
     
     // this achievement is reached when the user answered 100 questions
-    $qF = new QueryFilter(Player::AFFILIATED_BY, $player->getId(), "=");
-    $affiliated = $FACTORIES::getPlayerFactory()->filter(array($FACTORIES::FILTER => $qF));
-    $count = 0;
-    foreach ($affiliated as $p) {
-      $qF = new QueryFilter(Game::PLAYER_ID, $p->getId(), "=");
-      $num = $FACTORIES::getGameFactory()->countFilter(array($FACTORIES::FILTER => $qF));
-      if ($num >= 1) {
-        $count++;
-      }
-    }
+    $count = $this->getNumInvitedPlayers($player);
     if ($count >= 1) {
       return true;
     }
@@ -72,5 +59,16 @@ class AffiliateLevel1Achievement extends GameAchievement {
    */
   function getDescription() {
     return "Invite someone to play " . GAME_NAME . " which play at least one game.<br>Gives 5% extra score";
+  }
+  
+  /**
+   * @param $player Player
+   * @return int progress in %
+   */
+  function getProgress($player) {
+    if ($player == null) {
+      return 0;
+    }
+    return floor(min(100, $this->getNumInvitedPlayers($player) / 1 * 100));
   }
 }

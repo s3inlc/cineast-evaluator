@@ -11,7 +11,7 @@
               {{IF [[achieved.getVal([[achievement.getIdentifier()]])]]}}
                 <img src="static/[[achievement.getAchievementImage()]]">
               {{ELSE}}
-                <img src="static/placeholder.png">
+                [[achievement.getProgress([[oauth.getPlayer()]])]]%
               {{ENDIF}}
             </div>
             <div class="achievement-content-container">

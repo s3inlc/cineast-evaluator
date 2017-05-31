@@ -25,7 +25,7 @@ class GamesRowLevel1Achievement extends GameAchievement {
       return false;
     }
     
-    if (isset($_SESSION['gamesInRow']) && $_SESSION['gamesInRow'] + 1 >= 2) {
+    if ($this->getGamesInRow() >= 2) {
       return true;
     }
     return false;
@@ -57,5 +57,16 @@ class GamesRowLevel1Achievement extends GameAchievement {
    */
   function getDescription() {
     return "Complete 2 games in a row.<br>Gives 5% extra score";
+  }
+  
+  /**
+   * @param $player Player
+   * @return int progress in %
+   */
+  function getProgress($player) {
+    if ($player == null) {
+      return 0;
+    }
+    return floor(min(100, $this->getGamesInRow() / 2 * 100));
   }
 }

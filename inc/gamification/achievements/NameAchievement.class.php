@@ -62,4 +62,12 @@ class NameAchievement extends GameAchievement {
   function getDescription() {
     return "Change your username from the default one.<br>Gives 5% extra score";
   }
+  
+  /**
+   * @param $player Player
+   * @return int progress in %
+   */
+  function getProgress($player) {
+    return 0;
+  }
 }

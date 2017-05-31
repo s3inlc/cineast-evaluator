@@ -1,8 +1,5 @@
 <?php
-use DBA\Game;
-use DBA\OrderFilter;
 use DBA\Player;
-use DBA\QueryFilter;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,37 +25,12 @@ class GamesInDayLevel6Achievement extends GameAchievement {
    * @return bool
    */
   function isReachedByPlayer($player) {
-    global $FACTORIES;
-    
     if ($player == null || $this->alreadyReached($player)) {
       return false;
     }
     
-    $oF = new OrderFilter(Game::FINISHED_TIME, "DESC");
-    $qF = new QueryFilter(Game::PLAYER_ID, $player->getId(), "=");
-    $games = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF));
-    if (sizeof($games) < 100) {
-      return false;
-    }
-    $currentDay = strtotime("midnight", $games[0]->getFinishedTime());
-    $nextDay = $currentDay + 3600 * 24;
-    $maxCount = 0;
-    $currentCount = 0;
-    foreach ($games as $game) {
-      if ($game->getFinishedTime() >= $currentDay && $game->getFinishedTime() < $nextDay) {
-        $currentCount++;
-      }
-      else {
-        $currentCount = 0;
-        $currentDay -= 3600 * 24;
-        $nextDay -= 3600 * 24;
-      }
-      if ($currentCount > $maxCount) {
-        $maxCount = $currentCount;
-      }
-    }
-    
-    if ($maxCount >= 100) {
+    $count = $this->getMaxGamesInDay($player);
+    if ($count >= 100) {
       return true;
     }
     return false;
@@ -90,5 +62,16 @@ class GamesInDayLevel6Achievement extends GameAchievement {
    */
   function getDescription() {
     return "Play 100 games during one day.<br>Gives 10% extra score";
+  }
+  
+  /**
+   * @param $player Player
+   * @return int progress in %
+   */
+  function getProgress($player) {
+    if ($player == null) {
+      return 0;
+    }
+    return floor(min(100, $this->getMaxGamesInDay($player)));
   }
 }

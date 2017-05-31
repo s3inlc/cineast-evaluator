@@ -27,8 +27,9 @@ define("DEFAULT_EMAIL_FROM", "ArtSimily");
 
 define("DEFAULT_SIMILARITY", "0"); // TODO: should be removed
 define("DEFAULT_CERTAINTY", "0"); // TODO: should be removed
-define("SESSION_SIZE_GAME", 50); // number of questions for a session (excluding the security questions)
-define("SESSION_SIZE_MICROWORKER", 100);
+define("SESSION_SIZE_GAME", 50); // number of questions for a session when playing a game (including the security questions)
+define("SESSION_SIZE_MICROWORKER", 100); // number of questions for a session when using a microworker (including the security questions)
+define("SESSION_SIZE_GAME_UNREGISTERED", 20); // number of questions for a session when playing a game not logged in (including the security questions)
 
 // max size an image can have before it will be resized to these sizes
 define("IMAGE_MAX_HEIGHT", 1000);

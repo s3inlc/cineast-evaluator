@@ -21,7 +21,8 @@ class QuestionPool {
    * @return SessionQuestion[]
    */
   public function getNextQuestionBlock($answerSession) {
-    global $FACTORIES, $OBJECTS;
+    /** @var $OAUTH OAuthLogin */
+    global $FACTORIES, $OBJECTS, $OAUTH, $LOGIN;
     
     $startTime = microtime(true);
     
@@ -59,6 +60,9 @@ class QuestionPool {
     $sessionSize = SESSION_SIZE_GAME;
     if ($answerSession->getMicroworkerId() != null) {
       $sessionSize = SESSION_SIZE_MICROWORKER;
+    }
+    else if (!$OAUTH->isLoggedin() && !$LOGIN->isLoggedin()) {
+      $sessionSize = SESSION_SIZE_GAME_UNREGISTERED;
     }
     
     for ($i = 0; $i < $sessionSize; $i++) {
@@ -101,7 +105,7 @@ class QuestionPool {
         if ($count < RESULT_TUPLE_EVALUATED_ANSWERS_THRESHOLD || $tuple->getSigma() > RESULT_TUPLE_EVALUATED_SIGMA_THRESHOLD) {
           $found = true;
         }
-        else{
+        else {
           $tupleIds[] = $tuple->getId();
         }
       }

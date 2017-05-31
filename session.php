@@ -5,6 +5,7 @@ $OBJECTS['pageTitle'] = GAME_NAME;
 
 /**
  * @var $DEBUG string[]
+ * @var $OAUTH OAuthLogin
  */
 
 if (isset($_POST['disclaimerAccept'])) {
@@ -76,6 +77,9 @@ Util::prepare2CompareQuestion($question->getMediaObjects()[0], $question->getMed
 $sessionSize = SESSION_SIZE_GAME;
 if ($USER_SESSION->getAnswerSession()->getMicroworkerId() != null) {
   $sessionSize = SESSION_SIZE_MICROWORKER;
+}
+else if (!$OAUTH->isLoggedin() && !$LOGIN->isLoggedin()) {
+  $sessionSize = SESSION_SIZE_GAME_UNREGISTERED;
 }
 $progress = floor(($sessionSize - $USER_SESSION->getRemainingQuestions() - 1) * 100 / $sessionSize);
 $OBJECTS['progress'] = $progress;

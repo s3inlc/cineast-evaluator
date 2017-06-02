@@ -41,6 +41,17 @@ class Util {
     }
   }
   
+  public static function getValidityForMicroworker($microworkerId) {
+    global $FACTORIES;
+    
+    $qF = new QueryFilter(AnswerSession::MICROWORKER_ID, $microworkerId, "=");
+    $answerSession = $FACTORIES::getAnswerSessionFactory()->filter(array($FACTORIES::FILTER => $qF), true);
+    if ($answerSession == null) {
+      return -1;
+    }
+    return $answerSession->getCurrentValidity();
+  }
+  
   /**
    * Get either a Gravatar URL or complete image tag for a specified email address.
    *

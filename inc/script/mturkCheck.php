@@ -114,7 +114,7 @@ do {
             if ($session->getCurrentValidity() >= MICROWORKER_VALIDITY_CONFIRM_LIMIT) {
               $client->approveAssignment(array(
                   "AssignmentId" => $assignment['AssignmentId'],
-                  "RequesterFeedback" => "Well done :)"
+                  "RequesterFeedback" => "Thank you for your participation"
                 )
               );
               $microworker->setIsConfirmed(1);
@@ -123,7 +123,7 @@ do {
             else {
               $client->rejectAssignment(array(
                   "AssignmentId" => $assignment['AssignmentId'],
-                  "RequesterFeedback" => "You did not pass the checks to detect not correctly answering workers."
+                  "RequesterFeedback" => "Answers did not pass automated validation"
                 )
               );
               $microworker->setIsConfirmed(-1);

@@ -75,9 +75,9 @@
                   Running
                 {{ELSE}}
                   {{IF [[microworker.getIsConfirmed()]] == 0}}
-                    Finished &amp; Waiting for confirmation
+                    Finished ([[Util::getValidityForMicroworker([[microworker.getId()]])]]) &amp; Waiting for confirmation
                   {{ELSE}}
-                    Finished &amp; Confirmed
+                    Finished ([[Util::getValidityForMicroworker([[microworker.getId()]])]]) &amp; Confirmed
                   {{ENDIF}}
                 {{ENDIF}}
               {{ENDIF}}

@@ -45,11 +45,13 @@ class Util {
     global $FACTORIES;
     
     $qF = new QueryFilter(AnswerSession::MICROWORKER_ID, $microworkerId, "=");
-    $answerSession = $FACTORIES::getAnswerSessionFactory()->filter(array($FACTORIES::FILTER => $qF), true);
-    if ($answerSession == null) {
-      return -1;
+    $answerSessions = $FACTORIES::getAnswerSessionFactory()->filter(array($FACTORIES::FILTER => $qF));
+    foreach ($answerSessions as $answerSession) {
+      if ($answerSession->getIsOpen() == 0) {
+        return $answerSession->getCurrentValidity();
+      }
     }
-    return $answerSession->getCurrentValidity();
+    return -1;
   }
   
   /**

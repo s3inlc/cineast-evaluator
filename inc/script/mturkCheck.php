@@ -111,7 +111,7 @@ do {
             $microworker->setIsConfirmed(-1);
           }
           else {
-            if ($session->getCurrentValidity() >= MICROWORKER_VALIDITY_CONFIRM_LIMIT) {
+            if ($session->getCurrentValidity() >= 0.45/*MICROWORKER_VALIDITY_CONFIRM_LIMIT*/) {
               $client->approveAssignment(array(
                   "AssignmentId" => $assignment['AssignmentId'],
                   "RequesterFeedback" => "Thank you for your participation"

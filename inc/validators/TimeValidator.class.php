@@ -12,7 +12,7 @@ use DBA\Validation;
  */
 class TimeValidator extends Validator {
   const AVG_TIME_LOWER_LIMIT = 1.1;
-  const PEAK_DIST_FROM_AVG   = 60;
+  const PEAK_DIST_FROM_AVG   = 300;
   const AVG_TIME_UPPER_LIMIT = 100;
   
   const MALUS_TOO_FAST  = 0.5;

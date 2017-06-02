@@ -123,7 +123,7 @@ do {
             else {
               $client->rejectAssignment(array(
                   "AssignmentId" => $assignment['AssignmentId'],
-                  "RequesterFeedback" => "Answers did not pass automated validation"
+                  "RequesterFeedback" => "Sorry, but your answers did not pass automated validation"
                 )
               );
               $microworker->setIsConfirmed(-1);

@@ -17,7 +17,7 @@ $credentials = json_decode(file_get_contents(dirname(__FILE__) . "/../mturk_api_
 $client = new \Aws\MTurk\MTurkClient(array(
     "version" => "latest",
     "region" => "us-east-1",
-    "endpoint" => "https://mturk-requester-sandbox.us-east-1.amazonaws.com",
+    "endpoint" => "https://mturk-requester.us-east-1.amazonaws.com",
     "credentials" => $credentials
   )
 );

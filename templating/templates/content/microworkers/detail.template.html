@@ -84,6 +84,7 @@
             </td>
             <td>{{IF [[microworker.getIsLocked()]] == 1}}Yes{{ELSE}}No{{ENDIF}}</td>
             <td class="right-align">
+              <a class="btn-floating waves-effect waves-light green" href="microworkers.php?microworkerId=[[microworker.getId()]]"><i class="material-icons">visibility</i></a>&nbsp;&nbsp;
               <form style="display: inline;" action="microworkers.php?view=[[batch.getId()]]" method="post">
                 <input type="hidden" name="action" value="toggleLock">
                 <input type="hidden" name="microworkerId" value="[[microworker.getId()]]">

@@ -71,6 +71,7 @@ else if(isset($_GET['microworkerId'])){
       $answerSet->addValue('object2', $mediaObject2);
       $answerSet->addValue('value1', $value1);
       $answerSet->addValue('value2', $value2);
+      $answerSet->addValue('answer', $answer);
       $responses[] = $answerSet;
     }
     $set->addValue('answers', $responses);

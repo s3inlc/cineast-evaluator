@@ -28,6 +28,21 @@
             {{ENDFOREACH}}
           </div>
         </div>
+        <div class="row">
+          <div class="col s12 m6 l3">
+            <button class="btn waves-effect waves-light {{IF [[answer.getVal('answer').getAnswer()]] == 0}}bluew{{ELSE}}grey{{ENDIF}} answer-button">Not Similar</button>
+          </div>
+          <div class="col s12 m6 l3">
+            <button class="btn waves-effect waves-light {{IF [[answer.getVal('answer').getAnswer()]] == 1}}bluew{{ELSE}}grey{{ENDIF}} answer-button">Slightly Similar</button>
+          </div>
+          <div class="col s12 m6 l3">
+            <button class="btn waves-effect waves-light {{IF [[answer.getVal('answer').getAnswer()]] == 2}}bluew{{ELSE}}grey{{ENDIF}} answer-button">Very Similar</button>
+          </div>
+          <div class="col s12 m6 l3">
+            <button class="btn waves-effect waves-light {{IF [[answer.getVal('answer').getAnswer()]] == 3}}bluew{{ELSE}}grey{{ENDIF}} answer-button">Nearly Identical</button>
+          </div>
+        </div>
+        <hr>
       {{ENDFOREACH}}
     {{ENDFOREACH}}
   </div>

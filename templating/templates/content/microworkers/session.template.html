@@ -1,0 +1,36 @@
+{%TEMPLATE->struct/head%}
+{%TEMPLATE->struct/menu%}
+<main>
+  <div class="container">
+    <h3>Microworker Session</h3>
+
+    {{FOREACH session;[[sessions]]}}
+      <h4>Answer Session ([[session.getVal('session').getId()]])</h4>
+      {{FOREACH answer;[[session.getVal('answers')]]}}
+        <div class="row valign-wrapper" style="height: 100%;">
+          <div class="col m12" style="text-align: center;">
+            {{FOREACH object;[[answer.getVal('value1').getVal('objData')]]}}
+              {{IF [[answer.getVal('value1').getVal('template')]] == "default"}}
+                {%TEMPLATE->media/default%}
+              {{ENDIF}}
+              {{IF [[answer.getVal('value1').getVal('template')]] == "image"}}
+                {%TEMPLATE->media/image%}
+              {{ENDIF}}
+            {{ENDFOREACH}}
+            &nbsp;&nbsp;&nbsp;
+            {{FOREACH object;[[answer.getVal('value2').getVal('objData')]]}}
+              {{IF [[answer.getVal('value2').getVal('template')]] == "default"}}
+                {%TEMPLATE->media/default%}
+              {{ENDIF}}
+              {{IF [[answer.getVal('value2').getVal('template')]] == "image"}}
+                {%TEMPLATE->media/image%}
+              {{ENDIF}}
+            {{ENDFOREACH}}
+          </div>
+        </div>
+      {{ENDFOREACH}}
+    {{ENDFOREACH}}
+  </div>
+</main>
+
+{%TEMPLATE->struct/foot%}

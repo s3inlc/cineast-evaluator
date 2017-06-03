@@ -5,7 +5,7 @@
     <h3>Microworker Session</h3>
 
     {{FOREACH session;[[sessions]]}}
-      <h4>Answer Session ([[session.getVal('session').getId()]])</h4>
+      <h4>Answer Session ([[session.getVal('session').getId()]]) ([[sizeof([[session.getVal('answers')]])]] Answers given)</h4>
       {{FOREACH answer;[[session.getVal('answers')]]}}
         <div class="row valign-wrapper" style="height: 100%;">
           <div class="col m12" style="text-align: center;">

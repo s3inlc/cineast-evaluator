@@ -72,6 +72,16 @@ else if(isset($_GET['microworkerId'])){
       $answerSet->addValue('value1', $value1);
       $answerSet->addValue('value2', $value2);
       $answerSet->addValue('answer', $answer);
+
+      $imageData = false;
+      if ($tuple->getSigma() >= 0) {
+        if ($tuple->getSigma() == 0) {
+          // so we can at least draw something
+          $tuple->setSigma(0.01);
+        }
+        $imageData = SimpleGauss::generateCurve($tuple->getSigma(), $tuple->getMu());
+      }
+      $answerSet->addValue('imageData', $imageData);
       $responses[] = $answerSet;
     }
     $set->addValue('answers', $responses);

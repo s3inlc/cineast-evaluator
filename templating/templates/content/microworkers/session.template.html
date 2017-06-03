@@ -42,7 +42,13 @@
             <button class="btn waves-effect waves-light {{IF [[answer.getVal('answer').getAnswer()]] == 3}}bluew{{ELSE}}grey{{ENDIF}} answer-button">Nearly Identical</button>
           </div>
         </div>
+        {{IF [[answer.getVal('imageData')]]}}
+          <div class="row">
+            <img src="[[answer.getVal('imageData')]]" class="responsive-img">
+          </div>
+        {{ENDIF}}
         <hr>
+        <br><br>
       {{ENDFOREACH}}
     {{ENDFOREACH}}
   </div>

@@ -41,6 +41,13 @@ $scoreData = $scoreCalculator->getScore();
 $scoreData[ScoreCalculator::SCORE_MULTIPLICATOR] = round(($scoreData[ScoreCalculator::SCORE_MULTIPLICATOR] - 1) * 100, 2);
 $OBJECTS['score'] = new DataSet($scoreData);
 
+// calculate the score position
+$totalGames = $FACTORIES::getGameFactory()->countFilter(array());
+$qF = new QueryFilter(Game::GAME_SCORE, $OBJECTS['score']->getVal('baseScore'), ">");
+$higherGames = $FACTORIES::getGameFactory()->countFilter(array($FACTORIES::FILTER => $qF));
+$percentage = floor((1 - $higherGames / $totalGames) * 100);
+$OBJECTS['scorePosition'] = "Above $percentage% of the other games";
+
 $OBJECTS['achievements'] = array();
 if ($isFresh) {
   // test if game was saved for this answer session

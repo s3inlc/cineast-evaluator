@@ -217,9 +217,9 @@ ul.dropdown-content.select-dropdown li span {
 
 
 
-.toast-centered {
+#toast-container > .toast-centered {
     bottom: auto !important;
     right: auto !important;
     top: 10%;
-    left: auto !important;
+    left: 7% !important;
 }

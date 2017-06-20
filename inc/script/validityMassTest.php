@@ -23,7 +23,7 @@ for ($i = 0; $i < $numTests; $i++) {
   $answerSessions[] = $answerSession->getId();
   $incrementor = 0;
   
-  $questions = $pool->getNextQuestionBlock($answerSession);
+  $questions = $pool->getNextQuestionBlock($answerSession, 20);
   $answers = array();
   foreach ($questions as $question) {
     $answer = mt_rand(0, 3); // get a random answer

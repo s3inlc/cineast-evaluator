@@ -18,9 +18,10 @@ class QuestionPool {
   
   /**
    * @param $answerSession AnswerSession
+   * @param int $securityQuestionQuota average number of security questions per 100 questions
    * @return SessionQuestion[]
    */
-  public function getNextQuestionBlock($answerSession) {
+  public function getNextQuestionBlock($answerSession, $securityQuestionQuota = 15) {
     /** @var $OAUTH OAuthLogin */
     global $FACTORIES, $OBJECTS, $OAUTH, $LOGIN;
     
@@ -66,7 +67,7 @@ class QuestionPool {
     }
     
     for ($i = 0; $i < $sessionSize; $i++) {
-      if (random_int(0, 100) < 15) {
+      if (random_int(0, 100) < $securityQuestionQuota) {
         $question = Util::getSecurityQuestion();
         if ($question != null) {
           $questions[] = $question;

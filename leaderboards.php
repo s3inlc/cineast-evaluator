@@ -51,4 +51,10 @@ while (sizeof($scores) > 10) {
 
 $OBJECTS['totalScore'] = $scores;
 
+// get last week highscores
+$time = time() - 3600 * 24 * 7;
+$qF = new QueryFilter(Game::FINISHED_TIME, $time, ">");
+$oF = new OrderFilter(Game::FULL_SCORE, "DESC LIMIT 10");
+$OBJECTS['weekGames'] = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::ORDER => $oF));
+
 echo $TEMPLATE->render($OBJECTS);

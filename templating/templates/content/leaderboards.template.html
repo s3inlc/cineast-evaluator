@@ -3,6 +3,29 @@
 <main>
   <div class="container">
     <div class="row">
+      <h4>Game Highscores last 7 days</h4>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Date</th>
+            <th class="right">Score</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {{FOREACH game;[[weekGames]];counter}}
+          <tr>
+            <td>[[Util::calculate([[counter]] + 1)]]</td>
+            <td><a href="profile.php?id=[[game.getPlayerId()]]">[[Util::getPlayerNameById([[game.getPlayerId()]])]]</a></td>
+            <td>[[date("d.m.Y", [[game.getFinishedTime()]])]]</td>
+            <td class="right">[[Util::number([[game.getFullScore()]])]]</td>
+          </tr>
+        {{ENDFOREACH}}
+        </tbody>
+      </table>
+
       <h4>Game Highscores</h4>
       <table class="striped">
         <thead>

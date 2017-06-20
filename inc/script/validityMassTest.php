@@ -35,7 +35,7 @@ for ($i = 0; $i < $numTests; $i++) {
   
   // get the validity
   $validator = new MultivariantCrowdValidator();
-  $currentValidity = $validator->validateFinished($answerSession, 0, false);
+  $currentValidity = $validator->validateFinished($answerSession, 0, true);
   $validator = new PatternValidator();
   $currentValidity = $validator->validateFinished($answerSession, $currentValidity);
   $validator = new TimeValidator();

@@ -79,7 +79,7 @@ class MultivariantCrowdValidator extends Validator {
             $prob *= 2;
             echo "Increased 2 -> ";
           }
-          $factor *= 0.5 + (min($prob, 1));
+          $factor *= 0.8 + (min($prob, 1));
           echo "Probability on " . $resultSets[$i]->getId() . ": " . $prob . ":fac:" . $factor . "\n";
         }
         $sum += $prob;

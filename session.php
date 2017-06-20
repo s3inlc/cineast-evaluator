@@ -117,7 +117,7 @@ if ($USER_SESSION->getAnswerSession()->getMicroworkerId() == null) {
     UI::addPhraseMessage($phrases->getStartPhrase());
   }
   else {
-    if (mt_rand(0, 100) < 10) {
+    if (mt_rand(0, 100) < 50) {
       UI::addPhraseMessage($phrases->getPhrase());
     }
   }

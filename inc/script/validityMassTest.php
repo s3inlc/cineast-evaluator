@@ -31,11 +31,11 @@ for ($i = 0; $i < $numTests; $i++) {
   
   // get the validity
   $validator = new MultivariantCrowdValidator();
-  $currentValidity = $validator->validateFinished($session, 0, false);
+  $currentValidity = $validator->validateFinished($answerSession, 0, false);
   $validator = new PatternValidator();
-  $currentValidity = $validator->validateFinished($session, $currentValidity);
+  $currentValidity = $validator->validateFinished($answerSession, $currentValidity);
   $validator = new TimeValidator();
-  $currentValidity = $validator->validateFinished($session, $currentValidity);
+  $currentValidity = $validator->validateFinished($answerSession, $currentValidity);
   echo "Validity: " . $currentValidity . "\n";
 }
 

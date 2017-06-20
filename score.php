@@ -46,7 +46,7 @@ $totalGames = $FACTORIES::getGameFactory()->countFilter(array());
 $qF = new QueryFilter(Game::GAME_SCORE, $OBJECTS['score']->getVal('baseScore'), ">");
 $higherGames = $FACTORIES::getGameFactory()->countFilter(array($FACTORIES::FILTER => $qF));
 $percentage = floor((1 - $higherGames / $totalGames) * 100);
-$OBJECTS['scorePosition'] = "Above $percentage% of the other games";
+$OBJECTS['scorePosition'] = "Higher than $percentage% of the other games";
 
 $OBJECTS['achievements'] = array();
 if ($isFresh) {

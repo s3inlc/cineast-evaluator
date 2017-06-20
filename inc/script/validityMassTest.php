@@ -13,9 +13,10 @@ use DBA\Validation;
 
 require_once(dirname(__FILE__) . "/../load.php");
 
-$numTests = 1;
+$numTests = 100;
 $answerSessions = array();
 $pool = new QuestionPool();
+$validitySum = 0;
 for ($i = 0; $i < $numTests; $i++) {
   $answerSession = new AnswerSession(0, null, null, null, 0, 0, time(), "999.999.999.999", "EMPTY");
   $answerSession = $FACTORIES::getAnswerSessionFactory()->save($answerSession);
@@ -40,7 +41,9 @@ for ($i = 0; $i < $numTests; $i++) {
   $validator = new TimeValidator();
   $currentValidity = $validator->validateFinished($answerSession, $currentValidity);
   echo "Validity: " . $currentValidity . "\n";
+  $validitySum += $currentValidity;
 }
+echo "Average Validity: " . ($validitySum / $numTests) . "\n";
 
 // cleanup
 $qF = new ContainFilter(Validation::ANSWER_SESSION_ID, $answerSessions);

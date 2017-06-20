@@ -31,13 +31,11 @@ class SimilarityGaussCalculator extends Calculator {
         $resultSet->setMu($gauss->getMu());
         $changed[$resultSet->getId()] = true;
       }
-      if ($resultSet->getSigma() <= RESULT_TUPLE_EVALUATED_SIGMA_THRESHOLD && $resultSet->getSigma() > 0) {
-        $qF = new QueryFilter(TwoCompareAnswer::RESULT_TUPLE_ID, $resultSet->getId(), "=");
-        $count = $FACTORIES::getTwoCompareAnswerFactory()->countFilter(array($FACTORIES::FILTER => $qF));
-        if ($count >= RESULT_TUPLE_EVALUATED_ANSWERS_THRESHOLD) {
-          $resultSet->setIsFinal(1);
-          $changed[$resultSet->getId()] = true;
-        }
+      $qF = new QueryFilter(TwoCompareAnswer::RESULT_TUPLE_ID, $resultSet->getId(), "=");
+      $count = $FACTORIES::getTwoCompareAnswerFactory()->countFilter(array($FACTORIES::FILTER => $qF));
+      if (($resultSet->getSigma() <= RESULT_TUPLE_EVALUATED_SIGMA_THRESHOLD && $resultSet->getSigma() >= 0 && $count >= RESULT_TUPLE_EVALUATED_ANSWERS_THRESHOLD) || ($count >= RESULT_TUPLE_EVALUATED_ANSWERS_LIMIT)) {
+        $resultSet->setIsFinal(1);
+        $changed[$resultSet->getId()] = true;
       }
     }
   }

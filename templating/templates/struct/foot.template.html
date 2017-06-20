@@ -44,7 +44,7 @@
   <script type="text/javascript">
       $(document).ready(function(){
           {{FOREACH message;[[phrasesMessages]]}}
-          Materialize.toast('<span style="font-size: 25px;">[[message]]</span>', 4000, 'green');
+          Materialize.toast('<span style="font-size: 25px; font-weight: bold;">[[message]]</span>', 4000, 'green toast-centered');
           {{ENDFOREACH}}
       });
   </script>

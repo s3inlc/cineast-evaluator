@@ -214,3 +214,12 @@ main {
 ul.dropdown-content.select-dropdown li span {
     color: green;
 }
+
+
+
+.toast-centered {
+    bottom: auto !important;
+    right: auto !important;
+    top: 10%;
+    left: auto !important;
+}

@@ -97,6 +97,11 @@ class MultivariantCrowdValidator extends Validator {
     else if ($probability > 1) {
       $probability = 1;
     }
+    
+    if ($history) {
+      return $factor;
+    }
+    
     return $probability;
   }
 }

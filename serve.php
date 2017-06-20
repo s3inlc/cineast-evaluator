@@ -5,11 +5,19 @@ use DBA\QueryFilter;
 $OVERRIDELOGIN = true;
 require_once(dirname(__FILE__) . "/inc/load.php");
 
-if (!isset($_GET['id'])) {
+$path = explode("/", $_SERVER['REQUEST_URI']);
+$id = $path[sizeof($path) - 1];
+
+if (!isset($_GET['id']) && !$id) {
   die("Invalid");
 }
 
-$hash = $_GET['id'];
+if (isset($_GET['id'])) {
+  $hash = $_GET['id'];
+}
+else {
+  $hash = $id;
+}
 $qF = new QueryFilter(MediaObject::CHECKSUM, $hash, "=");
 $result = $FACTORIES::getMediaObjectFactory()->filter(array($FACTORIES::FILTER => $qF), true);
 

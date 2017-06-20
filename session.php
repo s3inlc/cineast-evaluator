@@ -1,5 +1,8 @@
 <?php
 
+use DBA\QueryFilter;
+use DBA\TwoCompareAnswer;
+
 require_once(dirname(__FILE__) . "/inc/load.php");
 $OBJECTS['pageTitle'] = GAME_NAME;
 
@@ -105,6 +108,19 @@ if (ini_get("display_errors") == "1" || $USER_SESSION->getAnswerSession()->getPl
 
 if ($USER_SESSION->getAnswerSession()->getMicroworkerId() == null) {
   $OBJECTS['showMenu'] = true;
+  
+  // eventually display a phrase
+  $phrases = new Phrases();
+  $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $USER_SESSION->getAnswerSession()->getId(), "=");
+  $count = $FACTORIES::getTwoCompareAnswerFactory()->countFilter(array($FACTORIES::FILTER => $qF));
+  if ($count == 0) {
+    UI::addSuccessMessage($phrases->getStartPhrase());
+  }
+  else {
+    if (mt_rand(0, 100) < 10) {
+      UI::addSuccessMessage($phrases->getPhrase());
+    }
+  }
 }
 
 $TEMPLATE = new Template("views/" . $question->getQuestionType());

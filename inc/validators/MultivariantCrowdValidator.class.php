@@ -65,7 +65,7 @@ class MultivariantCrowdValidator extends Validator {
         $count++;
         $prob = pow($gaussian->getProbability($answers[$i]), 2);
         if ($history) {
-          $prob = pow($prob, 2);
+          $prob = pow($prob, 3);
           if ($gaussian->getSigma() > 1 && abs($answers[$i] - $gaussian->getMu()) < 1 && $prob > 0.5) {
             $prob *= 8;
             echo "Increased 8 -> ";

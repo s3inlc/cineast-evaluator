@@ -63,9 +63,10 @@ class MultivariantCrowdValidator extends Validator {
       $gaussian = new SimpleGauss($resultSets[$i], $answerSession);
       if ($gaussian->isValid()) {
         $count++;
-        $sum += pow($gaussian->getProbability($answers[$i]), 2);
+        $prob = pow($gaussian->getProbability($answers[$i]), 2);
+        $sum += $prob;
         if ($history) {
-          echo "Probability on " . $resultSets[$i]->getId() . ": " . pow($gaussian->getProbability($answers[$i]), 2) . "\n";
+          echo "Probability on " . $resultSets[$i]->getId() . ": " . $prob . "\n";
         }
       }
     }

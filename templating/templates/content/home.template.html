@@ -6,9 +6,9 @@
     <div class="row">
       <div class="col s12" style="font-size: 1.3em;">
         <b>What is ArtSimily about?</b><br>
-        ArtSimily is a game where you try to rate images by their contextual similarity and the "better" your answers
-        are, the higher your score will get.<br>
-        Start playing by clicking the button below.
+        ArtSimily is a game where you try to rate digital art by their contextual similarity and the "better" your answers
+        are, the higher your score will get.<br><br>
+        It is part of a research project to build/improve multimedia search engines.
       </div>
     </div>
     {{IF [[oauth.isLoggedin()]]}}
@@ -16,6 +16,12 @@
         <div class="col s12 m12">
           <h4>Hey [[oauth.getPlayer().getPlayerName()]]</h4>
           <h5>Play some more games to get missing achievements</h5>
+        </div>
+      </div>
+    {{ELSE}}
+      <div class="row">
+        <div class="col s12 large center">
+          Start playing by clicking the button below.
         </div>
       </div>
     {{ENDIF}}

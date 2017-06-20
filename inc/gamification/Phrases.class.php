@@ -15,7 +15,7 @@ class Phrases {
   private $phrases = array();
   
   function __construct() {
-    $this->phrases = json_decode(file_get_contents(dirname(__FILE__) . Phrases::PHRASES_FILE), true);
+    $this->phrases = json_decode(file_get_contents(dirname(__FILE__) . "/" . Phrases::PHRASES_FILE), true);
   }
   
   public function getStartPhrase() {

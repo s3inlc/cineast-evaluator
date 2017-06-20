@@ -44,4 +44,10 @@ class UI {
     $OBJECTS['success'] = true;
     UI::addMessage($message, "success");
   }
+  
+  public static function addPhraseMessage($message) {
+    global $OBJECTS;
+    $OBJECTS['phrases'] = true;
+    UI::addMessage($message, "phrases");
+  }
 }

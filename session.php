@@ -114,11 +114,11 @@ if ($USER_SESSION->getAnswerSession()->getMicroworkerId() == null) {
   $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $USER_SESSION->getAnswerSession()->getId(), "=");
   $count = $FACTORIES::getTwoCompareAnswerFactory()->countFilter(array($FACTORIES::FILTER => $qF));
   if ($count == 0) {
-    UI::addSuccessMessage($phrases->getStartPhrase());
+    UI::addPhraseMessage($phrases->getStartPhrase());
   }
   else {
     if (mt_rand(0, 100) < 10) {
-      UI::addSuccessMessage($phrases->getPhrase());
+      UI::addPhraseMessage($phrases->getPhrase());
     }
   }
 }

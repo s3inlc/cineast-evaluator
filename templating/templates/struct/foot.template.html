@@ -40,6 +40,16 @@
   </script>
 {{ENDIF}}
 
+{{IF [[phrases]] > 0}}
+  <script type="text/javascript">
+      $(document).ready(function(){
+          {{FOREACH message;[[phrasesMessages]]}}
+          Materialize.toast('<span style="font-size: 25px;">[[message]]</span>', 4000, 'green');
+          {{ENDFOREACH}}
+      });
+  </script>
+{{ENDIF}}
+
 {{IF [[DEBUG]]}}
   {{FOREACH entry;[[DEBUG]]}}
     <p>[[entry]]</p><br>

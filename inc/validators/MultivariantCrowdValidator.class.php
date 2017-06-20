@@ -58,6 +58,7 @@ class MultivariantCrowdValidator extends Validator {
     }
     
     $sum = 0;
+    $factor = 1;
     $count = 0;
     for ($i = 0; $i < sizeof($resultSets); $i++) {
       $gaussian = new SimpleGauss($resultSets[$i], $answerSession);
@@ -78,7 +79,8 @@ class MultivariantCrowdValidator extends Validator {
             $prob *= 2;
             echo "Increased 2 -> ";
           }
-          echo "Probability on " . $resultSets[$i]->getId() . ": " . $prob . "\n";
+          $factor *= 0.5 + (min($prob, 1));
+          echo "Probability on " . $resultSets[$i]->getId() . ": " . $prob . ":fac:" . $factor . "\n";
         }
         $sum += $prob;
       }

@@ -14,6 +14,7 @@ require_once(dirname(__FILE__) . "/../load.php");
 
 $numTests = 1;
 $answerSessions = array();
+$pool = new QuestionPool();
 for ($i = 0; $i < $numTests; $i++) {
   $answerSession = new AnswerSession(0, null, null, null, 0, 0, time(), "999.999.999.999", "EMPTY");
   $answerSession = $FACTORIES::getAnswerSessionFactory()->save($answerSession);

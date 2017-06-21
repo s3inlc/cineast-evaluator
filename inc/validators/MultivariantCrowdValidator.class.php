@@ -65,6 +65,9 @@ class MultivariantCrowdValidator extends Validator {
       if ($gaussian->isValid()) {
         $count++;
         $prob = pow($gaussian->getProbability($answers[$i]), 6);
+        if ($history) {
+          echo "Base prob(" . $gaussian->getMu() . "-" . $gaussian->getSigma() . "): " . $prob . "\n";
+        }
         if ($gaussian->getSigma() > 1 && abs($answers[$i] - $gaussian->getMu()) < 1 && $prob > 0.5) {
           $prob *= 8;
         }
@@ -76,7 +79,7 @@ class MultivariantCrowdValidator extends Validator {
         }
         $factor *= 0.6 + (min($prob, 1));
         if ($history) {
-          echo "Current validity: " . $factor . "\n";
+          echo "Current prob:" . $prob . " factor:" . $factor . "\n";
         }
         $sum += $prob;
       }

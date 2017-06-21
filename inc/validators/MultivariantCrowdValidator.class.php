@@ -64,45 +64,29 @@ class MultivariantCrowdValidator extends Validator {
       $gaussian = new SimpleGauss($resultSets[$i], $answerSession);
       if ($gaussian->isValid()) {
         $count++;
-        $prob = pow($gaussian->getProbability($answers[$i]), 2);
-        if ($history) {
-          $prob = pow($prob, 3);
-          if ($gaussian->getSigma() > 1 && abs($answers[$i] - $gaussian->getMu()) < 1 && $prob > 0.5) {
-            $prob *= 8;
-            echo "Increased 8 -> ";
-          }
-          else if ($gaussian->getSigma() > 0.5 && abs($answers[$i] - $gaussian->getMu()) < 1 && $prob > 0.5) {
-            $prob *= 4;
-            echo "Increased 4 -> ";
-          }
-          else if ($gaussian->getSigma() > 0.25 && abs($answers[$i] - $gaussian->getMu()) < 0.5 && $prob > 0.5) {
-            $prob *= 2;
-            echo "Increased 2 -> ";
-          }
-          $factor *= 0.6 + (min($prob, 1));
-          echo "Probability on " . $resultSets[$i]->getId() . ": " . $prob . ":fac:" . $factor . "\n";
+        $prob = pow($gaussian->getProbability($answers[$i]), 6);
+        if ($gaussian->getSigma() > 1 && abs($answers[$i] - $gaussian->getMu()) < 1 && $prob > 0.5) {
+          $prob *= 8;
         }
+        else if ($gaussian->getSigma() > 0.5 && abs($answers[$i] - $gaussian->getMu()) < 1 && $prob > 0.5) {
+          $prob *= 4;
+        }
+        else if ($gaussian->getSigma() > 0.25 && abs($answers[$i] - $gaussian->getMu()) < 0.5 && $prob > 0.5) {
+          $prob *= 2;
+        }
+        $factor *= 0.6 + (min($prob, 1));
         $sum += $prob;
       }
     }
     
-    $probability = 0;
+    /*$probability = 0;
     if ($count > 0) {
       $probability = $sum / $count;
-    }
+    }*/
     
-    if ($probability < 0) {
-      $probability = 0;
-    }
-    else if ($probability > 1) {
-      $probability = 1;
-    }
+    return max(0, min(1, $factor));
     
-    if ($history) {
-      return $factor;
-    }
-    
-    return $probability;
+    //return $probability;
   }
 }
 

@@ -68,13 +68,13 @@ class MultivariantCrowdValidator extends Validator {
         if ($history) {
           echo "Base prob(" . $gaussian->getMu() . "-" . $gaussian->getSigma() . "): " . $prob . "\n";
         }
-        if ($gaussian->getSigma() > 1 && abs($answers[$i] - $gaussian->getMu()) < 1 && $prob > 0.5) {
+        if ($gaussian->getSigma() > 1 && abs($answers[$i] - $gaussian->getMu()) < 1) {
           $prob *= 8;
         }
-        else if ($gaussian->getSigma() > 0.5 && abs($answers[$i] - $gaussian->getMu()) < 1 && $prob > 0.5) {
+        else if ($gaussian->getSigma() > 0.5 && abs($answers[$i] - $gaussian->getMu()) < 1) {
           $prob *= 4;
         }
-        else if ($gaussian->getSigma() > 0.25 && abs($answers[$i] - $gaussian->getMu()) < 0.5 && $prob > 0.5) {
+        else if ($gaussian->getSigma() > 0.25 && abs($answers[$i] - $gaussian->getMu()) < 0.5) {
           $prob *= 2;
         }
         $factor *= 0.6 + (min($prob, 1));

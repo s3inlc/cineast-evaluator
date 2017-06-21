@@ -82,6 +82,10 @@ class MultivariantCrowdValidator extends Validator {
       }
     }
     
+    if ($history) {
+      echo "Final factor: " . $factor . "\n";
+    }
+    
     /*$probability = 0;
     if ($count > 0) {
       $probability = $sum / $count;

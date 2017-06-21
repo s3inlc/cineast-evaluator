@@ -36,43 +36,49 @@ else if (isset($_GET['view'])) {
   $OBJECTS['batch'] = $batch;
   $OBJECTS['microworkers'] = $microworkers;
 }
-else if(isset($_GET['microworkerId'])){
-  $microworker = $FACTORIES::getMicroworkerFactory()->get($_GET['microworkerId']);
-  if($microworker == null){
-    UI::printError("ERROR", "Invalid Microworker!");
+else if (isset($_GET['microworkerId']) || isset($_GET['answerSessionId'])) {
+  if (isset($_GET['microworkerId'])) {
+    $microworker = $FACTORIES::getMicroworkerFactory()->get($_GET['microworkerId']);
+    if ($microworker == null) {
+      UI::printError("ERROR", "Invalid Microworker!");
+    }
+    $qF = new QueryFilter(AnswerSession::MICROWORKER_ID, $microworker->getId(), "=");
+    $answerSessions = $FACTORIES::getAnswerSessionFactory()->filter(array($FACTORIES::FILTER => $qF));
+  }
+  else {
+    $qF = new QueryFilter(AnswerSession::ANSWER_SESSION_ID, $_GET['answerSessionId'], "=");
+    $answerSessions = $FACTORIES::getAnswerSessionFactory()->filter(array($FACTORIES::FILTER => $qF));
   }
   $TEMPLATE = new Template("content/microworkers/session");
-  $qF = new QueryFilter(AnswerSession::MICROWORKER_ID, $microworker->getId(), "=");
-  $answerSessions = $FACTORIES::getAnswerSessionFactory()->filter(array($FACTORIES::FILTER => $qF));
   $sessions = array();
-  foreach($answerSessions as $answerSession){
+  foreach ($answerSessions as $answerSession) {
     $set = new DataSet();
     $set->addValue('session', $answerSession);
     $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSession->getId(), "=");
     $answers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
     $responses = array();
-    foreach($answers as $answer){
+    foreach ($answers as $answer) {
       $answerSet = new DataSet();
       $tuple = $FACTORIES::getResultTupleFactory()->get($answer->getResultTupleId());
       $mediaObject1 = $FACTORIES::getMediaObjectFactory()->get($tuple->getObjectId1());
       $mediaObject2 = $FACTORIES::getMediaObjectFactory()->get($tuple->getObjectId2());
-
+      
       $value1 = new DataSet();
       $value2 = new DataSet();
       $value1->addValue('objData', array(new DataSet(array("data" => "serve.php?id=" . $mediaObject1->getChecksum(), "source" => $mediaObject1->getSource()))));
       $value2->addValue('objData', array(new DataSet(array("data" => "serve.php?id=" . $mediaObject2->getChecksum(), "source" => $mediaObject2->getSource()))));
-
+      
       $mediaType1 = $FACTORIES::getMediaTypeFactory()->get($mediaObject1->getMediaTypeId());
       $mediaType2 = $FACTORIES::getMediaTypeFactory()->get($mediaObject2->getMediaTypeId());
       $value1->addValue('template', $mediaType1->getTemplate());
       $value2->addValue('template', $mediaType2->getTemplate());
-
+      
       $answerSet->addValue('object1', $mediaObject1);
       $answerSet->addValue('object2', $mediaObject2);
       $answerSet->addValue('value1', $value1);
       $answerSet->addValue('value2', $value2);
       $answerSet->addValue('answer', $answer);
-
+      
       $imageData = false;
       if ($tuple->getSigma() >= 0) {
         if ($tuple->getSigma() == 0) {

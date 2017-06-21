@@ -223,7 +223,9 @@ class UserSession {
       
       // validate finished session
       $validator = new SessionValidator($this->answerSession);
-      $this->answerSession->setCurrentValidity($validator->update(ErrorType::NO_ERROR));
+      $finalValidity = $validator->update(ErrorType::NO_ERROR);
+      file_put_contents(dirname(__FILE__) . "/finals.txt", $this->answerSession->getId() . ":" . $finalValidity . "\n", FILE_APPEND);
+      $this->answerSession->setCurrentValidity($finalValidity);
       
       $FACTORIES::getAnswerSessionFactory()->update($this->answerSession);
       $this->answerSession = null;

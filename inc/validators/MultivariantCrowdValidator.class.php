@@ -75,6 +75,9 @@ class MultivariantCrowdValidator extends Validator {
           $prob *= 2;
         }
         $factor *= 0.6 + (min($prob, 1));
+        if ($history) {
+          echo "Current validity: " . $factor . "\n";
+        }
         $sum += $prob;
       }
     }

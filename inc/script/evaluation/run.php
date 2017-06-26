@@ -61,13 +61,9 @@ foreach ($players as $player) {
     }
   }
   
-  if ($range[0] == $range[1]) {
-    $range[1] = $range[0] + 3600 * 24;
-  }
-  
   $daysOfPlaying[] = array("playerId" => $player->getId(), "days" => sizeof($days));
   $gamesPerDay[] = array("playerId" => $player->getId(), "games" => round(sizeof($games) / sizeof($days), 2));
-  $gamesPerDayOverall[] = array("playerId" => $player->getId(), "games" => round(sizeof($games) / (($range[1] - $range[0]) / 3600 / 24), 2));
+  $gamesPerDayOverall[] = array("playerId" => $player->getId(), "games" => round(sizeof($games) / (($range[1] - $range[0]) / 3600 / 24 + 1), 2));
 }
 saveCSV($gamesPlayed, dirname(__FILE__) . "/output/gamesPlayed.csv");
 saveCSV($daysOfPlaying, dirname(__FILE__) . "/output/daysOfPlaying.csv");

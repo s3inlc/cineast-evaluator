@@ -84,6 +84,7 @@ class QuestionPool {
       $joined = $FACTORIES::getResultTupleFactory()->filter(array($FACTORIES::FILTER => array($qF1, $qF2), $FACTORIES::ORDER => $oF, $FACTORIES::JOIN => $jF));
       
       if (sizeof($joined[$FACTORIES::getResultTupleFactory()->getModelName()]) == 0) {
+        $i--;
         continue;
       }
       
@@ -112,6 +113,7 @@ class QuestionPool {
       }
       
       if (!$found) {
+        $i--;
         continue;
       }
       

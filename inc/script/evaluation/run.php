@@ -58,7 +58,7 @@ function saveCSV($elements, $path) {
   }
   $output = implode(",", $header) . "\n";
   foreach ($elements as $element) {
-    $output .= implode(",", $element);
+    $output .= implode(",", $element) . "\n";
   }
   file_put_contents($path, $output);
 }

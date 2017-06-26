@@ -119,6 +119,7 @@ class QuestionPool {
       
       $mediaObjects = array($FACTORIES::getMediaObjectFactory()->get($tuple->getObjectId1()), $FACTORIES::getMediaObjectFactory()->get($tuple->getObjectId2()));
       $questions[] = new SessionQuestion(SessionQuestion::TYPE_COMPARE_TWO, $mediaObjects, array($tuple));
+      $tupleIds[] = $tuple->getId();
     }
     
     $endTime = microtime(true);

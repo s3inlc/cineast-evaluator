@@ -61,6 +61,10 @@ foreach ($players as $player) {
     }
   }
   
+  if (sizeof($games) == 0) {
+    continue;
+  }
+  
   $daysOfPlaying[] = array("playerId" => $player->getId(), "days" => sizeof($days));
   $gamesPerDay[] = array("playerId" => $player->getId(), "games" => round(sizeof($games) / sizeof($days), 2));
   $gamesPerDayOverall[] = array("playerId" => $player->getId(), "games" => round(sizeof($games) / (($range[1] - $range[0]) / 3600 / 24 + 1), 2));

@@ -35,12 +35,39 @@ $totalGames = $FACTORIES::getGameFactory()->countFilter(array());
 $players = $FACTORIES::getPlayerFactory()->filter(array());
 $daysOfPlaying = array();
 $gamesPlayed = array();
+$gamesPerDay = array();
+$gamesPerDayOverall = array();
 foreach ($players as $player) {
   $qF = new QueryFilter(Game::PLAYER_ID, $player->getId(), "=");
   $games = $FACTORIES::getGameFactory()->filter(array($FACTORIES::FILTER => $qF));
   $gamesPlayed[] = array("playerId" => $player->getId(), "gamesPlayed" => sizeof($games));
+  $days = array();
+  $range = array(0, 0);
+  foreach ($games as $game) {
+    $date = date("d.m.Y", $game->getFinishedTime());
+    // get range of days
+    if ($range[0] > $game->getFinishedTime() || $range[0] == 0) {
+      $range[0] = $game->getFinishedTime();
+    }
+    if ($range[1] < $game->getFinishedTime() || $range[1] == 0) {
+      $range[1] = $game->getFinishedTime();
+    }
+    
+    if (!isset($days[$date])) {
+      $days[$date] = 1;
+    }
+    else {
+      $days[$date]++;
+    }
+    
+    $daysOfPlaying[] = array("playerId" => $player->getId(), "days" => sizeof($days));
+    $gamesPerDay[] = array("playerId" => $player->getId(), "games" => round(sizeof($games) / sizeof($days), 2));
+    $gamesPerDayOverall[] = array("playerId" => $player->getId(), "games" => round(sizeof($games) / (($range[1] - $range[0]) / 3600 / 24), 2));
+  }
 }
 saveCSV($gamesPlayed, dirname(__FILE__) . "/output/gamesPlayed.csv");
+saveCSV($daysOfPlaying, dirname(__FILE__) . "/output/daysOfPlaying.csv");
+saveCSV($gamesPerDay, dirname(__FILE__) . "/output/gamesPerDay.csv");
 
 
 /**

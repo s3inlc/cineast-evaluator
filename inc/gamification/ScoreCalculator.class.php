@@ -58,16 +58,26 @@ class ScoreCalculator {
       if ($gaussian->isValid()) {
         if ($this->history) {
           echo "guassian(current) -> " . (ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() / 3 + min(5, $gaussian->getProbability($answer->getAnswer()))) . "\n";
-          echo "guassian(new) -> " . ((ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() / 3 + min(5, $gaussian->getProbability($answer->getAnswer()))) + (SESSION_SIZE_GAME - sizeof($answers))/100);
+          echo "guassian(new) -> " . ((ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() / 3 + min(5, $gaussian->getProbability($answer->getAnswer()))) + (SESSION_SIZE_GAME - sizeof($answers)) / 100);
         }
-        $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() / 3 + min(5, $gaussian->getProbability($answer->getAnswer()));
+        if ($this->history) {
+          $score *= (ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() / 3 + min(5, $gaussian->getProbability($answer->getAnswer()))) + (SESSION_SIZE_GAME - sizeof($answers)) / 100;
+        }
+        else {
+          $score *= ScoreCalculator::GAUSSIAN_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::GAUSSIAN_CONST_MULT_ADD - $tuple->getSigma() / 3 + min(5, $gaussian->getProbability($answer->getAnswer()));
+        }
       }
       else {
         if ($this->history) {
           echo "normal(current) -> " . (ScoreCalculator::BASIC_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD) . "\n";
-          echo "normal(new) -> " . ((ScoreCalculator::BASIC_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD) + (SESSION_SIZE_GAME - sizeof($answers))/100);
+          echo "normal(new) -> " . ((ScoreCalculator::BASIC_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD) + (SESSION_SIZE_GAME - sizeof($answers)) / 100);
         }
-        $score *= ScoreCalculator::BASIC_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD;
+        if ($this->history) {
+          $score *= (ScoreCalculator::BASIC_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD) + (SESSION_SIZE_GAME - sizeof($answers)) / 100;
+        }
+        else {
+          $score *= ScoreCalculator::BASIC_CONST_MULT + $count / sizeof($answers) * ScoreCalculator::CONST_MULT_ADD;
+        }
       }
       if ($this->history) {
         echo "\n";

@@ -72,6 +72,7 @@ foreach ($players as $player) {
 saveCSV($gamesPlayed, dirname(__FILE__) . "/output/gamesPlayed.csv");
 saveCSV($daysOfPlaying, dirname(__FILE__) . "/output/daysOfPlaying.csv");
 saveCSV($gamesPerDay, dirname(__FILE__) . "/output/gamesPerDay.csv");
+saveCSV($gamesPerDayOverall, dirname(__FILE__) . "/output/gamesPerDayOverall.csv");
 
 
 /**

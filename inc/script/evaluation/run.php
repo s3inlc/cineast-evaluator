@@ -16,20 +16,29 @@ require_once(dirname(__FILE__) . "/../../load.php");
 $FACTORIES::getAnswerSessionFactory()->startTransation();
 
 // determine some global numbers
+$SINGLE = array();
 
-$totalQueries = $FACTORIES::getQueryFactory()->countFilter(array());
-$totalTuples = $FACTORIES::getResultTupleFactory()->countFilter(array());
+$SINGLE['totalQueries'] = $FACTORIES::getQueryFactory()->countFilter(array());
+$SINGLE['totalTuples'] = $FACTORIES::getResultTupleFactory()->countFilter(array());
 
 $qF = new QueryFilter(ResultTuple::IS_FINAL, 1, "=");
-$fullyEvaluatedTuples = $FACTORIES::getResultTupleFactory()->countFilter(array($FACTORIES::FILTER => $qF));
+$SINGLE['fullyEvaluatedTuples'] = $FACTORIES::getResultTupleFactory()->countFilter(array($FACTORIES::FILTER => $qF));
 
-$totalPlayers = $FACTORIES::getPlayerFactory()->countFilter(array());
+$SINGLE['totalPlayers'] = $FACTORIES::getPlayerFactory()->countFilter(array());
 
 $qF = new QueryFilter(Microworker::IS_CONFIRMED, 1, "=");
-$totalMicroworkers = $FACTORIES::getMicroworkerFactory()->countFilter(array($FACTORIES::FILTER => $qF));
+$SINGLE['totalMicroworkers'] = $FACTORIES::getMicroworkerFactory()->countFilter(array($FACTORIES::FILTER => $qF));
 
-$totalGames = $FACTORIES::getGameFactory()->countFilter(array());
+$SINGLE['totalGames'] = $FACTORIES::getGameFactory()->countFilter(array());
+$SINGLE['totalSessions'] = $FACTORIES::getAnswerSessionFactory()->countFilter(array());
+$SINGLE['totalAnswers'] = $FACTORIES::getTwoCompareAnswerFactory()->countFilter(array());
 
+// save all the global values
+$lines = array();
+foreach ($SINGLE as $key => $value) {
+  $lines[] = $key . ":" . $value;
+}
+file_put_contents(dirname(__FILE__) . "/output/global.txt", implode("\n", $lines));
 
 // days of playing by players and games per player
 $players = $FACTORIES::getPlayerFactory()->filter(array());
@@ -73,6 +82,33 @@ saveCSV($gamesPlayed, dirname(__FILE__) . "/output/gamesPlayed.csv");
 saveCSV($daysOfPlaying, dirname(__FILE__) . "/output/daysOfPlaying.csv");
 saveCSV($gamesPerDay, dirname(__FILE__) . "/output/gamesPerDay.csv");
 saveCSV($gamesPerDayOverall, dirname(__FILE__) . "/output/gamesPerDayOverall.csv");
+
+// get the session validities for users
+$answerSessions = $FACTORIES::getAnswerSessionFactory()->filter(array());
+$allAnswerSessions = array();
+$playerAnswerSessions = array();
+$microworkerAnswerSessions = array();
+$unknownAnswerSessions = array();
+foreach ($answerSessions as $answerSession) {
+  if ($answerSession->getUserId() != null) {
+    // skip admin sessions
+    continue;
+  }
+  $allAnswerSessions[] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
+  if ($answerSession->getMicroworkerId() != null) {
+    $microworkerAnswerSessions[] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
+  }
+  else if ($answerSession->getPlayerId() != null) {
+    $playerAnswerSessions[] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
+  }
+  else {
+    $unknownAnswerSessions[] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
+  }
+}
+saveCSV($allAnswerSessions, dirname(__FILE__) . "/output/allValidities.csv");
+saveCSV($microworkerAnswerSessions, dirname(__FILE__) . "/output/microworkerValidities.csv");
+saveCSV($playerAnswerSessions, dirname(__FILE__) . "/output/playerValidities.csv");
+saveCSV($unknownAnswerSessions, dirname(__FILE__) . "/output/anonymousValidities.csv");
 
 
 /**

@@ -48,11 +48,11 @@ $jF = new JoinFilter($FACTORIES::getAnswerSessionFactory(), AnswerSession::ANSWE
 $SINGLE['playerAnswers'] = sizeof($FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => array($qF2, $qF1), $FACTORIES::JOIN => $jF))[$FACTORIES::getTwoCompareAnswerFactory()->getModelName()]);
 
 // find some fully evaluated tuples with narrow and wide curve
-$results = $FACTORIES::getAnswerSessionFactory()->getDB()->query("SELECT ResultTuple.* FROM ResultTuple WHERE isFinal=1 AND count(SELECT * FROM TwoCompareAnswer WHERE TwoCompareAnswer.resultTupleId=ResultTuple.resultTupleId) >= 3 ORDER BY sigma DESC LIMIT 10");
+$results = $FACTORIES::getAnswerSessionFactory()->getDB()->query("SELECT ResultTuple.* FROM ResultTuple WHERE isFinal=1 AND (SELECT count(*) FROM TwoCompareAnswer WHERE TwoCompareAnswer.resultTupleId=ResultTuple.resultTupleId) >= 3 ORDER BY sigma DESC LIMIT 10");
 foreach($results as $result){
   echo "Wide: ".$result['resultTupleId']."\n";
 }
-$results = $FACTORIES::getAnswerSessionFactory()->getDB()->query("SELECT ResultTuple.* FROM ResultTuple WHERE isFinal=1 AND count(SELECT * FROM TwoCompareAnswer WHERE TwoCompareAnswer.resultTupleId=ResultTuple.resultTupleId) >= 3 ORDER BY sigma ASC LIMIT 10");
+$results = $FACTORIES::getAnswerSessionFactory()->getDB()->query("SELECT ResultTuple.* FROM ResultTuple WHERE isFinal=1 AND (SELECT count(*) FROM TwoCompareAnswer WHERE TwoCompareAnswer.resultTupleId=ResultTuple.resultTupleId) >= 3 ORDER BY sigma ASC LIMIT 10");
 foreach($results as $result){
   echo "Narrow: ".$result['resultTupleId']."\n";
 }

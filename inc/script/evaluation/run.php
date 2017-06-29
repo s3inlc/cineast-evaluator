@@ -52,7 +52,7 @@ $results = $FACTORIES::getAnswerSessionFactory()->getDB()->query("SELECT ResultT
 foreach($results as $result){
   echo "Wide: ".$result['resultTupleId']."\n";
 }
-$results = $FACTORIES::getAnswerSessionFactory()->getDB()->query("SELECT ResultTuple.* FROM ResultTuple WHERE isFinal=1 AND (SELECT count(*) FROM TwoCompareAnswer WHERE TwoCompareAnswer.resultTupleId=ResultTuple.resultTupleId) >= 3 ORDER BY sigma ASC LIMIT 10");
+$results = $FACTORIES::getAnswerSessionFactory()->getDB()->query("SELECT ResultTuple.* FROM ResultTuple WHERE isFinal=1 AND (SELECT count(*) FROM TwoCompareAnswer WHERE TwoCompareAnswer.resultTupleId=ResultTuple.resultTupleId) >= 5 ORDER BY sigma ASC LIMIT 10");
 foreach($results as $result){
   echo "Narrow: ".$result['resultTupleId']."\n";
 }

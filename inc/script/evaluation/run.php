@@ -6,10 +6,13 @@
  * Time: 09:56
  */
 
+use DBA\AnswerSession;
 use DBA\Game;
+use DBA\JoinFilter;
 use DBA\Microworker;
 use DBA\QueryFilter;
 use DBA\ResultTuple;
+use DBA\TwoCompareAnswer;
 
 require_once(dirname(__FILE__) . "/../../load.php");
 
@@ -32,6 +35,18 @@ $SINGLE['totalMicroworkers'] = $FACTORIES::getMicroworkerFactory()->countFilter(
 $SINGLE['totalGames'] = $FACTORIES::getGameFactory()->countFilter(array());
 $SINGLE['totalSessions'] = $FACTORIES::getAnswerSessionFactory()->countFilter(array());
 $SINGLE['totalAnswers'] = $FACTORIES::getTwoCompareAnswerFactory()->countFilter(array());
+
+$qF = new QueryFilter(AnswerSession::MICROWORKER_ID, null, "<>", $FACTORIES::getAnswerSessionFactory());
+$SINGLE['microworkerSessions'] = $FACTORIES::getAnswerSessionFactory()->countFilter(array($FACTORIES::FILTER => $qF));
+$jF = new JoinFilter($FACTORIES::getAnswerSessionFactory(), AnswerSession::ANSWER_SESSION_ID, TwoCompareAnswer::ANSWER_SESSION_ID);
+$SINGLE['microworkerAnswers'] = sizeof($FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF))[$FACTORIES::getTwoCompareAnswerFactory()->getModelName()]);
+
+$qF1 = new QueryFilter(AnswerSession::MICROWORKER_ID, null, "=", $FACTORIES::getAnswerSessionFactory());
+$qF2 = new QueryFilter(AnswerSession::USER_ID, null, "=", $FACTORIES::getAnswerSessionFactory());
+$SINGLE['playerSessions'] = $FACTORIES::getAnswerSessionFactory()->countFilter(array($FACTORIES::FILTER => array($qF1, $qF2)));
+$jF = new JoinFilter($FACTORIES::getAnswerSessionFactory(), AnswerSession::ANSWER_SESSION_ID, TwoCompareAnswer::ANSWER_SESSION_ID);
+$SINGLE['playerAnswers'] = sizeof($FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => array($qF2, $qF1), $FACTORIES::JOIN => $jF))[$FACTORIES::getTwoCompareAnswerFactory()->getModelName()]);
+
 
 // save all the global values
 $lines = array();

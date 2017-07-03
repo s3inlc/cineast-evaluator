@@ -137,8 +137,8 @@ output = plot(
     table,
     x=:duration,
     Scale.y_log2,
-    Geom.histogram(bincount=40),
-    Coord.Cartesian(ymin=0),
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0,xmax=3000),
     Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
     style
@@ -151,8 +151,8 @@ output = plot(
     table,
     x=:duration,
     Scale.y_log2,
-    Geom.histogram(bincount=40),
-    Coord.Cartesian(ymin=0),
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0,xmax=3000),
     Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
     style
@@ -165,8 +165,8 @@ output = plot(
     table,
     x=:duration,
     Scale.y_log2,
-    Geom.histogram(bincount=40),
-    Coord.Cartesian(ymin=0),
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0,xmax=3000),
     Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
     style
@@ -179,8 +179,8 @@ output = plot(
     table,
     x=:duration,
     Scale.y_log2,
-    Geom.histogram(bincount=40),
-    Coord.Cartesian(ymin=0),
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0,xmax=3000),
     Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
     style
@@ -188,6 +188,114 @@ output = plot(
 draw(PDF("graphs/anonymousDurations.pdf", 1600px, 800px), output);
 
 
+println("All Durations Normalized...")
+table = readtable("output/allDurationsNormalized.csv")
+output = plot(
+    table,
+    x=:durationNormalized,
+    Scale.y_log2,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0,xmax=120),
+    Guide.xlabel("seconds"),
+    Guide.ylabel("# of Sessions"),
+    style
+);
+draw(PDF("graphs/allDurationsNormalized.pdf", 1600px, 800px), output);
+
+println("Microworker Durations Normalized...")
+table = readtable("output/microworkerDurationsNormalized.csv")
+output = plot(
+    table,
+    x=:durationNormalized,
+    Scale.y_log2,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0,xmax=120),
+    Guide.xlabel("seconds"),
+    Guide.ylabel("# of Sessions"),
+    style
+);
+draw(PDF("graphs/microworkerDurationsNormalized.pdf", 1600px, 800px), output);
+
+println("Player Durations Normalized...")
+table = readtable("output/playerDurationsNormalized.csv")
+output = plot(
+    table,
+    x=:durationNormalized,
+    Scale.y_log2,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0,xmax=120),
+    Guide.xlabel("seconds"),
+    Guide.ylabel("# of Sessions"),
+    style
+);
+draw(PDF("graphs/playerDurationsNormalized.pdf", 1600px, 800px), output);
+
+println("Anonymous Durations Normalized...")
+table = readtable("output/anonymousDurationsNormalized.csv")
+output = plot(
+    table,
+    x=:durationNormalized,
+    Scale.y_log2,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0,xmax=120),
+    Guide.xlabel("seconds"),
+    Guide.ylabel("# of Sessions"),
+    style
+);
+draw(PDF("graphs/anonymousDurationsNormalized.pdf", 1600px, 800px), output);
+
+
+println("Unique workers batch 1...")
+table = readtable("output/Batch_2823797_batch_resultsWorkers.csv")
+output = plot(
+    table,
+    x=:count,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0),
+    Guide.xlabel("# of HITs"),
+    Guide.ylabel("# of Workers"),
+    style
+);
+draw(PDF("graphs/Batch_2823797_batch_resultsWorkers.pdf", 1600px, 800px), output);
+
+println("Unique workers batch 2...")
+table = readtable("output/Batch_2823956_batch_resultsWorkers.csv")
+output = plot(
+    table,
+    x=:count,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0),
+    Guide.xlabel("# of HITs"),
+    Guide.ylabel("# of Workers"),
+    style
+);
+draw(PDF("graphs/Batch_2823956_batch_resultsWorkers.pdf", 1600px, 800px), output);
+
+println("Unique workers batch 3...")
+table = readtable("output/Batch_2848581_batch_resultsWorkers.csv")
+output = plot(
+    table,
+    x=:count,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0),
+    Guide.xlabel("# of HITs"),
+    Guide.ylabel("# of Workers"),
+    style
+);
+draw(PDF("graphs/Batch_2848581_batch_resultsWorkers.pdf", 1600px, 800px), output);
+
+println("Unique workers batch 4...")
+table = readtable("output/Batch_2853164_batch_resultsWorkers.csv")
+output = plot(
+    table,
+    x=:count,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0),
+    Guide.xlabel("# of HITs"),
+    Guide.ylabel("# of Workers"),
+    style
+);
+draw(PDF("graphs/Batch_2853164_batch_resultsWorkers.pdf", 1600px, 800px), output);
 
 
 

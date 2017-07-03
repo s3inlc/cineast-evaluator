@@ -118,54 +118,55 @@ saveCSV($gamesPerDayOverall, dirname(__FILE__) . "/output/gamesPerDayOverall.csv
 
 // get the session validities for users
 $answerSessions = $FACTORIES::getAnswerSessionFactory()->filter(array());
-$allAnswerSessions = array();
-$playerAnswerSessions = array();
-$microworkerAnswerSessions = array();
-$unknownAnswerSessions = array();
-$answersAll = array();
-$answersMicroworkers = array();
-$answersPlayers = array();
-$answersAnonymous = array();
+$sessionAnswers = array("all" => array(), "microworker" => array(), "player" => array(), "anonymous" => array());
+$sessionDuration = array("all" => array(), "microworker" => array(), "player" => array(), "anonymous" => array());
+$sessionValidities = array("all" => array(), "microworker" => array(), "player" => array(), "anonymous" => array());
 foreach ($answerSessions as $answerSession) {
   if ($answerSession->getUserId() != null) {
     // skip admin sessions
     continue;
   }
-  $allAnswerSessions[] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
   if ($answerSession->getMicroworkerId() != null) {
-    $microworkerAnswerSessions[] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
+    $type = "microworker";
   }
   else if ($answerSession->getPlayerId() != null) {
-    $playerAnswerSessions[] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
+    $type = "player";
   }
   else {
-    $unknownAnswerSessions[] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
+    $type = "anonymous";
   }
   
   $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSession->getId(), "=");
   $answers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
-  foreach ($answers as $answer) {
-    $answersAll[] = array("answer" => $answer->getAnswer());
-    if ($answerSession->getMicroworkerId() != null) {
-      $answersMicroworkers[] = array("answer" => $answer->getAnswer());
-    }
-    else if ($answerSession->getPlayerId() != null) {
-      $answersPlayers[] = array("answer" => $answer->getAnswer());
-    }
-    else {
-      $answersAnonymous[] = array("answer" => $answer->getAnswer());
-    }
+  $lastAnswer = null;
+  if (sizeof($answers) == 0) {
+    continue; // we ignore empty sessions
   }
+  foreach ($answers as $answer) {
+    $sessionAnswers["all"][] = array("answer" => $answer->getAnswer());
+    $sessionAnswers[$type][] = array("answer" => $answer->getAnswer());
+    $lastAnswer = $answer;
+  }
+  
+  $duration = $lastAnswer->getTime() - $answerSession->getTimeOpened();
+  $sessionDuration["all"][] = array("answerSessionId" => $answerSession->getId(), "duration" => $duration);
+  $sessionDuration[$type][] = array("answerSessionId" => $answerSession->getId(), "duration" => $duration);
+  
+  $sessionValidities["all"][] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
+  $sessionValidities[$type][] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
 }
-saveCSV($allAnswerSessions, dirname(__FILE__) . "/output/allValidities.csv");
-saveCSV($microworkerAnswerSessions, dirname(__FILE__) . "/output/microworkerValidities.csv");
-saveCSV($playerAnswerSessions, dirname(__FILE__) . "/output/playerValidities.csv");
-saveCSV($unknownAnswerSessions, dirname(__FILE__) . "/output/anonymousValidities.csv");
 
-saveCSV($answersAll, dirname(__FILE__)."/output/allAnswers.csv");
-saveCSV($answersMicroworkers, dirname(__FILE__)."/output/microworkerAnswers.csv");
-saveCSV($answersPlayers, dirname(__FILE__)."/output/playerAnswers.csv");
-saveCSV($answersAnonymous, dirname(__FILE__)."/output/anonymousAnswers.csv");
+foreach ($sessionValidities as $type => $validities) {
+  saveCSV($validities, dirname(__FILE__) . "/output/" . $type . "Validities.csv");
+}
+
+foreach ($sessionAnswers as $type => $answers) {
+  saveCSV($answers, dirname(__FILE__) . "/output/" . $type . "Answers.csv");
+}
+
+foreach ($sessionDuration as $type => $durations) {
+  saveCSV($durations, dirname(__FILE__) . "/output/" . $type . "Durations.csv");
+}
 
 
 /**

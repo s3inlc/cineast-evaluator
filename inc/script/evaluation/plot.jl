@@ -77,6 +77,63 @@ output = plot(
 );
 draw(PDF("graphs/playerValidities.pdf", 1600px, 800px), output);
 
+
+println("All Answers...")
+table = readtable("output/allAnswers.csv")
+output = plot(
+    table,
+    x=:answer,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0),
+    Guide.xlabel("Answer"),
+    Guide.ylabel("# of Answers"),
+    style
+);
+draw(PDF("graphs/allAnswers.pdf", 1600px, 800px), output);
+
+println("Microworkers Answers...")
+table = readtable("output/microworkerAnswers.csv")
+output = plot(
+    table,
+    x=:answer,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0),
+    Guide.xlabel("Answer"),
+    Guide.ylabel("# of Answers"),
+    style
+);
+draw(PDF("graphs/microworkerAnswers.pdf", 1600px, 800px), output);
+
+println("Player Answers...")
+table = readtable("output/playerAnswers.csv")
+output = plot(
+    table,
+    x=:answer,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0),
+    Guide.xlabel("Answer"),
+    Guide.ylabel("# of Answers"),
+    style
+);
+draw(PDF("graphs/playerAnswers.pdf", 1600px, 800px), output);
+
+println("Anonymous Answers...")
+table = readtable("output/anonymousAnswers.csv")
+output = plot(
+    table,
+    x=:answer,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0),
+    Guide.xlabel("Answer"),
+    Guide.ylabel("# of Answers"),
+    style
+);
+draw(PDF("graphs/anonymousAnswers.pdf", 1600px, 800px), output);
+
+
+
+
+
 println("Played games...")
 table = readtable("output/gamesPlayed.csv")
 output = plot(

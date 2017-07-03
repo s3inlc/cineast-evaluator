@@ -149,8 +149,10 @@ foreach ($answerSessions as $answerSession) {
   }
   
   $duration = $lastAnswer->getTime() - $answerSession->getTimeOpened();
-  $sessionDuration["all"][] = array("answerSessionId" => $answerSession->getId(), "duration" => $duration);
-  $sessionDuration[$type][] = array("answerSessionId" => $answerSession->getId(), "duration" => $duration);
+  if ($duration <= 7200) {
+    $sessionDuration["all"][] = array("answerSessionId" => $answerSession->getId(), "duration" => $duration);
+    $sessionDuration[$type][] = array("answerSessionId" => $answerSession->getId(), "duration" => $duration);
+  }
   
   $sessionValidities["all"][] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
   $sessionValidities[$type][] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());

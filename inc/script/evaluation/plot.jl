@@ -131,6 +131,60 @@ output = plot(
 draw(PDF("graphs/anonymousAnswers.pdf", 1600px, 800px), output);
 
 
+println("All Durations...")
+table = readtable("output/allDurations.csv")
+output = plot(
+    table,
+    x=:duration,
+    Geom.histogram(bincount=30),
+    Coord.Cartesian(ymin=0),
+    Guide.xlabel("Session Duration"),
+    Guide.ylabel("# of Sessions"),
+    style
+);
+draw(PDF("graphs/allDurations.pdf", 1600px, 800px), output);
+
+println("Microworker Durations...")
+table = readtable("output/microworkerDurations.csv")
+output = plot(
+    table,
+    x=:duration,
+    Geom.histogram(bincount=30),
+    Coord.Cartesian(ymin=0),
+    Guide.xlabel("Session Duration"),
+    Guide.ylabel("# of Sessions"),
+    style
+);
+draw(PDF("graphs/microworkerDurations.pdf", 1600px, 800px), output);
+
+println("Player Durations...")
+table = readtable("output/playerDurations.csv")
+output = plot(
+    table,
+    x=:duration,
+    Geom.histogram(bincount=30),
+    Coord.Cartesian(ymin=0),
+    Guide.xlabel("Session Duration"),
+    Guide.ylabel("# of Sessions"),
+    style
+);
+draw(PDF("graphs/playerDurations.pdf", 1600px, 800px), output);
+
+println("Anonymous Durations...")
+table = readtable("output/anonymousDurations.csv")
+output = plot(
+    table,
+    x=:duration,
+    Geom.histogram(bincount=30),
+    Coord.Cartesian(ymin=0),
+    Guide.xlabel("Session Duration"),
+    Guide.ylabel("# of Sessions"),
+    style
+);
+draw(PDF("graphs/anonyousDurations.pdf", 1600px, 800px), output);
+
+
+
 
 
 

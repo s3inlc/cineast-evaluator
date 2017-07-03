@@ -49,13 +49,21 @@ $SINGLE['playerAnswers'] = sizeof($FACTORIES::getTwoCompareAnswerFactory()->filt
 
 // find some fully evaluated tuples with narrow and wide curve
 $results = $FACTORIES::getAnswerSessionFactory()->getDB()->query("SELECT ResultTuple.* FROM ResultTuple WHERE isFinal=1 AND (SELECT count(*) FROM TwoCompareAnswer WHERE TwoCompareAnswer.resultTupleId=ResultTuple.resultTupleId) >= 10 ORDER BY sigma DESC LIMIT 10");
-foreach($results as $result){
-  echo "Wide: ".$result['resultTupleId']."\n";
+foreach ($results as $result) {
+  echo "Wide: " . $result['resultTupleId'] . "\n";
 }
 $results = $FACTORIES::getAnswerSessionFactory()->getDB()->query("SELECT ResultTuple.* FROM ResultTuple WHERE isFinal=1 AND (SELECT count(*) FROM TwoCompareAnswer WHERE TwoCompareAnswer.resultTupleId=ResultTuple.resultTupleId) >= 5 AND mu>0.5 AND sigma<>0 ORDER BY sigma ASC LIMIT 10");
-foreach($results as $result){
-  echo "Narrow: ".$result['resultTupleId']."\n";
+foreach ($results as $result) {
+  echo "Narrow: " . $result['resultTupleId'] . "\n";
 }
+
+/* Determining people with the same IP answering differently
+SELECT * FROM `TwoCompareAnswer` INNER JOIN AnswerSession ON AnswerSession.answerSessionId=TwoCompareAnswer.answerSessionId INNER JOIN AnswerSession AS as2 ON as2.userAgentIp=AnswerSession.userAgentIp INNER JOIN TwoCompareAnswer AS tca ON tca.resultTupleId=TwoCompareAnswer.resultTupleId AND TwoCompareAnswer.answer<>tca.answer ANd AnswerSession.userId is null and AnswerSession.userAgentIp not like '131.152.%' and AnswerSession.playerId>3
+ TODO it needs to catch when the answer session is the same
+
+SELECT * FROM `TwoCompareAnswer` INNER JOIN AnswerSession ON AnswerSession.answerSessionId=TwoCompareAnswer.answerSessionId INNER JOIN AnswerSession AS as2 ON as2.userAgentIp=AnswerSession.userAgentIp INNER JOIN TwoCompareAnswer AS tca ON tca.resultTupleId=TwoCompareAnswer.resultTupleId AND TwoCompareAnswer.twoCompareAnswerId<>tca.twoCompareAnswerId AND AnswerSession.answerSessionId<>as2.answerSessionId AND TwoCompareAnswer.answer<>tca.answer ANd AnswerSession.userId is null and AnswerSession.userAgentIp not like '131.152.%' and AnswerSession.playerId>3
+
+*/
 
 
 // save all the global values
@@ -114,6 +122,10 @@ $allAnswerSessions = array();
 $playerAnswerSessions = array();
 $microworkerAnswerSessions = array();
 $unknownAnswerSessions = array();
+$answersAll = array();
+$answersMicroworkers = array();
+$answersPlayers = array();
+$answersAnonymous = array();
 foreach ($answerSessions as $answerSession) {
   if ($answerSession->getUserId() != null) {
     // skip admin sessions
@@ -129,11 +141,31 @@ foreach ($answerSessions as $answerSession) {
   else {
     $unknownAnswerSessions[] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
   }
+  
+  $qF = new QueryFilter(TwoCompareAnswer::ANSWER_SESSION_ID, $answerSession->getId(), "=");
+  $answers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
+  foreach ($answers as $answer) {
+    $answersAll[] = array("answer" => $answer->getAnswer());
+    if ($answerSession->getMicroworkerId() != null) {
+      $answersMicroworkers[] = array("answer" => $answer->getAnswer());
+    }
+    else if ($answerSession->getPlayerId() != null) {
+      $answersPlayers[] = array("answer" => $answer->getAnswer());
+    }
+    else {
+      $answersAnonymous[] = array("answer" => $answer->getAnswer());
+    }
+  }
 }
 saveCSV($allAnswerSessions, dirname(__FILE__) . "/output/allValidities.csv");
 saveCSV($microworkerAnswerSessions, dirname(__FILE__) . "/output/microworkerValidities.csv");
 saveCSV($playerAnswerSessions, dirname(__FILE__) . "/output/playerValidities.csv");
 saveCSV($unknownAnswerSessions, dirname(__FILE__) . "/output/anonymousValidities.csv");
+
+saveCSV($answersAll, dirname(__FILE__)."/output/allAnswers.csv");
+saveCSV($answersMicroworkers, dirname(__FILE__)."/output/microworkerAnswers.csv");
+saveCSV($answersPlayers, dirname(__FILE__)."/output/playerAnswers.csv");
+saveCSV($answersAnonymous, dirname(__FILE__)."/output/anonymousAnswers.csv");
 
 
 /**

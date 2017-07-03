@@ -149,7 +149,7 @@ foreach ($answerSessions as $answerSession) {
   }
   
   $duration = $lastAnswer->getTime() - $answerSession->getTimeOpened();
-  if ($duration <= 7200) {
+  if ($duration <= 3600) {
     $sessionDuration["all"][] = array("answerSessionId" => $answerSession->getId(), "duration" => $duration);
     $sessionDuration[$type][] = array("answerSessionId" => $answerSession->getId(), "duration" => $duration);
   }

@@ -136,9 +136,10 @@ table = readtable("output/allDurations.csv")
 output = plot(
     table,
     x=:duration,
-    Geom.histogram(bincount=30),
+    Scale.y_log2,
+    Geom.histogram(bincount=40),
     Coord.Cartesian(ymin=0),
-    Guide.xlabel("Session Duration"),
+    Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
     style
 );
@@ -149,9 +150,10 @@ table = readtable("output/microworkerDurations.csv")
 output = plot(
     table,
     x=:duration,
-    Geom.histogram(bincount=30),
+    Scale.y_log2,
+    Geom.histogram(bincount=40),
     Coord.Cartesian(ymin=0),
-    Guide.xlabel("Session Duration"),
+    Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
     style
 );
@@ -162,9 +164,10 @@ table = readtable("output/playerDurations.csv")
 output = plot(
     table,
     x=:duration,
-    Geom.histogram(bincount=30),
+    Scale.y_log2,
+    Geom.histogram(bincount=40),
     Coord.Cartesian(ymin=0),
-    Guide.xlabel("Session Duration"),
+    Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
     style
 );
@@ -175,13 +178,14 @@ table = readtable("output/anonymousDurations.csv")
 output = plot(
     table,
     x=:duration,
-    Geom.histogram(bincount=30),
+    Scale.y_log2,
+    Geom.histogram(bincount=40),
     Coord.Cartesian(ymin=0),
-    Guide.xlabel("Session Duration"),
+    Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
     style
 );
-draw(PDF("graphs/anonyousDurations.pdf", 1600px, 800px), output);
+draw(PDF("graphs/anonymousDurations.pdf", 1600px, 800px), output);
 
 
 

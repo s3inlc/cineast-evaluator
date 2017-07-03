@@ -121,6 +121,7 @@ $answerSessions = $FACTORIES::getAnswerSessionFactory()->filter(array());
 $sessionAnswers = array("all" => array(), "microworker" => array(), "player" => array(), "anonymous" => array());
 $sessionDuration = array("all" => array(), "microworker" => array(), "player" => array(), "anonymous" => array());
 $sessionValidities = array("all" => array(), "microworker" => array(), "player" => array(), "anonymous" => array());
+$sessionDurationNormalized = array("all" => array(), "microworker" => array(), "player" => array(), "anonymous" => array());
 foreach ($answerSessions as $answerSession) {
   if ($answerSession->getUserId() != null) {
     // skip admin sessions
@@ -152,6 +153,8 @@ foreach ($answerSessions as $answerSession) {
   if ($duration <= 3600) {
     $sessionDuration["all"][] = array("answerSessionId" => $answerSession->getId(), "duration" => $duration);
     $sessionDuration[$type][] = array("answerSessionId" => $answerSession->getId(), "duration" => $duration);
+    $sessionDurationNormalized["all"][] = array("answerSessionId" => $answerSession->getId(), "durationNormalized" => ($duration/sizeof($answers)));
+    $sessionDurationNormalized[$type][] = array("answerSessionId" => $answerSession->getId(), "durationNormalized" => ($duration/sizeof($answers)));
   }
   
   $sessionValidities["all"][] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());
@@ -168,6 +171,10 @@ foreach ($sessionAnswers as $type => $answers) {
 
 foreach ($sessionDuration as $type => $durations) {
   saveCSV($durations, dirname(__FILE__) . "/output/" . $type . "Durations.csv");
+}
+
+foreach ($sessionDurationNormalized as $type => $durations) {
+  saveCSV($durations, dirname(__FILE__) . "/output/" . $type . "DurationsNormalized.csv");
 }
 
 

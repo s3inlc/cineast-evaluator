@@ -31,6 +31,7 @@ foreach ($answers as $answer) {
   }
 }
 
-foreach ($ans as $answer => $count) {
-  echo $answer . "," . $count . "\n";
+$text = array("Not Similar", "Slightly Similar", "Very Similar", "Nearly Identical");
+for ($i = 0; $i < 4; $i++) {
+  echo $text[$i] . "," . $ans[$i] . "\n";
 }

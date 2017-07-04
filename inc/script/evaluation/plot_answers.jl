@@ -24,10 +24,11 @@ table = readtable(string("output/" , number , "_answers.csv"));
 output = plot(
     table,
     x=:answer,
+    y=:count,
     Geom.bar(position=:dodge),
     Coord.Cartesian(),
-    Guide.xlabel("Given answer"),
+    Guide.xlabel("Answer"),
     Guide.ylabel("# of answers"),
     style
 );
-draw(PDF(string("graphs/" , number , "_answers.pdf"), 1600px, 800px), output);
+draw(PDF(string("graphs/" , number , "-answers.pdf"), 1600px, 800px), output);

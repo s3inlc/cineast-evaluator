@@ -153,8 +153,8 @@ foreach ($answerSessions as $answerSession) {
   if ($duration <= 3600) {
     $sessionDuration["all"][] = array("answerSessionId" => $answerSession->getId(), "duration" => $duration);
     $sessionDuration[$type][] = array("answerSessionId" => $answerSession->getId(), "duration" => $duration);
-    $sessionDurationNormalized["all"][] = array("answerSessionId" => $answerSession->getId(), "durationNormalized" => ($duration/sizeof($answers)));
-    $sessionDurationNormalized[$type][] = array("answerSessionId" => $answerSession->getId(), "durationNormalized" => ($duration/sizeof($answers)));
+    $sessionDurationNormalized["all"][] = array("answerSessionId" => $answerSession->getId(), "durationNormalized" => ($duration / sizeof($answers)));
+    $sessionDurationNormalized[$type][] = array("answerSessionId" => $answerSession->getId(), "durationNormalized" => ($duration / sizeof($answers)));
   }
   
   $sessionValidities["all"][] = array("answerSessionId" => $answerSession->getId(), "validity" => $answerSession->getCurrentValidity());

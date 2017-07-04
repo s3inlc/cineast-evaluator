@@ -250,52 +250,70 @@ table = readtable("output/Batch_2823797_batch_resultsWorkers.csv")
 output = plot(
     table,
     x=:count,
+    Scale.y_sqrt,
     Geom.histogram(),
-    Coord.Cartesian(ymin=0),
+    Coord.Cartesian(ymin=0,xmax=90),
     Guide.xlabel("# of HITs"),
     Guide.ylabel("# of Workers"),
     style
 );
-draw(PDF("graphs/Batch_2823797_batch_resultsWorkers.pdf", 1600px, 800px), output);
+draw(PDF("graphs/Batch-2823797-batch-resultsWorkers.pdf", 1600px, 800px), output);
 
 println("Unique workers batch 2...")
 table = readtable("output/Batch_2823956_batch_resultsWorkers.csv")
 output = plot(
     table,
     x=:count,
+    Scale.y_sqrt,
     Geom.histogram(),
-    Coord.Cartesian(ymin=0),
+    Coord.Cartesian(ymin=0,xmax=90),
     Guide.xlabel("# of HITs"),
     Guide.ylabel("# of Workers"),
     style
 );
-draw(PDF("graphs/Batch_2823956_batch_resultsWorkers.pdf", 1600px, 800px), output);
+draw(PDF("graphs/Batch-2823956-batch-resultsWorkers.pdf", 1600px, 800px), output);
 
 println("Unique workers batch 3...")
 table = readtable("output/Batch_2848581_batch_resultsWorkers.csv")
 output = plot(
     table,
     x=:count,
+    Scale.y_sqrt,
     Geom.histogram(),
-    Coord.Cartesian(ymin=0),
+    Coord.Cartesian(ymin=0,xmax=90),
     Guide.xlabel("# of HITs"),
     Guide.ylabel("# of Workers"),
     style
 );
-draw(PDF("graphs/Batch_2848581_batch_resultsWorkers.pdf", 1600px, 800px), output);
+draw(PDF("graphs/Batch-2848581-batch-resultsWorkers.pdf", 1600px, 800px), output);
 
 println("Unique workers batch 4...")
 table = readtable("output/Batch_2853164_batch_resultsWorkers.csv")
 output = plot(
     table,
     x=:count,
+    Scale.y_sqrt,
     Geom.histogram(),
-    Coord.Cartesian(ymin=0),
+    Coord.Cartesian(ymin=0,xmax=90),
     Guide.xlabel("# of HITs"),
     Guide.ylabel("# of Workers"),
     style
 );
-draw(PDF("graphs/Batch_2853164_batch_resultsWorkers.pdf", 1600px, 800px), output);
+draw(PDF("graphs/Batch-2853164-batch-resultsWorkers.pdf", 1600px, 800px), output);
+
+println("Unique workers of all batches...")
+table = readtable("output/allWorkers.csv")
+output = plot(
+    table,
+    x=:count,
+    Scale.y_sqrt,
+    Geom.histogram(),
+    Coord.Cartesian(ymin=0,xmax=220),
+    Guide.xlabel("# of HITs"),
+    Guide.ylabel("# of Workers"),
+    style
+);
+draw(PDF("graphs/allWorkers.pdf", 1600px, 800px), output);
 
 
 
@@ -306,7 +324,9 @@ output = plot(
     table,
     x=:gamesPlayed,
     Geom.histogram(),
-    Coord.Cartesian(xmax=350),
+    Coord.Cartesian(xmax=320),
+    Guide.xlabel("# of players"),
+    Guide.ylabel("# of games played"),
     style
 );
 draw(PDF("graphs/gamesPlayed.pdf", 1600px, 800px), output);
@@ -318,6 +338,8 @@ output = plot(
     x=:days,
     Geom.histogram(),
     Coord.Cartesian(ymin=0),
+    Guide.xlabel("days"),
+    Guide.ylabel("# of players"),
     style
 );
 draw(PDF("graphs/daysOfPlaying.pdf", 1600px, 800px), output);
@@ -328,6 +350,8 @@ output = plot(
     table,
     x=:games,
     Geom.histogram(),
+    Guide.xlabel("Games per day"),
+    Guide.ylabel("# of players"),
     style
 );
 draw(PDF("graphs/gamesPerDay.pdf", 1600px, 800px), output);
@@ -338,6 +362,8 @@ output = plot(
     table,
     x=:games,
     Geom.histogram(),
+    Guide.xlabel("Games per day"),
+    Guide.ylabel("# of players"),
     style
 );
 draw(PDF("graphs/gamesPerDayOverall.pdf", 1600px, 800px), output);

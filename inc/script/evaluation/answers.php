@@ -21,5 +21,5 @@ $answers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FI
 
 echo "answerId,answer\n";
 foreach ($answers as $answer) {
-  echo $answer->getId() . "," . $answer->getAnswer();
+  echo $answer->getId() . "," . $answer->getAnswer() . "\n";
 }

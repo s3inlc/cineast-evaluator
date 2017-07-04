@@ -19,7 +19,7 @@ if ($resultTuple == null) {
 $qF = new QueryFilter(TwoCompareAnswer::RESULT_TUPLE_ID, $resultTuple->getId(), "=");
 $answers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
 
-$ans = array();
+$ans = array(0, 0, 0, 0);
 
 echo "answer,count\n";
 foreach ($answers as $answer) {

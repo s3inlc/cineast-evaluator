@@ -19,7 +19,18 @@ if ($resultTuple == null) {
 $qF = new QueryFilter(TwoCompareAnswer::RESULT_TUPLE_ID, $resultTuple->getId(), "=");
 $answers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF));
 
-echo "answerId,answer\n";
+$ans = array();
+
+echo "answer,count\n";
 foreach ($answers as $answer) {
-  echo $answer->getAnswer() . ",1\n";
+  if (!isset($ans[$answer->getAnswer()])) {
+    $ans[$answer->getAnswer()] = 1;
+  }
+  else {
+    $ans[$answer->getAnswer()]++;
+  }
+}
+
+foreach ($ans as $answer => $count) {
+  echo $answer . "," . $count . "\n";
 }

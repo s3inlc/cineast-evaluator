@@ -24,7 +24,8 @@ output = plot(
     x=:validity,
     Geom.histogram(bincount=50),
     Scale.y_log2,
-    Coord.Cartesian(xmin=0, xmax=1, ymin=0),
+    Coord.Cartesian(xmin=0, xmax=1, ymin=0,ymax=11),
+    Guide.yticks(ticks=[0:2:10;]),
     Guide.xlabel("Validities"),
     Guide.ylabel("# of Sessions"),
     #Guide.title("Validities of all Sessions"),
@@ -39,11 +40,19 @@ output = plot(
     x=:validity,
     Geom.histogram(bincount=50),
     Scale.y_log2,
-    Coord.Cartesian(xmin=0, xmax=1, ymin=0),
+    Coord.Cartesian(xmin=0, xmax=1, ymin=0,ymax=11),
+    Guide.yticks(ticks=[0:2:10;]),
     Guide.xlabel("Validities"),
     Guide.ylabel("# of Sessions"),
     #Guide.title("Validities of anonymous users"),
-    style
+    Theme(
+        major_label_font_size=35pt,
+        minor_label_font_size=30pt,
+        background_color="white",
+        major_label_font="CMU Serif",
+        minor_label_font="CMU Serif",
+        default_color="red"
+    )
 );
 draw(PDF("graphs/anonymousValidities.pdf", 1600px, 800px), output);
 
@@ -54,11 +63,19 @@ output = plot(
     x=:validity,
     Geom.histogram(bincount=50),
     Scale.y_log2,
-    Coord.Cartesian(xmin=0, xmax=1, ymin=0),
+    Coord.Cartesian(xmin=0, xmax=1, ymin=0,ymax=11),
+    Guide.yticks(ticks=[0:2:10;]),
     Guide.xlabel("Validities"),
     Guide.ylabel("# of Sessions"),
     #Guide.title("Validities of Microworkers"),
-    style
+    Theme(
+            major_label_font_size=35pt,
+            minor_label_font_size=30pt,
+            background_color="white",
+            major_label_font="CMU Serif",
+            minor_label_font="CMU Serif",
+            default_color="green"
+        )
 );
 draw(PDF("graphs/microworkerValidities.pdf", 1600px, 800px), output);
 
@@ -69,11 +86,19 @@ output = plot(
     x=:validity,
     Geom.histogram(bincount=50),
     Scale.y_log2,
-    Coord.Cartesian(xmin=0, xmax=1, ymin=0),
+    Coord.Cartesian(xmin=0, xmax=1, ymin=0,ymax=11),
+    Guide.yticks(ticks=[0:2:10;]),
     Guide.xlabel("Validities"),
     Guide.ylabel("# of Sessions"),
     #Guide.title("Validities of Players"),
-    style
+    Theme(
+            major_label_font_size=35pt,
+            minor_label_font_size=30pt,
+            background_color="white",
+            major_label_font="CMU Serif",
+            minor_label_font="CMU Serif",
+            default_color="orange"
+        )
 );
 draw(PDF("graphs/playerValidities.pdf", 1600px, 800px), output);
 
@@ -100,7 +125,14 @@ output = plot(
     Coord.Cartesian(ymin=0),
     Guide.xlabel("Answer"),
     Guide.ylabel("# of Answers"),
-    style
+    Theme(
+            major_label_font_size=35pt,
+            minor_label_font_size=30pt,
+            background_color="white",
+            major_label_font="CMU Serif",
+            minor_label_font="CMU Serif",
+            default_color="green"
+        )
 );
 draw(PDF("graphs/microworkerAnswers.pdf", 1600px, 800px), output);
 
@@ -113,7 +145,14 @@ output = plot(
     Coord.Cartesian(ymin=0),
     Guide.xlabel("Answer"),
     Guide.ylabel("# of Answers"),
-    style
+    Theme(
+            major_label_font_size=35pt,
+            minor_label_font_size=30pt,
+            background_color="white",
+            major_label_font="CMU Serif",
+            minor_label_font="CMU Serif",
+            default_color="orange"
+        )
 );
 draw(PDF("graphs/playerAnswers.pdf", 1600px, 800px), output);
 
@@ -126,7 +165,14 @@ output = plot(
     Coord.Cartesian(ymin=0),
     Guide.xlabel("Answer"),
     Guide.ylabel("# of Answers"),
-    style
+    Theme(
+            major_label_font_size=35pt,
+            minor_label_font_size=30pt,
+            background_color="white",
+            major_label_font="CMU Serif",
+            minor_label_font="CMU Serif",
+            default_color="red"
+        )
 );
 draw(PDF("graphs/anonymousAnswers.pdf", 1600px, 800px), output);
 
@@ -138,7 +184,9 @@ output = plot(
     x=:duration,
     Scale.y_log2,
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=3000),
+    Coord.Cartesian(xmin=0, xmax=3000, ymin=0,ymax=10),
+    Guide.yticks(ticks=[0:2:10;]),
+    Guide.xticks(ticks=[0;600;1800;2400]),
     Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
     style
@@ -152,10 +200,19 @@ output = plot(
     x=:duration,
     Scale.y_log2,
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=3000),
+    Coord.Cartesian(xmin=0, xmax=3000, ymin=0,ymax=10),
+    Guide.yticks(ticks=[0:2:10;]),
+    Guide.xticks(ticks=[0;600;1800;2400]),
     Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
-    style
+    Theme(
+            major_label_font_size=35pt,
+            minor_label_font_size=30pt,
+            background_color="white",
+            major_label_font="CMU Serif",
+            minor_label_font="CMU Serif",
+            default_color="green"
+        )
 );
 draw(PDF("graphs/microworkerDurations.pdf", 1600px, 800px), output);
 
@@ -166,10 +223,19 @@ output = plot(
     x=:duration,
     Scale.y_log2,
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=3000),
+    Coord.Cartesian(xmin=0, xmax=3000, ymin=0,ymax=10),
+    Guide.yticks(ticks=[0:2:10;]),
+    Guide.xticks(ticks=[0;600;1800;2400]),
     Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
-    style
+    Theme(
+            major_label_font_size=35pt,
+            minor_label_font_size=30pt,
+            background_color="white",
+            major_label_font="CMU Serif",
+            minor_label_font="CMU Serif",
+            default_color="orange"
+        )
 );
 draw(PDF("graphs/playerDurations.pdf", 1600px, 800px), output);
 
@@ -180,10 +246,19 @@ output = plot(
     x=:duration,
     Scale.y_log2,
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=3000),
+    Coord.Cartesian(xmin=0, xmax=3000, ymin=0,ymax=10),
+    Guide.yticks(ticks=[0:2:10;]),
+    Guide.xticks(ticks=[0;600;1800;2400]),
     Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
-    style
+    Theme(
+            major_label_font_size=35pt,
+            minor_label_font_size=30pt,
+            background_color="white",
+            major_label_font="CMU Serif",
+            minor_label_font="CMU Serif",
+            default_color="red"
+        )
 );
 draw(PDF("graphs/anonymousDurations.pdf", 1600px, 800px), output);
 
@@ -195,7 +270,9 @@ output = plot(
     x=:durationNormalized,
     Scale.y_log2,
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=120),
+    Coord.Cartesian(xmin=0, xmax=120, ymin=0,ymax=12),
+    Guide.yticks(ticks=[0:2:12;]),
+    Guide.xticks(ticks=[0:50:100;]),
     Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
     style
@@ -209,10 +286,19 @@ output = plot(
     x=:durationNormalized,
     Scale.y_log2,
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=120),
+    Coord.Cartesian(xmin=0, xmax=120, ymin=0,ymax=12),
+    Guide.yticks(ticks=[0:2:12;]),
+    Guide.xticks(ticks=[0:50:100;]),
     Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
-    style
+    Theme(
+            major_label_font_size=35pt,
+            minor_label_font_size=30pt,
+            background_color="white",
+            major_label_font="CMU Serif",
+            minor_label_font="CMU Serif",
+            default_color="green"
+        )
 );
 draw(PDF("graphs/microworkerDurationsNormalized.pdf", 1600px, 800px), output);
 
@@ -223,10 +309,19 @@ output = plot(
     x=:durationNormalized,
     Scale.y_log2,
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=120),
+    Coord.Cartesian(xmin=0, xmax=120, ymin=0,ymax=12),
+    Guide.yticks(ticks=[0:2:12;]),
+    Guide.xticks(ticks=[0:50:100;]),
     Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
-    style
+    Theme(
+            major_label_font_size=35pt,
+            minor_label_font_size=30pt,
+            background_color="white",
+            major_label_font="CMU Serif",
+            minor_label_font="CMU Serif",
+            default_color="orange"
+        )
 );
 draw(PDF("graphs/playerDurationsNormalized.pdf", 1600px, 800px), output);
 
@@ -237,10 +332,19 @@ output = plot(
     x=:durationNormalized,
     Scale.y_log2,
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=120),
+    Coord.Cartesian(xmin=0, xmax=120, ymin=0,ymax=12),
+    Guide.yticks(ticks=[0:2:12;]),
+    Guide.xticks(ticks=[0:50:100;]),
     Guide.xlabel("seconds"),
     Guide.ylabel("# of Sessions"),
-    style
+    Theme(
+            major_label_font_size=35pt,
+            minor_label_font_size=30pt,
+            background_color="white",
+            major_label_font="CMU Serif",
+            minor_label_font="CMU Serif",
+            default_color="red"
+        )
 );
 draw(PDF("graphs/anonymousDurationsNormalized.pdf", 1600px, 800px), output);
 

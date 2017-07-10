@@ -40,7 +40,7 @@ for ($i = 0; $i < $numTests; $i++) {
   $currentValidity = $validator->validateFinished($answerSession, $currentValidity);
   $validator = new TimeValidator();
   $currentValidity = $validator->validateFinished($answerSession, $currentValidity);
-  echo "Validity: " . $currentValidity . "\n";
+  echo $currentValidity . "\n";
   $validitySum += $currentValidity;
 }
 echo "Average Validity: " . ($validitySum / $numTests) . "\n";

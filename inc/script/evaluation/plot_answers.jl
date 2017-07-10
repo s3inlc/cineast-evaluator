@@ -14,21 +14,24 @@ style = Theme(
     minor_label_font_size=30pt,
     background_color="white",
     major_label_font="CMU Serif",
-    minor_label_font="CMU Serif"
+    minor_label_font="CMU Serif",
+    bar_spacing=30px
 )
 
-number = "127413";
+numbers = ["377", "11177", "127413", "140054"];
 
-println("Creating " , number , "...")
-table = readtable(string("output/" , number , "_answers.csv"));
-output = plot(
-    table,
-    x=:answer,
-    y=:count,
-    Geom.bar(position=:dodge),
-    Coord.Cartesian(),
-    Guide.xlabel("Answer"),
-    Guide.ylabel("# of answers"),
-    style
-);
-draw(PDF(string("graphs/" , number , "-answers.pdf"), 1600px, 800px), output);
+for number in numbers
+    println("Creating " , number , "...")
+    table = readtable(string("output/" , number , "_answers.csv"));
+    output = plot(
+        table,
+        x=:answer,
+        y=:count,
+        Geom.bar(position=:dodge),
+        Coord.Cartesian(),
+        Guide.xlabel("Answer"),
+        Guide.ylabel("# of answers"),
+        style
+    );
+    draw(PDF(string("graphs/" , number , "-answers.pdf"), 1600px, 800px), output);
+end

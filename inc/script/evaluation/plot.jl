@@ -19,16 +19,17 @@ style = Theme(
 
 println("All Validities...")
 table = readtable("output/allValidities.csv");
+labels = ["0", "200", "400", "600", "800", "1000"];
+yticks=log2.([1,10,100,1000]);
 output = plot(
     table,
     x=:validity,
     Geom.histogram(bincount=50),
-    Scale.y_log2,
+    Scale.y_log2(labels=d-> @sprintf("%d",2^d)),
     Coord.Cartesian(xmin=0, xmax=1, ymin=0,ymax=11),
-    Guide.yticks(ticks=[0:2:10;]),
-    Guide.xlabel("Validities"),
+    Guide.yticks(ticks=yticks),
+    Guide.xlabel("Validity"),
     Guide.ylabel("# of Sessions"),
-    #Guide.title("Validities of all Sessions"),
     style
 );
 draw(PDF("graphs/allValidities.pdf", 1600px, 800px), output);
@@ -39,10 +40,10 @@ output = plot(
     table,
     x=:validity,
     Geom.histogram(bincount=50),
-    Scale.y_log2,
+    Scale.y_log2(labels=d-> @sprintf("%d",2^d)),
     Coord.Cartesian(xmin=0, xmax=1, ymin=0,ymax=11),
-    Guide.yticks(ticks=[0:2:10;]),
-    Guide.xlabel("Validities"),
+    Guide.yticks(ticks=yticks),
+    Guide.xlabel("Validity"),
     Guide.ylabel("# of Sessions"),
     #Guide.title("Validities of anonymous users"),
     Theme(
@@ -62,10 +63,10 @@ output = plot(
     table,
     x=:validity,
     Geom.histogram(bincount=50),
-    Scale.y_log2,
+    Scale.y_log2(labels=d-> @sprintf("%d",2^d)),
     Coord.Cartesian(xmin=0, xmax=1, ymin=0,ymax=11),
-    Guide.yticks(ticks=[0:2:10;]),
-    Guide.xlabel("Validities"),
+    Guide.yticks(ticks=yticks),
+    Guide.xlabel("Validity"),
     Guide.ylabel("# of Sessions"),
     #Guide.title("Validities of Microworkers"),
     Theme(
@@ -85,10 +86,10 @@ output = plot(
     table,
     x=:validity,
     Geom.histogram(bincount=50),
-    Scale.y_log2,
+    Scale.y_log2(labels=d-> @sprintf("%d",2^d)),
     Coord.Cartesian(xmin=0, xmax=1, ymin=0,ymax=11),
-    Guide.yticks(ticks=[0:2:10;]),
-    Guide.xlabel("Validities"),
+    Guide.yticks(ticks=yticks),
+    Guide.xlabel("Validity"),
     Guide.ylabel("# of Sessions"),
     #Guide.title("Validities of Players"),
     Theme(
@@ -108,10 +109,12 @@ table = readtable("output/allAnswers.csv")
 output = plot(
     table,
     x=:answer,
-    Geom.histogram(),
-    Coord.Cartesian(ymin=0),
+    y=:count,
+    Guide.yticks(ticks=[0;50000;100000;150000]),
+    Geom.bar(position=:dodge),
+    Coord.Cartesian(ymax=150000),
     Guide.xlabel("Answer"),
-    Guide.ylabel("# of Answers"),
+    Guide.ylabel("# of answers"),
     style
 );
 draw(PDF("graphs/allAnswers.pdf", 1600px, 800px), output);
@@ -121,10 +124,12 @@ table = readtable("output/microworkerAnswers.csv")
 output = plot(
     table,
     x=:answer,
-    Geom.histogram(),
-    Coord.Cartesian(ymin=0),
+    y=:count,
+    Guide.yticks(ticks=[0;50000;100000;150000]),
+    Geom.bar(position=:dodge),
+    Coord.Cartesian(ymax=150000),
     Guide.xlabel("Answer"),
-    Guide.ylabel("# of Answers"),
+    Guide.ylabel("# of answers"),
     Theme(
             major_label_font_size=35pt,
             minor_label_font_size=30pt,
@@ -141,10 +146,12 @@ table = readtable("output/playerAnswers.csv")
 output = plot(
     table,
     x=:answer,
-    Geom.histogram(),
-    Coord.Cartesian(ymin=0),
+    y=:count,
+    Guide.yticks(ticks=[0;50000;100000;150000]),
+    Geom.bar(position=:dodge),
+    Coord.Cartesian(ymax=150000),
     Guide.xlabel("Answer"),
-    Guide.ylabel("# of Answers"),
+    Guide.ylabel("# of answers"),
     Theme(
             major_label_font_size=35pt,
             minor_label_font_size=30pt,
@@ -161,10 +168,12 @@ table = readtable("output/anonymousAnswers.csv")
 output = plot(
     table,
     x=:answer,
-    Geom.histogram(),
-    Coord.Cartesian(ymin=0),
+    y=:count,
+    Guide.yticks(ticks=[0;50000;100000;150000]),
+    Geom.bar(position=:dodge),
+    Coord.Cartesian(ymax=150000),
     Guide.xlabel("Answer"),
-    Guide.ylabel("# of Answers"),
+    Guide.ylabel("# of answers"),
     Theme(
             major_label_font_size=35pt,
             minor_label_font_size=30pt,
@@ -176,18 +185,21 @@ output = plot(
 );
 draw(PDF("graphs/anonymousAnswers.pdf", 1600px, 800px), output);
 
+labels = ["0","10 min","20 min","30 min","40 min", "50 min"];
+xticks = [0,600,1200,1800,2400,3000];
 
 println("All Durations...")
 table = readtable("output/allDurations.csv")
 output = plot(
     table,
     x=:duration,
-    Scale.y_log2,
+    Scale.y_log2(labels=d-> @sprintf("%d",2^d)),
     Geom.histogram(),
-    Coord.Cartesian(xmin=0, xmax=3000, ymin=0,ymax=10),
-    Guide.yticks(ticks=[0:2:10;]),
-    Guide.xticks(ticks=[0;600;1800;2400]),
-    Guide.xlabel("seconds"),
+    Coord.Cartesian(xmin=0, xmax=3100, ymin=0,ymax=10),
+    Guide.yticks(ticks=yticks),
+    Scale.x_continuous(labels = x -> get(labels, round(Int, x/600)+1, "")),
+    Guide.xticks(ticks=xticks),
+    Guide.xlabel("Time"),
     Guide.ylabel("# of Sessions"),
     style
 );
@@ -198,12 +210,13 @@ table = readtable("output/microworkerDurations.csv")
 output = plot(
     table,
     x=:duration,
-    Scale.y_log2,
+    Scale.y_log2(labels=d-> @sprintf("%d",2^d)),
     Geom.histogram(),
-    Coord.Cartesian(xmin=0, xmax=3000, ymin=0,ymax=10),
-    Guide.yticks(ticks=[0:2:10;]),
-    Guide.xticks(ticks=[0;600;1800;2400]),
-    Guide.xlabel("seconds"),
+    Coord.Cartesian(xmin=0, xmax=3100, ymin=0,ymax=10),
+    Guide.yticks(ticks=yticks),
+    Scale.x_continuous(labels = x -> get(labels, round(Int, x/600)+1, "")),
+    Guide.xticks(ticks=xticks),
+    Guide.xlabel("Time"),
     Guide.ylabel("# of Sessions"),
     Theme(
             major_label_font_size=35pt,
@@ -221,12 +234,13 @@ table = readtable("output/playerDurations.csv")
 output = plot(
     table,
     x=:duration,
-    Scale.y_log2,
+    Scale.y_log2(labels=d-> @sprintf("%d",2^d)),
     Geom.histogram(),
-    Coord.Cartesian(xmin=0, xmax=3000, ymin=0,ymax=10),
-    Guide.yticks(ticks=[0:2:10;]),
-    Guide.xticks(ticks=[0;600;1800;2400]),
-    Guide.xlabel("seconds"),
+    Coord.Cartesian(xmin=0, xmax=3100, ymin=0,ymax=10),
+    Guide.yticks(ticks=yticks),
+    Scale.x_continuous(labels = x -> get(labels, round(Int, x/600)+1, "")),
+    Guide.xticks(ticks=xticks),
+    Guide.xlabel("Time"),
     Guide.ylabel("# of Sessions"),
     Theme(
             major_label_font_size=35pt,
@@ -244,12 +258,13 @@ table = readtable("output/anonymousDurations.csv")
 output = plot(
     table,
     x=:duration,
-    Scale.y_log2,
+    Scale.y_log2(labels=d-> @sprintf("%d",2^d)),
     Geom.histogram(),
-    Coord.Cartesian(xmin=0, xmax=3000, ymin=0,ymax=10),
-    Guide.yticks(ticks=[0:2:10;]),
-    Guide.xticks(ticks=[0;600;1800;2400]),
-    Guide.xlabel("seconds"),
+    Coord.Cartesian(xmin=0, xmax=3100, ymin=0,ymax=10),
+    Guide.yticks(ticks=yticks),
+    Scale.x_continuous(labels = x -> get(labels, round(Int, x/600)+1, "")),
+    Guide.xticks(ticks=xticks),
+    Guide.xlabel("Time"),
     Guide.ylabel("# of Sessions"),
     Theme(
             major_label_font_size=35pt,
@@ -262,18 +277,21 @@ output = plot(
 );
 draw(PDF("graphs/anonymousDurations.pdf", 1600px, 800px), output);
 
+labels = ["0","0.5 min","1 min","1.5 min","2 min"];
+xticks = [0,30,60,90,120];
 
 println("All Durations Normalized...")
 table = readtable("output/allDurationsNormalized.csv")
 output = plot(
     table,
     x=:durationNormalized,
-    Scale.y_log2,
+    Scale.y_log2(labels=d-> @sprintf("%d",2^d)),
     Geom.histogram(),
-    Coord.Cartesian(xmin=0, xmax=120, ymin=0,ymax=12),
-    Guide.yticks(ticks=[0:2:12;]),
-    Guide.xticks(ticks=[0:50:100;]),
-    Guide.xlabel("seconds"),
+    Coord.Cartesian(xmin=0, xmax=125, ymin=0,ymax=12),
+    Guide.yticks(ticks=yticks),
+    Scale.x_continuous(labels = x -> get(labels, round(Int, x/30)+1, "")),
+    Guide.xticks(ticks=xticks),
+    Guide.xlabel("Time"),
     Guide.ylabel("# of Sessions"),
     style
 );
@@ -284,12 +302,13 @@ table = readtable("output/microworkerDurationsNormalized.csv")
 output = plot(
     table,
     x=:durationNormalized,
-    Scale.y_log2,
+    Scale.y_log2(labels=d-> @sprintf("%d",2^d)),
     Geom.histogram(),
-    Coord.Cartesian(xmin=0, xmax=120, ymin=0,ymax=12),
-    Guide.yticks(ticks=[0:2:12;]),
-    Guide.xticks(ticks=[0:50:100;]),
-    Guide.xlabel("seconds"),
+    Coord.Cartesian(xmin=0, xmax=125, ymin=0,ymax=12),
+    Guide.yticks(ticks=yticks),
+    Scale.x_continuous(labels = x -> get(labels, round(Int, x/30)+1, "")),
+    Guide.xticks(ticks=xticks),
+    Guide.xlabel("Time"),
     Guide.ylabel("# of Sessions"),
     Theme(
             major_label_font_size=35pt,
@@ -307,12 +326,13 @@ table = readtable("output/playerDurationsNormalized.csv")
 output = plot(
     table,
     x=:durationNormalized,
-    Scale.y_log2,
+    Scale.y_log2(labels=d-> @sprintf("%d",2^d)),
     Geom.histogram(),
-    Coord.Cartesian(xmin=0, xmax=120, ymin=0,ymax=12),
-    Guide.yticks(ticks=[0:2:12;]),
-    Guide.xticks(ticks=[0:50:100;]),
-    Guide.xlabel("seconds"),
+    Coord.Cartesian(xmin=0, xmax=125, ymin=0,ymax=12),
+    Guide.yticks(ticks=yticks),
+    Scale.x_continuous(labels = x -> get(labels, round(Int, x/30)+1, "")),
+    Guide.xticks(ticks=xticks),
+    Guide.xlabel("Time"),
     Guide.ylabel("# of Sessions"),
     Theme(
             major_label_font_size=35pt,
@@ -330,12 +350,13 @@ table = readtable("output/anonymousDurationsNormalized.csv")
 output = plot(
     table,
     x=:durationNormalized,
-    Scale.y_log2,
+    Scale.y_log2(labels=d-> @sprintf("%d",2^d)),
     Geom.histogram(),
-    Coord.Cartesian(xmin=0, xmax=120, ymin=0,ymax=12),
-    Guide.yticks(ticks=[0:2:12;]),
-    Guide.xticks(ticks=[0:50:100;]),
-    Guide.xlabel("seconds"),
+    Coord.Cartesian(xmin=0, xmax=125, ymin=0,ymax=12),
+    Guide.yticks(ticks=yticks),
+    Scale.x_continuous(labels = x -> get(labels, round(Int, x/30)+1, "")),
+    Guide.xticks(ticks=xticks),
+    Guide.xlabel("Time"),
     Guide.ylabel("# of Sessions"),
     Theme(
             major_label_font_size=35pt,
@@ -349,14 +370,18 @@ output = plot(
 draw(PDF("graphs/anonymousDurationsNormalized.pdf", 1600px, 800px), output);
 
 
+
+yticks=[0,1,2,3,4,5,6,7,8,9,10];
+
 println("Unique workers batch 1...")
 table = readtable("output/Batch_2823797_batch_resultsWorkers.csv")
 output = plot(
     table,
     x=:count,
-    Scale.y_sqrt,
+    Scale.y_sqrt(labels=d-> @sprintf("%d",d^2)),
+    Coord.Cartesian(xmin=0, xmax=90, ymin=0,ymax=10),
+    Guide.yticks(ticks=yticks),
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=90),
     Guide.xlabel("# of HITs"),
     Guide.ylabel("# of Workers"),
     style
@@ -368,9 +393,10 @@ table = readtable("output/Batch_2823956_batch_resultsWorkers.csv")
 output = plot(
     table,
     x=:count,
-    Scale.y_sqrt,
+    Scale.y_sqrt(labels=d-> @sprintf("%d",d^2)),
+    Coord.Cartesian(xmin=0, xmax=90, ymin=0,ymax=10),
+    Guide.yticks(ticks=yticks),
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=90),
     Guide.xlabel("# of HITs"),
     Guide.ylabel("# of Workers"),
     style
@@ -382,9 +408,10 @@ table = readtable("output/Batch_2848581_batch_resultsWorkers.csv")
 output = plot(
     table,
     x=:count,
-    Scale.y_sqrt,
+    Scale.y_sqrt(labels=d-> @sprintf("%d",d^2)),
+    Coord.Cartesian(xmin=0, xmax=90, ymin=0,ymax=10),
+    Guide.yticks(ticks=yticks),
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=90),
     Guide.xlabel("# of HITs"),
     Guide.ylabel("# of Workers"),
     style
@@ -396,23 +423,27 @@ table = readtable("output/Batch_2853164_batch_resultsWorkers.csv")
 output = plot(
     table,
     x=:count,
-    Scale.y_sqrt,
+    Scale.y_sqrt(labels=d-> @sprintf("%d",d^2)),
+    Coord.Cartesian(xmin=0, xmax=90, ymin=0,ymax=10),
+    Guide.yticks(ticks=yticks),
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=90),
     Guide.xlabel("# of HITs"),
     Guide.ylabel("# of Workers"),
     style
 );
 draw(PDF("graphs/Batch-2853164-batch-resultsWorkers.pdf", 1600px, 800px), output);
 
+yticks=[0,2,4,6,8,10,12,14,16];
+
 println("Unique workers of all batches...")
 table = readtable("output/allWorkers.csv")
 output = plot(
     table,
     x=:count,
-    Scale.y_sqrt,
+    Scale.y_sqrt(labels=d-> @sprintf("%d",d^2)),
+    Coord.Cartesian(xmin=0, xmax=90, ymin=0,ymax=16),
+    Guide.yticks(ticks=yticks),
     Geom.histogram(),
-    Coord.Cartesian(ymin=0,xmax=220),
     Guide.xlabel("# of HITs"),
     Guide.ylabel("# of Workers"),
     style
@@ -471,3 +502,17 @@ output = plot(
     style
 );
 draw(PDF("graphs/gamesPerDayOverall.pdf", 1600px, 800px), output);
+
+
+
+println("Random Validities...")
+table = readtable("output/randomValidities.csv")
+output = plot(
+    table,
+    x=:validity,
+    Geom.histogram(),
+    Guide.xlabel("Validity"),
+    Guide.ylabel("# of sessions"),
+    style
+);
+draw(PDF("graphs/randomValidities.pdf", 1600px, 800px), output);

@@ -33,15 +33,16 @@ for i = 1:5
     sigma = sigmas[i];
 
     x1=collect(0:.01:3);
-    label = ["Not Similar", "Slightly Similar", "Very Similar", "Nearly Identical"];
+    labels = ["                 Not Similar", "Slightly Similar", "Very Similar", "Nearly Identical                        "];
 
     output = plot(
         x=x1,
         y=getGaussian(sigma, mu, x1),
         Geom.line,
-        #Guide.xticks(ticks=label),
+        Scale.x_continuous(labels = x -> get(labels, round(Int, x)+1, "")),
         Guide.xlabel("Answer"),
         Guide.ylabel("Gaussian"),
+        Coord.cartesian(xmin=0),
         style
     );
     draw(PDF(string("graphs/" , numbers[i] , "-gaussian.pdf"), 1600px, 800px), output);

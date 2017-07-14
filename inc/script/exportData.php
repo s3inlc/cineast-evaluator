@@ -26,7 +26,10 @@ $allArgs = array();
 $index = 1;
 while (isset($argv[$index])) {
   $allArgs[] = $argv[$index];
+  $index++;
 }
+
+echo "Parsed arguments\n";
 
 // get all queries
 $queries = $FACTORIES::getQueryFactory()->filter(array());
@@ -42,6 +45,9 @@ foreach ($queries as $query) {
     }
   }
 }
+
+echo "Matched queries\n";
+echo "Loading data...\n";
 
 $exports = array();
 foreach ($matchingQueries as $query) {
@@ -63,6 +69,8 @@ foreach ($matchingQueries as $query) {
     }
   }
 }
+
+echo "Generating output...\n";
 
 foreach ($exports as $key => $export) {
   $queryMediaObject = $FACTORIES::getMediaObjectFactory()->get($key);

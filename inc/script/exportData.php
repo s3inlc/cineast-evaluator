@@ -88,6 +88,9 @@ foreach ($exports as $key => $export) {
     for ($i = 0; $i < sizeof($joined[$FACTORIES::getResultTupleFactory()->getModelName()]); $i++) {
       /** @var $resultTuple ResultTuple */
       $resultTuple = $joined[$FACTORIES::getResultTupleFactory()->getModelName()][$i];
+      if ($resultTuple->getSigma() == -1 || $resultTuple->getMu() == -1) {
+        continue; // skip elements where not enough data is available
+      }
       /** @var $mediaObject MediaObject */
       $mediaObject = $joined[$FACTORIES::getMediaObjectFactory()->getModelName()][$i];
       fputcsv($file, array($mediaObject->getChecksum(), $resultTuple->getMu(), $resultTuple->getSigma(), $resultTuple->getIsFinal()));

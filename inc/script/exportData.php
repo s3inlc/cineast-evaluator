@@ -6,12 +6,14 @@
  * Time: 15:43
  */
 
+use DBA\AnswerSession;
 use DBA\JoinFilter;
 use DBA\MediaObject;
 use DBA\Query;
 use DBA\QueryFilter;
 use DBA\QueryResultTuple;
 use DBA\ResultTuple;
+use DBA\TwoCompareAnswer;
 
 require_once(dirname(__FILE__) . "/../load.php");
 
@@ -89,7 +91,27 @@ foreach ($exports as $key => $export) {
       /** @var $resultTuple ResultTuple */
       $resultTuple = $joined[$FACTORIES::getResultTupleFactory()->getModelName()][$i];
       if ($resultTuple->getSigma() == -1 || $resultTuple->getMu() == -1) {
-        continue; // skip elements where not enough data is available
+        $qF = new QueryFilter(TwoCompareAnswer::RESULT_TUPLE_ID, $resultTuple->getId(), "=");
+        $jF = new JoinFilter($FACTORIES::getAnswerSessionFactory(), TwoCompareAnswer::ANSWER_SESSION_ID, AnswerSession::ANSWER_SESSION_ID);
+        $joinedAnswers = $FACTORIES::getTwoCompareAnswerFactory()->filter(array($FACTORIES::FILTER => $qF, $FACTORIES::JOIN => $jF));
+        if (sizeof($joinedAnswers[$FACTORIES::getTwoCompareAnswerFactory()->getModelName()]) == 0) {
+          continue; // skip elements where not enough data is available
+        }
+        $sum = 0;
+        $count = 0;
+        for ($z = 0; $z < sizeof($joinedAnswers[$FACTORIES::getTwoCompareAnswerFactory()->getModelName()]); $z++) {
+          /** @var $answer TwoCompareAnswer */
+          $answer = $joinedAnswers[$FACTORIES::getTwoCompareAnswerFactory()->getModelName()][$z];
+          /** @var $session AnswerSession */
+          $session = $joinedAnswers[$FACTORIES::getAnswerSessionFactory()->getModelName()][$z];
+          $sum += $answer->getAnswer() * $session->getCurrentValidity();
+          $count += $session->getCurrentValidity();
+        }
+        if ($count == 0) {
+          continue; // all sessions on this data had validity 0
+        }
+        $resultTuple->setSigma(-1);
+        $resultTuple->setMu($sum / $count);
       }
       /** @var $mediaObject MediaObject */
       $mediaObject = $joined[$FACTORIES::getMediaObjectFactory()->getModelName()][$i];

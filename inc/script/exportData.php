@@ -75,7 +75,7 @@ echo "Generating output...\n";
 foreach ($exports as $key => $export) {
   $queryMediaObject = $FACTORIES::getMediaObjectFactory()->get($key);
   $exportName = "export_" . $queryMediaObject->getId() . "_" . $queryMediaObject->getChecksum() . ".csv";
-  $file = fopen($exportName, "w");
+  $file = fopen($exportPath . "/" . $exportName, "w");
   if ($file == false) {
     echo "Failed to open write file $exportName!\n";
     continue;

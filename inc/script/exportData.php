@@ -64,8 +64,8 @@ foreach ($matchingQueries as $query) {
     $exports[$queryObjectId] = array();
   }
   foreach ($resultTuples as $resultTuple) {
-    if (array_search($resultTuple->getId(), $exports[$queryObjectId]) === false) {
-      $exports[$queryObjectId][] = $resultTuple->getId();
+    if (!isset($exports[$queryObjectId][$resultTuple->getId()])) {
+      $exports[$queryObjectId][$resultTuple->getId()] = $resultTuple->getId();
     }
   }
 }

@@ -111,11 +111,19 @@ output = plot(
     x=:answer,
     y=:count,
     Guide.yticks(ticks=[0;50000;100000;150000]),
+    Scale.y_continuous(labels=d-> @sprintf("%d",d/10000)),
     Geom.bar(position=:dodge),
     Coord.Cartesian(ymax=150000),
     Guide.xlabel("Answer"),
-    Guide.ylabel("# of answers"),
-    style
+    Guide.ylabel("# of answers x10'000"),
+    Theme(
+        major_label_font_size=35pt,
+        minor_label_font_size=30pt,
+        background_color="white",
+        major_label_font="CMU Serif",
+        minor_label_font="CMU Serif",
+        bar_spacing=150px
+    )
 );
 draw(PDF("graphs/allAnswers.pdf", 1600px, 800px), output);
 
@@ -126,17 +134,19 @@ output = plot(
     x=:answer,
     y=:count,
     Guide.yticks(ticks=[0;50000;100000;150000]),
+    Scale.y_continuous(labels=d-> @sprintf("%d",d/10000)),
     Geom.bar(position=:dodge),
     Coord.Cartesian(ymax=150000),
     Guide.xlabel("Answer"),
-    Guide.ylabel("# of answers"),
+    Guide.ylabel("# of answers x10'000"),
     Theme(
             major_label_font_size=35pt,
             minor_label_font_size=30pt,
             background_color="white",
             major_label_font="CMU Serif",
             minor_label_font="CMU Serif",
-            default_color="green"
+            default_color="green",
+            bar_spacing=150px
         )
 );
 draw(PDF("graphs/microworkerAnswers.pdf", 1600px, 800px), output);
@@ -148,17 +158,19 @@ output = plot(
     x=:answer,
     y=:count,
     Guide.yticks(ticks=[0;50000;100000;150000]),
+    Scale.y_continuous(labels=d-> @sprintf("%d",d/10000)),
     Geom.bar(position=:dodge),
     Coord.Cartesian(ymax=150000),
     Guide.xlabel("Answer"),
-    Guide.ylabel("# of answers"),
+    Guide.ylabel("# of answers x10'000"),
     Theme(
             major_label_font_size=35pt,
             minor_label_font_size=30pt,
             background_color="white",
             major_label_font="CMU Serif",
             minor_label_font="CMU Serif",
-            default_color="orange"
+            default_color="orange",
+            bar_spacing=150px
         )
 );
 draw(PDF("graphs/playerAnswers.pdf", 1600px, 800px), output);
@@ -170,17 +182,19 @@ output = plot(
     x=:answer,
     y=:count,
     Guide.yticks(ticks=[0;50000;100000;150000]),
+    Scale.y_continuous(labels=d-> @sprintf("%d",d/10000)),
     Geom.bar(position=:dodge),
     Coord.Cartesian(ymax=150000),
     Guide.xlabel("Answer"),
-    Guide.ylabel("# of answers"),
+    Guide.ylabel("# of answers x10'000"),
     Theme(
             major_label_font_size=35pt,
             minor_label_font_size=30pt,
             background_color="white",
             major_label_font="CMU Serif",
             minor_label_font="CMU Serif",
-            default_color="red"
+            default_color="red",
+            bar_spacing=150px
         )
 );
 draw(PDF("graphs/anonymousAnswers.pdf", 1600px, 800px), output);

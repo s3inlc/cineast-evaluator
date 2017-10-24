@@ -15,10 +15,10 @@ style = Theme(
     background_color="white",
     major_label_font="CMU Serif",
     minor_label_font="CMU Serif",
-    bar_spacing=30px
+    bar_spacing=150px
 )
 
-numbers = ["377", "11177", "127413", "140054"];
+numbers = ["377", "11177", "127413", "140054", "7506"];
 
 for number in numbers
     println("Creating " , number , "...")

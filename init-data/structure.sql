@@ -78,7 +78,8 @@ CREATE TABLE `MediaObject` (
   `filename` varchar(128) COLLATE utf8_bin NOT NULL,
   `time` int(11) NOT NULL,
   `checksum` varchar(128) COLLATE utf8_bin NOT NULL,
-  `source` varchar(256) COLLATE utf8_bin NOT NULL
+  `source` varchar(256) COLLATE utf8_bin NOT NULL,
+  `original` varchar(512) COLLATE utf8_bin NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------

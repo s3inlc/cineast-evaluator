@@ -10,9 +10,15 @@ if (!file_exists("sha.txt")) {
 }
 
 $file = fopen("sha.txt", "rb");
+$count = 0;
+$missing = 0;
 while (!feof($file)) {
   $line = trim(fgets($file));
   $split = explode(" ", $line);
+  $count++;
+  if ($count % 1000 == 0) {
+    echo "$count...\r";
+  }
   if (sizeof($line) != 2) {
     continue; // ignore invalid lines
   }
@@ -26,6 +32,11 @@ while (!feof($file)) {
     $mediaObject->setOriginal($path);
     $FACTORIES::getMediaObjectFactory()->update($mediaObject);
   }
+  if (sizeof($mediaObjects) == 0) {
+    $missing++;
+  }
 }
+
+echo "Missing $missing corrections!\n";
 
 

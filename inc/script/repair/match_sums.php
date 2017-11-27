@@ -19,7 +19,7 @@ while (!feof($file)) {
   if ($count % 1000 == 0) {
     echo "$count...\r";
   }
-  if (sizeof($line) != 2) {
+  if (sizeof($split) != 2) {
     continue; // ignore invalid lines
   }
   $hash = $split[0];

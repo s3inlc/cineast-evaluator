@@ -98,7 +98,7 @@ foreach ($queries as $query) {
   foreach ($resultTuples as $resultTuple) {
     $tuples[$queryObject][$resultTuple->getId()] = $resultTuple;
     if (isset($mediaObjectHashes[$resultTuple->getObjectId2()]) && !isset($saved[$resultTuple->getId()])) {
-      fputs($exportData[$queryObject], $mediaObjectHashes[$resultTuple->getObjectId2()] . "," . $resultTuple->getMu() . "," . (1 - $resultTuple->getSigma() / 3) . "\n");
+      fputs($exportData[$queryObject], $mediaObjectHashes[$resultTuple->getObjectId2()] . "," . $resultTuple->getMu() . "," . (($resultTuple->getSigma() == -1) ? -1 : (1 - $resultTuple->getSigma() / 3)) . "\n");
       $saved[$resultTuple->getId()] = true;
     }
   }

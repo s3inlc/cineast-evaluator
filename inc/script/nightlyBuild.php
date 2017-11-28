@@ -89,14 +89,14 @@ foreach ($queries as $query) {
   if (!isset($tuples[$queryObject])) {
     $tuples[$queryObject] = array();
     $exportRaw[$queryObject] = fopen($exportPath . $queryObject . "_raw.csv", "w");
-    $exportRaw[$queryObject] = fopen($exportPath . $queryObject . "_data.csv", "w");
+    $exportData[$queryObject] = fopen($exportPath . $queryObject . "_data.csv", "w");
     fputs($exportRaw[$queryObject], "MediaObject,User,Answer\n");
     fputs($exportData[$queryObject], "MediaObject,Similarity,Certainty\n");
     $queryObjects[] = $queryObject;
   }
   foreach ($resultTuples as $resultTuple) {
     $tuples[$queryObject][$resultTuple->getId()] = $resultTuple;
-    fputs($exportData[$queryObject], $resultTuple->getObjectId2() . "," . $resultTuple->getMu() . "," . $resultTuple->getSigma() . "\n");
+    fputs($exportData[$queryObject], $mediaObjectHashes[$resultTuple->getObjectId2()] . "," . $resultTuple->getMu() . "," . $resultTuple->getSigma() . "\n");
   }
 }
 

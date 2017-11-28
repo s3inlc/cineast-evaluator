@@ -96,7 +96,9 @@ foreach ($queries as $query) {
   }
   foreach ($resultTuples as $resultTuple) {
     $tuples[$queryObject][$resultTuple->getId()] = $resultTuple;
-    fputs($exportData[$queryObject], $mediaObjectHashes[$resultTuple->getObjectId2()] . "," . $resultTuple->getMu() . "," . $resultTuple->getSigma() . "\n");
+    if (isset($mediaObjectHashes[$resultTuple->getObjectId2()])) {
+      fputs($exportData[$queryObject], $mediaObjectHashes[$resultTuple->getObjectId2()] . "," . $resultTuple->getMu() . "," . $resultTuple->getSigma() . "\n");
+    }
   }
 }
 

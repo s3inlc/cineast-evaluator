@@ -115,7 +115,9 @@ foreach ($answers as $answer) {
       else if ($answerSession->getPlayerId() != 0) {
         $id = $PLAYERS[$answerSession->getPlayerId()];
       }
-      fputs($export[$queryObject], $mediaObjectHashes[$tuple->getObjectId2()] . "," . $id . "," . $answer->getAnswer() . "\n");
+      if (isset($mediaObjectHashes[$tuple->getObjectId2()])) {
+        fputs($export[$queryObject], $mediaObjectHashes[$tuple->getObjectId2()] . "," . $id . "," . $answer->getAnswer() . "\n");
+      }
     }
   }
 }

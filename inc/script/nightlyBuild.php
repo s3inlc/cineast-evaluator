@@ -73,6 +73,7 @@ unset($microworkers);
 $exportRaw = array();
 $exportData = array();
 $tuples = array();
+$saved = array();
 
 // load queries and tuples
 $queries = $FACTORIES::getQueryFactory()->filter(array());
@@ -96,8 +97,9 @@ foreach ($queries as $query) {
   }
   foreach ($resultTuples as $resultTuple) {
     $tuples[$queryObject][$resultTuple->getId()] = $resultTuple;
-    if (isset($mediaObjectHashes[$resultTuple->getObjectId2()])) {
+    if (isset($mediaObjectHashes[$resultTuple->getObjectId2()]) && !isset($saved[$resultTuple->getId()])) {
       fputs($exportData[$queryObject], $mediaObjectHashes[$resultTuple->getObjectId2()] . "," . $resultTuple->getMu() . "," . (1 - $resultTuple->getSigma() / 3) . "\n");
+      $saved[$resultTuple->getId()];
     }
   }
 }

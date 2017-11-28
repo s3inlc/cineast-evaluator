@@ -70,7 +70,8 @@ foreach ($microworkers as $microworker) {
 }
 unset($microworkers);
 
-$export = array();
+$exportRaw = array();
+$exportData = array();
 $tuples = array();
 
 // load queries and tuples
@@ -87,12 +88,15 @@ foreach ($queries as $query) {
   $queryObject = $mediaObjectHashes[$resultTuples[0]->getObjectId1()];
   if (!isset($tuples[$queryObject])) {
     $tuples[$queryObject] = array();
-    $export[$queryObject] = fopen($exportPath . $queryObject . ".csv", "w");
-    fputs($export[$queryObject], "MediaObject,User,Answer\n");
+    $exportRaw[$queryObject] = fopen($exportPath . $queryObject . "_raw.csv", "w");
+    $exportRaw[$queryObject] = fopen($exportPath . $queryObject . "_data.csv", "w");
+    fputs($exportRaw[$queryObject], "MediaObject,User,Answer\n");
+    fputs($exportData[$queryObject], "MediaObject,Similarity,Certainty\n");
     $queryObjects[] = $queryObject;
   }
   foreach ($resultTuples as $resultTuple) {
     $tuples[$queryObject][$resultTuple->getId()] = $resultTuple;
+    fputs($exportData[$queryObject], $mediaObjectHashes[$resultTuple->getObjectId2()] . "," . $resultTuple->getMu() . "," . $resultTuple->getSigma() . "\n");
   }
 }
 
@@ -116,13 +120,17 @@ foreach ($answers as $answer) {
         $id = $PLAYERS[$answerSession->getPlayerId()];
       }
       if (isset($mediaObjectHashes[$tuple->getObjectId2()])) {
-        fputs($export[$queryObject], $mediaObjectHashes[$tuple->getObjectId2()] . "," . $id . "," . $answer->getAnswer() . "\n");
+        fputs($exportRaw[$queryObject], $mediaObjectHashes[$tuple->getObjectId2()] . "," . $id . "," . $answer->getAnswer() . "\n");
       }
     }
   }
 }
 
-foreach ($export as $exp) {
+foreach ($exportRaw as $exp) {
+  fclose($exp);
+}
+
+foreach ($exportData as $exp) {
   fclose($exp);
 }
 

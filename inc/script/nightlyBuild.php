@@ -150,6 +150,7 @@ foreach ($exportData as $exp) {
 
 // package as zip
 // minimum
+echo "7z a " . $finalZipPath . "/nightlyMinimum.7z.new " . implode(" ", $FILES['minimum']);
 system("7z a " . $finalZipPath . "/nightlyMinimum.7z.new " . implode(" ", $FILES['minimum']));
 rename($finalZipPath . "/nightlyMinimum.7z.new", $finalZipPath . "/nightlyMinimum.7z");
 // full

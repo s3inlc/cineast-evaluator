@@ -92,13 +92,15 @@ foreach ($queries as $query) {
     $exportRaw[$queryObject] = fopen($exportPath . $queryObject . "_raw.csv", "w");
     $exportData[$queryObject] = fopen($exportPath . $queryObject . "_data.csv", "w");
     fputs($exportRaw[$queryObject], "MediaObject,User,Answer\n");
-    fputs($exportData[$queryObject], "MediaObject,Similarity,Certainty\n");
+    fputs($exportData[$queryObject], "MediaObject,Mu,Sigma\n");
     $queryObjects[] = $queryObject;
   }
   foreach ($resultTuples as $resultTuple) {
     $tuples[$queryObject][$resultTuple->getId()] = $resultTuple;
     if (isset($mediaObjectHashes[$resultTuple->getObjectId2()]) && !isset($saved[$resultTuple->getId()])) {
-      fputs($exportData[$queryObject], $mediaObjectHashes[$resultTuple->getObjectId2()] . "," . $resultTuple->getMu() . "," . (($resultTuple->getSigma() == -1) ? -1 : (1 - $resultTuple->getSigma() / 3)) . "\n");
+      if ($resultTuple->getMu() != -1) {
+        fputs($exportData[$queryObject], $mediaObjectHashes[$resultTuple->getObjectId2()] . "," . $resultTuple->getMu() . "," . $resultTuple->getSigma() . "\n");
+      }
       $saved[$resultTuple->getId()] = true;
     }
   }

@@ -150,11 +150,11 @@ foreach ($exportData as $exp) {
 
 // package as zip
 // minimum
-system("7z a " . $finalZipPath . "/nightlyMinimum.7z.new " . implode(" ", $FILES['minimum']));
-rename($finalZipPath . "/nightlyMinimum.7z.new", $finalZipPath . "/nightlyMinimum.7z");
+system("7z a " . $finalZipPath . "nightlyMinimum.7z.new " . implode(" ", $FILES['minimum']));
+rename($finalZipPath . "nightlyMinimum.7z.new", $finalZipPath . "nightlyMinimum.7z");
 // full
-system("7z a " . $finalZipPath . "/nightlyFull.7z.new " . implode(" ", $FILES['full']));
-rename($finalZipPath . "/nightlyFull.7z.new", $finalZipPath . "/nightlyFull.7z");
+system("7z a " . $finalZipPath . "nightlyFull.7z.new " . implode(" ", $FILES['full']));
+rename($finalZipPath . "nightlyFull.7z.new", $finalZipPath . "nightlyFull.7z");
 
 
 

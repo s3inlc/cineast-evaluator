@@ -17,11 +17,15 @@ if (!file_exists($exportPath)) {
   mkdir($exportPath);
 }
 
+$FILES = array("full" => array(), "minimum" => array());
+
 // end CONFIG section
 
 // build file with hash -> filename association
 $mediaObjectHashes = array();
 $assocFile = fopen($exportPath . "/associations.csv", "w");
+$FILES["all"][] = $exportPath . "/associations.csv";
+$FILES["minimum"][] = $exportPath . "/associations.csv";
 fputs($assocFile, "Checksum,Filepath\n");
 
 $qF = new QueryFilter(MediaObject::ORIGINAL, "", "<>");
@@ -91,6 +95,9 @@ foreach ($queries as $query) {
     $tuples[$queryObject] = array();
     $exportRaw[$queryObject] = fopen($exportPath . $queryObject . "_raw.csv", "w");
     $exportData[$queryObject] = fopen($exportPath . $queryObject . "_data.csv", "w");
+    $FILES["minimum"][] = $exportPath . $queryObject . "_raw.csv";
+    $FILES["all"][] = $exportPath . $queryObject . "_raw.csv";
+    $FILES["all"][] = $exportPath . $queryObject . "_data.csv";
     fputs($exportRaw[$queryObject], "MediaObject,User,Answer\n");
     fputs($exportData[$queryObject], "MediaObject,Mu,Sigma\n");
     $queryObjects[] = $queryObject;
@@ -141,6 +148,13 @@ foreach ($exportData as $exp) {
 }
 
 
+// package as zip
+// minimum
+system("7z a " . $finalZipPath . "/nightlyMinimum.7z.new " . implode(" ", $FILES['minimum']));
+rename($finalZipPath . "/nightlyMinimum.7z.new", $finalZipPath . "/nightlyMinimum.7z");
+// full
+system("7z a " . $finalZipPath . "/nightlyFull.7z.new " . implode(" ", $FILES['full']));
+rename($finalZipPath . "/nightlyFull.7z.new", $finalZipPath . "/nightlyFull.7z");
 
 
 

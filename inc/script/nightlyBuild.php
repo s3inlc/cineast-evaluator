@@ -24,8 +24,8 @@ $FILES = array("full" => array(), "minimum" => array());
 // build file with hash -> filename association
 $mediaObjectHashes = array();
 $assocFile = fopen($exportPath . "/associations.csv", "w");
-$FILES["all"][] = $exportPath . "/associations.csv";
-$FILES["minimum"][] = $exportPath . "/associations.csv";
+$FILES["all"][] = $exportPath . "associations.csv";
+$FILES["minimum"][] = $exportPath . "associations.csv";
 fputs($assocFile, "Checksum,Filepath\n");
 
 $qF = new QueryFilter(MediaObject::ORIGINAL, "", "<>");
@@ -150,7 +150,6 @@ foreach ($exportData as $exp) {
 
 // package as zip
 // minimum
-echo "7z a " . $finalZipPath . "/nightlyMinimum.7z.new " . implode(" ", $FILES['minimum']);
 system("7z a " . $finalZipPath . "/nightlyMinimum.7z.new " . implode(" ", $FILES['minimum']));
 rename($finalZipPath . "/nightlyMinimum.7z.new", $finalZipPath . "/nightlyMinimum.7z");
 // full

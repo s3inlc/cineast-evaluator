@@ -153,7 +153,7 @@ foreach ($exportData as $exp) {
 system("7z a " . $finalZipPath . "nightlyMinimum.7z.new " . implode(" ", $FILES['minimum']));
 rename($finalZipPath . "nightlyMinimum.7z.new", $finalZipPath . "nightlyMinimum.7z");
 // full
-system("7z a " . $finalZipPath . "nightlyFull.7z.new " . implode(" ", $FILES['full']));
+system("7z a " . $finalZipPath . "nightlyFull.7z.new " . implode(" ", $FILES['all']));
 rename($finalZipPath . "nightlyFull.7z.new", $finalZipPath . "nightlyFull.7z");
 
 

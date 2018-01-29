@@ -17,9 +17,9 @@ if (!file_exists($exportPath)) {
   mkdir($exportPath);
 }
 
-$FILES = array("full" => array(), "minimum" => array());
-
 // end CONFIG section
+
+$FILES = array("full" => array(), "minimum" => array());
 
 // build file with hash -> filename association
 $mediaObjectHashes = array();
@@ -148,7 +148,7 @@ foreach ($exportData as $exp) {
 }
 
 
-// package as zip
+// package as tar gz
 // minimum
 system("7z a " . $finalZipPath . "nightlyMinimum.7z.new " . implode(" ", $FILES['minimum']));
 rename($finalZipPath . "nightlyMinimum.7z.new", $finalZipPath . "nightlyMinimum.7z");

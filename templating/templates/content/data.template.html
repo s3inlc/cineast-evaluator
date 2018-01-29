@@ -5,7 +5,20 @@
     <h3>Data</h3>
     <div class="row">
       <div class="col s12">
-        TODO: show download here
+        <p>
+          Click below to download the latest data builds of the collected data by ArtSimily.<br>
+          Last build: [[date("d.m.Y - H:i:s", [[latestBuild]])]]
+        </p>
+        <div class="row" style="text-align: center;">
+            <div class="row">
+              <div class="col s12 m6 l6">
+                <a href="data.php?get=full" class="btn waves-effect waves-light blue answer-button">Full Dataset</a>
+              </div>
+              <div class="col s12 m6 l6">
+                <a href="data.php?get=minimal" class="btn waves-effect waves-light blue answer-button">Minimal Dataset</a>
+              </div>
+            </div>
+        </div>
       </div>
     </div>
   </div>

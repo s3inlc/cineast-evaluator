@@ -24,8 +24,8 @@ $FILES = array("full" => array(), "minimum" => array());
 // build file with hash -> filename association
 $mediaObjectHashes = array();
 $assocFile = fopen($exportPath . "/associations.csv", "w");
-$FILES["all"][] = $exportPath . "associations.csv";
-$FILES["minimum"][] = $exportPath . "associations.csv";
+$FILES["all"][] = "associations.csv";
+$FILES["minimum"][] = "associations.csv";
 fputs($assocFile, "Checksum,Filepath\n");
 
 $qF = new QueryFilter(MediaObject::ORIGINAL, "", "<>");
@@ -96,8 +96,8 @@ foreach ($queries as $query) {
     $exportRaw[$queryObject] = fopen($exportPath . $queryObject . "_raw.csv", "w");
     $exportData[$queryObject] = fopen($exportPath . $queryObject . "_data.csv", "w");
     $FILES["minimum"][] = $exportPath . $queryObject . "_raw.csv";
-    $FILES["all"][] = $exportPath . $queryObject . "_raw.csv";
-    $FILES["all"][] = $exportPath . $queryObject . "_data.csv";
+    $FILES["all"][] =  $queryObject . "_raw.csv";
+    $FILES["all"][] = $queryObject . "_data.csv";
     fputs($exportRaw[$queryObject], "MediaObject,User,Answer\n");
     fputs($exportData[$queryObject], "MediaObject,Mu,Sigma\n");
     $queryObjects[] = $queryObject;
@@ -149,9 +149,9 @@ foreach ($exportData as $exp) {
 
 
 // minimum
-system("tar -zcvf -C " . $exportPath . " " . $finalZipPath . "nightlyMinimum.tar.gz.new " . str_replace($exportPath, "", implode(" ", $FILES['minimum'])));
+system("cd $exportPath && tar -zcvf " . $finalZipPath . "nightlyMinimum.tar.gz.new " . implode(" ", $FILES['minimum']));
 // full
-system("tar -zcvf -C " . $exportPath . " " . $finalZipPath . "nightlyFull.tar.gz.new " . str_replace($exportPath, "", implode(" ", $FILES['all'])));
+system("cd $exportPath && tar - zcvf " . $finalZipPath . "nightlyFull.tar.gz.new " . implode(" ", $FILES['all']));
 
 rename($finalZipPath . "nightlyFull.tar.gz.new", $finalZipPath . "nightlyFull.tar.gz");
 rename($finalZipPath . "nightlyMinimum.tar.gz.new", $finalZipPath . "nightlyMinimum.tar.gz");

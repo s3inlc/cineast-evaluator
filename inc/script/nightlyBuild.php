@@ -151,7 +151,7 @@ foreach ($exportData as $exp) {
 // minimum
 system("cd $exportPath && tar -zcvf " . $finalZipPath . "nightlyMinimum.tar.gz.new " . implode(" ", $FILES['minimum']));
 // full
-system("cd $exportPath && tar - zcvf " . $finalZipPath . "nightlyFull.tar.gz.new " . implode(" ", $FILES['all']));
+system("cd $exportPath && tar -zcvf " . $finalZipPath . "nightlyFull.tar.gz.new " . implode(" ", $FILES['all']));
 
 rename($finalZipPath . "nightlyFull.tar.gz.new", $finalZipPath . "nightlyFull.tar.gz");
 rename($finalZipPath . "nightlyMinimum.tar.gz.new", $finalZipPath . "nightlyMinimum.tar.gz");

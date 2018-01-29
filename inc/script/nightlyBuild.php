@@ -95,7 +95,7 @@ foreach ($queries as $query) {
     $tuples[$queryObject] = array();
     $exportRaw[$queryObject] = fopen($exportPath . $queryObject . "_raw.csv", "w");
     $exportData[$queryObject] = fopen($exportPath . $queryObject . "_data.csv", "w");
-    $FILES["minimum"][] = $exportPath . $queryObject . "_raw.csv";
+    $FILES["minimum"][] = $queryObject . "_raw.csv";
     $FILES["all"][] =  $queryObject . "_raw.csv";
     $FILES["all"][] = $queryObject . "_data.csv";
     fputs($exportRaw[$queryObject], "MediaObject,User,Answer\n");

@@ -12,11 +12,11 @@ if (isset($_GET['get'])) {
   switch ($_GET['get']) {
     case 'full':
       $path = dirname(__FILE__) . "/inc/script/nightlyFull.tar.gz";
-      $name = "nightlyFull.7z";
+      $name = "nightlyFull.tar.gz";
       break;
     case 'minimal':
       $path = dirname(__FILE__) . "/inc/script/nightlyMinimum.tar.gz";
-      $name = "nightlyMinimum.7z";
+      $name = "nightlyMinimum.tar.gz";
       break;
   }
   if (strlen($path) > 0) {

@@ -31,6 +31,6 @@ if (isset($_GET['get'])) {
   }
 }
 
-$OBJECTS['latestBuild'] = filectime("nightlyFull.7z");
+$OBJECTS['latestBuild'] = filectime(dirname(__FILE__) . "/inc/script/nightlyFull.7z");
 
 echo $TEMPLATE->render($OBJECTS);

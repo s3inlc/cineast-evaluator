@@ -148,13 +148,13 @@ foreach ($exportData as $exp) {
 }
 
 
-// package as tar gz
 // minimum
-system("7z a " . $finalZipPath . "nightlyMinimum.7z.new " . implode(" ", $FILES['minimum']));
-rename($finalZipPath . "nightlyMinimum.7z.new", $finalZipPath . "nightlyMinimum.7z");
+system("tar -zcvf " . $finalZipPath . "nightlyMinimum.tar.gz.new " . implode(" ", $FILES['minimum']));
 // full
-system("7z a " . $finalZipPath . "nightlyFull.7z.new " . implode(" ", $FILES['all']));
-rename($finalZipPath . "nightlyFull.7z.new", $finalZipPath . "nightlyFull.7z");
+system("tar -zcvf " . $finalZipPath . "nightlyFull.tar.gz.new " . implode(" ", $FILES['all']));
+
+rename($finalZipPath . "nightlyFull.tar.gz.new", $finalZipPath . "nightlyFull.tar.gz");
+rename($finalZipPath . "nightlyMinimum.tar.gz.new", $finalZipPath . "nightlyMinimum.tar.gz");
 
 
 

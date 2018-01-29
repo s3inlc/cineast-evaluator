@@ -11,11 +11,11 @@ $OBJECTS['pageTitle'] = GAME_NAME;
 if (isset($_GET['get'])) {
   switch ($_GET['get']) {
     case 'full':
-      $path = dirname(__FILE__) . "/inc/script/nightlyFull.7z";
+      $path = dirname(__FILE__) . "/inc/script/nightlyFull.tar.gz";
       $name = "nightlyFull.7z";
       break;
     case 'minimal':
-      $path = dirname(__FILE__) . "/inc/script/nightlyMinimum.7z";
+      $path = dirname(__FILE__) . "/inc/script/nightlyMinimum.tar.gz";
       $name = "nightlyMinimum.7z";
       break;
   }
@@ -34,6 +34,6 @@ if (isset($_GET['get'])) {
   }
 }
 
-$OBJECTS['latestBuild'] = filectime(dirname(__FILE__) . "/inc/script/nightlyFull.7z");
+$OBJECTS['latestBuild'] = filectime(dirname(__FILE__) . "/inc/script/nightlyFull.tar.gz");
 
 echo $TEMPLATE->render($OBJECTS);

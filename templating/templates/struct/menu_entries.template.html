@@ -5,7 +5,9 @@
 {{IF [[oauth.isLoggedin()]]}}
   <li[[menu.isActive('achievements')]]><a href="achievements.php">Achievements</a></li>
   <li[[menu.isActive('settings')]]><a href="settings.php">My Account</a></li>
+  <li[[menu.isActive('data')]]><a href="data.php">Data</a></li>
   <li[[menu.isActive('logout')]]><a href="logout.php">Logout</a></li>
 {{ELSE}}
+  <li[[menu.isActive('data')]]><a href="data.php">Data</a></li>
   <li[[menu.isActive('login')]]><a href="login_select.php">Login</a></li>
 {{ENDIF}}

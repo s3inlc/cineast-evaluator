@@ -11,8 +11,8 @@ require_once(dirname(__FILE__) . "/../load.php");
 
 // CONFIG section
 
-$exportPath = "exp/";
-$finalZipPath = "./";
+$exportPath = dirname(__FILE__) . "/exp/";
+$finalZipPath = dirname(__FILE__) . "/";
 if (!file_exists($exportPath)) {
   mkdir($exportPath);
 }

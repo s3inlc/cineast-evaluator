@@ -12,14 +12,17 @@ if (isset($_GET['get'])) {
   switch ($_GET['get']) {
     case 'full':
       $path = dirname(__FILE__) . "/inc/script/nightlyFull.7z";
+      $name = "nightlyFull.7z";
       break;
     case 'minimal':
-      $path = dirname(__FILE__) . "/inc/script/minimalFull.7z";
+      $path = dirname(__FILE__) . "/inc/script/nightlyMinimum.7z";
+      $name = "nightlyMinimum.7z";
       break;
   }
   if (strlen($path) > 0) {
     header('Content-Type: application/octet-stream');
     header('Content-Length: ' . filesize($path));
+    header('Content-Disposition: attachment; filename="' . $name . '"');
     
     $file = fopen($path, "rb");
     while (!feof($file)) {

@@ -24,6 +24,9 @@ if (isset($_GET['get'])) {
     header('Content-Length: ' . filesize($path));
     header('Content-Disposition: attachment; filename="' . $name . '"');
     
+    if (!file_exists($path)) {
+      die("Not available!");
+    }
     $file = fopen($path, "rb");
     while (!feof($file)) {
       $data = fread($file, 4096);
